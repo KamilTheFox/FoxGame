@@ -38,7 +38,7 @@ public class TNT : ItemEngine
     {
         Destroy(EntityFactory.GetEntity(EffectItem.TNT_Explosion, Transform.position).GetPrefab, 8F);
         SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position,2F);
-        Collider[] colliders = Physics.OverlapSphere(Transform.position, Radius * 5F, LayerMask.GetMask(new string[] {"Entity", "Player"}));
+        Collider[] colliders = Physics.OverlapSphere(Transform.position, Radius * 5F, LayerMask.GetMask(new string[] { "Entity", "Player"}));
         for (int i = 0; i < colliders.Length; i++)
         {
             var item = colliders[i].GetComponentInParent<ItemEngine>();
@@ -69,8 +69,9 @@ public class TNT : ItemEngine
                     else
                         item.Delete();
                 }
-                else
+                else if(Alive == null)
                     Destroy(colliders[i].gameObject);
+                else ExplosionForce(rb);
             }
             else
                 ExplosionForce(rb);
