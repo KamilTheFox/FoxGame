@@ -108,8 +108,11 @@ public class PlayerControll : MonoBehaviour, IAlive
             {
                 GameObject gameObject = raycastHit.collider.gameObject;
                 ItemEngine i = gameObject.GetComponentInParent<ItemEngine>();
-                Console.instance.ViewingItem = i.itemType;
-                buttonClicks(i, isItemMove);
+                if (i)
+                {
+                    Console.instance.ViewingItem = i.itemType;
+                    buttonClicks(i, isItemMove);
+                }
             }
         }
         else
