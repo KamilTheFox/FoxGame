@@ -14,7 +14,7 @@ namespace GroupMenu
         private static Image Icon;
         private static RectTransform MessageTransform;
         private static GameObject Box;
-        private static Dictionary<MessageIcon, Sprite> Icons = new();
+        private static Dictionary<MessageIcon, Sprite> Icons;
         private readonly Action ActionOK;
         private string message;
         private MessageIcon messageIcon;
@@ -73,9 +73,13 @@ namespace GroupMenu
         }
         private void FindUI()
         {
-            foreach (MessageIcon icon in Enum.GetValues(typeof(MessageIcon)))
-                if (icon != MessageIcon.None)
-                    Icons.Add(icon, loadIcon(icon));
+            if (Icons == null)
+            {
+                Icons = new();
+                foreach (MessageIcon icon in Enum.GetValues(typeof(MessageIcon)))
+                    if (icon != MessageIcon.None)
+                        Icons.Add(icon, loadIcon(icon));
+            }
 
                 Box = Menu.FindUIByPath(nameof(MessageBox));
                 Cancel = Menu.FindUIByPath<Button>(nameof(Cancel), Box.transform);

@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 4190642594506144588}
   - component: {fileID: 1375924440976452178}
   m_Layer: 5
-  m_Name: Start Poligon
+  m_Name: LoadPoligon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

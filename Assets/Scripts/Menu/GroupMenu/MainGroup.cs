@@ -33,6 +33,7 @@ namespace GroupMenu
         private void Initialize()
         {
             instance = Menu.FindUIByPath(nameof(MainGroup));
+            MenuChildren.Clear();
             foreach (Transform child in instance.transform)
             {
                 string name = child.name;
@@ -52,7 +53,6 @@ namespace GroupMenu
         // Желательно всю логику поиска элементов главного меню писать в метод: Initialize()
         void IActivatable.Start()
         {
-            if(!instance)
             Initialize();
             Start();
         }

@@ -1,17 +1,35 @@
 fileFormatVersion: 2
-guid: 7c5bdea05f3d28749b796eccbbbc2788
+guid: 1575fc5469cd5324d8aa1675a301a29f
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
+      74: 5522812681064789136
+    second: Run
+  - first:
+      74: 49573541071513682
+    second: Fast-Run
+  - first:
+      74: 3182011445285862019
+    second: MainSkeleton|Fast-Run
+  - first:
       74: 7829763937620613496
-    second: MainSkeleton|Idle
+    second: Idle
+  - first:
+      74: 3611693382417165466
+    second: None
+  - first:
+      74: 3966839022702191197
+    second: RotateLeft
+  - first:
+      74: 7810318950701133713
+    second: RotateRight
   - first:
       74: 2862385152298416808
-    second: MainSkeleton|Run
+    second: Run
   - first:
       74: 7205305784840015038
-    second: MainSkeleton|Walk
+    second: Walk
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -42,11 +60,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MainSkeleton|Idle
-      takeName: MainSkeleton|Idle
+      name: Fast-Run
+      takeName: Fast-Run
       internalID: 0
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -71,8 +89,37 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: MainSkeleton|Run
-      takeName: MainSkeleton|Run
+      name: Idle
+      takeName: MainSkeleton|Idle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: None
+      takeName: MainSkeleton|None
       internalID: 0
       firstFrame: 0
       lastFrame: 1
@@ -100,18 +147,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: MainSkeleton|Walk
-      takeName: MainSkeleton|Walk
+      name: Run
+      takeName: MainSkeleton|Run
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

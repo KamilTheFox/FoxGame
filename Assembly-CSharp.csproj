@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
     <Compile Include="Assets\Scripts\Engine\PlantEngine.cs" />
     <Compile Include="Assets\Scripts\SmoothRotateMove.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

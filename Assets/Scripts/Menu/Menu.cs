@@ -20,8 +20,8 @@ public class Menu : MonoBehaviour
     private static Sprite[] SpriteAtlasMenu;
     public void Awake()
     {
-        if (instance) return;
         instance = this;
+        if(SpriteAtlasMenu == null)
         SpriteAtlasMenu = Resources.LoadAll<Sprite>("Other\\Menu");
         ICurrentMenu = new None();
         InitializeComponentInGroupMenu();
