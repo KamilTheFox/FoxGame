@@ -11,34 +11,36 @@ namespace GroupMenu
 {
     public class MainMenu : MainGroup
     {
-        private static GameObject Instance;
-        private static Button LoadPoligon, ExitGameButton;
+        private static Transform mainMenu;
+        private static MenuUI<Button> LoadPoligon, ExitGameButton, Test;
         public override TypeMenu TypeMenu => TypeMenu.MainMenu;
 
-        public override void Activate()
-        {
-            
-        }
-
-        public override void Deactivate()
-        {
-            
-        }
-
-        public override void Start()
+        protected override bool IsActiveBackHot => false;
+        protected override void Start()
         {
             FindUI();
-            ExitGameButton.onClick.AddListener(() => Application.Quit());
-            LoadPoligon.onClick.AddListener(
-                () => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1)
+            ExitGameButton.OnClick().AddListener(() => Menu.ExitGame());
+            LoadPoligon.OnClick().AddListener(
+                () => SceneManager.LoadScene(1)
                 );
         }
-        
+        protected override void Activate()
+        {
+            CallBeckActivate(false);
+            Menu.PauseEnableGame(false);
+        }
         private void FindUI()
         {
-            Instance = Menu.FindUIByPath(nameof(MainMenu), instance.transform);
-            LoadPoligon = Menu.FindUIByPath<Button>(nameof(LoadPoligon), Instance.transform);
-            ExitGameButton = Menu.FindUIByPath<Button>("ExitGame", Instance.transform);
+            mainMenu = GetTransform();
+
+            LoadPoligon = MenuUI<Button>.Create(nameof(LoadPoligon), mainMenu, LText.Start_Game,AutoRect: true);
+
+            ExitGameButton = MenuUI<Button>.Create("Exit", mainMenu, LText.Exit, AutoRect: true);
+
+            MenuUI<Text>.Create("Test", mainMenu, "TestScrollRect".GetTextUI(), true).UpdateText();
+
+
+
         }
     }
 }

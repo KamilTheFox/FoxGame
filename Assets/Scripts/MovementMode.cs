@@ -8,9 +8,9 @@ public static class MovementMode
         Vector3 velosity = WASD(obj.transform,Speed); 
         obj.Move(new Vector3(velosity.x, -0.1F, velosity.z));
     }
-    private static Vector3 WASD(Transform transform,float Speed)
+    public static Vector3 WASD(Transform transform,float Speed)
     {
-        float deltaTimeSpeed = Speed * MovementSpeed * Time.deltaTime;
+        float deltaTimeSpeed = Speed * MovementSpeed *  Time.deltaTime;
         Vector3 newPosition = transform.forward * deltaTimeSpeed;
         Vector3 velosity = Vector3.zero;
         if (Input.GetKey(KeyCode.W)) velosity += newPosition;
@@ -23,20 +23,21 @@ public static class MovementMode
     public static void MovementWASD(Rigidbody obj, float Speed)
     {
         Vector3 velosity = WASD(obj.transform, Speed);
-        if (RayCheck(obj.position, velosity))
+        Vector3 newPosition = obj.position + new Vector3(velosity.x, 0, velosity.z);
+        if (RayCheck(obj.position, new Vector3(velosity.x, 0, velosity.z)))
         {
-            obj.MovePosition(obj.position + new Vector3(velosity.x, 0, velosity.z));
+            obj.MovePosition(newPosition);
         }
     }
-        private static bool RayCheck(Vector3 oldV,Vector3 newV)
+    private static bool RayCheck(Vector3 oldV,Vector3 newV)
     {
-        int Layer = LayerMask.GetMask(new string[] {"Terrain", "Default" });
-        return !Physics.Raycast(oldV, newV, 0.71F, Layer);
+        int Layer = LayerMask.GetMask(new string[] {"Terrain", "Default" , "Entity"});
+        return !Physics.Raycast(oldV, newV, 0.71F ,Layer) && !Physics.Raycast(oldV + newV, Vector3.up , 1F, Layer);
     }
     public static void MovementWASD(Transform obj, float Speed)
     {
         Vector3 velosity = WASD(obj, Speed);
-        obj.localPosition = obj.localPosition+ velosity;
+        obj.localPosition = obj.localPosition + velosity;
     }
     public static void MovementFlySpaseLSift(Transform obj, float Speed)
     {
@@ -51,5 +52,13 @@ public static class MovementMode
         if (Input.GetKey(KeyCode.LeftShift)&& !isGround) velosity += Vector3.down * deltaTimeSpeed;
         if (Input.GetKey(KeyCode.Space)) velosity += Vector3.up * deltaTimeSpeed;
         obj.MovePosition(obj.position + new Vector3(0, velosity.y, 0));
+    }
+    public static void MovementFlySpaseLSift(CharacterController obj, float Speed, bool isGround = false)
+    {
+        float deltaTimeSpeed = Speed * MovementSpeed * Time.deltaTime;
+        Vector3 velosity = Vector3.zero;
+        if (Input.GetKey(KeyCode.LeftShift) && !isGround) velosity += Vector3.down * deltaTimeSpeed;
+        if (Input.GetKey(KeyCode.Space)) velosity += Vector3.up * deltaTimeSpeed;
+        obj.Move(obj.transform.position + new Vector3(0, velosity.y, 0));
     }
 }

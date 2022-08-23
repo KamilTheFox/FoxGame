@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e883f4888adba714bb2abddcffa09905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSetting: {fileID: 790905420453466778, guid: 558cf1b40c1795346ac3b2cf7ea60ae0, type: 3}
+  AudioModifer: {fileID: 6256696089616333875, guid: 558cf1b40c1795346ac3b2cf7ea60ae0, type: 3}
+  AudioDefault: {fileID: -8005966478796107362, guid: 62e0df8586f2b8f4f9db2b4733d25b7f, type: 3}
+  Music: {fileID: -4799996713052473246, guid: f0c05dda123ba674492b208ddec339ea, type: 3}

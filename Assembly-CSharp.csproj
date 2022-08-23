@@ -56,29 +56,43 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Engine\EntityEngine.cs" />
+    <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatable.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuUIExpansion.cs" />
+    <Compile Include="Assets\Scripts\Menu\Localisation.cs" />
     <Compile Include="Assets\Scripts\FactoryLesson.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
+    <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\Entity\Regdoll.cs" />
+    <Compile Include="Assets\Scripts\Expansion.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IArtificialIntelligence.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\DebugAnimation.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\MediaPlayer.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
-    <Compile Include="Assets\PlayerScripts\Console.cs" />
-    <Compile Include="Assets\PlayerScripts\PlayerControll.cs" />
+    <Compile Include="Assets\Scripts\Debug\OldConsole.cs" />
+    <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerControll.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
-    <Compile Include="Assets\PlayerScripts\CameraControll.cs" />
-    <Compile Include="Assets\Scripts\Extensions.cs" />
-    <Compile Include="Assets\Scripts\Engine\Item\Apple.cs" />
+    <Compile Include="Assets\Scripts\Entity\IRegdoll.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\CameraControll.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
-    <Compile Include="Assets\Scripts\Engine\AnimalEngine.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Settings.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehavioral.cs" />
     <Compile Include="Assets\Scripts\SceneMenu.cs" />
-    <Compile Include="Assets\Scripts\Engine\Item\TNT.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\TNT.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Fox.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
-    <Compile Include="Assets\Scripts\Engine\IAlive.cs" />
-    <Compile Include="Assets\Scripts\Engine\Item\ItemEngine.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
+    <Compile Include="Assets\Scripts\Entity\IAlive.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainGroup.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\ConsoleMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
-    <Compile Include="Assets\Scripts\Engine\PlantEngine.cs" />
+    <Compile Include="Assets\Scripts\Entity\PlantEngine.cs" />
     <Compile Include="Assets\Scripts\SmoothRotateMove.cs" />
+    <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>

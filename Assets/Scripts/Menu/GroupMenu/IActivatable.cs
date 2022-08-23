@@ -9,9 +9,9 @@ public interface IActivatable
     /// <summary>
     /// Обязательное свойство для отслеживания типа меню, в котором находится игрок
     /// </summary>
-    public TypeMenu TypeMenu { get; }
+    TypeMenu TypeMenu { get; }
     /// <summary>
-    /// Для разовой активации статических полей в классах из пространства имен GroupMenu
+    /// Для разовой активации статических полей в классах
     /// </summary>
     void Start();
     /// <summary>
@@ -22,4 +22,8 @@ public interface IActivatable
     /// Происходит при Диактивации меню
     /// </summary>
     void Deactivate();
+    /// <summary>
+    /// Вызывается после каждой отрисовки кадра
+    /// </summary>
+    void Update();
 }

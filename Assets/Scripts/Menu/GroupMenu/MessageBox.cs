@@ -9,16 +9,21 @@ namespace GroupMenu
     public class MessageBox : IActivatable
     {
         public static bool IsEnable { get { return Box && Box.activeInHierarchy; } }
-        private static Button Ok, Cancel;
-        private static Text Message;
-        private static Image Icon;
+
+        private static MenuUI<Button> Ok, Cancel;
+
+        private static MenuUI<Text> MessageText, TitleText;
+
+        private static MenuUI<Image> Icon;
+
         private static RectTransform MessageTransform;
+
         private static GameObject Box;
-        private static Dictionary<MessageIcon, Sprite> Icons;
+
         private readonly Action ActionOK;
-        private string message;
+
         private MessageIcon messageIcon;
-        private IActivatable activatable;
+
         public TypeMenu TypeMenu => TypeMenu.MessageBox;
         public enum MessageIcon
         {
@@ -36,28 +41,67 @@ namespace GroupMenu
             }
             public float x, Width;
         }
+        private TextUI TextMessage = new TextUI(LText.Null);
+        private TextUI TextTitle = new TextUI(LText.Null);
+
+        private static Queue<MessageBox> QueueMessage = new();
         public MessageBox() { }
-        public MessageBox(string _messageFormated, MessageIcon icon = MessageIcon.None)
+        public MessageBox(TextUI _message, MessageIcon icon = MessageIcon.None)
         {
             messageIcon = icon;
-            SetMessage(_messageFormated);
+            TextMessage = _message;
+            AddQueue();
         }
-        public MessageBox(string _messageFormated, Action _action, MessageIcon icon = MessageIcon.None)
+        public MessageBox(TextUI _message, TextUI _title,  MessageIcon icon = MessageIcon.None)
         {
             messageIcon = icon;
-            SetMessage(_messageFormated);
+            TextMessage =_message;
+            TextTitle = _title;
+
+            AddQueue();
+        }
+        public MessageBox(TextUI _message, Action _action, MessageIcon icon = MessageIcon.None)
+        {
+            messageIcon = icon;
+            TextMessage = _message;
             ActionOK = _action;
+            AddQueue();
+        }
+        public MessageBox(TextUI _message, TextUI _title, Action _action, MessageIcon icon = MessageIcon.None)
+        {
+            messageIcon = icon;
+            TextMessage = _message;
+            TextTitle = _title;
+            ActionOK = _action;
+            AddQueue();
+        }
+        public static void Warning(string Text, Action Ok = null)
+        {
+            Menu.ActivateMenu(new MessageBox(Text.GetTextUI(), LText.Warning.GetTextUI(), Ok, MessageIcon.Warning));
+        }
+        public static void Info(string Text, Action Ok = null)
+        {
+            Menu.ActivateMenu(new MessageBox(Text.GetTextUI(), LText.Information.GetTextUI(), Ok, MessageIcon.Info));
+        }
+        public static void Error(string Text, Action Ok = null)
+        {
+            Menu.ActivateMenu(new MessageBox(Text.GetTextUI(), LText.Error.GetTextUI(), Ok, MessageIcon.Error));
+        }
+        public static void Message(string Text, Action Ok = null)
+        {
+            Menu.ActivateMenu(new MessageBox(Text.GetTextUI(), Ok));
+        }
+        private void AddQueue()
+        {
+            if(Menu.CurrentMenu == TypeMenu)
+            QueueMessage.Enqueue(this);
         }
         public void Start()
         {
             FindUI();
-            Cancel.onClick.AddListener(Default);
+            Cancel.OnClick().AddListener(Default);
         }
 
-        public void SetMessage(string messageFormated)
-        {
-            message = messageFormated.Trim();
-        }
         private void OnClick()
         {
             ActionOK?.Invoke();
@@ -73,27 +117,33 @@ namespace GroupMenu
         }
         private void FindUI()
         {
-            if (Icons == null)
-            {
-                Icons = new();
-                foreach (MessageIcon icon in Enum.GetValues(typeof(MessageIcon)))
-                    if (icon != MessageIcon.None)
-                        Icons.Add(icon, loadIcon(icon));
-            }
 
-                Box = Menu.FindUIByPath(nameof(MessageBox));
-                Cancel = Menu.FindUIByPath<Button>(nameof(Cancel), Box.transform);
-                Message = Menu.FindUIByPath<Text>(Box.transform);
-                MessageTransform = Message.gameObject.GetComponent<RectTransform>();
-                Ok = Menu.FindUIByPath<Button>(nameof(Ok), Box.transform);
-                Icon = Menu.FindUIByPath<Image>(nameof(Icon), Box.transform);
+            Box = Menu.Find(nameof(MessageBox));
+
+            TitleText = MenuUI<Text>.Find("Hat/Title", Box.transform, LText.Null);
+
+            MessageText = MenuUI<Text>.Find("Message",Box.transform, LText.Null);
+
+            MessageTransform = MessageText.gameObject.GetComponent<RectTransform>();
+
+            Cancel = MenuUI<Button>.Find(nameof(Cancel), Box.transform, LText.Canсel);
+            Ok = MenuUI<Button>.Find(nameof(Ok), Box.transform, LText.Ok);
+
+            Icon = MenuUI<Image>.Find(nameof(Icon), Box.transform);
         }
         private void Default()
         {
+            if(QueueMessage.Count>0)
+            {
+                Box.SetActive(false);
+
+                QueueMessage.Dequeue().Activate();
+                return;
+            }
             Cancel.gameObject.SetActive(true);
-            Message.text = "None";
+            TitleText.SetText(new TextUI(LText.Null));
             Box.SetActive(false);
-                Menu.ActivateMenu(activatable);
+            Menu.PopMenu();
         }
         private Sprite loadIcon(MessageIcon icon)
         {
@@ -104,21 +154,37 @@ namespace GroupMenu
         }
         public void Activate()
         {
-            activatable = Menu.IActiveMenu;
-            if(messageIcon != MessageIcon.None)
-                Icon.sprite = Icons[messageIcon];
+
+            bool isIcon = messageIcon != MessageIcon.None;
+
+            if (messageIcon == MessageIcon.Warning)
+                SoundMeneger.Play(SoundMeneger.Sounds.Warning);
+            else if (messageIcon == MessageIcon.Error)
+                SoundMeneger.Play(SoundMeneger.Sounds.Note);
+
+            Icon.gameObject.SetActive(isIcon);
+            if (isIcon)
+                Icon.SetImage(messageIcon.ToString());
+
             Box.SetActive(true);
-            Message.text = message;
-            Ok.onClick.RemoveAllListeners();
-            Ok.onClick.AddListener(OnClick);
+
+            MessageText.SetText(TextMessage);
+            TitleText.SetText(TextTitle);
+
+            Ok.OnClick().RemoveAllListeners();
+            Ok.OnClick().AddListener(OnClick);
+
             SellectImageAndRect();
             if (ActionOK == null)
                 Cancel.gameObject.SetActive(false);
+
         }
         public void Deactivate()
         {
-            if(IsEnable)
-            SoundMeneger.Play(SoundMeneger.Sounds.Warning);
+        }
+
+        public void Update()
+        {
         }
     }
 }

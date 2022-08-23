@@ -13,47 +13,114 @@ namespace FactoryLesson
         EntityEngine GetEngine { get; }
         GameObject GetPrefab { get; }
     }
+    internal struct RandomSize
+    {
+        public bool IsRandom;
+        /// <summary>
+        /// Исключение рандома
+        /// </summary>
+        public RandomSize(float DefaultSize)
+        {
+            IsRandom = false;
+            min = 0;
+            max = DefaultSize;
+        }
+        /// <summary>
+        /// Рандом в пределах чисел
+        /// </summary>
+        public RandomSize(float _min, float _max)
+        {
+            IsRandom = true;
+            min = _min;
+            max = _max;
+        }
+        public float GetValue()
+        {
+            return IsRandom ? UnityEngine.Random.Range(min, max) : max;
+        }
+        public Vector3 GetVector3()
+        {
+            return GetValue() * Vector3.one;
+        }
 
+        public float min, max;
+    }
     public static class EntityFactory
     {
-        public static IEntityFamily GetEntity(TypePlant plant, Vector3 vector, Quaternion quaternion) => new EntityFamilyFactoryPlants(plant, vector,quaternion);
-        public static IEntityFamily GetEntity(EffectItem effect, Vector3 vector) => new EntityFamilyFactoryItem(effect, vector);
-        public static IEntityFamily GetEntity(EffectItem effect, Transform transform) => new EntityFamilyFactoryItem(effect, transform);
-        public static IEntityFamily GetEntity(TypeItem itemType, bool isStatic, Vector3 vector, Quaternion quaternion)
+        private static Dictionary<Type, Type> AcceptableEnum = new Dictionary<Type, Type>
+            {
+            [typeof(TypeAnimal)] = typeof(EntityFamilyFactoryAnimals),
+            [typeof(TypePlant)] = typeof(EntityFamilyFactoryPlants),
+            [typeof(EffectItem)] = typeof(EntityFamilyFactoryItem),
+            [typeof(TypeItem)] = typeof(EntityFamilyFactoryItem),
+        };
+        public static IEntityFamily GetEntity(Enum _enum, Vector3 position, Quaternion quaternion, bool isStatic = true)
         {
-            return new EntityFamilyFactoryItem(itemType, isStatic, vector, quaternion);
+            if (!AcceptableEnum.ContainsKey(_enum.GetType()))
+                return null;
+            return (IEntityFamily)Activator.CreateInstance(AcceptableEnum[_enum.GetType()], new object[] { _enum, position, quaternion, isStatic });
+        }
+        public static IEntityFamily GetEntity(Enum _enum, Transform parent, bool isStatic = true)
+        {
+            if (!AcceptableEnum.ContainsKey(_enum.GetType()))
+                return null;
+            return (IEntityFamily)Activator.CreateInstance(AcceptableEnum[_enum.GetType()], new object[] { _enum, parent, isStatic });
         }
     }
+
+    public class EntityFamilyFactoryAnimals : EntityFamilyFactory, IEntityFamily
+    {
+        private static Dictionary<TypeAnimal, AnimalInfo> keyValueAnimals = new Dictionary<TypeAnimal, AnimalInfo>
+        {
+            [TypeAnimal.Fox] = new AnimalInfo() { EngineComponent = null },
+        };
+        private class AnimalInfo
+        {
+            public IArtificialIntelligence AI = null;
+            public Type EngineComponent = typeof(AnimalEngine);
+
+        }
+        public EntityFamilyFactoryAnimals(TypeAnimal typeAnimal, Vector3 position, Quaternion quaternion, bool isStatic = false) : base(position, quaternion, true, type, typeAnimal.ToString())
+        {
+            animalEngine = GetPrefab.GetComponent<AnimalEngine>();
+            if (animalEngine != null) return;
+
+            AnimalInfo info = new AnimalInfo();
+
+            if (keyValueAnimals.TryGetValue(typeAnimal, out AnimalInfo NewInfo))
+                info = NewInfo;
+
+            animalEngine = GetPrefab.AddComponent(info.EngineComponent) as AnimalEngine;
+
+        }
+        private static TypeEntity type => TypeEntity.Animal;
+        public TypeEntity TypeEntity => type;
+
+        public bool isStatic => false;
+
+        private AnimalEngine animalEngine;
+
+        public EntityEngine GetEngine => animalEngine;
+    }
+
     public class EntityFamilyFactoryPlants : EntityFamilyFactory, IEntityFamily
     {
 
         private static Dictionary<TypePlant, PlantInfo> keyValuePlants = new Dictionary<TypePlant, PlantInfo>
         {
-            [TypePlant.Tree_1] = new PlantInfo() { RandomSeze = new PlantInfo.RND(0.6F,2F) }
+            [TypePlant.Tree_1] = new PlantInfo() { RandomSeze = new RandomSize(0.6F, 2F) }
         };
-            private class PlantInfo
-            {
+        private class PlantInfo
+        {
             public Type EngineComponent = typeof(PlantEngine);
-            public Vector3 Size = Vector3.one;
-            public RND RandomSeze = new RND();
-            public struct RND
-            {
-                public bool IsRandom;
-                public static readonly RND None = new RND();
-                public RND(float _min, float _max)
-                {
-                    IsRandom = true;
-                    min = _min;
-                    max = _max;
-                }
-                public float min, max;
-            }
-            }
-        public EntityFamilyFactoryPlants(TypePlant typePlant ,Vector3 vector, Quaternion quaternion) : base(vector, quaternion, true, typeEntity, typePlant.ToString())
+            public Vector3 Size => RandomSeze.GetVector3();
+            public RandomSize RandomSeze = new RandomSize(1F);
+        }
+        public EntityFamilyFactoryPlants(TypePlant typePlant, Vector3 vector, Quaternion quaternion, bool isStatic = false) : base(vector, quaternion, true, typeEntity, typePlant.ToString())
         {
             PlantInfo info = keyValuePlants[typePlant];
             PlantEngine plantEngine = GetPrefab.AddComponent(info.EngineComponent) as PlantEngine;
-            plantEngine.transform.localScale = info.RandomSeze.IsRandom? UnityEngine.Random.Range(info.RandomSeze.min, info.RandomSeze.max) * Vector3.one : info.Size;
+            plantEngine.transform.localScale = info.Size;
             plantEngine.typePlant = typePlant;
             this.plantEngine = plantEngine;
         }
@@ -64,13 +131,11 @@ namespace FactoryLesson
         public bool isStatic => _isStaticItem;
 
         public EntityEngine GetEngine => plantEngine;
-
-        public GameObject GetPrefab => prefab;
     }
     public abstract class EntityFamilyFactory
     {
         protected readonly bool _isStaticItem;
-        protected GameObject prefab;
+        public GameObject GetPrefab { get; private set; }
         private void DebugWarning(TypeEntity typeEntity, string Name)
         {
             Debug.LogWarning($"Resource not found; TypeEntity: {typeEntity} NameEntity: {Name}");
@@ -81,11 +146,7 @@ namespace FactoryLesson
         }
         public void LoadPrefab(GameObject gameObject)
         {
-            if (!gameObject)
-            {
-                Debug.LogWarning($"Resource not found;");
-            }
-            prefab = gameObject;
+            GetPrefab = gameObject;
         }
         private GameObject LoadInResource(string path)
         {
@@ -100,24 +161,18 @@ namespace FactoryLesson
             _isStaticItem = isStatic;
             string path = typeEntity + "\\" + Direction + "\\";
             GameObject obj = LoadInResource($"{path}{Name}");
-            if (!obj)
-            {
-                DebugWarning(typeEntity, Name);
-            }
-            else
-                LoadPrefab(Object.Instantiate(obj, parent));
+            if (obj == null)
+                return;
+            LoadPrefab(Object.Instantiate(obj, parent));
         }
         public EntityFamilyFactory(Vector3 vector, Quaternion quaternion, bool isStatic, TypeEntity typeEntity, string Direction, string Name)
         {
             _isStaticItem = isStatic;
             string path = typeEntity + "\\" + Direction + "\\";
             GameObject obj = LoadInResource($"{path}{Name}");
-            if (!obj)
-            {
-                DebugWarning(typeEntity, Name);
-            }
-            else
-                LoadPrefab(Object.Instantiate(obj, vector, quaternion));
+            if (obj == null)
+                return;
+            LoadPrefab(Object.Instantiate(obj, vector, quaternion));
         }
         public EntityFamilyFactory(Vector3 vector, Quaternion quaternion, bool isStatic, TypeEntity typeEntity, string Name)
         {
@@ -127,64 +182,71 @@ namespace FactoryLesson
             GameObject obj = Resources.Load<GameObject>($"{path}Prefabs\\{Name}");
             if (obj)
             {
-                prefab = obj;
+                GetPrefab = GameObject.Instantiate(obj, vector, quaternion);
                 return;
             }
-
             obj = LoadInResource($"{path}Mesh\\{Name}");
-            if (!obj)
+
+            if (obj == null) return;
+
+            obj = Object.Instantiate(obj, vector, quaternion);
+
+            obj.layer = LayerMask.NameToLayer("Entity");
+
+            Material material = Resources.Load<Material>($"{path}Material\\{Name}");
+
+            if (obj.transform.childCount == 0)
             {
-                DebugWarning(typeEntity, Name);
+                if (material)
+                    obj.GetComponent<Renderer>().material = material;
+                obj.AddComponent<MeshCollider>().convex = !isStatic;
             }
             else
             {
-                obj.layer = LayerMask.NameToLayer("Entity");
-                obj = Object.Instantiate(obj, vector, quaternion);
-                Material material = (Material)Resources.Load($"{path}Material\\{Name}");
-                if (obj.transform.childCount == 0)
+                List<GameObject> Destroed = new List<GameObject>();
+                bool IsColliders = false;
+                foreach (Transform Chield in obj.transform)
                 {
-                    if(material)
-                    obj.GetComponent<Renderer>().material = material;
-                    obj.AddComponent<MeshCollider>().convex = !isStatic;
-                }
-                else
-                {
-                    bool IsColliders = false;
-                    foreach (Transform Chield in obj.transform)
+                    GameObject gameObject = Chield.gameObject;
+                    gameObject.layer = obj.layer;
+                    if (Chield.name.Contains("Collider"))
                     {
-                        GameObject gameObject = Chield.gameObject;
-                        gameObject.layer = obj.layer;
-                        if (Chield.name.Contains("Collider"))
+                        if (isStatic)
                         {
-                            if (!isStatic)
-                            {
-                                gameObject.AddComponent<MeshCollider>().convex = true;
-                                gameObject.GetComponent<MeshRenderer>().enabled = false;
-                            }
-                            else
-                                Object.Destroy(gameObject);
-                            IsColliders = true;
+                            Debug.LogWarning(Chield.name + "Destroy");
+                            Destroed.Add(gameObject);
                         }
                         else
                         {
-                            Material ChieldMaterial = (Material)Resources.Load($"{path}Material\\{Chield.name}");
-                            if (ChieldMaterial != null)
-                                gameObject.GetComponent<Renderer>().material = ChieldMaterial;
-                            gameObject.AddComponent<MeshCollider>().enabled = isStatic;
+                            gameObject.AddComponent<MeshCollider>().convex = true;
+                            gameObject.GetComponent<MeshRenderer>().enabled = false;
                         }
+                        IsColliders = true;
                     }
-                    if (!IsColliders)
-                        foreach (Transform Chield in obj.transform)
-                        {
-                            MeshCollider mesh = Chield.gameObject.GetComponent<MeshCollider>();
-                            mesh.enabled = true;
-                            if (!isStatic)
-                                mesh.convex = true;
-                        }
+                    else
+                    {
+                        Material ChieldMaterial = (Material)Resources.Load($"{path}Material\\{Chield.name}");
+                        if (ChieldMaterial != null)
+                            gameObject.GetComponent<Renderer>().material = ChieldMaterial;
+                        gameObject.AddComponent<MeshCollider>().enabled = isStatic;
+                    }
                 }
-
+                foreach(GameObject Obj in Destroed)
+#if UNITY_EDITOR
+                    Object.DestroyImmediate(Obj);
+#else
+                    Object.DestroyImmediate(Obj);
+#endif
+                if (!IsColliders)
+                    foreach (Transform Chield in obj.transform)
+                    {
+                        MeshCollider mesh = Chield.gameObject.GetComponent<MeshCollider>();
+                        mesh.enabled = true;
+                        if (!isStatic)
+                            mesh.convex = true;
+                    }
             }
-            #endregion
+#endregion
             LoadPrefab(obj);
         }
     }
@@ -233,15 +295,15 @@ namespace FactoryLesson
             public Vector3 vectorCenterMass = Vector3.zero;
             public Vector3 Size = Vector3.one;
         }
-        public EntityFamilyFactoryItem(EffectItem effect, Transform transform)
+        public EntityFamilyFactoryItem(EffectItem effect, Transform transform, bool isStatic = true)
               : base(transform, true, typeEntity, "Effects", effect.ToString())
         {
         }
-        public EntityFamilyFactoryItem(EffectItem effect, Vector3 vector)
+        public EntityFamilyFactoryItem(EffectItem effect, Vector3 vector, Quaternion quaternion, bool isStatic = true)
               : base(vector, Quaternion.identity, true, typeEntity, "Effects", effect.ToString())
         {
         }
-        public EntityFamilyFactoryItem(TypeItem itemType, bool isStatic, Vector3 vector, Quaternion quaternion)
+        public EntityFamilyFactoryItem(TypeItem itemType, Vector3 vector, Quaternion quaternion, bool isStatic = true)
             : base(vector, quaternion, isStatic && keyOfTypeParameters[itemType].ChangeMovableOrStatic, typeEntity, itemType.ToString())
         {
             InfoItem info = keyOfTypeParameters[itemType];
@@ -262,10 +324,9 @@ namespace FactoryLesson
 
         private ItemEngine itemEngine;
         public EntityEngine GetEngine => itemEngine;
-        public bool isStatic => _isStaticItem; 
+        public bool isStatic => _isStaticItem;
         private static TypeEntity typeEntity => TypeEntity.Item;
         public TypeEntity TypeEntity => typeEntity;
-        public GameObject GetPrefab => prefab; 
     }
 
 }

@@ -6,35 +6,62 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace GroupMenu
 {
     public abstract class MainGroup : IActivatable
     {
 
-        private static Button buttonCallBack;
-        protected static GameObject instance { get; private set; }
+        private static MenuUI<Button> buttonCallBack;
+
+        private static MenuUI<Text> MainTitle;
+        protected static GameObject mainGroup { get; private set; }
 
         private static Dictionary<TypeMenu, GameObject> MenuChildren = new();
         public abstract TypeMenu TypeMenu { get; }
 
+        protected bool IsPushMenu = true;
         /// <summary>
         /// Для разовой активации статических полей Группы меню.
         /// </summary>
-        public abstract void Start();
+        protected abstract void Start();
         /// <summary>
         /// Происходит при Диактивации меню, Инициализируются компоненты группы
         /// </summary>
-        public abstract void Deactivate();
+        protected virtual void Deactivate() { }
         /// <summary>
         /// Происходит при Активации меню, Инициализируются компоненты группы
         /// </summary>
-        public abstract void Activate();
+        protected virtual void Activate() { }
+
+        protected virtual void Update() { }
+
+        protected virtual bool IsActiveBackHot => true;
+
+        void IActivatable.Update()
+            {
+            if ((Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Escape)) && IsActiveBackHot)
+                Menu.PopMenu(isCallBack: true);
+            Update();
+            }
+
+        protected void CallBeckActivate(bool isActive, Action action = null)
+        {
+            buttonCallBack.Component.gameObject.SetActive(isActive);
+            if (action != null)
+            {
+                buttonCallBack.OnClick().AddListener(new UnityAction(action));
+            }
+        }
         private void Initialize()
         {
-            instance = Menu.FindUIByPath(nameof(MainGroup));
-            MenuChildren.Clear();
-            foreach (Transform child in instance.transform)
+            MenuChildren = new();
+            Menu.onDestroy.AddListener(() => { mainGroup = null; MenuChildren.Clear(); });
+
+            mainGroup = Menu.Find(nameof(MainGroup));
+
+            foreach (Transform child in mainGroup.transform)
             {
                 string name = child.name;
                 if (name == "Hat") continue;
@@ -42,32 +69,49 @@ namespace GroupMenu
                 {
                     MenuChildren.Add((TypeMenu)value, child.gameObject);
                 }
-                else { Debug.LogError($"Was not found menu: {name} in Enum TypeMenu"); }
-                    }
-            buttonCallBack = Menu.FindUIByPath<Button>("Hat/CallBack", instance.transform);
+                else { Debug.LogWarning($"Was not found menu: {name} in Enum TypeMenu"); }
+            }
+            MainTitle = MenuUI<Text>.Find("Hat/Title", mainGroup.transform);
+
+            buttonCallBack = MenuUI<Button>.Find("Hat/CallBack", mainGroup.transform, new TextUI(LText.Back));
+
         }
-        protected GameObject GetThisMenu()
+        protected GameObject GetObject()
         {
             return MenuChildren[TypeMenu];
+        }
+        protected Transform GetTransform()
+        {
+            return MenuChildren[TypeMenu].transform;
         }
         // Желательно всю логику поиска элементов главного меню писать в метод: Initialize()
         void IActivatable.Start()
         {
-            Initialize();
+            if (!mainGroup)
+                Initialize();
             Start();
         }
         private void SetActive(bool active)
         {
-            instance.SetActive(active);
+            mainGroup.SetActive(active);
             MenuChildren[TypeMenu].SetActive(active);
         }
+        
         void IActivatable.Activate()
         {
             SetActive(true);
+            buttonCallBack.OnClick().RemoveAllListeners();
+
+            MainTitle.SetText(new TextUI(TypeMenu.ToString().GetLText()));
+
+            CallBeckActivate(true, () => Menu.PopMenu(isCallBack: true));
+
             Activate();
         }
         void IActivatable.Deactivate()
         {
+            if (IsPushMenu)
+                Menu.PushMenu();
             SetActive(false);
             Deactivate();
         }
