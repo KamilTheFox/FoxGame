@@ -1,22 +1,28 @@
-using FactoryLesson;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using GroupMenu;
 
-public class ItemEngine : EntityEngine
+public class ItemEngine : EntityEngine, ITakenEntity
 {
-    static ItemEngine()
-    {
-#if !UNITY_EDITOR
-        Menu.onDestroy.AddListener(() => RemoveItemAll());
-#endif
+    public override TypeEntity typeEntity => TypeEntity.Item;
+    public static ItemEngine[] GetItems 
+    {   
+        get 
+        { 
+            List<ItemEngine> itemEngines = new List<ItemEngine>();
+            Entities[TypeEntity.Item].ForEach(engine => { if (engine is ItemEngine item) { itemEngines.Add(item); } });
+                return itemEngines.ToArray();
+        }
     }
-    public static ItemEngine[] GetItems { get { return Items.ToArray(); } }
 
-    public static int CountItems => Items.Count;
-    static List<ItemEngine> Items = new();
-    public TypeItem itemType;
+    [HideInInspector] public bool isController;
+
+    protected virtual bool CanTake => true;
+    public static int CountItems => GetItems.Length;
+
+    [HideInInspector] public TypeItem itemType;
     public static int CountItemTypes { get { return Enum.GetNames(typeof(TypeItem)).Length; } }
     public int ID
     {
@@ -30,24 +36,23 @@ public class ItemEngine : EntityEngine
             return -1;
         }
     }
+    public bool IsTake { get; private set; }
 
-    private bool IsTake;
+    Rigidbody ITakenEntity.Rigidbody => Rigidbody;
 
-    static bool DontShowMessage;
     public static ItemEngine AddItem(TypeItem type, Vector3 position, Quaternion quaternion, bool isStatic = true)
     {
         if (type == TypeItem.None) return null;
         ItemEngine item = AddEntity<ItemEngine>(type, position, quaternion, isStatic);
-        Items.Add(item);
         return item;
     }
     protected static GameObject GetEffect(EffectItem type, Vector3 position)
     {
-        return EntityFactory.GetEntity(type, position, Quaternion.identity).GetPrefab;
+        return EntityCreate.GetEntity(type, position, Quaternion.identity).GetPrefab;
     }
     public static void RemoveItemAll()
     {
-        ItemEngine[] items = Items.ToArray();
+        ItemEngine[] items = GetItems;
         foreach (ItemEngine item in items)
         {
             item.Delete();
@@ -58,60 +63,44 @@ public class ItemEngine : EntityEngine
         Remove:
         if (ItemIndex < 0 || ItemIndex > GetItems.Length)
             return;
-        if (Items[ItemIndex].gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (GetItems[ItemIndex].gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (DontShowMessage)
-            MessageBox.Warning($"Нельзя удалить объект {Items[ItemIndex].itemType} с игроком внутри\n" +
-                "Будет удален следующий предмет\n" +
-                "Нажмите ОК, что бы не показывать это сообщение\n",
-                () =>
-                {
-                    DontShowMessage = true;
-                });
             ItemIndex--;
             goto Remove;
         }
-        Items[ItemIndex].Delete();
+        GetItems[ItemIndex].Delete();
     }
-    public ItemEngine Throw()
+    void ITakenEntity.Throw()
     {
-        if (!IsTake)
-            return null;
         IsTake = false;
-        return TakeThrow();
+        TakeThrow();
     }
-    public ItemEngine Take()
+    ITakenEntity ITakenEntity.Take()
     {
-        if (IsTake)
-            return this;
+        if (!CanTake) return null;
         IsTake = true;
-        return TakeThrow();
+        TakeThrow();
+        return this;
     }
-    private ItemEngine TakeThrow()
+    private void TakeThrow()
     {
-        if (Rigidbody != null)
+        if (Rigidbody != null && !Stationary)
         {
             Rigidbody.useGravity = !IsTake;
+            if(Rigidbody.isKinematic)
+            Rigidbody.isKinematic = false;
             Rigidbody.velocity = Vector3.zero;
         }
         gameObject.layer = IsTake ? LayerMask.NameToLayer("Ignore Raycast") : LayerMask.NameToLayer("Entity");
-        foreach (Transform chield in gameObject.transform)
+        foreach (Transform chield in Transform.GetComponentsInChildren<Transform>())
         {
             chield.gameObject.layer = gameObject.layer;
         }
-        if (!IsTake)
-            return null;
-        return this;
     }
-    public virtual void Interaction()
+    public override void Interaction()
     {
-        if(!Stationary)
+        if(!Stationary&& isController)
         CameraControll.instance.EntranceBody(this.gameObject);
-    }
-    public override void Delete(float time = 0F)
-    {
-        base.Delete(time);
-        Items.Remove(this);
     }
     private void FixedUpdate()
     {
@@ -125,19 +114,17 @@ public class ItemEngine : EntityEngine
         if (transform.position.y < -100F)
             Delete();
     }
+    public override TextUI GetTextUI()
+    {
+        return new TextUI(() => new object[]
+        {
+            new TextUI(() => new object[] {itemType.ToString() }),
+            new TextUI(() => new object[] { "\n[", LText.KeyCodeE ,"] - ",LText.Take ,"/",LText.Leave }),
+            new TextUI(() => new object[] {"\n[", LText.KeyCodeMouse0 ,"] - ",LText.Drop }),
+            new TextUI(() => new object[] {"\n[",LText.KeyCodeF ,"] -", LText.Interactive })
+        });
+    }
 }
-public enum TypeItem
-{
-    None,
-    Apple,
-    Basket,
-    Table,
-    Chair,
-    TNT
-}
-public enum EffectItem
-{
-    TNT_Detonate,
-    TNT_Explosion
-}
+
+
 

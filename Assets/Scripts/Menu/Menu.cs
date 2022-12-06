@@ -15,9 +15,9 @@ public class Menu : MonoBehaviour
 
     public static UnityEvent onDestroy;
 
-    private IActivatable ICurrentMenu;
+    private IActivatableMenu ICurrentMenu;
     public static TypeMenu CurrentMenu => instance.ICurrentMenu.TypeMenu;
-    public static IActivatable IActiveMenu => instance.ICurrentMenu;
+    public static IActivatableMenu IActiveMenu => instance.ICurrentMenu;
 
     public static bool IsEnabled => instance && instance.ICurrentMenu != null  && instance.ICurrentMenu.TypeMenu != TypeMenu.None;
 
@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour
 
     public static event Action EventInitializeComponent = () => { };
 
-    private static Stack<IActivatable> PreviousMenu;
+    private static Stack<IActivatableMenu> PreviousMenu;
 
     private static bool isClickBack;
 
@@ -36,7 +36,8 @@ public class Menu : MonoBehaviour
     {
         if (instance)
         {
-            Debug.LogError("Multiple menus cannot be initialized");
+            Debug.LogWarning(new TextUI(LText.ErrorInitializeObjects, gameObject.ToString).ToString());
+            GameObject.Destroy(gameObject);
             return;
         }
 
@@ -72,7 +73,7 @@ public class Menu : MonoBehaviour
         Type[] massClass = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == nameof(GroupMenu) && !t.IsAbstract && !t.IsInterface).ToArray();
         for (int i = 0; i < massClass.Length; i++)
         {
-            if (Activator.CreateInstance(Type.GetType(massClass[i].FullName)) is IActivatable activatable)
+            if (Activator.CreateInstance(Type.GetType(massClass[i].FullName)) is IActivatableMenu activatable)
             {
                 activatable.Start();
                 EventInitializeComponent.Invoke();
@@ -83,6 +84,52 @@ public class Menu : MonoBehaviour
         foreach (string name in NameMenus)
             Debug.LogWarning($"Not started menu: {name} ");
 
+        UpdateTextUI();
+    }
+    public enum TypeRebuildMainGroup
+    {
+        Only_Default,
+        Only_Custom,
+        Default_Custom,
+        Custom_Default
+    }
+    public static void RebuildMenuInMainGroup<T>(TypeRebuildMainGroup type, Action<MainGroup> RebuildMenuUI = null) where T : MainGroup, IActivatableMenu, new()
+    {
+        string Prefix = MenuUI.PrefixCreate;
+        T MenuParent = new ();
+        List<Transform> Delited = new();
+        foreach (Transform Components in MenuParent.GetTransform())
+        {
+            Components.gameObject.SetActive(false);
+            if(Components.name.Contains("ScrollRect" + Prefix))
+            {
+                Transform[] content = Menu.Find("Viewport/Content", Components).transform.GetChilds();
+                foreach (Transform child in content)
+                    child.SetParent(MenuParent.GetTransform());
+            }
+            if (Components.name.Contains(Prefix))
+                Delited.Add(Components);
+        }
+        foreach (Transform Components in Delited)
+            GameObject.Destroy(Components.gameObject);
+        switch (type)
+        {
+            case TypeRebuildMainGroup.Only_Default:
+                MenuParent.Start();
+                break;
+            case TypeRebuildMainGroup.Only_Custom:
+                RebuildMenuUI.Invoke(MenuParent);
+                break;
+                case TypeRebuildMainGroup.Custom_Default:
+                RebuildMenuUI.Invoke(MenuParent);
+                MenuParent.Start();
+                break;
+            default:
+                MenuParent.Start();
+                RebuildMenuUI.Invoke(MenuParent);
+                break;
+        }
+        EventInitializeComponent.Invoke();
         UpdateTextUI();
     }
     public static void ExitGame()
@@ -109,8 +156,12 @@ public class Menu : MonoBehaviour
         if (IActiveMenu is MessageBox) return;
         PreviousMenu.Push(IActiveMenu);
     }
+    public static void ActivateMenu<T>() where T : IActivatableMenu, new()
+    {
+        ActivateMenu(new T());
+    }
 
-    public static void ActivateMenu(IActivatable menu)
+    public static void ActivateMenu(IActivatableMenu menu)
     {
         if (CurrentMenu == menu.TypeMenu) return;
         instance.ICurrentMenu?.Deactivate();
@@ -123,7 +174,6 @@ public class Menu : MonoBehaviour
             }
             return;
         }
-
         menu.Activate();
         instance.ICurrentMenu = menu;
     }
@@ -140,6 +190,7 @@ public class Menu : MonoBehaviour
 
     public static void UpdateTextUI()
     {
+        if(ListTextUpdate != null)
         foreach (IUpdateMenuUI update in ListTextUpdate)
             update.UpdateText();
     }
@@ -148,6 +199,20 @@ public class Menu : MonoBehaviour
         onDestroy?.Invoke();
         instance = null;
     }
+    #region RedirectionMessageBox
+    public static void Info(string message, Action OkButton = null)
+    {
+        MessageBox.Info(message, OkButton);
+    }
+    public static void Error(string message, Action OkButton = null)
+    {
+        MessageBox.Error(message, OkButton);
+    }
+    public static void Warning(string message, Action OkButton = null)
+    {
+        MessageBox.Warning(message, OkButton);
+    }
+    #endregion
     #region Find Component in Object
     public static GameObject Find(string path, Transform Parent = null)
     {
@@ -203,15 +268,4 @@ public class Menu : MonoBehaviour
     }
     #endregion
 }
-public enum TypeMenu
-{
-    None,
-    MessageBox,
-    Lobby,
-    Settings,
-    MainMenu,
-    Statistics,
-    MediaPlayer,
-    DebugAnimation,
-    ConsoleMenu
-}
+

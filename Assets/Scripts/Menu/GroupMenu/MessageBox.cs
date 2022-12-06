@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace GroupMenu
 {
-    public class MessageBox : IActivatable
+    public class MessageBox : IActivatableMenu
     {
         public static bool IsEnable { get { return Box && Box.activeInHierarchy; } }
 
@@ -178,13 +178,6 @@ namespace GroupMenu
             if (ActionOK == null)
                 Cancel.gameObject.SetActive(false);
 
-        }
-        public void Deactivate()
-        {
-        }
-
-        public void Update()
-        {
         }
     }
 }

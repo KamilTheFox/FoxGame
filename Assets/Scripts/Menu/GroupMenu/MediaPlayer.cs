@@ -22,17 +22,14 @@ namespace GroupMenu
             Volume = MenuUI<Slider>.Create(GetTransform(),
                 new TextUI(LText.Volume, () => new object[] { LText.Music, Math.Round(SoundMeneger.VolumeMusic * 100) }), true);
             Volume.Component.value = PlayerPrefs.GetFloat("VolumeMusic", 1F);
-            Volume.OnValueChanged().AddListener(
-                (value) =>
-                {
-                    Settings.VolumeMusicChange.Invoke(value);
-                });
+
+            Volume.OnValueChanged().AddListener(Settings.VolumeMusicChange.Invoke);
 
             buttonMediaPlayer = MenuUI<Button>.Find("Hat/MediaPlayer", mainGroup.transform, LText.Null);
 
             buttonMediaPlayer.SetImage("Music");
 
-            buttonMediaPlayer.OnClick().AddListener(() => Menu.ActivateMenu(new MediaPlayer()));
+            buttonMediaPlayer.OnClick().AddListener(Menu.ActivateMenu<MediaPlayer>);
 
             MenuUIAutoRect.GetRect();
             MenuUIAutoRect.GetRect();
@@ -56,10 +53,8 @@ namespace GroupMenu
                 else
                     SoundMeneger.PauseMusic();
             });
-            menuUIs[1].OnClick().AddListener(() =>
-            {
-                SoundMeneger.PlayPopMusic();
-            });
+            menuUIs[1].OnClick().AddListener(SoundMeneger.PlayPopMusic);
+
             PlayLine = MenuUI<Slider>.Find("TimeClip", GetTransform(), LText.Null);
             
             SoundMeneger.PlayClip.AddListener((value) =>
@@ -72,6 +67,7 @@ namespace GroupMenu
                 if(value < SoundMeneger._Music.clip.length)
                 SoundMeneger._Music.time = value;
             });
+
             ListMusic = MenuUI<Dropdown>.Find("ListMusic", GetTransform(), LText.Null);
             ListMusic.Component.AddOptions(Enum.GetNames(typeof(SoundMeneger.Musics)).ToList());
 

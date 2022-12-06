@@ -13,14 +13,6 @@ public interface IUpdateMenuUI
 {
     void UpdateText();
 }
-public interface IComponentUI
-{
-    string Text { get; }
-
-    void SetText(TextUI textUI = new TextUI());
-
-    object Get();
-}
  static class MenuUIAutoRect
 {
     static MenuUIAutoRect()
@@ -36,7 +28,6 @@ public interface IComponentUI
         ScrollRect = null;
         ContentScrollBar = null;
         RectScrollBar = null;
-
     }
     public enum TypeRect
     {
@@ -144,7 +135,7 @@ public interface IComponentUI
     }
     private static int NumberComponent;
 }
-public class MenuUI<T> : IUpdateMenuUI, IComponentUI where T : Component
+public class MenuUI<T> : IUpdateMenuUI where T : Component
 {
     private TextUI TextUI;
     public string Text { get => text?.text; private set { if (text) text.text = value; } }
@@ -160,22 +151,11 @@ public class MenuUI<T> : IUpdateMenuUI, IComponentUI where T : Component
     }
     public GameObject gameObject => Component.gameObject;
 
-    private MenuUI(T component, LText lText, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
-    {
-        Init(component, new TextUI(lText), AutoRect, ModiferAutoRect);
-    }
-    private MenuUI(string path, Transform _Menu, LText lText, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
-    {
-        Init(Menu.Find<T>(path, _Menu), new TextUI(lText), AutoRect, ModiferAutoRect);
-    }
     private MenuUI(T component, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
         Init(component, textUI, AutoRect, ModiferAutoRect);
     }
-    private MenuUI(string path, Transform _Menu, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
-    {
-        Init(Menu.Find<T>(path, _Menu), textUI, AutoRect, ModiferAutoRect);
-    }
+
     public static MenuUI<T> Find(T component, LText lText, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
         return new MenuUI<T>(component, new TextUI(lText), AutoRect, ModiferAutoRect);
@@ -198,21 +178,31 @@ public class MenuUI<T> : IUpdateMenuUI, IComponentUI where T : Component
         Menu.ListTextUpdate.Add(this);
         TextUI = textUI;
         MenuUIAutoRect.TypeRect type = MenuUIAutoRect.TypeRect.Default;
-
-            EventTrigger trigger = _component.gameObject.AddComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerUp;
-            
-        if(_component is Button)
+        EventTrigger trigger = null;
+        if (_component.gameObject.TryGetComponent(out EventTrigger _trigger))
         {
+            trigger = _trigger;
+            trigger.triggers.Clear();
+        }
+        else
+        {
+            trigger = _component.gameObject.AddComponent<EventTrigger>();
+        }
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerUp;
+        if (_component is Button button)
+        {
+            button.onClick.RemoveAllListeners();
             entry.eventID = EventTriggerType.PointerClick;
         }
         else if (_component is Scrollbar scrollbar)
         {
+            scrollbar.onValueChanged.RemoveAllListeners();
             scrollbar.onValueChanged.AddListener((value) => UpdateText());
         }
         else if (_component is Slider slider)
         {
+            slider.onValueChanged.RemoveAllListeners();
             slider.onValueChanged.AddListener((value) => UpdateText());
         }
         else if (component is Text item)
@@ -266,14 +256,12 @@ public class MenuUI<T> : IUpdateMenuUI, IComponentUI where T : Component
     }
     public static MenuUI<T> Create(string Name, Transform _Parent, LText textUI, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
-        var obj = Create(_Parent, textUI, AutoRect, ModiferAutoRect);
-        obj.gameObject.name = Name;
-        return obj;
+        return Create(Name, _Parent, textUI.GetTextUI(), AutoRect, ModiferAutoRect);
     }
     public static MenuUI<T> Create(string Name, Transform _Parent, TextUI textUI, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
         var obj = Create(_Parent, textUI, AutoRect, ModiferAutoRect);
-        obj.gameObject.name = Name;
+        obj.gameObject.name = Name + MenuUI.PrefixCreate;
         return obj;
     }
     public static MenuUI<T> Create(Transform _Parent, LText textUI, bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
@@ -288,12 +276,9 @@ public class MenuUI<T> : IUpdateMenuUI, IComponentUI where T : Component
             gameObject = new GameObject(typeof(T).Name, typeof(T));
         }
         T newObject = GameObject.Instantiate(gameObject, _Parent).GetComponent<T>();
+        newObject.gameObject.name = gameObject.name + MenuUI.PrefixCreate;
 
         return new MenuUI<T>(newObject, textUI, AutoRect, ModiferAutoRect);
-    }
-    void IComponentUI.SetText(TextUI textUI)
-    {
-        SetText(textUI);
     }
     public MenuUI<T> SetText(TextUI textUI = new TextUI())
     {

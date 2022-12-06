@@ -86,7 +86,7 @@ using UnityEngine;
             }
             if (GUILayout.Button("Add Plant"))
             {
-                PlantEngine.AddPlant(TypePlant.Tree_1 , Vector3.zero, Quaternion.identity);
+                PlantEngine.AddPlant(TypePlant.Fir_Tree , Vector3.zero, Quaternion.identity);
             }
             if (GUILayout.Button("Give Item"))
             {

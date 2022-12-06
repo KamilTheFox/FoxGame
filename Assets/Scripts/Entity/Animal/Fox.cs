@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class Fox : AnimalEngine
 {
-    public override Action<Collision> BehaviorFromCollision => (col) => Dead();
-
-    protected override Type Started()
+    
+    public override TextUI GetTextUI()
     {
-        return typeof(TypeAnimationFox);
-    }
-
-    private enum TypeAnimationFox
-    {
-        Run_Fast,
-        Idle_Sits
+        return new TextUI(() => new object[]
+        {
+            base.GetTextUI(),
+            " " + TypeAnimal.ToString() +
+            (IsDead? "" : "\nPserss F to change animation")
+        });
     }
 }
 

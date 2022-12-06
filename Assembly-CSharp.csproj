@@ -57,15 +57,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
-    <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatable.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuUIExpansion.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\IParametrsEntity.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
     <Compile Include="Assets\Scripts\Menu\Localisation.cs" />
-    <Compile Include="Assets\Scripts\FactoryLesson.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\EntityCreate.cs" />
+    <Compile Include="Assets\Scripts\Entity\TypeFolderEntity.cs" />
+    <Compile Include="Assets\Scripts\Menu\TypeMenu.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
+    <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\FoodSearch.cs" />
     <Compile Include="Assets\Scripts\Entity\Regdoll.cs" />
     <Compile Include="Assets\Scripts\Expansion.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IArtificialIntelligence.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\AI.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\DebugAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MediaPlayer.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
@@ -73,27 +80,51 @@
     <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerControll.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\IRegdoll.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CameraControll.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
+    <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
+    <Compile Include="Assets\Scripts\Entity\TypeEntity.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
-    <Compile Include="Assets\Scripts\Menu\GroupMenu\Settings.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehavioral.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Entity\ITakenEntity.cs" />
+    <Compile Include="Assets\Scripts\Menu\CalendarHolidays.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Door.cs" />
+    <Compile Include="Assets\Scripts\NavMeshRebuild.cs" />
+    <Compile Include="Assets\Settings.cs" />
     <Compile Include="Assets\Scripts\SceneMenu.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
+    <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TNT.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Fox.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\PlantsCreating.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\TypePlant.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\ItemsCreating.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\Idle.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
     <Compile Include="Assets\Scripts\Entity\IAlive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\EntityStencilCreating.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\Apple_Tree.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\TypeItem.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainGroup.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\ConsoleMenu.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\IEntityCreated.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
-    <Compile Include="Assets\Scripts\Entity\PlantEngine.cs" />
-    <Compile Include="Assets\Scripts\SmoothRotateMove.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
+    <Compile Include="Assets\Scripts\Between.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomRun.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -102,6 +133,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Shaders\Crown.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -367,6 +399,12 @@
     </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.0.1\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -808,6 +846,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{9FBBFF9B-A8CF-1D4A-0875-EA25AD4B97D0}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{50FB13A0-4D8B-CD3D-379A-6B605F57477F}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 public class Localisation
 {
-    private const string textNone = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}";
+    private const string textNone = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}";
     public static readonly Dictionary<LText, object> ParseLTextRu = new Dictionary<LText, object>()
     {
         [LText.None] = new string[] { textNone, textNone },
         [LText.ErrorNoneObject] = new string[] { " [Error formaded] ", " [Ошибка форматирования] " },
         [LText.Language] = new string[] { "Language: English ({0})", "Язык: Русский ({0})" },
-        [LText.Settings] = "Настройки",
+        [LText.MenuSettings] = new string[] { "Settings", "Настройки" },
         [LText.True] = new string[] { "On", "Вкл" },
         [LText.False] = new string[] { "Off", "Выкл" },
         [LText.Statistics] = "Статистика",
@@ -38,7 +38,7 @@ public class Localisation
         [LText.Information] = "Информация",
         [LText.Values] = "Значения",
         [LText.Create] = "Создать",
-        [LText.Fox] = "Лиса",
+        [LText.Fox] = "Лис",
         [LText.Add] = "Добавить",
         [LText.Give] = "Выдать",
         [LText.Item] = "Предмет",
@@ -54,6 +54,30 @@ public class Localisation
         [LText.KeyCodeF] = new string[] { "F", "А" },
         [LText.KeyCodeMouse0] = new string[] { "LMB", "ЛКМ" },
         [LText.KeyCodeMouse1] = new string[] { "RMB", "ПКМ" },
+        [LText.Entity] = "Сущность",
+        [LText.Entities] = "Сущности",
+        [LText.Red] = "Красный",
+        [LText.Black] = "Черный",
+        [LText.Green] = "Зеленый",
+        [LText.Blue] = "Синий",
+        [LText.While] = "Белый",
+        [LText.Creative] = "Творчество",
+        [LText.ErrorInitializeObjects] = new string[]
+        {
+            "Нельзя инициализировать больше одного {0} объекта",
+            "You cannot initialize more than one {0} object"
+        },
+        [LText.ErrorSetAI] = new string[]
+        {
+            "Нельзя присвоить мертвому животному Интеллект",
+            "You can't assign Intelligence to a dead animal"
+        },
+        [LText.Idle] = "Бездействие",
+        [LText.ErrorMinMax] = new string[]
+        {
+            "Минимальное значение не может быть больше или равно максимальному",
+            "The minimum value cannot be greater than or equal to the maximum"
+        },
     };
     public static Language Language { get; set; }
      public static string GetText(LText text)
@@ -84,7 +108,7 @@ public enum Language
 public enum LText
 {
     /// <summary>
-    /// имеет 21 местo под объекты
+    /// имеет 10 местo под объекты
     /// </summary>
     None,
     Null,
@@ -95,7 +119,7 @@ public enum LText
     Language,
     Back,
     Play,
-    Settings,
+    MenuSettings,
     MainMenu,
     DebugAnimation,
     Lobby,
@@ -133,8 +157,19 @@ public enum LText
     Drop,
     Leave,
     Take,
-    Interactive
-
+    Interactive,
+    Entity,
+    Entities,
+    Red,
+    Green,
+    Blue,
+    Black,
+    While,
+    Creative,
+    ErrorInitializeObjects,
+    ErrorSetAI,
+    Idle,
+    ErrorMinMax,
 }
 public static class LTextExpansion
 {

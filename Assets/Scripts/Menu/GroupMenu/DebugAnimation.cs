@@ -14,19 +14,14 @@ namespace GroupMenu
         public static Animator Animator { get; set; }
 
         public static List<string> Animations = new List<string> { "Idle", "Sits", "Idle_Sits", "Run", "Run_Fast" };
-        static Dropdown dropdown;
+        static MenuUI<Text> Text;
         protected override void Activate()
         {
-            dropdown.ClearOptions();
-            dropdown.AddOptions(Animations);
-            string name = Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            dropdown.value = Animations.IndexOf(name);
+            Text.SetText(Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.GetLText().GetTextUI());
         }
         protected override void Start()
         {
-            dropdown = MenuUI<Dropdown>.Create("Animation", GetTransform() , "None".GetTextUI(), true).Component;
-            dropdown.AddOptions(Animations);
-            dropdown.onValueChanged.AddListener((countAnim) => { Menu.PopMenu(true); Animator.Play(Animations[countAnim]);  });
+            Text = MenuUI<Text>.Create("Animation", GetTransform() , "None".GetTextUI(), true);
         }
     }
 }

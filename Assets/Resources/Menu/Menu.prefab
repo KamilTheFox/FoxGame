@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7381525276373311779}
   - component: {fileID: 6973956390949353036}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: MenuSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 2.5091553, y: -128}
+  m_AnchoredPosition: {x: 0, y: -128}
   m_SizeDelta: {x: 451.6396, y: 33.739304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6955939362623274982
@@ -786,7 +786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 2.5091553, y: -78}
+  m_AnchoredPosition: {x: 137, y: -187}
   m_SizeDelta: {x: 451.6396, y: 33.739304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1731030088299523529
@@ -2035,6 +2035,7 @@ GameObject:
   - component: {fileID: 2175334779222300869}
   - component: {fileID: 6367426886961776173}
   - component: {fileID: 2177396938158069449}
+  - component: {fileID: 6365217143056823915}
   - component: {fileID: 1597221743057890996}
   - component: {fileID: 2112500256755247616}
   m_Layer: 5
@@ -2128,6 +2129,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &6365217143056823915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5439748585675209811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1c8f9ea9b8c4b4ca0fec54ac8d6f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Holidays:
+  - nameHoliday: FoxDay
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+    Objects: []
+    BeginDay: 1
+    BeginMonth: 11
+    EndDay: 0
+    EndMonth: 0
 --- !u!114 &1597221743057890996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2152,7 +2175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439065d34c7882d4aa5c01fabc353127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogWisible: 010101
 --- !u!1 &5717016451405663083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,7 +2212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 2.5091553, y: -178}
+  m_AnchoredPosition: {x: 137, y: -287}
   m_SizeDelta: {x: 451.6396, y: 33.739304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2765490872110918399
@@ -2517,7 +2539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 2.5091553, y: -28}
+  m_AnchoredPosition: {x: 137, y: -137}
   m_SizeDelta: {x: 451.6396, y: 33.739304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8496815379900348107
@@ -3527,7 +3549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: None
+  m_Text: 
 --- !u!1 &7884302289479667407
 GameObject:
   m_ObjectHideFlags: 0

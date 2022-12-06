@@ -1,5 +1,4 @@
-﻿using FactoryLesson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,64 +6,85 @@ using System.Threading.Tasks;
 using UnityEngine;
 using GroupMenu;
 
-    public abstract class AnimalEngine : EntityEngine, IAlive
+
+public abstract class AnimalEngine : EntityEngine, IAlive
 {
-    [SerializeField] private TypeAnimation StartAnumation = TypeAnimation.Idle;
-    public IRegdoll Regdool { get; private set; }
-   
-    private Animator Animator { get; set; }
-    /// <returns>Тип перечисления уникальных анимаций</returns>
-    protected abstract Type Started();
-
-    private List<string> NamesAnimation = new List<string>();
-
-    public void Start()
+    #region Description
+    public static List<AnimalEngine> AnimalList
     {
-        NamesAnimation.AddRange(Enum.GetNames(typeof(TypeAnimation)));
-        Animator = GetComponent<Animator>();
-        Regdool = new Regdoll(Animator , this);
-        Animator.Play(StartAnumation.ToString());
-        Type typeNewAnimation = Started();
-        if (typeNewAnimation != null)
-        NamesAnimation.AddRange(Enum.GetNames(typeNewAnimation));
+        get
+        {
+            List<AnimalEngine> list = new();
+            Debug.Log("Entities " + Entities[TypeEntity.Animal].Count);
+            Entities[TypeEntity.Animal].ForEach(e => list.Add(e as AnimalEngine));
+            Debug.Log("Animal " + list.Count);
+            return list;
+        }
     }
-    protected void SetAnimation(Enum _enum)
+    public override TypeEntity typeEntity => TypeEntity.Animal;
+
+    public IRegdoll Regdool { get; private set; }
+
+    [HideInInspector] public TypeAnimal TypeAnimal;
+
+    /// <returns>Тип перечисления уникальных анимаций</returns>
+    #endregion
+
+    private AI AI;
+
+    private Animator Animator => AI?.Animator;
+
+    public string NameAI => AI == null ? "No AI" : AI.GetType().Name;
+
+    public string Behavior => AI == null ? "No Behavior" : AI.NameBehavior;
+
+    protected override void OnStart()
     {
-        Animator.Play(_enum.ToString());
+        SetAI(FactoryEntity.AnimalsCreating.GetAI(TypeAnimal));
+
+        Regdool = new Regdoll(Animator, this);
+    }
+    public void SetAI(AI _AI)
+    {
+        if (IsDead)
+        {
+            Menu.Error(LText.ErrorSetAI.GetTextUI().ToString());
+            return;
+        }
+        AI = _AI;
+        AI.Start(this);
     }
     public static AnimalEngine AddAnimal(TypeAnimal animal, Vector3 position, Quaternion quaternion)
     {
         return AddEntity<AnimalEngine>(animal, position, quaternion);
     }
-    public virtual void Interactive()
+    public override void Interaction()
     {
-        DebugAnimation.Animations = NamesAnimation;
         DebugAnimation.Animator = Animator;
-        Menu.ActivateMenu(new DebugAnimation());
+        Menu.ActivateMenu<DebugAnimation>();
     }
-    public abstract Action<Collision> BehaviorFromCollision { get; }
+    public override void Delete(float time = 0)
+    {
+        AI = null;
+        base.Delete(time);
+    }
+    private void Update()
+    {
+        AI?.Update();
+    }
+    public Action<Collision, GameObject> BehaviorFromCollision => AI?.BehaviorFromCollision;
 
     public bool IsDead { get; private set; }
 
     public void Dead()
     {
         Regdool.Activate();
+        AI.StopMove();
+        AI.OnEnableMove();
+        AI = null;
         IsDead = true;
         Delete(120F);
     }
 
 }
-public enum TypeAnimation
-{
-    None,
-    Idle,
-    Sits,
-    Run,
-    Walk
-}
-public enum TypeAnimal
-{
-    Fox,
-    Fox_White,
-    Fox_Red
-}
+

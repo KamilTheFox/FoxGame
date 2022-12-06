@@ -45,10 +45,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12352094
-  m_Height: 0.41173646
+  m_Radius: 0.08
+  m_Height: 0.36
   m_Direction: 1
-  m_Center: {x: 0, y: 0.20586823, z: 0}
+  m_Center: {x: 0, y: 0.19, z: 0}
 --- !u!54 &6838795741168049278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1095,10 +1095,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.17
-  m_Height: 0.37
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.15}
+  m_Radius: 0.13
+  m_Height: 0.35
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.05, z: 0.12}
 --- !u!54 &3540780427385691307
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1989,9 +1989,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.08
-  m_Height: 0.36
+  m_Height: 0.33
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.03, z: 0}
 --- !u!144 &4341684732829587286
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2083,10 +2083,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.123520926
-  m_Height: 0.4117364
+  m_Radius: 0.08
+  m_Height: 0.36
   m_Direction: 1
-  m_Center: {x: 0, y: 0.2058682, z: 0}
+  m_Center: {x: 0, y: 0.19, z: 0}
 --- !u!54 &4895524549232516434
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2270,7 +2270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5836049037684048035}
   - component: {fileID: 6608503593649265176}
-  - component: {fileID: 7702151414573478508}
+  - component: {fileID: -3943138023254176994}
   m_Layer: 7
   m_Name: Fox
   m_TagString: Untagged
@@ -2315,20 +2315,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7702151414573478508
-MonoBehaviour:
+--- !u!195 &-3943138023254176994
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6608503593649265177}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c08b4037f7478449e0bfb0896e2406, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 0}
-  StartAnumation: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.8
+  m_Speed: 3.5
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 800
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.6
+  m_BaseOffset: -0.07
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6657543417482053721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,9 +2763,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.15
-  m_Height: 0.32
+  m_Height: 0.24
   m_Direction: 1
-  m_Center: {x: 0, y: 0.19, z: 0.04}
+  m_Center: {x: 0, y: 0.2, z: 0.04}
 --- !u!1 &7740653669675296878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3298,9 +3306,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.08
-  m_Height: 0.36
+  m_Height: 0.33
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.03, z: 0}
 --- !u!144 &2857952019437737994
 CharacterJoint:
   m_ObjectHideFlags: 0

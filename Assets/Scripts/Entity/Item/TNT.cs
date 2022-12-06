@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
-using FactoryLesson;
+using System.Collections;
+using System.Threading.Tasks;
+using System.Threading;
 using Random = UnityEngine.Random;
 
 public class TNT : ItemEngine
@@ -18,14 +20,18 @@ public class TNT : ItemEngine
         if (isActivate)
             return;
         isActivate = true;
+        GameObject Detonate = EntityCreate.GetEntity(EffectItem.TNT_Detonate, Transform).GetPrefab;
          SoundMeneger.Play(SoundMeneger.Sounds.TNT_Detonate,
-             EntityFactory.GetEntity(EffectItem.TNT_Detonate, Transform).GetPrefab.GetComponent<AudioSource>());
+             Detonate.GetComponent<AudioSource>());
+        Detonate.transform.SetParent(transform);
         Delete(time);
     }
-    private void OnDestroy()
+    protected override void onDestroy()
     {
-        if(isActivate && gameObject.scene.isLoaded)
-        Explosion();
+        if (isActivate && gameObject.scene.isLoaded)
+        {
+            Explosion();
+        }
     }
     void ExplosionForce (Rigidbody rb , float ForseDelta = 1F)
     {
@@ -35,21 +41,24 @@ public class TNT : ItemEngine
             rb.AddExplosionForce(Force / i / ForseDelta, Transform.position, Radius * (float)(6F / i * 1.2F));
         }
     }
+    private Collider[] OverlapSphere()
+    {
+        return Physics.OverlapSphere(Transform.position, Radius * 5F, LayerMask.GetMask(new string[] { "Entity", "Player" }));
+    }
     void Explosion()
     {
         Destroy(GetEffect(EffectItem.TNT_Explosion, Transform.position), 8F);
         SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position, volume: 2F);
-        Collider[] colliders = Physics.OverlapSphere(Transform.position, Radius * 5F, LayerMask.GetMask(new string[] { "Entity", "Player"}));
+
+        Collider[] colliders = OverlapSphere();
         for (int i = 0; i < colliders.Length; i++)
         {
-            var item = colliders[i].GetComponentInParent<ItemEngine>();
-            Rigidbody rb;
-            if (item)
+            EntityEngine item = colliders[i].GetComponentInParent<EntityEngine>();
+            Rigidbody rb = colliders[i].GetComponent<Rigidbody>();
+            if (item && item.Rigidbody)
                 rb = item.Rigidbody;
-            else
-            {
-                rb = colliders[i].GetComponent<Rigidbody>();
-            }
+            if(!rb)
+                rb = colliders[i].GetComponentInParent<Rigidbody>();
             float Distance = Vector3.Distance(colliders[i].transform.position, Transform.position);
             IAlive Alive = colliders[i].GetComponentInParent<IAlive>();
             if (Alive != null && Distance < Radius)
@@ -58,7 +67,7 @@ public class TNT : ItemEngine
             }
             if (Distance < Radius * 0.8F)
             {
-                if (item)
+                if (item is ItemEngine)
                 {
                     if (item is TNT tnt)
                     {
@@ -71,7 +80,7 @@ public class TNT : ItemEngine
                         ExplosionForce(rb, 5F);
                         continue;
                     }
-                    else if(Distance < Radius * 0.5F)
+                    else if(Distance < Radius * (Alive == null ? 0.5F : 0.1F))
                         item.Delete();
                 }
             }

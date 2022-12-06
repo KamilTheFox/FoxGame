@@ -16,7 +16,7 @@ TagManager:
   - Terrain
   - Entity
   - ExplosionCollider
-  - 
+  - EntityController
   - 
   - 
   - 

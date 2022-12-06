@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Apple : ItemEngine
 {
+    public Renderer MeshRenderer;
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        MeshRenderer = GetComponent<Renderer>();
+
+    }
     // Start is called before the first frame update
     bool isActivated;
     public override void Interaction()

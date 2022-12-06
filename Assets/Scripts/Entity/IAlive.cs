@@ -11,5 +11,5 @@ using UnityEngine;
         bool IsDead { get; }
         void Dead();
         GameObject gameObject { get; }
-        Action<Collision> BehaviorFromCollision { get; }
+        Action<Collision, GameObject> BehaviorFromCollision => null;
     }

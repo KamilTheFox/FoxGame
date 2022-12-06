@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 namespace GroupMenu
 {
-    public abstract class MainGroup : IActivatable
+    public abstract class MainGroup : IActivatableMenu
     {
 
         private static MenuUI<Button> buttonCallBack;
@@ -39,7 +39,7 @@ namespace GroupMenu
 
         protected virtual bool IsActiveBackHot => true;
 
-        void IActivatable.Update()
+        void IActivatableMenu.Update()
             {
             if ((Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Escape)) && IsActiveBackHot)
                 Menu.PopMenu(isCallBack: true);
@@ -76,16 +76,16 @@ namespace GroupMenu
             buttonCallBack = MenuUI<Button>.Find("Hat/CallBack", mainGroup.transform, new TextUI(LText.Back));
 
         }
-        protected GameObject GetObject()
+        public GameObject GetObject()
         {
             return MenuChildren[TypeMenu];
         }
-        protected Transform GetTransform()
+        public Transform GetTransform()
         {
             return MenuChildren[TypeMenu].transform;
         }
-        // Желательно всю логику поиска элементов главного меню писать в метод: Initialize()
-        void IActivatable.Start()
+        // Желательно всю логику поиска элементов главной группы писать в метод: Initialize()
+        void IActivatableMenu.Start()
         {
             if (!mainGroup)
                 Initialize();
@@ -97,7 +97,7 @@ namespace GroupMenu
             MenuChildren[TypeMenu].SetActive(active);
         }
         
-        void IActivatable.Activate()
+        void IActivatableMenu.Activate()
         {
             SetActive(true);
             buttonCallBack.OnClick().RemoveAllListeners();
@@ -108,7 +108,7 @@ namespace GroupMenu
 
             Activate();
         }
-        void IActivatable.Deactivate()
+        void IActivatableMenu.Deactivate()
         {
             if (IsPushMenu)
                 Menu.PushMenu();

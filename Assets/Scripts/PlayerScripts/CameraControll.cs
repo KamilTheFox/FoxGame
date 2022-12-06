@@ -2,7 +2,6 @@ using UnityEngine;
 using GroupMenu;
 public class CameraControll : MonoBehaviour
 {
-
     public PlayerControll PlayerControll { get; private set; }
 
     [SerializeField]
@@ -23,7 +22,7 @@ public class CameraControll : MonoBehaviour
             return MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         }
     }
-    public static float SensetiveMouse { get; set; } = 25F;
+    public static float SensetiveMouse => Settings.SensetiveMouse;
 
     [SerializeField]
     float MouseVertical, MouseHorizontal;
@@ -57,23 +56,31 @@ public class CameraControll : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
     void Start()
     {
+        if (instance) 
+        {
+            Debug.LogError("You cannot create 2 camera controllers");
+        }
+        instance = this;
         Transform = transform;
         DistanseRay = 3F;
-        MainCamera = FindObjectOfType<Camera>();
-        instance = this;
+        MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
         CameraSource = GetComponent<AudioSource>();
+        if (isCameraMove && !GameState.IsCreative)
+            GiveBody();
     }
-
+    private void OnDestroy()
+    {
+        instance = null;
+    }
     void ChoiceSkinPlayer()
     {
         if (Physics.Raycast(RayCastCenterScreen, out RaycastHit raycast, 3F, 1 << LayerMask.NameToLayer("Player")))
         {
             GameObject game = raycast.collider.gameObject;
-            Renderer renderer = game.GetComponent<Renderer>();
+            Renderer renderer = game.GetComponentInChildren<Renderer>();
             if (renderer)
             {
                 Material material = renderer.material;
@@ -165,14 +172,19 @@ public class CameraControll : MonoBehaviour
     {
         if (Menu.IsEnabled || !isCameraMove)
             return;
+
         CameraMove();
+
+        if (!GameState.IsCreative) 
+            return;
+
         if (IsPlayerControll())
         {
             CameraNoClip();
             ChoiceSkinPlayer();
             return;
         }
-        if (Input.GetKeyDown(KeyCode.P))//Временно. предрелизная
+        if ( Input.GetKeyDown(KeyCode.P))
         {
             ExitBody();
         }

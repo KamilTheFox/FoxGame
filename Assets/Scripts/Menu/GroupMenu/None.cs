@@ -4,19 +4,19 @@ using UnityEngine.UI;
 
 namespace GroupMenu
 {
-    public class None : IActivatable
+    public class None : IActivatableMenu
     {
         public TypeMenu TypeMenu => TypeMenu.None;
 
         private static MenuUI<Text> InfoEntity;
 
-        public void Activate()
+        void IActivatableMenu.Activate()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Menu.PauseEnableGame(false);
+                Menu.PauseEnableGame(false);
         }
 
-        public void Deactivate()
+        void IActivatableMenu.Deactivate()
         {
             Cursor.lockState = CursorLockMode.None;
             Menu.PushMenu();
@@ -25,23 +25,27 @@ namespace GroupMenu
         }
         public static void SetInfoEntity(bool Activate, Func<object> Text = null)
         {
+            SetInfoEntity(Activate, new TextUI(Text));
+        }
+        public static void SetInfoEntity(bool Activate, TextUI Text)
+        {
             InfoEntity.gameObject.SetActive(Activate);
-            if (!Activate || Text == null)
+            if (!Activate)
             {
                 return;
             }
-            InfoEntity.SetText(new TextUI(Text));
+            InfoEntity.SetText(Text);
         }
-        public void Start()
+        void IActivatableMenu.Start()
         {
             InfoEntity = MenuUI<Text>.Find("None/InfoEntity", null, LText.None);
             SetInfoEntity(false);
         }
 
-        public void Update()
+        void IActivatableMenu.Update()
         {
             if (Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Escape))
-                Menu.ActivateMenu(new Lobby());
+                Menu.ActivateMenu<Lobby>();
         }
     }
 }

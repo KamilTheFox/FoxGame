@@ -8,9 +8,9 @@ public static class MovementMode
         Vector3 velosity = WASD(obj.transform,Speed); 
         obj.Move(new Vector3(velosity.x, -0.1F, velosity.z));
     }
-    public static Vector3 WASD(Transform transform,float Speed)
+    public static Vector3 WASD(Transform transform,float Speed, bool FixedUpdate = false)
     {
-        float deltaTimeSpeed = Speed * MovementSpeed *  Time.deltaTime;
+        float deltaTimeSpeed = Speed * MovementSpeed *  (FixedUpdate? Time.fixedDeltaTime : Time.deltaTime);
         Vector3 newPosition = transform.forward * deltaTimeSpeed;
         Vector3 velosity = Vector3.zero;
         if (Input.GetKey(KeyCode.W)) velosity += newPosition;
@@ -20,19 +20,63 @@ public static class MovementMode
         if (Input.GetKey(KeyCode.A)) velosity += -newPosition;
         return velosity;
     }
-    public static void MovementWASD(Rigidbody obj, float Speed)
+    public static Vector3 WASD(Transform transform, float Speed, out bool IsMove, bool FixedUpdate = false)
+    {
+        IsMove = false;
+        float deltaTimeSpeed = Speed * MovementSpeed * (FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+        Vector3 newPosition = transform.forward * deltaTimeSpeed;
+        Vector3 velosity = Vector3.zero;
+        if (Input.GetKey(KeyCode.W)) { velosity += newPosition; IsMove = true; }
+        if (Input.GetKey(KeyCode.S)) { velosity += -newPosition; IsMove = true; }
+        newPosition = transform.right * deltaTimeSpeed;
+        if (Input.GetKey(KeyCode.D)) { velosity += newPosition; IsMove = true; }
+        if (Input.GetKey(KeyCode.A)) { velosity += -newPosition; IsMove = true; }
+        return velosity;
+    }
+    public static void MovementWASD(Rigidbody obj, float Speed, PlayerControll player)
     {
         Vector3 velosity = WASD(obj.transform, Speed);
         Vector3 newPosition = obj.position + new Vector3(velosity.x, 0, velosity.z);
-        if (RayCheck(obj.position, new Vector3(velosity.x, 0, velosity.z)))
-        {
-            obj.MovePosition(newPosition);
-        }
+        bool RayChack = RayCheck(obj.position, new Vector3(velosity.x, 0, velosity.z), player.RecommendedHeight);
+            //if (obj.SweepTest(newPosition, out RaycastHit hit, Vector3.Distance(obj.position, newPosition)))
+            //{
+            //bool isStationaryEntity = false;
+            //EntityEngine entity = hit.collider.gameObject.GetComponentInParent<EntityEngine>();
+            //if (entity)
+            //    isStationaryEntity = entity.Stationary;
+            //   if (!isStationaryEntity && RayChack)
+            //   {
+            //     obj.MovePosition(newPosition);
+            //   }
+            //}
+            if(RayChack)
+                obj.MovePosition(newPosition);
+       
     }
-    private static bool RayCheck(Vector3 oldV,Vector3 newV)
+    public static void MovementWASDVelocity(Rigidbody obj, float Speed)
     {
-        int Layer = LayerMask.GetMask(new string[] {"Terrain", "Default" , "Entity"});
-        return !Physics.Raycast(oldV, newV, 0.71F ,Layer) && !Physics.Raycast(oldV + newV, Vector3.up , 1F, Layer);
+        Vector3 velosity = WASD(obj.transform, Speed * obj.mass * 2F, out bool isMove, true);
+        if (isMove)
+            obj.velocity = new Vector3(velosity.x, obj.velocity.y, velosity.z);
+        else 
+            obj.velocity = Vector3.up * obj.velocity.y;
+    }
+    private static bool RayCheck(Vector3 oldV,Vector3 newV, float Height)
+    {
+        int Layer = LayerMask.GetMask(new string[] { "Terrain", "Default", "Entity" });
+        EntityEngine Entity = null;
+        bool collider = Physics.SphereCast(oldV + Height * Vector3.up, 0.35F * Height, newV, out RaycastHit hit, 0.26F, Layer);
+        if(collider)
+        Entity = hit.collider.gameObject.GetComponentInParent<EntityEngine>();
+        if (Entity && !Entity.Stationary)
+            return true;
+        return !collider;
+        //bool isTerrain = !Physics.Raycast(oldV, newV, out RaycastHit hit, 0.71F ,Layer ) && !Physics.Raycast(oldV + Vector3.up * 0.7F, newV, out hit, 0.71F, Layer);
+        //if(!isTerrain && hit.collider.gameObject.TryGetComponent(out EntityEngine entity))
+        //{
+        //    return !entity.Stationary;
+        //}
+        //return isTerrain;
     }
     public static void MovementWASD(Transform obj, float Speed)
     {

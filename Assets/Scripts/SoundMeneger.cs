@@ -1,12 +1,13 @@
 using System.Collections;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class SoundMeneger : MonoBehaviour
 {
-    static Sound[] ListSound;
+    private static Dictionary<Enum, AudioClip> DictionarySounds;
 
     [SerializeField]
     private AudioSource AudioModifer, AudioDefault, Music;
@@ -48,7 +49,7 @@ public class SoundMeneger : MonoBehaviour
     {
         do
         {
-            if (!CurrentMusicPause && !_Music.isPlaying) PlayRandomMusic();
+            if (!CurrentMusicPause && !_Music.isPlaying && _Music.clip != null && _Music.time != _Music.clip.length) PlayRandomMusic();
             PlayClip.Invoke(_Music);
             yield return new WaitForSecondsRealtime(1F);
         }
@@ -60,7 +61,8 @@ public class SoundMeneger : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("You cannot call the sound manager");
+            Debug.LogWarning(new TextUI(LText.ErrorInitializeObjects, gameObject.ToString).ToString());
+            GameObject.Destroy(gameObject);
             return;
         }
         instance = this;
@@ -69,9 +71,9 @@ public class SoundMeneger : MonoBehaviour
 
         _Music = Instantiate(Music, transform).GetComponent<AudioSource>();
 
-        GroupMenu.Settings.VolumeSoundChange.AddListener((newValue) => { Volume = newValue; ChangeVolume(newValue); });
+        Settings.VolumeSoundChange.AddListener((newValue) => { Volume = newValue; ChangeVolume(newValue); });
 
-        GroupMenu.Settings.VolumeMusicChange.AddListener((newValue) => { VolumeM = newValue; ChangeVolumeMusic(newValue); });
+        Settings.VolumeMusicChange.AddListener((newValue) => { VolumeM = newValue; ChangeVolumeMusic(newValue); });
 
         ChangeVolumeMusic(VolumeM);
 
@@ -79,23 +81,38 @@ public class SoundMeneger : MonoBehaviour
 
         StartCoroutine(PlayingClip());
 
-        List<Sound> sounds = new List<Sound>();
-        string[] NameTypes = Enum.GetNames(typeof(Sounds));
+        DictionarySounds = new ();
+        Array NameTypes = Enum.GetValues(typeof(Sounds));
         foreach (var sound in NameTypes)
         {
-            AudioClip clip = AudioLoad(sound);
+            Sounds _sound = (Sounds)sound;
+            AudioClip clip = AudioLoad(_sound);
             if (clip)
-                sounds.Add(new Sound((Sounds)Enum.Parse(typeof(Sounds), sound), clip));
+                DictionarySounds.Add(_sound, clip);
             else
                 Debug.Log($"Sound not detected in resources {sound}");
         }
-        Debug.Log($"Sucsess Load Audio {sounds.Count} / {NameTypes.Length}");
-        ListSound = sounds.ToArray();
+        Array NameMusic = Enum.GetValues(typeof(Musics));
+        foreach (var music in NameMusic)
+        {
+            Musics _sound = (Musics)music;
+            AudioClip clip = AudioLoad(_sound);
+            if (clip)
+                DictionarySounds.Add(_sound, clip);
+            else
+                Debug.Log($"Music not detected in resources {_sound}");
+        }
+        Debug.Log($"Sucsess Load Audio {DictionarySounds.Count} / {NameTypes.Length + NameMusic.Length}");
+#if !UNITY_EDITOR
         PlayRandomMusic();
+#endif
     }
-    private static AudioClip AudioLoad(string Name)
+    private static AudioClip AudioLoad(Enum value)
     {
-        return Resources.Load<AudioClip>("Sounds\\" + Name);
+        if(DictionarySounds.ContainsKey(value))
+            return DictionarySounds[value];
+
+        return Resources.Load<AudioClip>("Sounds\\" + value);
     }
     private void OnDestroy()
     {
@@ -115,12 +132,12 @@ public class SoundMeneger : MonoBehaviour
         if(PreviousMusic.Count > 0)
         PlayMusic(PreviousMusic.Pop(), false);
     }
-    public static void PlayMusic(Musics sound, bool PushStack = true)
+    public static void PlayMusic(Musics music, bool PushStack = true)
     {
         if(PushStack)
-            PreviousMusic.Push(sound);
-        CurrentMusic = sound;
-        PlayMusic(AudioLoad(sound.ToString()));
+            PreviousMusic.Push(music);
+        CurrentMusic = music;
+        PlayMusic(AudioLoad(music));
     }
     private static void PlayMusic(AudioClip sound)
     {
@@ -145,14 +162,9 @@ public class SoundMeneger : MonoBehaviour
         CurrentMusic = Musics.None;
         _Music.Stop();
     }
-    static AudioClip GetAudio(Sounds type)
+    private static AudioClip GetAudio(Sounds type)
     {
-        foreach (var sound in ListSound)
-        {
-            if (sound.Type == type)
-                return sound.Audio;
-        }
-        return null;
+        return DictionarySounds[type];
     }
     private static void ChangeVolumeMusic(float value)
     {
@@ -211,7 +223,7 @@ public class SoundMeneger : MonoBehaviour
         audioSources.Add(source);
         Destroy(source.gameObject, audioClip.length);
     }
-    #region Overload Play()
+#region Overload Play()
     public static void Play(Sounds type)
     {
         Play(type,null);
@@ -232,7 +244,7 @@ public class SoundMeneger : MonoBehaviour
     {
         Play(type, source, 1F, 1, _3D);
     }
-    #endregion
+#endregion
     /// <param name="volume"> значение от 0 до 1</param>
     public static void Play(Sounds type, AudioSource source = null, float volume = 1F, int X = 1, bool _3D = true)
     {
@@ -265,14 +277,4 @@ public class SoundMeneger : MonoBehaviour
         TomMisch_GypsyWoman,
         Absofacto_Dissolve
     }
-    private class Sound
-        {
-        public Sound (Sounds type, AudioClip audio)
-        {
-            Type = type;
-            Audio = audio;
-        }
-        public Sounds Type;
-        public AudioClip Audio;
-        }
 }
