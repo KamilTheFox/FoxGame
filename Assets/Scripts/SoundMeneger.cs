@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -66,7 +66,6 @@ public class SoundMeneger : MonoBehaviour
             return;
         }
         instance = this;
-
         audioSources = new ();
 
         _Music = Instantiate(Music, transform).GetComponent<AudioSource>();
@@ -205,7 +204,7 @@ public class SoundMeneger : MonoBehaviour
     {
         PlayPoint(type, vector, 1F, X);
     }
-    /// <param name="volume"> значение от 0 до 1. Если больше 1, то звук воспроизводится модифицированным источником, где интенсивность рассеивания звука меньше</param>
+    /// <param name="volume"> Р·РЅР°С‡РµРЅРёРµ РѕС‚ 0 РґРѕ 1. Р•СЃР»Рё Р±РѕР»СЊС€Рµ 1, С‚Рѕ Р·РІСѓРє РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РјРѕРґРёС„РёС†РёСЂРѕРІР°РЅРЅС‹Рј РёСЃС‚РѕС‡РЅРёРєРѕРј, РіРґРµ РёРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ СЂР°СЃСЃРµРёРІР°РЅРёСЏ Р·РІСѓРєР° РјРµРЅСЊС€Рµ</param>
     public static void PlayPoint(Sounds type, Vector3 vector, float volume = 1F, int X = 1)
     {
         AudioClip clip = GetAudio(type);
@@ -245,7 +244,7 @@ public class SoundMeneger : MonoBehaviour
         Play(type, source, 1F, 1, _3D);
     }
 #endregion
-    /// <param name="volume"> значение от 0 до 1</param>
+    /// <param name="volume"> Р·РЅР°С‡РµРЅРёРµ РѕС‚ 0 РґРѕ 1</param>
     public static void Play(Sounds type, AudioSource source = null, float volume = 1F, int X = 1, bool _3D = true)
     {
         AudioClip clip = GetAudio(type);

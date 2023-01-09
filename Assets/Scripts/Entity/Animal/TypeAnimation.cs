@@ -7,5 +7,6 @@
     StendUp,
     Run,
     Run_Fast,
-    Walk
+    Walk,
+    ShakesUp
 }

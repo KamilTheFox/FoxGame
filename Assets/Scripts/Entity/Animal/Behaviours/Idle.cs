@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class Idle : IBehavior
 {
+    public Idle(bool isSit = false)
+    {
+        startSits = isSit;
+    }
+    bool startSits;
     public string Name => "Idle";
 
     public AI AI { get; set; }
@@ -22,6 +27,7 @@ public class Idle : IBehavior
         CurrentAnimation = TypeAnimation.Idle;
         AI.SetAnimation(CurrentAnimation);
         time = 0;
+        if(!startSits)
         RandomFatigueTime();
     }
 
@@ -31,7 +37,7 @@ public class Idle : IBehavior
             AI.SetAnimation(TypeAnimation.StendUp);
     }
 
-   private void RandomFatigueTime()
+    private void RandomFatigueTime()
     {
         timeFatigue = UnityEngine.Random.Range(15F, 100F);
     }

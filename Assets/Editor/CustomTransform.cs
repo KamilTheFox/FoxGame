@@ -40,7 +40,7 @@ namespace Assets.Editors
             }
             else if (entityEngine is PlantEngine plant)
             {
-                plant = PlantEngine.AddPlant(plant.typePlant, Instanse.position, Instanse.rotation);
+                PlantEngine.AddPlant(plant.typePlant, Instanse.position, Instanse.rotation);
             }
             Undo.RecordObject(Instanse.gameObject, Instanse.name + " Delete");
             GameObject.DestroyImmediate(Instanse.gameObject);

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
-public abstract class  RandomGo : IBehavior
+public abstract class RandomGo : IBehavior
 {
     public string Name => nameof(RandomGo);
 
@@ -16,22 +11,11 @@ public abstract class  RandomGo : IBehavior
 
     abstract protected Action Stopped { get; }
 
-    abstract protected Vector2 PositionFrom { get; }
+    abstract protected Vector3 PositionFrom { get; }
 
-    private Vector3 RunRandomPosition 
+    protected Vector3 RanngeVector3(float min, float max)
     {
-        get
-        {
-            Vector2 vector2 = PositionFrom;
-            Vector3 vector = new Vector3(vector2.x, 0F, vector2.y);
-            Debug.Log(vector);
-            vector += AI.engine.Transform.position; 
-            return vector;
-        }
-    }
-    protected Vector2 RanngeVector2(float min, float max)
-    {
-        if(min >= max)
+        if (min >= max)
         {
             Debug.LogError(LText.ErrorMinMax.GetTextUI());
         }
@@ -43,21 +27,73 @@ public abstract class  RandomGo : IBehavior
             z = Random.Range(-max, max);
         }
         while (x < min && x > -min && z < min && z > -min);
-        return new Vector2(x, z);
+        Vector3 vector = new Vector3(x, 0F, z);
+        vector += AI.engine.Transform.position;
+        return vector;
+    }
+    protected Vector3 RanngeVector3Forward(float min, float max)
+    {
+        if (min >= max)
+        {
+            Debug.LogError(LText.ErrorMinMax.GetTextUI());
+        }
+        Vector3 position = AI.engine.Transform.position;
+        Vector3 forward = AI.engine.Transform.forward;
+        Vector3 right = AI.engine.Transform.right;
+        Vector3 left = -AI.engine.Transform.right;
+        float x;
+        float z;
+        float t;
+        Vector3 vector = Vector3.zero;
+        do
+        {
+            x = Random.Range(-max, max);
+            z = Random.Range(-max, max);
+            vector = new Vector3(x, 0f, z);
+            t = Vector3.Angle(forward, vector);
+        }
+        while (t >= 90F && x < min && x > -min && z < min);
+
+        vector += position;
+        return vector;
+    }
+    protected abstract IBehavior AbsencePath { get; }
+
+    protected virtual bool СonditionRandomPoint(Vector3 vector)
+    {
+        return true;
+    }
+
+
+    protected void StartRun()
+    {
+        Vector3 vector2;
+        bool flag = false;
+        int protectCatch = 0;
+        do
+        {
+            protectCatch++;
+            vector2 = PositionFrom;
+            if (!СonditionRandomPoint(vector2))
+                continue;
+            flag = AI.SetDestination(vector2);
+        }
+        while (!flag && protectCatch <= 9);
+        if (!flag)
+        {
+            AI.SetBehavior(AbsencePath);
+            return;
+        }
+        AI.SetAnimation(Go);
+        AI.ContinueMove();
+
     }
     public virtual void Activate(AI ai)
     {
         AI = ai;
-        AI.SetAnimation(Go);
-        if (AI.CheckStatePath(NavMeshPathStatus.PathPartial))
-        {
-            AI.SetBehavior(new Idle());
-            return;
-        }
-            AI.SetDestination(RunRandomPosition);
-            AI.ContinueMove();
+        StartRun();
     }
-    
+
     public void Deactivate()
     {
         AI.StopMove();

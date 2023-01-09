@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\FoodSearch.cs" />
     <Compile Include="Assets\Scripts\Entity\Regdoll.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
     <Compile Include="Assets\Scripts\Debug\OldConsole.cs" />
     <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerControll.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="Assets\Scripts\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomWalk.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehaviour.cs" />
     <Compile Include="Assets\Scripts\Entity\ITakenEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\CalendarHolidays.cs" />
@@ -99,8 +103,8 @@
     <Compile Include="Assets\Scripts\NavMeshRebuild.cs" />
     <Compile Include="Assets\Settings.cs" />
     <Compile Include="Assets\Scripts\SceneMenu.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
     <Compile Include="Assets\Test.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomRun.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TNT.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Fox.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\PlantsCreating.cs" />
@@ -120,11 +124,8 @@
     <Compile Include="Assets\Scripts\FactoryEntity\IEntityCreated.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
-    <Compile Include="Assets\Scripts\Between.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomRun.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -778,9 +779,6 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Shared.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -792,9 +790,6 @@
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -823,26 +818,32 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Shared.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.State">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -853,6 +854,10 @@
     <ProjectReference Include="NavMeshComponents.csproj">
       <Project>{50FB13A0-4D8B-CD3D-379A-6B605F57477F}</Project>
       <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="Tweener.csproj">
+      <Project>{F629E610-3C16-DDDA-3925-613C229A916D}</Project>
+      <Name>Tweener</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

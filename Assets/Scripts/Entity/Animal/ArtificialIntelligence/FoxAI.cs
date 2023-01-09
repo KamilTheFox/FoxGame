@@ -26,14 +26,14 @@ public class FoxAI : AI
     } 
     public override Action<Collision, GameObject> BehaviorFromCollision => (col, Attached) =>
     {
-        if (Attached.name.ToLower().Contains("head") && col.gameObject.TryGetComponent(out Rigidbody rigidbody) && col.relativeVelocity.magnitude * rigidbody.mass > 70F)
+        if(col.gameObject.TryGetComponent(out PlayerControll player))
         {
-            engine.Dead();
+            if(Attached.name.ToLower().Contains("teil") || player.Rigidbody.velocity.magnitude * player.Rigidbody.mass < 70F)
+                SetBehavior(new RandomWalk());
+            else
+                SetBehavior(new RandomFright(col.transform));
         }
-        if(Attached.name.ToLower().Contains("teil") && col.gameObject.TryGetComponent(out PlayerControll player))
-        {
-            SetBehavior(new RandomFright());
-        }
+            
 
     };
     private void ChangeState()
@@ -54,6 +54,6 @@ public class FoxAI : AI
     protected override void OnStart()
     {
         ChangeStateBehaviour += ChangeState;
-        TimeRest = Random.Range(100F, 150F);
+        TimeRest = Random.Range(30F, 180F);
     }
 }

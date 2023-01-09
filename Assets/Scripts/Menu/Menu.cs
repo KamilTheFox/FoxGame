@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +31,7 @@ public class Menu : MonoBehaviour
 
     private static bool isClickBack;
 
+    public static bool Pause => Time.timeScale == 0;
 
     private void Awake()
     {
@@ -40,7 +41,6 @@ public class Menu : MonoBehaviour
             GameObject.Destroy(gameObject);
             return;
         }
-
         PreviousMenu = new();
 
         instance = this;
@@ -137,7 +137,7 @@ public class Menu : MonoBehaviour
         onDestroy.RemoveAllListeners();
         Application.Quit();
     }
-    /// <param name="isCallBack"> если это обратный вызов, то меню не занесется в стек </param>
+    /// <param name="isCallBack"> РµСЃР»Рё СЌС‚Рѕ РѕР±СЂР°С‚РЅС‹Р№ РІС‹Р·РѕРІ, С‚Рѕ РјРµРЅСЋ РЅРµ Р·Р°РЅРµСЃРµС‚СЃСЏ РІ СЃС‚РµРє </param>
     public static void PopMenu(bool isCallBack = false)
     {
         isClickBack = isCallBack;

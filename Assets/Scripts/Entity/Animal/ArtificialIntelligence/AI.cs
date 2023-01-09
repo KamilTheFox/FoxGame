@@ -45,9 +45,16 @@ using UnityEngine.AI;
     }
     public abstract Action<Collision, GameObject> BehaviorFromCollision { get; }
 
-    public void SetDestination(Vector3 position)
+    public bool SetDestination(Vector3 position)
     {
-        Navigation.SetDestination(position);
+        NavMeshPath navMeshPath = new NavMeshPath();
+        Navigation.CalculatePath(position, navMeshPath);
+        if (navMeshPath.status == NavMeshPathStatus.PathComplete)
+        {
+            Navigation.SetDestination(position);
+            return true;
+        }
+        return false;
     }
     public void OnEnableMove()
     {
@@ -67,6 +74,8 @@ using UnityEngine.AI;
     }
     public void SetAnimation(TypeAnimation _enum)
     {
+        if (_enum == TypeAnimation.Walk)
+            _enum = TypeAnimation.None;
         Animator.Play(_enum.ToString());
         float speed;
         switch (_enum)

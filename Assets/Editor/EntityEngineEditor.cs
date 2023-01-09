@@ -16,6 +16,7 @@ namespace Assets.Editors
         {
             entity = (EntityEngine)target;
         }
+        public Transform transform = null;
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -25,6 +26,7 @@ namespace Assets.Editors
             {
                 GUILayout.Label($"TypeAnimal: {engine.TypeAnimal}");
                 GUILayout.Label($"AI: {engine.NameAI} / Behavior: {engine.Behavior}");
+                GUILayout.Label($"All Animal: {AnimalEngine.AnimalList.Count}");
             }
             if (entity is ItemEngine Item)
             {

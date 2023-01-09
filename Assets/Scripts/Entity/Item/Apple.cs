@@ -13,6 +13,8 @@ public class Apple : ItemEngine
     }
     // Start is called before the first frame update
     bool isActivated;
+
+
     public override void Interaction()
     {
         if (isActivated)
@@ -21,4 +23,6 @@ public class Apple : ItemEngine
         SoundMeneger.Play(SoundMeneger.Sounds.EatApple);
         Delete(0.5F);
     }
+
+    
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using GroupMenu;
 public class CameraControll : MonoBehaviour
 {
@@ -122,7 +122,7 @@ public class CameraControll : MonoBehaviour
     {
         if (!IsCanInstall(ref @object))
         {
-            MessageBox.Info("Îáúåêò Ìåğòâ");
+            MessageBox.Info("ĞĞ±ÑŠĞµĞºÑ‚ ĞœĞµÑ€Ñ‚Ğ²");
             return;
         }
         if (PlayerControll)

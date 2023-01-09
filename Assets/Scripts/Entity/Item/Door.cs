@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Tweener;
+
     public class Door : ItemEngine, IAlive
     {
     Transform DoorObject;
@@ -19,13 +21,16 @@ using UnityEngine;
     protected override void OnStart()
     {
         DoorObject = Transform.Find("Door");
+        
     }
     
     public override void Interaction()
     {
         if (IsDead || isLocked) return;
         isClosed = !isClosed;
-        Between.AddRotation(DoorObject, new Vector3(0f, isClosed ? 90F : -90F , 0));
+        Tween.AddRotation(DoorObject, new Vector3(0f, isClosed ? 90F : -90F, 0))
+            .ChangeEase(Ease.CubicRoot)
+            .ToCompletion(() => Debug.Log(isClosed? "Close" : "Open"));
     }
     public override TextUI GetTextUI()
     {
@@ -35,14 +40,10 @@ using UnityEngine;
     }
     private void ChangeColorDoor()
     {
-        DoorObject.GetComponentsInChildren<Renderer>().ToList().ForEach(rend =>
-        {
-            rend.material.ToFadeMode();
-            Color newColor = rend.material.color;
-            newColor.a = 0F;
-            Between.SetColorLerp(rend.transform, newColor, 1F);
-
-        });
+          Tween.SetColor(DoorObject, new Color(0F,0F,0F,0F), 1F).IgnoreAdd(IgnoreARGB.RGB).
+            TypeOfColorChange(TypeChangeColor.ObjectAndHierarchy).
+            ToCompletion(() => Destroy(DoorObject.gameObject),
+            CallWhenDestroy: true);
     }
     public void Dead()
     {
@@ -52,7 +53,6 @@ using UnityEngine;
         Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         Rigidbody = null;
         DoorObject.parent = null;
-        GameObject.Destroy(DoorObject.gameObject, 30F);
         Invoke(nameof(ChangeColorDoor), 29F);
     }
 }

@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using UnityEngine;
 using GroupMenu;
+using Tweener;
 
 public class PlayerControll : MonoBehaviour, IAlive
 {
@@ -159,9 +160,9 @@ public class PlayerControll : MonoBehaviour, IAlive
                 Entity.Transform.position = newPosition;
                 float Scroll = Input.GetAxis("Mouse ScrollWheel");
                 if (Scroll > 0)
-                    Between.AddRotation(Entity.Transform, new Vector3(0F, 45F ,0F));
+                    Tween.AddRotation(Entity.Transform, new Vector3(0F, 45F ,0F)).ChangeEase(Ease.CubicRoot);
                 if (Scroll < 0)
-                    Between.AddRotation(Entity.Transform, new Vector3(0F, -45F, 0F));
+                    Tween.AddRotation(Entity.Transform, new Vector3(0F, -45F, 0F)).ChangeEase(Ease.CubicRoot);
                 buttonClicks(Entity, isItemMove);
             }
         }

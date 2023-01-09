@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using Tweener;
 
 public class PlantEngine : EntityEngine, IAlive
 {
@@ -31,14 +29,13 @@ public class PlantEngine : EntityEngine, IAlive
     {
         if (IsDead) return;
         IsDead = true;
-
         GetComponentsInChildren<Transform>().Where(obj => obj.name.Contains("Crown")).ToList().ForEach(obj => LateСrown(obj.gameObject));
     }
     private void LateСrown(GameObject Crown)
     {
-        Between.SetColorLerp(Crown.transform, new Color(1F,0.5F,0F,0F), 2F);
-        Between.SetPosition(Crown.transform,  Crown.transform.parent.position + Vector3.down * 5F, 2F);
-        Between.SetScaleLerp(Crown.transform, Crown.transform.localScale * 1.5F, 2F);
+        Tween.SetColor(Crown.transform, new Color(1F,0.5F,0F,0F), 2F);
+        Tween.SetPosition(Crown.transform,  Crown.transform.parent.position + Vector3.down * 5F, 2F);
+        Tween.SetScale(Crown.transform, Crown.transform.localScale * 1.5F, 2F);
         GameObject.Destroy(Crown, 2.1F);
     }
     public override TextUI GetTextUI()

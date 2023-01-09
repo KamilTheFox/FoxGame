@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-public class RandomFright : RandomGo
-{ 
-    protected override TypeAnimation Go => TypeAnimation.Run_Fast;
-
-    protected override Action Stopped => StoppedRun;
-
-    protected override Vector2 PositionFrom => RanngeVector2(5F, 10F);
-    private int i;
-    private void StoppedRun()
+    public class RandomFright : RandomFustRun
     {
-        if (i <= 2)
+        private Transform Frightening;
+        private List<Vector3> OldPosition = new();
+        public RandomFright(Transform frightening)
         {
-            AI.SetDestination(new Vector3(PositionFrom.x, 0F, PositionFrom.y));
+            Frightening = frightening;
         }
-        else
-            AI.SetBehavior(new Idle());
-        i++;
-    }
+        private float GetDistanseFrigh(Vector3 vector)
+        {
+            return Vector3.Distance(Frightening.position, vector);
+        }
+        protected override bool СonditionRandomPoint(Vector3 vector)
+        {
+            bool flag = false;
+            if (OldPosition.Count > 0 && GetDistanseFrigh(vector) > GetDistanseFrigh(OldPosition[OldPosition.Count - 1]))
+                flag = true;
+            OldPosition.Add(vector);
+            return flag;
+        }
+    
 }

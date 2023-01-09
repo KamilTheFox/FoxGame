@@ -43,7 +43,7 @@ namespace GroupMenu
                 });
                 MenuUI<Button> TabEntity = MenuUI<Button>.Create("TabEntity", GetTransform(), new TextUI(() => new object[] { LText.Create, " ", LText.Entities }), true);
 
-                TabEntity.OnClick().AddListener(() =>
+                TabEntity.OnClick(() =>
                 {
                     Menu.RebuildMenuInMainGroup<Lobby>(Menu.TypeRebuildMainGroup.Only_Custom, this.TabEntity1);
                 });

@@ -15,9 +15,7 @@ public abstract class AnimalEngine : EntityEngine, IAlive
         get
         {
             List<AnimalEngine> list = new();
-            Debug.Log("Entities " + Entities[TypeEntity.Animal].Count);
             Entities[TypeEntity.Animal].ForEach(e => list.Add(e as AnimalEngine));
-            Debug.Log("Animal " + list.Count);
             return list;
         }
     }
@@ -31,6 +29,8 @@ public abstract class AnimalEngine : EntityEngine, IAlive
     #endregion
 
     private AI AI;
+
+    public AI GetAI => AI;
 
     private Animator Animator => AI?.Animator;
 
@@ -78,6 +78,7 @@ public abstract class AnimalEngine : EntityEngine, IAlive
 
     public void Dead()
     {
+        if (IsDead) return;
         Regdool.Activate();
         AI.StopMove();
         AI.OnEnableMove();
