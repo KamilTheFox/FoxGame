@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -10,6 +10,11 @@ public abstract class EntityEngine : MonoBehaviour
     public Transform Transform { get; private set; }
 
     public abstract TypeEntity typeEntity { get; }
+    public bool IsItem => typeEntity == TypeEntity.Item;
+    public bool IsAnimal => typeEntity == TypeEntity.Animal;
+    public bool IsPlant => typeEntity == TypeEntity.Plant;
+    public EntityEngine GetEngine => this;
+
     protected static Dictionary<TypeEntity, List<EntityEngine>> Entities { get; private set; } = new()
     {
         [TypeEntity.Item] = new(),

@@ -9,6 +9,7 @@ public interface ITakenEntity
 {
     Transform Transform { get; }
     Rigidbody Rigidbody => null;
+    EntityEngine GetEngine { get; }
     bool IsTake { get; }
     void Throw();
     ITakenEntity Take();

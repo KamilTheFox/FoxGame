@@ -61,6 +61,7 @@ public class CameraControll : MonoBehaviour
         if (instance) 
         {
             Debug.LogError("You cannot create 2 camera controllers");
+            Destroy(gameObject);
         }
         instance = this;
         Transform = transform;

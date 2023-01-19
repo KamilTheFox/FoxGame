@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{13D2FAA6-F760-5A25-D026-63A3089C2583}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -58,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IParametrsEntity.cs" />
+    <Compile Include="Assets\Scripts\MasksProject.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Assets\Scripts\Menu\TypeMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\ViewInteractEntity.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />

@@ -23,18 +23,14 @@ namespace GroupMenu
             Menu.PauseEnableGame(true);
             SetInfoEntity(false);
         }
-        public static void SetInfoEntity(bool Activate, Func<object> Text = null)
-        {
-            SetInfoEntity(Activate, new TextUI(Text));
-        }
-        public static void SetInfoEntity(bool Activate, TextUI Text)
+        public static void SetInfoEntity(bool Activate, EntityEngine entity = null)
         {
             InfoEntity.gameObject.SetActive(Activate);
             if (!Activate)
             {
                 return;
             }
-            InfoEntity.SetText(Text);
+            InfoEntity.SetText(entity.GetTextUI());
         }
         void IActivatableMenu.Start()
         {

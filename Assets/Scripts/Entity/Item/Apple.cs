@@ -1,19 +1,17 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Apple : ItemEngine
 {
     public Renderer MeshRenderer;
+
+    private bool isActivated;
     protected override void OnAwake()
     {
         base.OnAwake();
         MeshRenderer = GetComponent<Renderer>();
-
     }
-    // Start is called before the first frame update
-    bool isActivated;
-
 
     public override void Interaction()
     {

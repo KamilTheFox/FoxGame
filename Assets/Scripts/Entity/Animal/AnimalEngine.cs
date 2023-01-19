@@ -60,6 +60,7 @@ public abstract class AnimalEngine : EntityEngine, IAlive
     }
     public override void Interaction()
     {
+        None.SetInfoEntity(false);
         DebugAnimation.Animator = Animator;
         Menu.ActivateMenu<DebugAnimation>();
     }

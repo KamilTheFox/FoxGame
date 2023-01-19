@@ -30,22 +30,19 @@ public class PlayerControll : MonoBehaviour, IAlive
 
     public bool IsDead { get; private set; }
 
-    private const float ForceKick = 700F;
-
-    private ITakenEntity MoveEntity;
-
     public IRegdoll Regdool { get; private set; }
+
     private Animator Animator;
 
-    LayerMask RigidObject;
-    LayerMask RigidEntity;
+    private ViewInteractEntity interactEntity;
+
     public Transform Transform { get; private set; }
     private bool _isGrounded
     {
         get
         {
             Vector3 bottomCenterPoint = new Vector3(SphereCollider.bounds.center.x, SphereCollider.bounds.min.y, SphereCollider.bounds.center.z);
-            return Physics.CheckCapsule(SphereCollider.bounds.center, bottomCenterPoint, SphereCollider.bounds.size.x / 2 * 0.3f, RigidObject);
+            return Physics.CheckCapsule(SphereCollider.bounds.center, bottomCenterPoint, SphereCollider.bounds.size.x / 2 * 0.3f, MasksProject.RigidObject);
         }
     }
     public bool isItemController
@@ -56,7 +53,7 @@ public class PlayerControll : MonoBehaviour, IAlive
             if (isItemController)
             {
                 Rigidbody.freezeRotation = !value;
-                gameObject.layer = value ? LayerMask.NameToLayer("Entity") : LayerMask.NameToLayer("Player");
+                gameObject.layer = value ? MasksProject.Entity : MasksProject.Player;
                 foreach (Transform transform in transform)
                     transform.gameObject.layer = gameObject.layer;
             }
@@ -66,8 +63,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     {
         Transform = transform;
         Speed = SpeedDefault;
-        RigidObject = LayerMask.GetMask(new string[] { "Terrain", "Entity" , "Default"});
-        RigidEntity = 1 << LayerMask.NameToLayer("Entity");
+        
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
 
@@ -79,7 +75,7 @@ public class PlayerControll : MonoBehaviour, IAlive
         SphereCollider.radius = 0.3F;
         SphereCollider.isTrigger = true;
 
-        _isItemController = gameObject.layer == LayerMask.NameToLayer("Entity");
+        _isItemController = gameObject.layer == MasksProject.Entity;
 
         Animator = GetComponent<Animator>();
         if(Animator)
@@ -89,117 +85,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     {
         Speed = SpeedDefault * speed;
     }
-    private void ViewItem()
-    {
-        Ray ray = CameraControll.RayCastCenterScreen;
-        Vector3 newPosition = ray.GetPoint(3F);
-        bool isItemMove = CheckMoveEntity();
-        bool DistanseMin2 = false;
-        LayerMask layerMask = isItemMove ? RigidObject : RigidEntity;
-        Action<EntityEngine, bool> buttonClicks = (item, isMove) =>
-        {
-            if (Menu.IsEnabled)
-                return;
-            bool clickMouse0 = Input.GetKeyDown(KeyCode.Mouse0);
-            bool clickDelete = Input.GetKeyDown(KeyCode.Delete);
-            bool clickE = Input.GetKeyDown(KeyCode.E);
-            if (Input.GetKeyDown(KeyCode.F))
-                item.Interaction();
-            if ((clickE && isMove) || clickMouse0 || clickDelete)
-            {
-                ItemThrow();
-                if (clickMouse0 && item.Rigidbody && !item.Stationary)
-                {
-                    item.Transform.position = DistanseMin2? transform.position + transform.forward * 0.35F + Vector3.up * 0.6F : newPosition - transform.forward * 0.2F;
-                    item.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * item.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
-                }
-                if (clickDelete)
-                {
-                    item.Delete();
-                }
-            }
-            else if (clickE && !isMove && item is ITakenEntity taken)
-                ItemTake(taken);
-        };
-
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, CameraControll.instance.DistanseRay, layerMask))
-        {
-            if (raycastHit.collider.gameObject)
-                newPosition = raycastHit.point + ray.direction.normalized * 0.01F;
-            if (!isItemMove)
-            {
-                EntityEngine Entity = raycastHit.collider.gameObject.GetComponentInParent<EntityEngine>();
-                if (Entity)
-                {
-                    None.SetInfoEntity(true, Entity.GetTextUI());
-                    if (Entity is IAlive alive && !alive.IsDead && alive is AnimalEngine animalEngine)
-                    {
-                        if (Input.GetKeyDown(KeyCode.F))
-                        {
-                            animalEngine.Interaction();
-                            None.SetInfoEntity(false);
-                        }
-                    }
-                    buttonClicks(Entity, isItemMove);
-                }
-            }
-        }
-        else
-            None.SetInfoEntity(false);
-        if (isItemMove)
-        {
-            if (MoveEntity is EntityEngine Entity)
-            {
-                None.SetInfoEntity(true, Entity.GetTextUI());
-                float distanse = Vector3.Distance(transform.position, newPosition);
-                if (distanse < 2F)
-                {
-                    newPosition = transform.forward * 1.25F + transform.position;
-                    DistanseMin2 = true;
-                }
-                Entity.Transform.position = newPosition;
-                float Scroll = Input.GetAxis("Mouse ScrollWheel");
-                if (Scroll > 0)
-                    Tween.AddRotation(Entity.Transform, new Vector3(0F, 45F ,0F)).ChangeEase(Ease.CubicRoot);
-                if (Scroll < 0)
-                    Tween.AddRotation(Entity.Transform, new Vector3(0F, -45F, 0F)).ChangeEase(Ease.CubicRoot);
-                buttonClicks(Entity, isItemMove);
-            }
-        }
-    }
-    public void GiveItem(ItemEngine item)
-    {
-        ItemTake(item);
-    }
-    private void ItemThrow()
-    {
-        if (MoveEntity == null)
-            return;
-        MoveEntity.Throw();
-        MoveEntity = null;
-    }
-    private bool CheckMoveEntity()
-    {
-        bool Enable = MoveEntity != null;
-        if(Enable && MoveEntity.Transform == null)
-        {
-            Enable = false;
-            MoveEntity = null;
-        }
-        return Enable;
-    }
-    private void ItemTake(ITakenEntity entity)
-    {
-        if (CheckMoveEntity())
-            ItemThrow();
-        if (entity != null)
-        {
-            MoveEntity = entity.Take();
-            MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
-            if(MoveEntity.Rigidbody)
-                MoveEntity.Rigidbody.angularVelocity = MoveEntity.Rigidbody.velocity = Vector3.zero;
-        }
-    }
+    
     private void ChangeLayerIsItemToPlayer(bool IsEnabled)
     {
         if (isItemController)
@@ -212,14 +98,16 @@ public class PlayerControll : MonoBehaviour, IAlive
         camera.Transform.rotation = Transform.rotation;
         camera.Transform.position = Transform.position + (RecommendedHeight * Transform.up);
         camera.Transform.parent = Transform;
+        interactEntity = new ViewInteractEntity(Transform);
     }
     public void ExitPlayerControll(CameraControll camera)
     {
         Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        ItemThrow();
+        interactEntity.ItemThrow();
         None.SetInfoEntity(false);
         ChangeLayerIsItemToPlayer(false);
         camera.Transform.parent = null;
+        interactEntity = null;
     }
     public void Dead()
     {
@@ -258,7 +146,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     {
         if (Menu.IsEnabled || !CameraControll.instance.IsPlayerControll(this))
             return;
-        ViewItem();
+        interactEntity.RayCast();
         Moving();
     }
 }
