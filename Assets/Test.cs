@@ -7,5 +7,8 @@ using Tweener;
 
 public class Test : MonoBehaviour
 {
-   
+    private void Start()
+    {
+        Tween.SetScale(transform, Vector3.zero, 1).ReverseProgress();
+    }
 }

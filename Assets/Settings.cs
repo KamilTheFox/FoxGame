@@ -24,9 +24,12 @@ public static class Settings
 
     public static float SensetiveMouse;
 
+    public static UnityEvent ChangeLanguageEvent = new();
+
     public static void ChangeLanguage(Language language)
     {
         Localisation.Language = language;
+        ChangeLanguageEvent?.Invoke();
         Menu.UpdateTextUI();
     }
     public static void SaveValue()

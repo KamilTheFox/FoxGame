@@ -10,8 +10,12 @@ namespace GroupMenu
 
         private static MenuUI<Text> InfoEntity;
 
+        private static MenuUI<Image> Aim;
+
         void IActivatableMenu.Activate()
         {
+            if (Aim != null)
+                Aim.gameObject?.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
                 Menu.PauseEnableGame(false);
         }
@@ -19,6 +23,8 @@ namespace GroupMenu
         void IActivatableMenu.Deactivate()
         {
             Cursor.lockState = CursorLockMode.None;
+            if (Aim != null)
+                Aim.gameObject.SetActive(false);
             Menu.PushMenu();
             Menu.PauseEnableGame(true);
             SetInfoEntity(false);
@@ -35,6 +41,7 @@ namespace GroupMenu
         void IActivatableMenu.Start()
         {
             InfoEntity = MenuUI<Text>.Find("None/InfoEntity", null, LText.None);
+            Aim = MenuUI<Image>.Find("None/Aim", null, LText.None);
             SetInfoEntity(false);
         }
 

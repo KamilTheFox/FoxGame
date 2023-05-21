@@ -8,5 +8,6 @@
     Statistics,
     MediaPlayer,
     DebugAnimation,
-    ConsoleMenu
+    ConsoleMenu,
+    MenuScreenSave
 }

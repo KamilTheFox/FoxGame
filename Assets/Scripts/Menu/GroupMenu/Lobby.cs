@@ -77,12 +77,18 @@ namespace GroupMenu
             MenuUI<Button>.Create("Add", GroupAddItems, LText.Add).OnClick(() => GiveItem());
             MenuUI<Button>.Create("X20", GroupAddItems, "X20".GetTextUI()).OnClick(() =>
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 100; i++)
                 {
-                    var tuple = GiveItem();
-                    if (!tuple.Item1)
-                        break;
-                    tuple.Item2.Transform.position = Vector3.up * (i * 2 + 2);
+                    for (int y = -1; y < 1; y++)
+                    {
+                        for (int z = -1; z < 1; z++)
+                        {
+                            var tuple = GiveItem();
+                            if (!tuple.Item1)
+                                break;
+                            tuple.Item2.Transform.position = Vector3.up * (i * 2 + 2) + new Vector3(y,0,z);
+                        }
+                    }
                 }
             });
             MenuUI<Button>.Create("GiveItem", GroupAddItems, LText.Give).OnClick(() =>

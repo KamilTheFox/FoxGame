@@ -2,72 +2,89 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Tweener;
 
 
-    public class Apple_Tree : PlantEngine
+public class Apple_Tree : PlantEngine
+{
+    struct PointerCreate
     {
-        struct PointerCreate
-        {
-        public PointerCreate(Transform _Transform, Apple _Apple)
+        public PointerCreate(Transform _Transform, int hashRand, UnityAction toFallApple)
         {
             Transform = _Transform;
-            Apple = _Apple;
-        }
-        public Transform Transform;
-        public Apple Apple;
-
-        };
-        List<PointerCreate> pointerCreate = new();
-        protected override void OnStart()
-        {
-        Transform[] Pointer = gameObject.GetComponentsInChildren<Transform>().Where(children => children.gameObject.name == "AppleCreate").ToArray();
-            foreach(Transform Create in Pointer)
+            int rand = Random.Range(0, 5);
+            
+            if (hashRand != rand)
             {
-            pointerCreate.Add(new PointerCreate(Create, CreateApple(Create)));
+                apple = null;
+                tweenApple = null; tweenColor = null; tweenPostion = null;
+                action = null;
+                return;
             }
-        StartCoroutine(Maturation());
+            action = toFallApple;
+            Debug.Log("Create Apple");
+            apple = (Apple)ItemEngine.AddItem(TypeItem.Apple,Transform.position, Quaternion.identity);
+            apple.Rigidbody.isKinematic = true;
+
+            float timeSpeedTween = Random.Range(5F,30F);
+
+            tweenPostion = Tween.AddPosition(apple.Transform,
+                new Vector3(0, -apple.Transform.GetComponent<Renderer>().bounds.size.y, 0),
+                timeSpeedTween
+                );
+            tweenColor = (IExpansionTween)Tween.SetColor(apple.Transform, Color.green, timeSpeedTween).ReverseProgress();
+            tweenApple = Tween.SetScale(apple.Transform, Vector3.zero, timeSpeedTween).ReverseProgress();
+
+            tweenApple.ToCompletion(ToFallApple);
         }
+        public void ToFallApple()
+        {
+            if (apple == null && apple.Rigidbody == null)
+                return;
+
+            apple.Rigidbody.isKinematic = false;
+            Tween.Stop(tweenApple); Tween.Stop(tweenPostion); Tween.Stop(tweenColor);
+            action?.Invoke();
+        }
+        private UnityAction action;
+        public Transform Transform;
+        private Apple apple;
+        public bool Free { get => apple == null; }
+        public IExpansionTween tweenApple, tweenPostion, tweenColor;
+    };
+    List<PointerCreate> pointerCreate = new();
+    protected override void OnStart()
+    {
+        Transform[] Pointer = gameObject.GetComponentsInChildren<Transform>().Where(children => children.gameObject.name == "AppleCreate").ToArray();
+        foreach(Transform Create in Pointer)
+        {
+        pointerCreate.Add(new PointerCreate(Create, Random.Range(0,5), RandomSpawnApple));
+        }
+    }
+    private void RandomSpawnApple()
+    {
+        if (IsDead) return;
+
+        for(int i = 0; i < pointerCreate.Count; i++)
+        {
+            if(pointerCreate[i].Free)
+            {
+                pointerCreate[i] = new PointerCreate(pointerCreate[i].Transform, Random.Range(0, 5), RandomSpawnApple);
+            }
+        }
+        if(pointerCreate.Where(point => !point.Free).Count() == 0)
+        {
+            RandomSpawnApple();
+        }
+    }
     public override void Dead()
     {
         base.Dead();
-        pointerCreate.ForEach(apple => apple.Apple.Rigidbody.isKinematic = false);
+        pointerCreate.ForEach(apple =>
+        {
+            apple.ToFallApple();
+        });
         pointerCreate.Clear();
     }
-    private Apple CreateApple(Transform Create)
-    {
-        Apple apple = ItemEngine.AddItem(TypeItem.Apple, Create.position, Create.rotation, false) as Apple;
-        apple.Transform.localScale = Vector3.one * 0.2F;
-        apple.Transform.position -= Vector3.down * (apple.Transform.position.y - apple.MeshRenderer.bounds.max.y);
-        apple.MeshRenderer.material.color = new Color(0F, 1F, 0F);
-        apple.Rigidbody.isKinematic = true;
-        return apple;
-    }
-    private IEnumerator Maturation()
-    {
-        while (!IsDead)
-        {
-            yield return new WaitForSeconds(Random.Range(0.1F, 0.5F));
-            if (IsDead) break;
-            PointerCreate _pointerCreate = pointerCreate[Random.Range(0, pointerCreate.Count)];
-            Apple apple = _pointerCreate.Apple;
-            if (!apple.Rigidbody || !apple.Rigidbody.isKinematic)
-            {
-                pointerCreate.Add(new PointerCreate(_pointerCreate.Transform, CreateApple(_pointerCreate.Transform)));
-                pointerCreate.Remove(_pointerCreate);
-                continue;
-            }
-            Color oldColor = apple.MeshRenderer.material.color;
-            apple.MeshRenderer.material.color = new Color(oldColor.r >= 1F?1F : oldColor.r + 0.06F, 1F, oldColor.b >= 1F ? 1F : oldColor.b + 0.06F);
-            apple.Transform.localScale += Vector3.one * 0.01F;
-            apple.Transform.localPosition = _pointerCreate.Transform.position - (apple.Transform.position.y - apple.MeshRenderer.bounds.max.y) * Vector3.down;
-            if (apple.Transform.localScale.y >= 0.7F)
-            {
-                apple.Rigidbody.isKinematic = false;
-                pointerCreate.Add(new PointerCreate(_pointerCreate.Transform, CreateApple(_pointerCreate.Transform)));
-                pointerCreate.Remove(_pointerCreate);
-            }
-        }
-        yield break;
-    }
-
 }

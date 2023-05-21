@@ -30,7 +30,7 @@ public class Localisation
         [LText.Sensitive] = "Чувствительность",
         [LText.Fly] = "Полет",
         [LText.Save] = "Сохранить",
-        [LText.Reset] = "Сбросить",
+        [LText.Reset] = "Сброс",
         [LText.Ok] = "Окей",
         [LText.Canсel] = "Отмена",
         [LText.Warning] = "Предупреждение",
@@ -62,23 +62,34 @@ public class Localisation
         [LText.Blue] = "Синий",
         [LText.While] = "Белый",
         [LText.Creative] = "Творчество",
+        [LText.Delete] = "Удалить",
         [LText.ErrorInitializeObjects] = new string[]
         {
+            "You cannot initialize more than one {0} object",
             "Нельзя инициализировать больше одного {0} объекта",
-            "You cannot initialize more than one {0} object"
         },
         [LText.ErrorSetAI] = new string[]
         {
+            "You can't assign Intelligence to a dead animal",
             "Нельзя присвоить мертвому животному Интеллект",
-            "You can't assign Intelligence to a dead animal"
         },
         [LText.Idle] = "Бездействие",
         [LText.ErrorMinMax] = new string[]
         {
+            "The minimum value cannot be greater than or equal to the maximum",
             "Минимальное значение не может быть больше или равно максимальному",
-            "The minimum value cannot be greater than or equal to the maximum"
         },
+        [LText.Start_Prototype] = "Старо прототипа",
+        [LText.Start_Prototype_Info] = new string[]
+        {
+            "Development of the first location of the game",
+            "Разработка первой локации игры",
+        },
+        [LText.Temporarily_unavailable] = "Временно не доступно",
+        [LText.Button] = "Кнопка",
+        [LText.Press] = "Нажать",
     };
+
     public static Language Language { get; set; }
      public static string GetText(LText text)
     {
@@ -111,6 +122,7 @@ public enum LText
     /// имеет 10 местo под объекты
     /// </summary>
     None,
+    Delete,
     Null,
     True,
     False,
@@ -170,6 +182,11 @@ public enum LText
     ErrorSetAI,
     Idle,
     ErrorMinMax,
+    Start_Prototype,
+    Start_Prototype_Info,
+    Temporarily_unavailable,
+    Button,
+    Press,
 }
 public static class LTextExpansion
 {

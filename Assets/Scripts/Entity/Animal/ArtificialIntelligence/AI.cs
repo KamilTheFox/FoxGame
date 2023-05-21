@@ -32,7 +32,7 @@ using UnityEngine.AI;
             Navigation = _engine.gameObject.AddComponent<NavMeshAgent>();
         }
         OnStart();
-        if (Behavior == null)
+        if (GameObject.FindObjectOfType<NavMeshSurface>() != null && Behavior == null)
             SetBehavior(new Idle());
     }
 

@@ -19,7 +19,24 @@ namespace FactoryEntity
                 Controller = true,
                 Mass = 2F
             },
-            [TypeItem.Table] = new InfoItem()
+            [TypeItem.Barrel] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(0.7F),
+                Mass = 200F
+            },
+            [TypeItem.Barrel_Detonator] = new InfoItem()
+            {
+                EngineComponent = typeof(Barrel_Detonator),
+                RandomSeze = new RandomSize(0.7F),
+                Mass = 200F
+            },
+            [TypeItem.Barrel_Detonator_Timer] = new InfoItem()
+            {
+                EngineComponent = typeof(Barrel_Detonator_Timer),
+                RandomSeze = new RandomSize(0.7F),
+                Mass = 200F,
+            },
+            [TypeItem.Table_Cardboard] = new InfoItem()
             {
                 Controller = true,
                 Mass = 10F,
@@ -27,17 +44,29 @@ namespace FactoryEntity
                 ChangeCenterMass = true,
                 vectorCenterMass = Vector3.up * 0.42F
             },
-            [TypeItem.Chair] = new InfoItem()
+            [TypeItem.Chair_Cardboard] = new InfoItem()
             {
                 Controller = true,
                 Mass = 5F,
                 RandomSeze = new RandomSize(0.85F)
             },
+            [TypeItem.TNT_3] = new InfoItem()
+            {
+                EngineComponent = typeof(TNT_3),
+                Mass = 2F,
+                RandomSeze = new RandomSize(0.35F),
+            },
+            [TypeItem.TNT_3_Timer] = new InfoItem()
+            {
+                EngineComponent = typeof(TNT_3_Timer),
+                Mass = 2F,
+                RandomSeze = new RandomSize(0.35F),
+            },
             [TypeItem.TNT] = new InfoItem()
             {
                 EngineComponent = typeof(TNT),
-                Mass = 2F,
-                RandomSeze = new RandomSize(1.5F)
+                Mass = 0.7F,
+                RandomSeze = new RandomSize(0.35F)
             },
             [TypeItem.TazWanted] = new InfoItem()
             {
@@ -70,7 +99,17 @@ namespace FactoryEntity
                     Item.Rigidbody = DoorObject.gameObject.AddComponent<Rigidbody>();
                     Item.Rigidbody.isKinematic = true;
                 },
-            }
+            },
+            [TypeItem.Bench] = new InfoItem()
+            {
+                ProtectStatic = true,
+            },
+            [TypeItem.TrashCanMini] = new InfoItem()
+            {
+                EngineComponent = typeof(TrashCan),
+                RandomSeze = new RandomSize(2F),
+                ProtectStatic = true,
+            },
 
         };
 
@@ -101,8 +140,7 @@ namespace FactoryEntity
                     if (Controller)
                         Prefab.gameObject.AddComponent<PlayerControll>();
                 }
-                AdditionalConstructor?.Invoke(itemEngine);
-                if(itemEngine.Rigidbody)
+                if (itemEngine.Rigidbody)
                 {
                     Rigidbody body = itemEngine.Rigidbody;
                     if (ChangeCenterMass)
@@ -110,6 +148,7 @@ namespace FactoryEntity
                     body.interpolation = rigidbodyInterpolation;
                     body.mass = Mass;
                 }
+                AdditionalConstructor?.Invoke(itemEngine);
                 return itemEngine;
             }
         }
@@ -123,14 +162,15 @@ namespace FactoryEntity
         }
         private static bool PritectStaticObject(TypeItem itemType, bool IsStatic)
         {
-            if ((keyOfTypeParameters[itemType] as InfoItem).ProtectStatic)
-                return true;
-                return IsStatic;
+            if (keyOfTypeParameters.TryGetValue(itemType, out IParametersEntityes parameters))
+                return (parameters as InfoItem).ProtectStatic;
+            return IsStatic;
 
         }
         public ItemsCreating(TypeItem itemType, Vector3 vector, Quaternion quaternion, bool isStatic = true)
             : base(vector, quaternion, PritectStaticObject(itemType, isStatic), typeEntity, itemType.ToString())
         {
+            if (!GetPrefab) return;
             IParametersEntityes parameters;
             if (!keyOfTypeParameters.TryGetValue(itemType, out parameters))
                 parameters = new InfoItem();

@@ -26,14 +26,18 @@ public class FoxAI : AI
     } 
     public override Action<Collision, GameObject> BehaviorFromCollision => (col, Attached) =>
     {
-        if(col.gameObject.TryGetComponent(out PlayerControll player))
+        if (col.gameObject.TryGetComponent(out PlayerControll player))
         {
-            if(Attached.name.ToLower().Contains("teil") || player.Rigidbody.velocity.magnitude * player.Rigidbody.mass < 70F)
-                SetBehavior(new RandomWalk());
+            if (Attached.name.ToLower().Contains("teil")) //|| player.Rigidbody.velocity.magnitude * player.Rigidbody.mass > 70F)
+                SetBehavior(new RandomRun());
             else
                 SetBehavior(new RandomFright(col.transform));
         }
-            
+        else
+        if (col.gameObject.GetComponent<Rigidbody>().velocity.magnitude * col.gameObject.GetComponent<Rigidbody>().mass > 200F)
+        {
+            engine.Dead();
+        }
 
     };
     private void ChangeState()

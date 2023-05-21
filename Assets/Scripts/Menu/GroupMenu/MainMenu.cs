@@ -23,6 +23,10 @@ namespace GroupMenu
 
             MenuUI<Button>.Create("LoadPoligon", GetTransform(), LText.Start_Game, AutoRect: true).OnClick(StartPoligon);
 
+            MenuUI<Button>.Create("LoadPrototype", GetTransform(), LText.Start_Prototype, AutoRect: true).OnClick(StartPrototype);
+
+            MenuUI<Text>.Create("InfoPrototype", GetTransform(), LText.Start_Prototype_Info, AutoRect: true, (rect) => rect = new Rect(rect.x, rect.y, rect.width, rect.height * 2));
+
             MenuUI<Toggle>.Create("CreativeMode", GetTransform(), LText.Creative, true).OnValueChanged
                 ( (value) => StartMode = value ? GameState.TypeModeGame.Creative : GameState.TypeModeGame.Adventure);
 
@@ -32,6 +36,10 @@ namespace GroupMenu
         private void StartPoligon()
         {
             GameState.StartGame(StartMode, 1);
+        }
+        private void StartPrototype()
+        {
+            GameState.StartGame(StartMode, 2);
         }
         protected override void Activate()
         {

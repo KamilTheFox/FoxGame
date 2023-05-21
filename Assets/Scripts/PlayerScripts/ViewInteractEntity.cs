@@ -28,9 +28,11 @@ public class ViewInteractEntity
     {
         if (CheckMoveEntity())
             ItemThrow();
+        
         if (entity != null)
         {
             MoveEntity = entity.Take();
+            if (MoveEntity == null) return;
             MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
             if (MoveEntity.Rigidbody)
                 MoveEntity.Rigidbody.angularVelocity = MoveEntity.Rigidbody.velocity = Vector3.zero;

@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Editors
@@ -70,6 +71,18 @@ namespace Assets.Editors
                     Selection.activeGameObject = Instanse.gameObject;
                 }
             }
+            if (CreateMenuEntity.CreateToScene && Event.current.button == 1 && Event.current.type == EventType.MouseDown)
+            {
+                Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    Vector3 newPosition = hit.point + ray.direction.normalized * 0.01F;
+                    GameObject game = CreateMenuEntity.GetCurrentCreateEntity();
+                    Undo.RecordObject(game, "Create Entity");
+                    game.transform.position = newPosition;
+                    Selection.activeGameObject = game.gameObject;
+                }
+            }
         }
         public override void OnInspectorGUI()
         {
@@ -104,6 +117,9 @@ namespace Assets.Editors
             if (GUILayout.Button("Random rotate"))
             {
                 Undo.RecordObject(Instanse, Instanse.name + " Random rotate");
+                if (Selection.transforms.Length > 1)
+                    Selection.transforms.ToList().ForEach(t => t.rotation = Quaternion.AngleAxis(Random.Range(0F, 360), Vector3.up));
+                else
                 Instanse.rotation = Quaternion.AngleAxis(Random.Range(0F, 360), Vector3.up);
             }
             
@@ -113,6 +129,11 @@ namespace Assets.Editors
                 if(!iAlive.IsDead && GUILayout.Button("Kill"))
                 {
                     iAlive.Dead();
+                }
+                if (!iAlive.IsDead && GUILayout.Button("Kill AddForse"))
+                {
+                    iAlive.Dead();
+                    iAlive.Transform.GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up);
                 }
             }
             GUILayout.BeginHorizontal();

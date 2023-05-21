@@ -49,9 +49,13 @@ public abstract class EntityEngine : MonoBehaviour
     }
     public virtual void Delete(float time = 0F)
     {
-        if(gameObject != null)
-        Destroy(gameObject, time);
-    } 
+        if (gameObject != null)
+            Invoke("DestroyInvoke", time);
+    }
+    private void DestroyInvoke()
+    {
+        Destroy(gameObject);
+    }
     public virtual TextUI GetTextUI()
     {
         return typeEntity.ToString().GetTextUI();

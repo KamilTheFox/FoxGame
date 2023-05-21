@@ -73,7 +73,11 @@ namespace FactoryEntity
             }
             obj = LoadInResource($"{path}Mesh\\{Name}");
 
-            if (obj == null) return;
+            if (obj == null)
+            {
+                Menu.Error(LText.Temporarily_unavailable.GetTextUI().ToString());
+                return;
+            }
 
             obj = Object.Instantiate(obj, vector, quaternion);
 
@@ -109,9 +113,17 @@ namespace FactoryEntity
                         else
                         {
                             collider.convex = true;
-                            gameObject.GetComponent<MeshRenderer>().enabled = false;
+                            Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
                         }
                         IsColliders = true;
+                    }
+                    else if(Chield.name.Contains("Trigger"))
+                    {
+                        Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
+                        gameObject.AddComponent<Rigidbody>().isKinematic = true;
+                        gameObject.AddComponent<TriggerDetect>();
+                        collider.convex = true;
+                        collider.isTrigger = true;
                     }
                     else
                     {

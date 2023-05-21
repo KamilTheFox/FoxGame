@@ -48,7 +48,7 @@ public class Regdoll : IRegdoll
 
     public void Deactivate()
     {
-        ActivateKinematic(true);
+        ActivateKinematic();
     }
 }
 public class RegdollDetect : MonoBehaviour

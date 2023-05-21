@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 using GroupMenu;
 using Tweener;
@@ -11,6 +13,10 @@ public class PlayerControll : MonoBehaviour, IAlive
     public float Speed { get; private set; }
     public Rigidbody Rigidbody { get; private set; }
     public SphereCollider SphereCollider { get; private set; }
+
+    private static PhysicMaterial material;
+
+    public Collider[] Colliders { get; private set; }
 
     [SerializeField]
     private bool _isItemController;
@@ -59,6 +65,10 @@ public class PlayerControll : MonoBehaviour, IAlive
             }
         }
     }
+    public void GiveItem(ItemEngine item)
+    {
+        interactEntity.GiveItem(item);
+    }
     void Awake()
     {
         Transform = transform;
@@ -66,6 +76,11 @@ public class PlayerControll : MonoBehaviour, IAlive
         
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+
+        Colliders = GetComponents<Collider>();
+
+        if(!material)
+        material = Resources.Load<PhysicMaterial>("Player");
 
         SphereCollider = GetComponent<SphereCollider>();
         if (SphereCollider == null)
@@ -78,8 +93,8 @@ public class PlayerControll : MonoBehaviour, IAlive
         _isItemController = gameObject.layer == MasksProject.Entity;
 
         Animator = GetComponent<Animator>();
-        if(Animator)
-        Regdool = new Regdoll(Animator, this);
+        if(!_isItemController)
+        Regdool = new RegdollPlayer(Animator, this);
     }
     public void SetSpeed(float speed = 1F)
     {
@@ -94,6 +109,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     public void EntrancePlayerControll(CameraControll camera)
     {
         ChangeLayerIsItemToPlayer(true);
+        Colliders.ToList().ForEach(collider => collider.material = material);
         Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         camera.Transform.rotation = Transform.rotation;
         camera.Transform.position = Transform.position + (RecommendedHeight * Transform.up);
@@ -103,6 +119,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     public void ExitPlayerControll(CameraControll camera)
     {
         Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        Colliders.ToList().ForEach(collider => collider.material = null);
         interactEntity.ItemThrow();
         None.SetInfoEntity(false);
         ChangeLayerIsItemToPlayer(false);
@@ -112,8 +129,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     public void Dead()
     {
         IsDead = true;
-        Rigidbody.freezeRotation = false;
-        if (Regdool != null)
+        if (Regdool != null && !isItemController)
             Regdool.Activate();
         Fly(Off: true);
         if (CameraControll.instance.IsPlayerControll(this))

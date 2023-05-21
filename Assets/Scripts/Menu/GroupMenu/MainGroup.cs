@@ -82,7 +82,11 @@ namespace GroupMenu
         }
         public Transform GetTransform()
         {
-            return MenuChildren[TypeMenu].transform;
+            GameObject value;
+            if (MenuChildren.TryGetValue(TypeMenu ,out value))
+                return value.transform;
+            Debug.LogError("Menu not initialized");
+            return null;
         }
         // Желательно всю логику поиска элементов главной группы писать в метод: Initialize()
         void IActivatableMenu.Start()

@@ -63,7 +63,7 @@ public interface IUpdateMenuUI
     }
     public static Rect GetRect(TypeRect typeRect = TypeRect.Default, Func<Rect,Rect> ModiferAutoRect = null)
     {
-        Rect newrect = new Rect(new Vector2(0, 0), new Vector2(450, 35));
+        Rect newrect = new Rect(new Vector2(0, 0), new Vector2(450, 50));
         if (ModiferAutoRect != null)
         {
             newrect = ModiferAutoRect(newrect);
@@ -149,7 +149,7 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
     {
         get { return isText ? (T)(Component)text : component; }
     }
-    public GameObject gameObject => Component.gameObject;
+    public GameObject gameObject => Component?.gameObject;
 
     private MenuUI(T component, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
@@ -239,7 +239,13 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
         image.sprite = Menu.GetSprite(nameImage);
         return image;
     }
-    public Image GetImage()
+    public Image SetImage(Texture2D texture)
+    {
+        Image image = GetImage();
+        image.sprite = Sprite.Create(texture,new Rect(0F,0F, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+        return image;
+    }
+    private Image GetImage()
     {
         if (component is Image oldImage)
         {

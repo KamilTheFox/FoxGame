@@ -14,6 +14,8 @@ public class SoundMeneger : MonoBehaviour
 
     public static AudioSource _Music { get; private set; }
 
+    public static AudioSource Background { get; private set; }
+
     public static SoundMeneger instance;
 
     public static float Volume = 1F;
@@ -70,6 +72,8 @@ public class SoundMeneger : MonoBehaviour
 
         _Music = Instantiate(Music, transform).GetComponent<AudioSource>();
 
+        Background = Instantiate(Music, transform).GetComponent<AudioSource>();
+
         Settings.VolumeSoundChange.AddListener((newValue) => { Volume = newValue; ChangeVolume(newValue); });
 
         Settings.VolumeMusicChange.AddListener((newValue) => { VolumeM = newValue; ChangeVolumeMusic(newValue); });
@@ -102,16 +106,20 @@ public class SoundMeneger : MonoBehaviour
                 Debug.Log($"Music not detected in resources {_sound}");
         }
         Debug.Log($"Sucsess Load Audio {DictionarySounds.Count} / {NameTypes.Length + NameMusic.Length}");
+
+        Background.clip = AudioLoad(BackgroundSounds.Forest_Birds);
+        Background.Play();
+        Background.loop = true;
+        audioSources.Add(Background);
 #if !UNITY_EDITOR
-        PlayRandomMusic();
+       // PlayRandomMusic();
 #endif
     }
     private static AudioClip AudioLoad(Enum value)
     {
         if(DictionarySounds.ContainsKey(value))
             return DictionarySounds[value];
-
-        return Resources.Load<AudioClip>("Sounds\\" + value);
+        return Resources.Load<AudioClip>($"Sounds\\{value.GetType().Name}\\" + value);
     }
     private void OnDestroy()
     {
@@ -213,6 +221,13 @@ public class SoundMeneger : MonoBehaviour
                     PlayClipAtPoint(clip, vector, volume, volume > 1F);
 
     }
+    public static void PlayPoint(Sounds type, Vector3 vector, bool isModiferSourse = true, float volume = 1F)
+    {
+        AudioClip clip = GetAudio(type);
+        if (clip)
+                PlayClipAtPoint(clip, vector, volume, isModiferSourse);
+
+    }
     private static void PlayClipAtPoint(AudioClip audioClip, Vector3 vector, float volume, bool isModiferSourse)
     {
         AudioSource source = isModiferSourse ? instance.AudioModifer : instance.AudioDefault;
@@ -268,6 +283,12 @@ public class SoundMeneger : MonoBehaviour
         Explosion,
         TNT_Detonate,
         EatApple,
+        ClickButton,
+        Tick,
+    }
+    public enum BackgroundSounds
+    {
+        Forest_Birds,
     }
     public enum Musics
     {

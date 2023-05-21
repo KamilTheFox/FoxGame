@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +19,8 @@ public class ItemEngine : EntityEngine, ITakenEntity
 
     [HideInInspector] public bool isController;
 
-    protected virtual bool CanTake => true;
+    protected virtual bool CanTake =>  (Stationary && GameState.IsCreative) || !Stationary;
+
     public static int CountItems => GetItems.Length;
 
     [HideInInspector] public TypeItem itemType;
@@ -99,7 +100,7 @@ public class ItemEngine : EntityEngine, ITakenEntity
     }
     public override void Interaction()
     {
-        if(!Stationary&& isController)
+        if(!Stationary && isController)
         CameraControll.instance.EntranceBody(this.gameObject);
     }
     private void FixedUpdate()
@@ -119,9 +120,9 @@ public class ItemEngine : EntityEngine, ITakenEntity
         return new TextUI(() => new object[]
         {
             new TextUI(() => new object[] {itemType.ToString() }),
-            new TextUI(() => new object[] { "\n[", LText.KeyCodeE ,"] - ",LText.Take ,"/",LText.Leave }),
-            new TextUI(() => new object[] {"\n[", LText.KeyCodeMouse0 ,"] - ",LText.Drop }),
-            new TextUI(() => new object[] {"\n[",LText.KeyCodeF ,"] -", LText.Interactive })
+            CanTake ? new TextUI(() => new object[] { "\n[", LText.KeyCodeE ,"] - ",LText.Take ,"/",LText.Leave }) : "" ,
+            Stationary ? "" : new TextUI(() => new object[] {"\n[", LText.KeyCodeMouse0 ,"] - ",LText.Drop }),
+            !Stationary && isController ? new TextUI(() => new object[] {"\n[",LText.KeyCodeF ,"] -", LText.Interactive }) : ""
         });
     }
 }

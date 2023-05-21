@@ -52,10 +52,12 @@ public class Menu : MonoBehaviour
 
         ICurrentMenu = new None();
 
-        ICurrentMenu.Activate();
-
         InitializeComponent();
 
+    }
+    private void Start()
+    {
+        ICurrentMenu.Activate();
     }
     public static void PauseEnableGame(bool Enable)
     {
@@ -130,6 +132,7 @@ public class Menu : MonoBehaviour
                 break;
         }
         EventInitializeComponent.Invoke();
+
         UpdateTextUI();
     }
     public static void ExitGame()
@@ -168,7 +171,7 @@ public class Menu : MonoBehaviour
 
         if (MessageBox.IsEnable)
         {
-            if (PreviousMenu.ToArray().Length >= 0 && PreviousMenu.ToArray()[0].TypeMenu != menu.TypeMenu)
+            if (PreviousMenu.ToArray().Length > 0 && PreviousMenu.ToArray()[0].TypeMenu != menu.TypeMenu)
             {
                 PreviousMenu.Push(menu);
             }
@@ -180,12 +183,12 @@ public class Menu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F5))
-        {
-            ScreenCapture.CaptureScreenshot("D:\\ScreenFox.png");
-        }
-        
         ICurrentMenu?.Update();
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            ScreenCapture.CaptureScreenshotAsTexture();
+
+        }
     }
 
     public static void UpdateTextUI()

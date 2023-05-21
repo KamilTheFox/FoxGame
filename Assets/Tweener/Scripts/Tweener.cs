@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Tweener
     {
         public Tweener(Transform _transform, float _time)
         {
-            transform = _transform;
+            transform = _transform ?? throw new ArgumentNullException(nameof(_transform));
             timeScale = _time;
             percentage = 0f;
             ChangeEase(Ease.Linear);
@@ -30,10 +31,19 @@ namespace Tweener
         public Transform transform { get; private set; }
         protected abstract string NameOperation { get; }
 
-        public readonly float timeScale;
+        protected float timeScale;
+
         private float time = 0f;
 
-        public float Timer => time;
+        public float Timer
+        { 
+            get
+            {
+                if (transform == null)
+                    return 1F;
+                return time;
+            }
+        }
 
         public TypeLoop typeLoop;
         public Ease typeEase;
@@ -46,14 +56,6 @@ namespace Tweener
         protected event Action eventRestart;
         protected event Action eventStop;
         protected event Action EventDestroyObject;
-
-        private static readonly Dictionary<Ease, Ease> EaseReverse = new()
-        {
-            [Ease.CubicRoot] = Ease.CubicDegree,
-            [Ease.CubicDegree] = Ease.CubicRoot,
-            [Ease.SquareRoot] = Ease.SquareDegree,
-            [Ease.SquareDegree] = Ease.SquareRoot,
-        };
         private float GetTimeSkale
         {
             get
@@ -102,7 +104,7 @@ namespace Tweener
         {
             if (transform == null)
             {
-                EventDestroyObject.Invoke();
+                EventDestroyObject?.Invoke();
                 return true;
             }
 
@@ -121,9 +123,11 @@ namespace Tweener
             typeEase = type;
             Progress = type switch
             {
-                Ease.Linear => (time) => time,
+                Ease.FiveRoot => (time) => Mathf.Pow(time, 0.20F),
+                Ease.FourthRoot => (time) => Mathf.Pow(time, 0.25F),
                 Ease.CubicRoot => (time) => Mathf.Pow(time, 0.33F),
                 Ease.SquareRoot => (time) => Mathf.Pow(time, 0.5F),
+                Ease.Linear => (time) => time,
                 Ease.SquareDegree => (time) => Mathf.Pow(time, 2F),
                 Ease.CubicDegree => (time) => Mathf.Pow(time, 3F),
                 Ease.FourthDegree => (time) => Mathf.Pow(time, 4F),
@@ -148,7 +152,6 @@ namespace Tweener
                 {
                     Debug.LogWarning("The object did not finish the tween, To completion was not called. To call it, activate the CallWhenDestroy parameter");
                     toCompletion = null;
-
                 };
             return this;
         }
@@ -183,8 +186,7 @@ namespace Tweener
         {
             Restart();
             ReverseProgress();
-            if (EaseReverse.TryGetValue(typeEase, out Ease ease))
-                typeEase = ease;
+            typeEase = (Ease)(-(sbyte)typeEase);
             ChangeEase(typeEase);
         }
         public IExpansionTween ChangeLoop(TypeLoop loop)

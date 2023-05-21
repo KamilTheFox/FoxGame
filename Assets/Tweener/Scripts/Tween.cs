@@ -8,7 +8,7 @@ namespace Tweener
 {
     public class Tween : MonoBehaviour
     {
-        private static Tween instance;
+        internal static Tween instance;
         private static bool Launched;
 
         private void Awake()
@@ -23,6 +23,7 @@ namespace Tweener
         private void OnDestroy()
         {
             instance = null;
+            Launched = false;
         }
         internal bool isPause => Time.timeScale == 0;
         private IEnumerator MainProcess()
@@ -48,13 +49,13 @@ namespace Tweener
             yield break;
         }
         #region Color
-        public static IExpansionColor SetColor(Transform transform, Color newColor, float time = 1F)
+        public static IExpansionColor SetColor(Transform transform, Color newColor, float time = 1F, TypeComponentChangeColor changeColor = TypeComponentChangeColor.Material)
         {
-            return new SetColor(transform, newColor, time);
+            return new SetColor(transform, newColor, time, changeColor);
         }
-        public static IExpansionColor AddColor(Transform transform, Color newColor, float time = 1F)
+        public static IExpansionColor AddColor(Transform transform, Color newColor, float time = 1F, TypeComponentChangeColor changeColor = TypeComponentChangeColor.Material)
         {
-            return new AddColor(transform, newColor, time);
+            return new AddColor(transform, newColor, time, changeColor);
         }
         #endregion 
         #region Vector3
@@ -88,18 +89,56 @@ namespace Tweener
 
         public static IExpansionBezier GoWay(Transform transform,BezierWay way, float timeOrSpeed, bool isSpeed = false)
         {
+            if (way == null)
+            {
+                Debug.LogWarning("Path not assigned");
+                return null;
+            }
             return new Bezier(way, transform , timeOrSpeed, isSpeed);
         }
 
         #endregion 
-        public static IExpansionTween StartTween(IExpansionTween tween)
+
+        private static IExpansionTween ConvertTween(IExpansionTween tween, Action<Tweener> action)
         {
             Tweener tweener = tween as Tweener;
             if (tweener.transform == null) return null;
-            tweener.Restart();
-            Tweener.BetweenObjects.Add(tweener.NameOperator,tweener);
+            action.Invoke(tweener);
             Launch();
             return tween;
+        }
+
+        public static IExpansionTween Pause(IExpansionTween tween)
+        {
+            return ConvertTween(tween, (tweener) =>
+            {
+                Tweener.BetweenObjects.Remove(tweener.NameOperator);
+            });
+        }
+        public static IExpansionTween UnPause(IExpansionTween tween)
+        {
+            return ConvertTween(tween, (tweener) =>
+            {
+                if (!Tweener.BetweenObjects.ContainsKey(tweener.NameOperator))
+                    Tweener.BetweenObjects.Add(tweener.NameOperator, tweener);
+            });
+        }
+        public static IExpansionTween Stop(IExpansionTween tween)
+        {
+            return ConvertTween(tween, (tweener) =>
+                {
+                    tweener.Restart();
+                    Tweener.BetweenObjects.Remove(tweener.NameOperator);
+                });
+        }
+        public static IExpansionTween Start(IExpansionTween tween)
+        {
+            return ConvertTween(tween, (tweener) =>
+            {
+                tweener.Restart();
+                if (!Tweener.BetweenObjects.ContainsKey(tweener.NameOperator))
+                    Tweener.BetweenObjects.Add(tweener.NameOperator, tweener);
+            });
         }
         internal static void Launch()
         {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+using Tweener;
 public class PosterTazWanted : ItemEngine, IAlive
 {
     public bool IsDead { get; set; }
@@ -26,7 +26,6 @@ public class PosterTazWanted : ItemEngine, IAlive
         yield return new WaitForSeconds(0.1F);
         Vector3 velosity = Rigidbody.velocity;
         regdoll.Activate();
-        Transform[] Childs = Transform.GetChilds();
 
         List<MeshRenderer> Render = Transform.GetComponentsInChildren<MeshRenderer>().ToList();
         Render.ForEach(chield =>
@@ -36,24 +35,21 @@ public class PosterTazWanted : ItemEngine, IAlive
                 chield.transform.parent = null;
                 Rigidbody rigidbodyChield = chield.gameObject.AddComponent<Rigidbody>();
                 rigidbodyChield.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                rigidbodyChield.interpolation = RigidbodyInterpolation.Interpolate;
                 rigidbodyChield.velocity = velosity;
             }
         });
-
+        Delete();
         yield return new WaitForSeconds(10F);
         Render.ForEach(renderer => renderer.material.ToFadeMode());
 
-        for (int i = 0; i < 100; i++)
+        foreach (MeshRenderer renderer in Render)
         {
-            foreach (MeshRenderer renderer in Render)
+            Tween.SetColor(renderer.transform, new Color(0, 0, 0, 0), 3F).IgnoreAdd(IgnoreARGB.RGB).ToCompletion(() =>
             {
-                renderer.material.color = renderer.material.color - new Color(0F, 0F, 0F, 0.01F);
-            }
-            yield return new WaitForSeconds(0.05F);
+                Destroy(renderer.gameObject);
+            });
         }
-        foreach (Transform chield in Childs)
-            Destroy(chield.gameObject);
-        Delete();
         yield break;
     }
     private void BehaviorFromCollisionEnter(Collision collision, GameObject Attacked)
