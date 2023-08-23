@@ -138,7 +138,11 @@ public class Menu : MonoBehaviour
     public static void ExitGame()
     {
         onDestroy.RemoveAllListeners();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
     /// <param name="isCallBack"> если это обратный вызов, то меню не занесется в стек </param>
     public static void PopMenu(bool isCallBack = false)
@@ -187,7 +191,6 @@ public class Menu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F5))
         {
             ScreenCapture.CaptureScreenshotAsTexture();
-
         }
     }
 

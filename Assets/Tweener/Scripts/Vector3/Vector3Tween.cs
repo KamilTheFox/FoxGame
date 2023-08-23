@@ -11,6 +11,7 @@ namespace Tweener
         private readonly bool isAdd = false;
 
         protected Vector3 oldValue;
+
         protected Vector3 strivingValue;
 
         protected Vector3 oldStrivingValue;

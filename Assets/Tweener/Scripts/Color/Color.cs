@@ -123,7 +123,6 @@ namespace Tweener
         {
             foreach (KeyValuePair<string, InfoTweenColor> tween in TweenColors)
             {
-                Debug.Log(1 + " " + tween.Key);
 
                 if (!tween.Value.isCurrentObject && typeChangeColor == TypeChangeColor.CurrentObject)
                     continue;
@@ -133,7 +132,6 @@ namespace Tweener
 
                 if (!(tween.Value.isChildObject || tween.Value.isCurrentObject) && typeChangeColor == TypeChangeColor.ObjectAndChilds)
                     continue;
-                Debug.Log(2 + " " + tween.Key);
 
                 Color strivingColor = tween.Value.StrivingColor;
                 Color oldValueColor = tween.Value.oldColor;

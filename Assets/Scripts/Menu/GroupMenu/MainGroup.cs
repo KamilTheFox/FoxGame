@@ -59,12 +59,20 @@ namespace GroupMenu
             MenuChildren = new();
             Menu.onDestroy.AddListener(() => { mainGroup = null; MenuChildren.Clear(); });
 
-            mainGroup = Menu.Find(nameof(MainGroup));
+            string mainGroupName = nameof(MainGroup);
 
+            mainGroup = Menu.Find(mainGroupName);
+
+            Image imageSkinMainGroup = SetSkinComponent(mainGroup, mainGroupName);
+            imageSkinMainGroup.pixelsPerUnitMultiplier = 0.5F;
             foreach (Transform child in mainGroup.transform)
             {
                 string name = child.name;
-                if (name == "Hat") continue;
+                if (name == "Hat")
+                {
+                    SetSkinComponent(child.gameObject, name);
+                    continue;
+                }
                 if (Enum.TryParse(typeof(TypeMenu), name, out object value))
                 {
                     MenuChildren.Add((TypeMenu)value, child.gameObject);
@@ -75,6 +83,14 @@ namespace GroupMenu
 
             buttonCallBack = MenuUI<Button>.Find("Hat/CallBack", mainGroup.transform, new TextUI(LText.Back));
 
+        }
+        public static Image SetSkinComponent(GameObject Component , string name)
+        {
+            Image im = Component.GetComponent<Image>();
+            MenuUI.SetImageMenu(im, name);
+            im.type = Image.Type.Sliced;
+            im.color = Color.white;
+            return im;
         }
         public GameObject GetObject()
         {

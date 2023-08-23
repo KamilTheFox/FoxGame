@@ -5,54 +5,67 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Tweener;
+using InteractiveBodies;
 
-    public class Door : ItemEngine, IAlive
-    {
-    Transform DoorObject;
+public class Door : ItemEngine, IDiesing, IInteractive, ITakenEntity
+{
+    private IInteractive DoorObject;
 
-    private bool isClosed = true;
-
-    public bool isLocked { get; private set; }
-
-    protected override bool CanTake => GameState.IsCreative;
-
-    public bool IsDead { get; private set; }
+    public bool IsDie { get; private set; }
 
     protected override void OnStart()
     {
-        DoorObject = Transform.Find("Door");
-        
+        foreach (Transform findDoor in Transform)
+            if (findDoor != Transform && findDoor.name.Contains("Door"))
+            {
+                DoorObject = findDoor.gameObject.AddComponent<InteractiveBodies.Door>();
+                break;
+            }
+        if (DoorObject != null)
+        {
+            Rigidbody = DoorObject.Rigidbody;
+            ILocking locking = GetComponentInChildren<ILocking>();
+            if (locking != null)
+                ((ILockable)DoorObject).Lock(locking);
+        }
     }
-    
-    public override void Interaction()
+    public override ITakenEntity Take()
     {
-        if (IsDead || isLocked) return;
-        isClosed = !isClosed;
-        Tween.AddRotation(DoorObject, new Vector3(0f, isClosed ? 90F : -90F, 0))
-            .ChangeEase(Ease.CubicRoot)
-            .ToCompletion(() => Debug.Log(isClosed? "Close" : "Open"));
+        if(GameState.IsCreative)
+            return base.Take();
+        return null;
     }
-    public override TextUI GetTextUI()
+    public void Interaction()
     {
-        return new TextUI(() => new object[] { itemType.ToString(),
-            CanTake ? new TextUI(() => new object[] { "\n[", LText.KeyCodeE ,"] - ",LText.Take ,"/",LText.Leave }) : null,
-            IsDead ? null : new TextUI(() => new object[] { "\n[", LText.KeyCodeF, "] -", LText.Interactive }) });
+        if (IsDie) return;
+
+        DoorObject.Interaction();
     }
     private void ChangeColorDoor()
     {
-          Tween.SetColor(DoorObject, new Color(0F,0F,0F,0F), 1F).IgnoreAdd(IgnoreARGB.RGB).
+          Tween.SetColor(DoorObject.Transform, new Color(0F,0F,0F,0F), 1F).IgnoreAdd(IgnoreARGB.RGB).
             TypeOfColorChange(TypeChangeColor.ObjectAndHierarchy).
-            ToCompletion(() => Destroy(DoorObject.gameObject),
+            ToCompletion(() => Destroy(DoorObject.Transform.gameObject),
             CallWhenDestroy: true);
     }
-    public void Dead()
+    public void Death()
     {
-        if (IsDead) return;
-        IsDead = true;
+        if (IsDie) return;
+        IsDie = true;
         Rigidbody.isKinematic = false;
         Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         Rigidbody = null;
-        DoorObject.parent = null;
+        DoorObject.Transform.parent = null;
         Invoke(nameof(ChangeColorDoor), 29F);
+    }
+    public override TextUI GetTextUI()
+    {
+        return new TextUI(() => new object[]
+            {
+            itemType.ToString(),
+            GameState.IsAdventure ? "" : new TextUI(() => new object[]
+            {"\n[",LText.KeyCodeE ,"] -", LText.Take, "/", LText.Leave }),
+            IsDie ? "" : new TextUI(() => new object[] { "\n[", LText.KeyCodeF, "] - ", LText.Open, "/", LText.Close  })
+            });
     }
 }

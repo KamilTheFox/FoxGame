@@ -9,6 +9,6 @@ public class Test : MonoBehaviour
 {
     private void Start()
     {
-        Tween.SetScale(transform, Vector3.zero, 1).ReverseProgress();
+        Tween.AddPosition(transform, new Vector3(3, 0, 0), 2f).ChangeLoop(TypeLoop.Loop).ChangeEase(Ease.CubicRoot);
     }
 }

@@ -15,8 +15,9 @@ namespace Assets.Editors
 
         private static bool IsMoveClick;
         private static Transform Instanse;
+        
 
-        private static IAlive iAlive;
+        private static IDiesing iAlive;
         private static bool isAlive;
 
         [MenuItem("CONTEXT/Transform/RandomScale")]
@@ -29,22 +30,7 @@ namespace Assets.Editors
         [MenuItem("CONTEXT/Transform/Rebuild Entity", false)]
         private static void RebuildEntitynull()
         {
-            Undo.RecordObject(Instanse, Instanse.name + " Random rotate");
-
-            if (entityEngine is ItemEngine itemEngine)
-            {
-                ItemEngine.AddItem(itemEngine.itemType, Instanse.position, Instanse.rotation, itemEngine.Stationary);
-            }
-            else if (entityEngine is AnimalEngine animal)
-            {
-                AnimalEngine.AddAnimal(animal.TypeAnimal, Instanse.position, Instanse.rotation);
-            }
-            else if (entityEngine is PlantEngine plant)
-            {
-                PlantEngine.AddPlant(plant.typePlant, Instanse.position, Instanse.rotation);
-            }
-            Undo.RecordObject(Instanse.gameObject, Instanse.name + " Delete");
-            GameObject.DestroyImmediate(Instanse.gameObject);
+            CreateMenuEntity.RebuildEntity(Instanse);
         }
         [MenuItem("CONTEXT/Transform/Rebuild Entity", true)]
         private static bool RebuildEntity()
@@ -126,13 +112,13 @@ namespace Assets.Editors
             EndGUI:
             if(isAlive)
             {
-                if(!iAlive.IsDead && GUILayout.Button("Kill"))
+                if(!iAlive.IsDie && GUILayout.Button("Kill"))
                 {
-                    iAlive.Dead();
+                    iAlive.Death();
                 }
-                if (!iAlive.IsDead && GUILayout.Button("Kill AddForse"))
+                if (!iAlive.IsDie && GUILayout.Button("Kill AddForse"))
                 {
-                    iAlive.Dead();
+                    iAlive.Death();
                     iAlive.Transform.GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up);
                 }
             }

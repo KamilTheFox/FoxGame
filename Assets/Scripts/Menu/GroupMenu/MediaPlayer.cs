@@ -27,7 +27,7 @@ namespace GroupMenu
 
             buttonMediaPlayer = MenuUI<Button>.Find("Hat/MediaPlayer", mainGroup.transform, LText.Null);
 
-            buttonMediaPlayer.SetImage("Music");
+            buttonMediaPlayer.SetImage("Music", true);
 
             buttonMediaPlayer.OnClick().AddListener(Menu.ActivateMenu<MediaPlayer>);
 
@@ -40,11 +40,11 @@ namespace GroupMenu
             };
             foreach(MenuUI<Button> button in menuUIs)
             {
-                button.SetImage(button.Component.name);
+                button.SetImage(button.Component.name, true);
             }
             SoundMeneger.ChangeValuePauseMusic.AddListener((value) =>
             {
-                menuUIs[0].SetImage(value ? "Play" : "Stop");
+                menuUIs[0].SetImage(value ? "Play" : "Pause", true);
             });
             menuUIs[0].OnClick().AddListener(() =>
             {
@@ -64,8 +64,11 @@ namespace GroupMenu
             });
             PlayLine.OnValueChanged().AddListener((value) =>
             {
-                if(value < SoundMeneger._Music.clip.length)
-                SoundMeneger._Music.time = value;
+                if (SoundMeneger._Music.clip)
+                {
+                    if (value < SoundMeneger._Music.clip.length)
+                        SoundMeneger._Music.time = value;
+                }
             });
 
             ListMusic = MenuUI<Dropdown>.Find("ListMusic", GetTransform(), LText.Null);

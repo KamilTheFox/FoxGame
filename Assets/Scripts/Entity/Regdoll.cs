@@ -13,7 +13,7 @@ public class Regdoll : IRegdoll
     private List<Rigidbody> RegdoolBody = new();
 
     private Rigidbody BodyController;
-    public Regdoll(Animator animator, IAlive alive)
+    public Regdoll(Animator animator, IDiesing alive)
     {
         BodyController = alive.gameObject.GetComponent<Rigidbody>();
         List<Rigidbody> ParentsForRegdoll = alive.gameObject.GetComponentsInChildren<Rigidbody>().ToList();
@@ -54,7 +54,7 @@ public class Regdoll : IRegdoll
 public class RegdollDetect : MonoBehaviour
 {
     public bool isController;
-    public IAlive Entity;
+    public IDiesing Entity;
     public void OnCollisionEnter(Collision collision)
     {
         Entity?.BehaviorFromCollision?.Invoke(collision, gameObject);

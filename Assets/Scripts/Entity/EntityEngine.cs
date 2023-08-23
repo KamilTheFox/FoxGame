@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using FactoryEntity;
 public abstract class EntityEngine : MonoBehaviour
 {
-
+    
     public Rigidbody Rigidbody;
     public Transform Transform { get; private set; }
-
+    protected LayerMask layer;
+    public LayerMask Layer => layer;
     public abstract TypeEntity typeEntity { get; }
     public bool IsItem => typeEntity == TypeEntity.Item;
     public bool IsAnimal => typeEntity == TypeEntity.Animal;
@@ -21,21 +22,24 @@ public abstract class EntityEngine : MonoBehaviour
         [TypeEntity.Animal] = new(),
         [TypeEntity.Plant] = new(),
     };
+
+    public static GameObject GetGroup => EntityStencilCreating.EntityGroup;
     protected virtual void OnStart() { }
     protected virtual void OnAwake() { }
     protected virtual void onDestroy() { }
 
     private void OnDestroy()
     {
-        Entities[typeEntity].Remove(this);
+        if (typeEntity != TypeEntity.InteractiveBody)
+            Entities[typeEntity].Remove(this);
         onDestroy();
     }
-    public virtual void Interaction() { }
-
     private void Awake()
     {
         Transform = transform;
-        Entities[typeEntity].Add(this);
+        layer = gameObject.layer;
+        if(typeEntity != TypeEntity.InteractiveBody)
+            Entities[typeEntity].Add(this);
         OnAwake();
     }
     private void Start()

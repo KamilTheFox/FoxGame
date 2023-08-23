@@ -7,7 +7,7 @@ using UnityEngine;
 using GroupMenu;
 
 
-public abstract class AnimalEngine : EntityEngine, IAlive
+public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
 {
     #region Description
     public static List<AnimalEngine> AnimalList
@@ -46,7 +46,7 @@ public abstract class AnimalEngine : EntityEngine, IAlive
     }
     public void SetAI(AI _AI)
     {
-        if (IsDead)
+        if (IsDie)
         {
             Menu.Error(LText.ErrorSetAI.GetTextUI().ToString());
             return;
@@ -58,7 +58,7 @@ public abstract class AnimalEngine : EntityEngine, IAlive
     {
         return AddEntity<AnimalEngine>(animal, position, quaternion);
     }
-    public override void Interaction()
+    public void Interaction()
     {
         None.SetInfoEntity(false);
         DebugAnimation.Animator = Animator;
@@ -75,16 +75,16 @@ public abstract class AnimalEngine : EntityEngine, IAlive
     }
     public Action<Collision, GameObject> BehaviorFromCollision => AI?.BehaviorFromCollision;
 
-    public bool IsDead { get; private set; }
+    public bool IsDie { get; private set; }
 
-    public void Dead()
+    public void Death()
     {
-        if (IsDead) return;
+        if (IsDie) return;
         Regdool.Activate();
         AI.StopMove();
         AI.OnEnableMove();
         AI = null;
-        IsDead = true;
+        IsDie = true;
         Delete(120F);
     }
 

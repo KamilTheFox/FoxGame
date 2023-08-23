@@ -3,5 +3,6 @@ public enum TypeEntity
 {
     Animal,
     Plant,
-    Item
+    Item,
+    InteractiveBody
 }

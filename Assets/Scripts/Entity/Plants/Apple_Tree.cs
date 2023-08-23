@@ -2,89 +2,90 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 using Tweener;
+using Random = System.Random;
 
-
-public class Apple_Tree : PlantEngine
+public class Apple_Tree : Tree
 {
-    struct PointerCreate
+    class PointerCreate
     {
-        public PointerCreate(Transform _Transform, int hashRand, UnityAction toFallApple)
+        public PointerCreate(Transform _Transform, Action toFall)
         {
+            apple = null;
             Transform = _Transform;
-            int rand = Random.Range(0, 5);
-            
-            if (hashRand != rand)
-            {
-                apple = null;
-                tweenApple = null; tweenColor = null; tweenPostion = null;
-                action = null;
-                return;
-            }
-            action = toFallApple;
-            Debug.Log("Create Apple");
-            apple = (Apple)ItemEngine.AddItem(TypeItem.Apple,Transform.position, Quaternion.identity);
-            apple.Rigidbody.isKinematic = true;
-
-            float timeSpeedTween = Random.Range(5F,30F);
-
-            tweenPostion = Tween.AddPosition(apple.Transform,
-                new Vector3(0, -apple.Transform.GetComponent<Renderer>().bounds.size.y, 0),
-                timeSpeedTween
-                );
-            tweenColor = (IExpansionTween)Tween.SetColor(apple.Transform, Color.green, timeSpeedTween).ReverseProgress();
-            tweenApple = Tween.SetScale(apple.Transform, Vector3.zero, timeSpeedTween).ReverseProgress();
-
-            tweenApple.ToCompletion(ToFallApple);
+            ToFall = toFall;
+        }
+        public void CreateApple()
+        {
+            if (!Free) return;
+            apple = (IGerminatable)ItemEngine.AddItem(TypeItem.Apple, Transform.position, Quaternion.identity);
+            apple.OnRipen += ToFall;
+            apple.OnRipen += ToFallApple;
+            apple.Start(Transform.position);
         }
         public void ToFallApple()
         {
-            if (apple == null && apple.Rigidbody == null)
-                return;
-
-            apple.Rigidbody.isKinematic = false;
-            Tween.Stop(tweenApple); Tween.Stop(tweenPostion); Tween.Stop(tweenColor);
-            action?.Invoke();
+            if(!Free)
+            apple.Stop();
+            apple = null;
         }
-        private UnityAction action;
+        private Action ToFall;
         public Transform Transform;
-        private Apple apple;
+        private IGerminatable apple;
         public bool Free { get => apple == null; }
-        public IExpansionTween tweenApple, tweenPostion, tweenColor;
+        
     };
-    List<PointerCreate> pointerCreate = new();
+    private static Random random = new Random();
+
+    [SerializeField] private int countaple;
+
+    List<PointerCreate> pointerCreate;
     protected override void OnStart()
     {
         Transform[] Pointer = gameObject.GetComponentsInChildren<Transform>().Where(children => children.gameObject.name == "AppleCreate").ToArray();
-        foreach(Transform Create in Pointer)
+        Action toFall = CheckItGrowing;
+        toFall += RandomSpawnApple;
+        pointerCreate = new();
+        foreach (Transform Create in Pointer)
         {
-        pointerCreate.Add(new PointerCreate(Create, Random.Range(0,5), RandomSpawnApple));
+        pointerCreate.Add(new PointerCreate(Create, toFall));
         }
+        random = new Random();
+        RandomSpawnApple();
     }
-    private void RandomSpawnApple()
+    public void CheckItGrowing()
     {
-        if (IsDead) return;
-
-        for(int i = 0; i < pointerCreate.Count; i++)
-        {
-            if(pointerCreate[i].Free)
-            {
-                pointerCreate[i] = new PointerCreate(pointerCreate[i].Transform, Random.Range(0, 5), RandomSpawnApple);
-            }
-        }
-        if(pointerCreate.Where(point => !point.Free).Count() == 0)
+        int CountFreeApple = pointerCreate.Where(point => !point.Free).Count();
+        if (CountFreeApple == 0)
         {
             RandomSpawnApple();
         }
     }
-    public override void Dead()
+    private void RandomSpawnApple()
     {
-        base.Dead();
+        if (IsDie) return;
+        int i = 0;
+        while (i < random.Next(pointerCreate.Count))
+        {
+            if (pointerCreate.Where(point => point.Free).Count() < 1)
+                break;
+            int y = random.Next(pointerCreate.Count);
+            if (pointerCreate[y].Free)
+            {
+                pointerCreate[y].CreateApple();
+                i++;
+            }
+        }
+        countaple = pointerCreate.Where(point => !point.Free).Count();
+    }
+    public override void Death()
+    {
         pointerCreate.ForEach(apple =>
         {
             apple.ToFallApple();
         });
+        base.Death();
         pointerCreate.Clear();
     }
 }

@@ -2,5 +2,9 @@
 {
     Fir_Tree,
     Apple_Tree,
-    Tree
+    Tree,
+    White_Mushroom,
+    Nasty_Mushroom,
+    Agaric_Mushroom,
+    Bush
 }

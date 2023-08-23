@@ -112,7 +112,7 @@ public class CameraControll : MonoBehaviour
                 return false;
             gameObject = gameObject.transform.parent.gameObject;
         }
-        if (_PlayerControll.IsDead)
+        if (_PlayerControll.IsDie)
         {
             return false;
         }

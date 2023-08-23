@@ -56,27 +56,27 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Tweener\Scripts\Bezier\Bezier.cs" />
     <Compile Include="Assets\Tweener\Scripts\Ease.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Interfaces\IExpansionColor.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Color\TypeChangeColor.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Vector3\Rotation.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Vector3\Vector3Tween.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Color\TypeComponentChangeColor.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Interfaces\IExpansionBezier.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Color\IgnoreARGB.cs" />
     <Compile Include="Assets\Tweener\Scripts\TypeLoop.cs" />
     <Compile Include="Assets\Tweener\Scripts\Tween.cs" />
     <Compile Include="Assets\Tweener\Scripts\Interfaces\IExpansionTween.cs" />
     <Compile Include="Assets\Tweener\Scripts\Tweener.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Vector3\Scale.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Vector3\Position.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Color\AddColor.cs" />
     <Compile Include="Assets\Tweener\Scripts\Color\Color.cs" />
     <Compile Include="Assets\Tweener\Scripts\Expansion.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Interfaces\ITweenable.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Color\TypeComponentChangeColor.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Vector3\Rotation.cs" />
     <Compile Include="Assets\Tweener\Scripts\Bezier\BezierPoint.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Vector3\Scale.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Vector3\Vector3Tween.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Interfaces\IExpansionColor.cs" />
+    <Compile Include="Assets\Tweener\Scripts\Interfaces\ITweenable.cs" />
     <Compile Include="Assets\Tweener\Scripts\Bezier\BezierWay.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Bezier\Bezier.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Color\AddColor.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Vector3\Position.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Color\TypeChangeColor.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Color\IgnoreARGB.cs" />
-    <Compile Include="Assets\Tweener\Scripts\Interfaces\IExpansionBezier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Tweener\Scripts\Tweener.asmdef" />

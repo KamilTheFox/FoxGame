@@ -117,10 +117,13 @@ namespace GroupMenu
         }
         private void FindUI()
         {
-
             Box = Menu.Find(nameof(MessageBox));
 
             TitleText = MenuUI<Text>.Find("Hat/Title", Box.transform, LText.Null);
+
+            MainGroup.SetSkinComponent(Box, "MainGroup");
+
+            MainGroup.SetSkinComponent(TitleText.gameObject.transform.parent.gameObject, "Hat");
 
             MessageText = MenuUI<Text>.Find("Message",Box.transform, LText.Null);
 

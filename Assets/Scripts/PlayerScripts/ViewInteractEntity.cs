@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GroupMenu;
 using Tweener;
 using UnityEngine;
@@ -13,6 +14,20 @@ public class ViewInteractEntity
     }
 
     private ITakenEntity MoveEntity;
+
+    private IExpansionTween Rotation;
+
+    private Dictionary<Rigidbody, InfoRigidBody> RigidbodyInterpolations = new();
+    private struct InfoRigidBody
+    {
+        public InfoRigidBody(RigidbodyInterpolation _interpolation, bool _kinematic)
+        {
+            interpolation = _interpolation;
+            isKinematic = _kinematic;
+        }
+        public RigidbodyInterpolation interpolation;
+        public bool isKinematic;
+    }
     public void GiveItem(ItemEngine item)
     {
         ItemTake(item);
@@ -21,98 +36,132 @@ public class ViewInteractEntity
     {
         if (MoveEntity == null)
             return;
-        MoveEntity.Throw();
+        MoveEntity.Transform.gameObject.layer = MoveEntity.GetEngine.Layer;
+        foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
+        {
+            chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
+        }
+        foreach(Rigidbody rigidbody in RigidbodyInterpolations.Keys)
+        {
+            if (rigidbody)
+            {
+                rigidbody.interpolation = RigidbodyInterpolations[rigidbody].interpolation;
+                rigidbody.isKinematic = RigidbodyInterpolations[rigidbody].isKinematic;
+            }
+        }
+        if (Rotation != null)
+        {
+            Tween.Stop(Rotation);
+            Rotation = null;
+        }
         MoveEntity = null;
+        RigidbodyInterpolations = new();
     }
     public void ItemTake(ITakenEntity entity)
     {
-        if (CheckMoveEntity())
+        if (IsMoveEntity)
             ItemThrow();
         
         if (entity != null)
         {
             MoveEntity = entity.Take();
             if (MoveEntity == null) return;
+
             MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
+            MoveEntity.Transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
+            {
+                chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
+            }
             if (MoveEntity.Rigidbody)
+            {
                 MoveEntity.Rigidbody.angularVelocity = MoveEntity.Rigidbody.velocity = Vector3.zero;
+                foreach(Rigidbody rigidbody in MoveEntity.GetEngine.gameObject.GetComponentsInChildren<Rigidbody>())
+                {
+                    RigidbodyInterpolations.Add(rigidbody, new InfoRigidBody(rigidbody.interpolation, rigidbody.isKinematic));
+                    rigidbody.interpolation = RigidbodyInterpolation.None;
+                    rigidbody.isKinematic = true;
+                }
+            }
         }
     }
-    private bool CheckMoveEntity()
+    private bool IsMoveEntity
     {
-        bool Enable = MoveEntity != null;
-        if (Enable && MoveEntity.Transform == null)
+        get
         {
-            Enable = false;
-            MoveEntity = null;
+            bool Enable = MoveEntity != null;
+            if (Enable && MoveEntity.Transform == null)
+            {
+                Enable = false;
+                MoveEntity = null;
+            }
+            return Enable;
         }
-        return Enable;
     }
     public void RayCast()
     {
         Ray ray = CameraControll.RayCastCenterScreen;
         Vector3 newPosition = ray.GetPoint(3F);
-        bool isItemMove = CheckMoveEntity();
-        bool DistanseMin2 = false;
-        LayerMask layerMask = isItemMove ? MasksProject.RigidObject : MasksProject.RigidEntity;
-        Action<EntityEngine, bool> buttonClicks = (Entity, isMove) =>
-        {
-            if (Menu.IsEnabled)
-                return;
-            None.SetInfoEntity(true, Entity);
-            bool clickMouse0 = Input.GetKeyDown(KeyCode.Mouse0);
-            bool clickDelete = Input.GetKeyDown(KeyCode.Delete);
-            bool clickE = Input.GetKeyDown(KeyCode.E);
-            if (Input.GetKeyDown(KeyCode.F))
-                Entity.Interaction();
-            if ((clickE && isMove) || clickMouse0 || clickDelete)
-            {
-                ItemThrow();
-                if (clickMouse0 && Entity.Rigidbody && !Entity.Stationary)
-                {
-                    Entity.Transform.position = DistanseMin2 ? transform.position + transform.forward * 0.35F + Vector3.up * 0.6F : newPosition - transform.forward * 0.2F;
-                    Entity.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * Entity.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
-                }
-                if (clickDelete)
-                {
-                    Entity.Delete();
-                }
-            }
-            else if (clickE && !isMove && Entity is ITakenEntity taken)
-                ItemTake(taken);
-        };
 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, CameraControll.instance.DistanseRay, layerMask))
+        ITakenEntity Taken = null;
+
+        IInteractive interactive = null;
+
+        None.SetInfoEntity(false);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, CameraControll.instance.DistanseRay, 
+            IsMoveEntity ? MasksProject.RigidObject : MasksProject.RigidEntity))
         {
             if (raycastHit.collider.gameObject)
                 newPosition = raycastHit.point + ray.direction.normalized * 0.01F;
-            if (!isItemMove)
+            Taken = raycastHit.collider.gameObject.GetComponentInParent<ITakenEntity>();
+            interactive = raycastHit.collider.gameObject.GetComponent<IInteractive>();
+            if(interactive == null)
+                interactive = raycastHit.collider.gameObject.GetComponentInParent<IInteractive>();
+
+        }
+
+        if (IsMoveEntity)
+        {
+            Taken = MoveEntity;
+            if (MoveEntity is IInteractive value)
+                interactive = value;
+            MoveEntity.Transform.position = newPosition;
+            float Scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Scroll > 0)
+                Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, 10F, 0F)).ChangeEase(Ease.CubicRoot);
+            if (Scroll < 0)
+                Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, -10F, 0F)).ChangeEase(Ease.CubicRoot);
+        }
+        if (Taken == null)
+            return;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (IsMoveEntity)
             {
-                EntityEngine Entity = raycastHit.collider.gameObject.GetComponentInParent<EntityEngine>();
-                if (Entity)
-                {
-                    buttonClicks(Entity, isItemMove);
-                }
+                ItemThrow();
+                if (Taken is IThrowed throwed)
+                    throwed.ToThrow();
+            }
+            else
+                ItemTake(Taken.Take());
+        }
+        if(Input.GetKeyDown(KeyCode.Mouse0) && Taken is IDropEntity drop)
+        {
+            if (drop.Rigidbody != null)
+            {
+                ItemThrow();
+                if (Taken is IDropped toDrop)
+                    toDrop.ToDrop();
+                Taken.Transform.position = newPosition - transform.forward * 0.2F;
+                drop.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * drop.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
             }
         }
-        else
-            None.SetInfoEntity(false);
+        if (Input.GetKeyDown(KeyCode.Delete))
+            Taken.GetEngine.Delete();
+        if (Input.GetKeyDown(KeyCode.F) && interactive != null)
+            interactive.Interaction();
 
-        if (isItemMove)
-        {
-                float distanse = Vector3.Distance(transform.position, newPosition);
-                if (distanse < 2F)
-                {
-                    newPosition = transform.forward * 1.25F + transform.position;
-                    DistanseMin2 = true;
-                }
-                MoveEntity.Transform.position = newPosition;
-                float Scroll = Input.GetAxis("Mouse ScrollWheel");
-                if (Scroll > 0)
-                    Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, 45F, 0F)).ChangeEase(Ease.CubicRoot);
-                if (Scroll < 0)
-                    Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, -45F, 0F)).ChangeEase(Ease.CubicRoot);
-                buttonClicks(MoveEntity.GetEngine, isItemMove);
-        }
+        None.SetInfoEntity(true, interactive != null? interactive.GetEngine : Taken.GetEngine);
     }
+    
 }

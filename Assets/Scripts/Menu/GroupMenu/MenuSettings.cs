@@ -50,7 +50,7 @@ namespace GroupMenu
             });
 
             buttonSettings = MenuUI<Button>.Find("Hat/Settings", mainGroup.transform, LText.Null);
-            buttonSettings.SetImage("Settings");
+            buttonSettings.SetImage("Settings", true);
             buttonSettings.OnClick().AddListener(Menu.ActivateMenu<MenuSettings>);
 
             b_SaveValue.OnClick().AddListener(Settings.SaveValue);

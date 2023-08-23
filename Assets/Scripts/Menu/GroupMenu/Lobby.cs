@@ -14,7 +14,6 @@ namespace GroupMenu
         private static TypeItem typeItem;
 
         private static TypePlant typePlant;
-
         public override TypeMenu TypeMenu => TypeMenu.Lobby;
         protected override void Activate()
         {
@@ -26,12 +25,12 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Find("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.PlayerControll?.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.PlayerControll?.isFly.GetLText() }), true);
 
                 Button_Fly.OnClick().AddListener(() => CameraControll.instance?.PlayerControll?.Fly());
 
 
-                MenuUI<Button> GiveBody = MenuUI<Button>.Find("GiveBody", GetTransform(), new TextUI(() => new object[] { LText.Give, " ", LText.Body }), true);
+                MenuUI<Button> GiveBody = MenuUI<Button>.Create("GiveBody", GetTransform(), new TextUI(() => new object[] { LText.Give, " ", LText.Body }), true);
 
                 GiveBody.OnClick().AddListener(() =>
                 {
@@ -52,11 +51,11 @@ namespace GroupMenu
         }
         private void FindBackMainMenu()
         {
-            MenuUI<Button>.Find("BackMainMenu", GetTransform(), LText.MainMenu, true).OnClick(() => GameState.StartGame(GameState.TypeModeGame.MainMenu));
+            MenuUI<Button>.Create("BackMainMenu", GetTransform(), LText.MainMenu, true).OnClick(() => GameState.StartGame(GameState.TypeModeGame.MainMenu));
         }
         private void FindExtitButton()
         {
-            MenuUI<Button>.Find("Exit", GetTransform(), LText.Exit, true).OnClick(Menu.ExitGame);
+            MenuUI<Button>.Create("Exit", GetTransform(), LText.Exit, true).OnClick(Menu.ExitGame);
         }
         private void TabEntity1(MainGroup group)
         {
@@ -125,7 +124,7 @@ namespace GroupMenu
             });
             MenuUI<Button>.Create("KillAll", GetTransform(), "KillAll".GetTextUI(), true).OnClick(() =>
             {
-                AnimalEngine.AnimalList.ForEach(animal => animal.Dead());
+                AnimalEngine.AnimalList.ForEach(animal => animal.Death());
                 Menu.PopMenu(true);
             });
             Transform GroupAddPlant = MenuUI<HorizontalLayoutGroup>.Create("AddPlant", GetTransform(), LText.Null, true).gameObject.transform;

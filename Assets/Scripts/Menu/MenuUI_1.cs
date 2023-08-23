@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public static class MenuUI
 {
+    
     public const string PrefixCreate = " (Create)";
     public static Button.ButtonClickedEvent OnClick(this MenuUI<Button> button, Action ActionCleck = null)
     {
@@ -20,6 +21,28 @@ public static class MenuUI
     public static Scrollbar.ScrollEvent OnValueChanged(this MenuUI<Scrollbar> scrollbar) => scrollbar.Component.onValueChanged;
     public static Slider.SliderEvent OnValueChanged(this MenuUI<Slider> slider) => slider.Component.onValueChanged;
 
+    private static Dictionary<string, Sprite> keyValueImage;
+    public static void SetImageMenu(Image image, string Name)
+    {
+        if (!image) return;
+
+        if(keyValueImage == null)
+        {
+            keyValueImage = new ();
+            List<Sprite> images = Resources.LoadAll<Sprite>($"Menu\\{Settings.NameSkinMenu}").ToList();
+            images.ForEach(image =>
+            {
+                foreach(string localName in image.name.Split('.'))
+                {
+                    keyValueImage.Add(localName, image);
+                }
+            });
+        }
+        if(keyValueImage.TryGetValue(Name, out Sprite sprite))
+        {
+            image.sprite = sprite;
+        }
+    }
     public static void SetMinMax(this MenuUI<Slider> slider, float min, float max) 
         {
         slider.Component.minValue = min;

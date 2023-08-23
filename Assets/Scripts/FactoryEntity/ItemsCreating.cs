@@ -22,24 +22,24 @@ namespace FactoryEntity
             [TypeItem.Barrel] = new InfoItem()
             {
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 200F
+                Mass = 400F
             },
             [TypeItem.Barrel_Detonator] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator),
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 200F
+                Mass = 400F
             },
             [TypeItem.Barrel_Detonator_Timer] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator_Timer),
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 200F,
+                Mass = 400F,
             },
             [TypeItem.Table_Cardboard] = new InfoItem()
             {
                 Controller = true,
-                Mass = 10F,
+                Mass = 30F,
                 RandomSeze = new RandomSize(0.5F),
                 ChangeCenterMass = true,
                 vectorCenterMass = Vector3.up * 0.42F
@@ -47,7 +47,7 @@ namespace FactoryEntity
             [TypeItem.Chair_Cardboard] = new InfoItem()
             {
                 Controller = true,
-                Mass = 5F,
+                Mass = 15F,
                 RandomSeze = new RandomSize(0.85F)
             },
             [TypeItem.TNT_3] = new InfoItem()
@@ -71,14 +71,14 @@ namespace FactoryEntity
             [TypeItem.TazWanted] = new InfoItem()
             {
                 EngineComponent = typeof(PosterTazWanted),
-                Mass = 5F,
+                Mass = 30F,
                 ChangeCenterMass = true,
                 vectorCenterMass = Vector3.up * 0.30F
             },
-            [TypeItem.Door] = new InfoItem()
+            [TypeItem.DoorLegasy] = new InfoItem()
             {
                 EngineComponent = typeof(Door),
-                Mass = 10F,
+                Mass = 30F,
                 RandomSeze = new RandomSize(0.6F),
                 ProtectStatic = true,
                 rigidbodyInterpolation = RigidbodyInterpolation.None,
@@ -92,12 +92,6 @@ namespace FactoryEntity
                     Transform Glass = DoorObject.transform.Find("Door_Glass");
                     Glass.localScale = new Vector3(0.62F, 1F, 0.88F);
                     Glass.localPosition = new Vector3(1F, 0.1F, 0.17F);
-                    List<MeshCollider> meshes = new List<MeshCollider>();
-                    meshes.Add(DoorObject.GetComponent<MeshCollider>());
-                    meshes.AddRange(DoorObject.GetComponentsInChildren<MeshCollider>());
-                    meshes.ForEach(c => c.convex = true);
-                    Item.Rigidbody = DoorObject.gameObject.AddComponent<Rigidbody>();
-                    Item.Rigidbody.isKinematic = true;
                 },
             },
             [TypeItem.Bench] = new InfoItem()
@@ -110,8 +104,25 @@ namespace FactoryEntity
                 RandomSeze = new RandomSize(2F),
                 ProtectStatic = true,
             },
-
+            [TypeItem.Wardrobe] = new InfoItem()
+            {
+                ProtectStatic = true,
+                EngineComponent = typeof(Door)
+            },
+            [TypeItem.Box] = new InfoItem()
+            {
+                Mass = 15F
+            },
+            [TypeItem.BoxMetal] = new InfoItem()
+            {
+                Mass = 50F
+            },
+            [TypeItem.Bed] = new InfoItem()
+            {
+                ProtectStatic = true
+            }
         };
+
 
         class InfoItem : IParametersEntityes
         {
@@ -134,7 +145,9 @@ namespace FactoryEntity
                 itemEngine.transform.localScale = Size;
                 if (!itemEngine.Stationary && !ProtectStatic)
                 {
-                    Rigidbody body = Prefab.gameObject.AddComponent<Rigidbody>();
+                    if (!itemEngine.gameObject.TryGetComponent(out Rigidbody body))
+                        body = Prefab.gameObject.AddComponent<Rigidbody>();
+
                     itemEngine.Rigidbody = body;
                     itemEngine.isController = Controller;
                     if (Controller)
@@ -174,7 +187,10 @@ namespace FactoryEntity
             IParametersEntityes parameters;
             if (!keyOfTypeParameters.TryGetValue(itemType, out parameters))
                 parameters = new InfoItem();
-            itemEngine = GetPrefab.AddComponent(parameters.EngineComponent) as ItemEngine;
+            if (GetPrefab.TryGetComponent(out ItemEngine obj))
+                itemEngine = obj;
+            else
+                itemEngine = GetPrefab.AddComponent(parameters.EngineComponent) as ItemEngine;
             parameters.SetParametrs(itemEngine);
             itemEngine.itemType = itemType;
         }

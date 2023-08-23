@@ -88,6 +88,13 @@ public class Localisation
         [LText.Temporarily_unavailable] = "Временно не доступно",
         [LText.Button] = "Кнопка",
         [LText.Press] = "Нажать",
+        [LText.Explosion] = "Взрыв",
+        [LText.Detonate] = "Взорвать",
+        [LText.Eat] = "Съесть",
+        [LText.Door] = "Дверь",
+        [LText.Open] = "Открыть",
+        [LText.Close] = "Закрыть",
+
     };
 
     public static Language Language { get; set; }
@@ -187,6 +194,12 @@ public enum LText
     Temporarily_unavailable,
     Button,
     Press,
+    Explosion,
+    Detonate,
+    Eat,
+    Door,
+    Open,
+    Close
 }
 public static class LTextExpansion
 {

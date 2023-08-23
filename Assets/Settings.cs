@@ -26,6 +26,12 @@ public static class Settings
 
     public static UnityEvent ChangeLanguageEvent = new();
 
+    public static Color ColorText { get; private set; } = Color.white;// new Color(0.8F, 0.8F, 0.8F);
+
+    public static Color ColorOutline { get; private set; } = Color.black;
+
+    public static string NameSkinMenu { get; private set; } = "Default";
+
     public static void ChangeLanguage(Language language)
     {
         Localisation.Language = language;

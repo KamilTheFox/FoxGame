@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public interface IUpdateMenuUI
 {
@@ -138,7 +139,7 @@ public interface IUpdateMenuUI
 public class MenuUI<T> : IUpdateMenuUI where T : Component
 {
     private TextUI TextUI;
-    public string Text { get => text?.text; private set { if (text) text.text = value; } }
+    public string Text { get => text != null ? text.text : null; private set { if (text) text.text = value; } }
 
     private Text text;
     private bool isText;
@@ -175,9 +176,29 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
     private void Init(T _component, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
         _component.gameObject.SetActive(true);
+        
         Menu.ListTextUpdate.Add(this);
         TextUI = textUI;
         MenuUIAutoRect.TypeRect type = MenuUIAutoRect.TypeRect.Default;
+
+        if (AutoRect)
+        {
+            MenuUIAutoRect.AutoPositionComponent(_component, type, ModiferAutoRect);
+        }
+        if (ModiferAutoRect != null && !AutoRect)
+        {
+            LayoutElement tElement = _component.gameObject.AddComponent<LayoutElement>();
+            Rect rect = _component.GetComponent<RectTransform>().rect;
+            rect.size = Vector2.zero;
+            rect = ModiferAutoRect(rect);
+
+            if (rect.size.x != 0)
+                tElement.minWidth = rect.size.x;
+            if (rect.size.y != 0)
+                tElement.minHeight = rect.size.y;
+        }
+
+
         EventTrigger trigger = null;
         if (_component.gameObject.TryGetComponent(out EventTrigger _trigger))
         {
@@ -210,32 +231,77 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
             isText = true;
             text = item;
         }
-        if (AutoRect)
+        
+        foreach (Image image in _component.gameObject.GetComponentsInChildren<Image>(true))
         {
-            MenuUIAutoRect.AutoPositionComponent(_component, type, ModiferAutoRect);
+            MenuUI.SetImageMenu(image, image.name);
+            SetpixelsPerUnitMultiplier(image);
         }
-        if(ModiferAutoRect != null && !AutoRect)
+        Image mainImage;
+        if (typeof(T) != typeof(Image) &&
+            (mainImage = _component.gameObject.GetComponent<Image>()) != null)
         {
-            LayoutElement tElement = _component.gameObject.AddComponent<LayoutElement>();
-            Rect rect = _component.GetComponent<RectTransform>().rect;
-            rect.size = Vector2.zero;
-            rect = ModiferAutoRect(rect);
+            MenuUI.SetImageMenu(mainImage, "NewUISprite");
+            SetpixelsPerUnitMultiplier(mainImage);
+        }
 
-            if (rect.size.x != 0)
-                tElement.minWidth = rect.size.x;
-            if(rect.size.y != 0)
-                tElement.minHeight = rect.size.y;
-        }
         entry.callback.AddListener((date) => UpdateText());
         trigger.triggers.Add(entry);
-        if (isText)
-            return;
-        component = _component;
-        text = component.GetComponentInChildren<Text>();
+        if (!isText)
+        {
+            component = _component;
+            text = component.GetComponentInChildren<Text>();
+        }
+        foreach (Text textElement in component.GetComponentsInChildren<Text>(true))
+        {
+            textElement.color = Settings.ColorText;
+            Outline outline = textElement.gameObject.AddComponent<Outline>();
+            outline.effectDistance = new Vector2(1.5F, 1.5F);
+            outline.effectColor = Settings.ColorOutline;
+        }
     }
-    public Image SetImage(string nameImage)
+    private static void SetpixelsPerUnitMultiplier(Image image)
+    {
+        float deltaSize = image.rectTransform.rect.width < 35 ? image.rectTransform.rect.width / 35 : image.rectTransform.rect.height / 50;
+        image.type = Image.Type.Sliced;
+        if (image.rectTransform.rect.height <= 20)
+        {
+            image.pixelsPerUnitMultiplier = 2.3F;
+            return;
+        }
+        if (image.rectTransform.rect.height <= 15)
+        {
+            image.pixelsPerUnitMultiplier = 3;
+            return;
+        }
+        if (deltaSize < 1)
+        {
+            deltaSize += 1;
+        }
+        else if (deltaSize > 1)
+        {
+            deltaSize -= 1;
+        }
+        if (deltaSize > 1.5f)
+        {
+            deltaSize = 1.5f;
+        }
+        if (deltaSize < 0.05F)
+        {
+            deltaSize = 0.05F;
+        }
+        image.pixelsPerUnitMultiplier = deltaSize;
+    }
+    public Image SetImage(string nameImage,bool Outline = false)
     {
         Image image = GetImage();
+        image.color = Settings.ColorText;
+        if (Outline && !image.gameObject.TryGetComponent(out Outline outline))
+        {
+            outline = image.gameObject.AddComponent<Outline>();
+            outline.effectDistance = new Vector2(1.5F, 1.5F);
+            outline.effectColor = Settings.ColorOutline;
+        }
         image.sprite = Menu.GetSprite(nameImage);
         return image;
     }
@@ -282,6 +348,7 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
             gameObject = new GameObject(typeof(T).Name, typeof(T));
         }
         T newObject = GameObject.Instantiate(gameObject, _Parent).GetComponent<T>();
+
         newObject.gameObject.name = gameObject.name + MenuUI.PrefixCreate;
 
         return new MenuUI<T>(newObject, textUI, AutoRect, ModiferAutoRect);
@@ -296,6 +363,10 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
     public void UpdateText()
     {
         if (!text) return;
+        if (component is Dropdown)
+        {
+            return;
+        }
         Text = TextUI.Text;
     }
 

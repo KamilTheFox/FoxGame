@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -453.5}
+  m_AnchoredPosition: {x: 0, y: -545.5773}
   m_SizeDelta: {x: 0, y: 900}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &6674553870601086032
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5745382614419360150}
   m_HandleRect: {fileID: 8510364228100795254}
   m_Direction: 2
-  m_Value: 0.509915
-  m_Size: 0.6077778
+  m_Value: 0.82399076
+  m_Size: 0.6722222
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -329,8 +329,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
+  m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6396851303376486886
 CanvasRenderer:
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 460783650503994992}
   - component: {fileID: 5745382614419360150}
   m_Layer: 5
-  m_Name: Handle
+  m_Name: ScrollbarHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

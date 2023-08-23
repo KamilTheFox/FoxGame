@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using Tweener;
 
-public class PlantEngine : EntityEngine, IAlive
+public class PlantEngine : EntityEngine, IDiesing
 {
-
+    private IExpansionColor tween;
     public static PlantEngine[] GetPlants
     {
         get
@@ -18,26 +18,25 @@ public class PlantEngine : EntityEngine, IAlive
 
     public override TypeEntity typeEntity => TypeEntity.Plant;
     [HideInInspector] public TypePlant typePlant;
-
-    public bool IsDead { get; set; }
+    public bool IsDie { get; set; }
 
     public static PlantEngine AddPlant(TypePlant plant, Vector3 vector, Quaternion quaternion)
     {
         return AddEntity<PlantEngine>(plant, vector, quaternion);
     }
-    public virtual void Dead()
+    protected override void onDestroy()
     {
-        if (IsDead) return;
-        IsDead = true;
-        GetComponentsInChildren<Transform>().Where(obj => obj.name.Contains("Crown")).ToList().ForEach(obj => LateСrown(obj.gameObject));
+        if(tween!=null)
+            Tween.Stop((IExpansionTween)tween);
+        base.onDestroy();
     }
-    private void LateСrown(GameObject Crown)
+    public virtual void Death()
     {
-        Tween.SetColor(Crown.transform, new Color(1F,0.5F,0F,0F), 2F);
-        Tween.SetPosition(Crown.transform,  Crown.transform.parent.position + Vector3.down * 5F, 2F);
-        Tween.SetScale(Crown.transform, Crown.transform.localScale * 1.5F, 2F);
-        GameObject.Destroy(Crown, 2.1F);
+        if (IsDie) return;
+        IsDie = true;
+        tween = Tween.SetColor(Transform, new Color(1, 1, 1, 0), 3F).IgnoreAdd(IgnoreARGB.RGB).ChangeEase(Ease.CubicRoot).TypeOfColorChange(TypeChangeColor.ObjectAndHierarchy).ToCompletion(() => Delete());
     }
+   
     public override TextUI GetTextUI()
     {
         return (typeEntity.ToString() + " " + typePlant.ToString()).GetTextUI();

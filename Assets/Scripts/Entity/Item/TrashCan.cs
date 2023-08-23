@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TrashCan : ItemEngine
+public class TrashCan : ItemEngine, IInteractive
 {
     List<ItemEngine> objectsDelete = new();
     protected override void OnStart()
@@ -12,7 +12,7 @@ public class TrashCan : ItemEngine
         trigger.Enter += Enter;
         trigger.Exit += Exit;
     }
-    public override void Interaction()
+    public void Interaction()
     {
         objectsDelete.ForEach(obj => Destroy(obj?.gameObject));
         objectsDelete.Clear();

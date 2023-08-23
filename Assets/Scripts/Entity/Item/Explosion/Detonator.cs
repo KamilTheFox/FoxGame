@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Threading.Tasks;
 using System.Threading;
 using Random = UnityEngine.Random;
 
-public abstract class Detonator : ItemEngine
+public abstract class Detonator : ItemEngine, IInteractive
 {
     public abstract float Radius { get; }
 
@@ -15,7 +16,7 @@ public abstract class Detonator : ItemEngine
     public abstract EffectItem ExplosionEffect { get; }
 
     public bool isActivate { get; protected set; }
-    public override void Interaction()
+    public void Interaction()
     {
         InteractionTimeActivation(TimeDetonate);
     }
@@ -41,39 +42,39 @@ public abstract class Detonator : ItemEngine
     void ExplosionForce (Rigidbody rb , float ForceDelta = 1F)
     {
         if (!rb) return;
-        for (int i = 6; i > 1; i -= 2)
-        {
-            rb.AddExplosionForce(Force / i / ForceDelta, Transform.position, Radius * (float)(6F / i * 1.2F));
-        }
+        rb.AddExplosionForce(Force / 3 / ForceDelta, Transform.position, Radius * (float)(6F / 3 * 1.2F));
+        //for (int i = 6; i > 1; i -= 2)
+        //{
+        //    rb.AddExplosionForce(Force / i / ForceDelta, Transform.position, Radius * (float)(6F / i * 1.2F));
+        //}
     }
-    private Collider[] OverlapSphere(LayerMask layer)
+    private Collider[] OverlapSphere(LayerMask layer, float Radius)
     {
-        return Physics.OverlapSphere(Transform.position, Radius * 5F, layer);
+        return Physics.OverlapSphere(Transform.position, Radius, layer);
     }
     void Explosion()
     {
         Destroy(GetEffect(ExplosionEffect, Transform.position), 8F);
         SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position, true , Volume);
 
-        Collider[] colliders = OverlapSphere(MasksProject.EntityPlayer);
+        Collider[] colliders = OverlapSphere(MasksProject.EntityPlayer, Radius * 5F);
+        Collider[] collidersKill = OverlapSphere(MasksProject.EntityPlayer, Radius * 0.6F);
         for (int i = 0; i < colliders.Length; i++)
         {
             EntityEngine item = colliders[i].GetComponentInParent<EntityEngine>();
-            Rigidbody rb = colliders[i].GetComponent<Rigidbody>();
-            if (!rb)
-            {
+            Rigidbody rb;
                 if (item && item.Rigidbody)
                     rb = item.Rigidbody;
                 else
                     rb = colliders[i].GetComponentInParent<Rigidbody>();
-            }
             float Distance = Vector3.Distance(colliders[i].transform.position, Transform.position);
-            IAlive Alive = colliders[i].GetComponentInParent<IAlive>();
-            if (Alive != null && Distance < Radius * 0.6F)
+            IDiesing Alive = colliders[i].GetComponentInParent<IDiesing>();
+            bool isDeath = collidersKill.Contains(colliders[i]);
+            if (Alive != null && isDeath)
             {
-                Alive.Dead();
+                Alive.Death();
             }
-            if (Distance < Radius * 0.5F)
+            if (isDeath)
             {
                 if (item is ItemEngine)
                 {
@@ -88,7 +89,7 @@ public abstract class Detonator : ItemEngine
                         ExplosionForce(rb, 5F);
                         continue;
                     }
-                    else if (item is not IAlive && Distance < Radius * 0.6F)
+                    else if (item is not IDiesing && isDeath)
                         item.Delete();
                 }
             }
@@ -96,5 +97,12 @@ public abstract class Detonator : ItemEngine
         }
     }
 
-
+    public override TextUI GetTextUI()
+    {
+        return new TextUI(() => new object[]
+            {
+            base.GetTextUI(),
+            new TextUI(() => new object[] {"\n[",LText.KeyCodeF ,"] -", LText.Detonate })
+            });
+    }
 }

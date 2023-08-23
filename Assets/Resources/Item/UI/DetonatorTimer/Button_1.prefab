@@ -191,7 +191,8 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7423449825434047180, guid: 5c31435fe9a87814babe620bfc2a9df8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5c31435fe9a87814babe620bfc2a9df8, type: 3}
 --- !u!224 &3175936847877137759 stripped
 RectTransform:

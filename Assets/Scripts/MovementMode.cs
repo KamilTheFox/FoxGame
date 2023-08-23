@@ -55,7 +55,7 @@ public static class MovementMode
     }
     public static void MovementWASDVelocity(Rigidbody obj, float Speed)
     {
-        Vector3 velosity = WASD(obj.transform, Speed * obj.mass * 2F, out bool isMove, true);
+        Vector3 velosity = WASD(obj.transform, Speed, out bool isMove, true);
         if (isMove)
             obj.velocity = new Vector3(velosity.x, obj.velocity.y, velosity.z);
         else 

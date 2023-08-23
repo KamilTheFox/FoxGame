@@ -37,7 +37,7 @@ namespace FactoryEntity
             if (GetPrefab.TryGetComponent(out AnimalEngine engine))
                 animalEngine = engine;
             else
-            animalEngine = GetPrefab.AddComponent(parameters.EngineComponent) as AnimalEngine;
+                animalEngine = GetPrefab.AddComponent(parameters.EngineComponent) as AnimalEngine;
 
             parameters.SetParametrs(animalEngine);
             animalEngine.TypeAnimal = typeAnimal;

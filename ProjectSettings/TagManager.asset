@@ -18,7 +18,7 @@ TagManager:
   - ExplosionCollider
   - Bone
   - SkinPlayer
-  - 
+  - IntangibleEntity
   - 
   - 
   - 

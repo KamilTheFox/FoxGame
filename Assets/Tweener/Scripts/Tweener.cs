@@ -23,7 +23,14 @@ namespace Tweener
             BetweenObjects.Add(NameOperator, this);
             Tween.Launch();
         }
-        public string NameOperator => $"{transform.GetInstanceID()}:{transform.name} [{NameOperation}]";
+        public string NameOperator
+        {
+            get
+            {
+                if (!transform) return "Null";
+                return $"{transform.GetInstanceID()}:{transform.name} [{NameOperation}]";
+            }
+        }
 
         public static Dictionary<string, ITweenable> BetweenObjects = new();
 

@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using GroupMenu;
 
-public class ItemEngine : EntityEngine, ITakenEntity
+public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
 {
     public override TypeEntity typeEntity => TypeEntity.Item;
+    
     public static ItemEngine[] GetItems 
     {   
         get 
@@ -19,11 +20,11 @@ public class ItemEngine : EntityEngine, ITakenEntity
 
     [HideInInspector] public bool isController;
 
-    protected virtual bool CanTake =>  (Stationary && GameState.IsCreative) || !Stationary;
-
     public static int CountItems => GetItems.Length;
 
     [HideInInspector] public TypeItem itemType;
+    Rigidbody ITakenEntity.Rigidbody => Rigidbody;
+
     public static int CountItemTypes { get { return Enum.GetNames(typeof(TypeItem)).Length; } }
     public int ID
     {
@@ -37,10 +38,12 @@ public class ItemEngine : EntityEngine, ITakenEntity
             return -1;
         }
     }
-    public bool IsTake { get; private set; }
+    private bool IsTake => (Rigidbody == null && GameState.IsAdventure) || (GameState.IsAdventure && Rigidbody.mass > 20f);
 
-    Rigidbody ITakenEntity.Rigidbody => Rigidbody;
+    private bool IsDrop => (GameState.IsCreative &!Stationary && Rigidbody ) || (!Stationary && Rigidbody && Rigidbody.mass <= 5f);
+    Rigidbody IDropEntity.Rigidbody => IsDrop ? Rigidbody : null;
 
+    public event Action OnTake;
     public static ItemEngine AddItem(TypeItem type, Vector3 position, Quaternion quaternion, bool isStatic = true)
     {
         if (type == TypeItem.None) return null;
@@ -71,37 +74,13 @@ public class ItemEngine : EntityEngine, ITakenEntity
         }
         GetItems[ItemIndex].Delete();
     }
-    void ITakenEntity.Throw()
+    public virtual ITakenEntity Take()
     {
-        IsTake = false;
-        TakeThrow();
-    }
-    ITakenEntity ITakenEntity.Take()
-    {
-        if (!CanTake) return null;
-        IsTake = true;
-        TakeThrow();
+        if(IsTake)
+            return null;
+
+        OnTake?.Invoke();
         return this;
-    }
-    private void TakeThrow()
-    {
-        if (Rigidbody != null && !Stationary)
-        {
-            Rigidbody.useGravity = !IsTake;
-            if(Rigidbody.isKinematic)
-            Rigidbody.isKinematic = false;
-            Rigidbody.velocity = Vector3.zero;
-        }
-        gameObject.layer = IsTake ? LayerMask.NameToLayer("Ignore Raycast") : LayerMask.NameToLayer("Entity");
-        foreach (Transform chield in Transform.GetComponentsInChildren<Transform>())
-        {
-            chield.gameObject.layer = gameObject.layer;
-        }
-    }
-    public override void Interaction()
-    {
-        if(!Stationary && isController)
-        CameraControll.instance.EntranceBody(this.gameObject);
     }
     private void FixedUpdate()
     {
@@ -118,12 +97,12 @@ public class ItemEngine : EntityEngine, ITakenEntity
     public override TextUI GetTextUI()
     {
         return new TextUI(() => new object[]
-        {
-            new TextUI(() => new object[] {itemType.ToString() }),
-            CanTake ? new TextUI(() => new object[] { "\n[", LText.KeyCodeE ,"] - ",LText.Take ,"/",LText.Leave }) : "" ,
-            Stationary ? "" : new TextUI(() => new object[] {"\n[", LText.KeyCodeMouse0 ,"] - ",LText.Drop }),
-            !Stationary && isController ? new TextUI(() => new object[] {"\n[",LText.KeyCodeF ,"] -", LText.Interactive }) : ""
-        });
+            {
+            itemType.ToString(),
+            IsTake ? "" : new TextUI(() => new object[]
+            { "\n[",LText.KeyCodeE ,"] -", LText.Take, "/", LText.Leave }),
+            !IsDrop ? "" : new TextUI(() => new object[] { "\n[", LText.KeyCodeMouse0, "] - ", LText.Drop })
+            });
     }
 }
 

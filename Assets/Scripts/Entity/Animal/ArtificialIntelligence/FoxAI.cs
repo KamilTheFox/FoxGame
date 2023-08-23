@@ -36,7 +36,7 @@ public class FoxAI : AI
         else
         if (col.gameObject.GetComponent<Rigidbody>().velocity.magnitude * col.gameObject.GetComponent<Rigidbody>().mass > 200F)
         {
-            engine.Dead();
+            engine.Death();
         }
 
     };

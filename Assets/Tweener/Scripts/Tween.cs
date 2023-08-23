@@ -22,6 +22,7 @@ namespace Tweener
         }
         private void OnDestroy()
         {
+            Tweener.BetweenObjects.Clear();
             instance = null;
             Launched = false;
         }
@@ -39,6 +40,7 @@ namespace Tweener
                         Delete.Add(keyValues.Key);
                 Delete.ForEach(key =>
                 {
+                    if (!Tweener.BetweenObjects.ContainsKey(key)) return;
                     ITweenable tweenable = Tweener.BetweenObjects[key];
                     tweenable.OnComplection();
                     if (tweenable.Timer >= 1F)
@@ -102,7 +104,7 @@ namespace Tweener
         private static IExpansionTween ConvertTween(IExpansionTween tween, Action<Tweener> action)
         {
             Tweener tweener = tween as Tweener;
-            if (tweener.transform == null) return null;
+            if (tweener == null && tweener.transform == null) return null;
             action.Invoke(tweener);
             Launch();
             return tween;
@@ -112,7 +114,8 @@ namespace Tweener
         {
             return ConvertTween(tween, (tweener) =>
             {
-                Tweener.BetweenObjects.Remove(tweener.NameOperator);
+                if (Tweener.BetweenObjects.ContainsKey(tweener.NameOperator))
+                    Tweener.BetweenObjects.Remove(tweener.NameOperator);
             });
         }
         public static IExpansionTween UnPause(IExpansionTween tween)
@@ -123,11 +126,14 @@ namespace Tweener
                     Tweener.BetweenObjects.Add(tweener.NameOperator, tweener);
             });
         }
-        public static IExpansionTween Stop(IExpansionTween tween)
+        public static IExpansionTween Stop(IExpansionTween tween, bool OnComplection = false)
         {
             return ConvertTween(tween, (tweener) =>
                 {
                     tweener.Restart();
+                    if (OnComplection)
+                        ((ITweenable)tween).OnComplection();
+                    if(Tweener.BetweenObjects.ContainsKey(tweener.NameOperator))
                     Tweener.BetweenObjects.Remove(tweener.NameOperator);
                 });
         }
@@ -146,7 +152,7 @@ namespace Tweener
             {
                 new GameObject("Tweener", typeof(Tween));
             }
-            if (Launched) return;
+            instance.StopAllCoroutines();
             instance.StartCoroutine(instance.MainProcess());
             Launched = true;
         }

@@ -18,7 +18,7 @@ using FactoryEntity;
                 return null;
         IEntityCreated entity = (IEntityCreated)Activator.CreateInstance(AcceptableEnum[_enum.GetType()], new object[] { _enum, position, quaternion, isStatic });
         if(entity != null && entity.GetEngine != null)
-        entity.GetEngine.Stationary = entity.isStatic;
+            entity.GetEngine.Stationary = entity.isStatic;
         return entity;
         }
         public static IEntityCreated GetEntity(Enum _enum, Transform parent, bool isStatic = true)

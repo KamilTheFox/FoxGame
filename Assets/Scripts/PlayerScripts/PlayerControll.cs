@@ -5,12 +5,12 @@ using UnityEngine;
 using GroupMenu;
 using Tweener;
 
-public class PlayerControll : MonoBehaviour, IAlive
+public class PlayerControll : MonoBehaviour, IDiesing
 {
     const float SpeedDefault = 4F;
 
     public float ForseJump = 4F;
-    public float Speed { get; private set; }
+    [field: SerializeField] public float Speed { get; private set; }
     public Rigidbody Rigidbody { get; private set; }
     public SphereCollider SphereCollider { get; private set; }
 
@@ -34,7 +34,7 @@ public class PlayerControll : MonoBehaviour, IAlive
         }
     }
 
-    public bool IsDead { get; private set; }
+    public bool IsDie { get; private set; }
 
     public IRegdoll Regdool { get; private set; }
 
@@ -72,7 +72,6 @@ public class PlayerControll : MonoBehaviour, IAlive
     void Awake()
     {
         Transform = transform;
-        Speed = SpeedDefault;
         
         Rigidbody = GetComponent<Rigidbody>();
         Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
@@ -96,9 +95,10 @@ public class PlayerControll : MonoBehaviour, IAlive
         if(!_isItemController)
         Regdool = new RegdollPlayer(Animator, this);
     }
+
     public void SetSpeed(float speed = 1F)
     {
-        Speed = SpeedDefault * speed;
+        Speed = speed;
     }
     
     private void ChangeLayerIsItemToPlayer(bool IsEnabled)
@@ -126,9 +126,9 @@ public class PlayerControll : MonoBehaviour, IAlive
         camera.Transform.parent = null;
         interactEntity = null;
     }
-    public void Dead()
+    public void Death()
     {
-        IsDead = true;
+        IsDie = true;
         if (Regdool != null && !isItemController)
             Regdool.Activate();
         Fly(Off: true);
@@ -141,7 +141,7 @@ public class PlayerControll : MonoBehaviour, IAlive
     }
     private void Moving()
     {
-        MovementMode.MovementWASDVelocity(Rigidbody, Speed);
+        MovementMode.MovementWASDVelocity(Rigidbody, Speed * 100);
         if (isFly)
             MovementMode.MovementFlySpaseLSift(Rigidbody, Speed, _isGrounded);
         else if (_isGrounded && Input.GetKeyDown(KeyCode.Space))

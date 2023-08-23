@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Tweener;
-public class PosterTazWanted : ItemEngine, IAlive
+public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity
 {
-    public bool IsDead { get; set; }
+    public bool IsDie { get; set; }
 
     public Action<Collision, GameObject> BehaviorFromCollision => BehaviorFromCollisionEnter;
 
@@ -16,11 +16,10 @@ public class PosterTazWanted : ItemEngine, IAlive
 
     public const float WithstandingForce = 140F;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         regdoll = new Regdoll(Animator, this);
     }
-
     private IEnumerator Crumble()
     {
         yield return new WaitForSeconds(0.1F);
@@ -63,14 +62,14 @@ public class PosterTazWanted : ItemEngine, IAlive
         }
         if (Force > WithstandingForce)
         {
-            Dead();
+            Death();
         }
     }
 
-    public void Dead()
+    public void Death()
     {
-        if (IsDead) return;
-        IsDead = true;
+        if (IsDie) return;
+        IsDie = true;
         StartCoroutine(Crumble());
     }
 

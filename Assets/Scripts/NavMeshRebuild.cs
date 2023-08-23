@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,6 +20,6 @@ public class NavMeshRebuild : MonoBehaviour
 
         foreach (PlantEngine plant in plants)
             foreach (Transform transform in plant.GetComponentsInChildren<Transform>())
-                transform.gameObject.layer = LayerMask.NameToLayer("Entity");
+                transform.gameObject.layer = plant.Layer;
     }
 }

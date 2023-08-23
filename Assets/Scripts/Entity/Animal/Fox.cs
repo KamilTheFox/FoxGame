@@ -12,7 +12,7 @@ public class Fox : AnimalEngine
         {
             base.GetTextUI(),
             " " + TypeAnimal.ToString() +
-            (IsDead? "" : "\nPserss F to change animation")
+            (IsDie? "" : "\nPserss F to change animation")
         });
     }
 }

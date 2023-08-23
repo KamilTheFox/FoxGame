@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-
+using InteractiveBodies;
 
 public class TimerDetonator : MonoBehaviour
 {
@@ -73,19 +69,23 @@ public class TimerDetonator : MonoBehaviour
         TimeSpan previos = FixedStartTime - DateTime.Now;
         while (detonator.isActivate)
         {
+            
             yield return null;
-            if(Menu.Pause)
-            yield return new WaitUntil(() =>
-            {
-                if(!Menu.Pause)
-                {
-                    FixedStartTime = DateTime.Now.AddTicks(previos.Ticks);
-                }
-                return !Menu.Pause;
-            });
             TimeSpan span = FixedStartTime - DateTime.Now;
-            if (previos.Seconds != span.Seconds)
+            if (Menu.Pause)
+                yield return new WaitUntil(() =>
+                {
+                    if(!Menu.Pause)
+                    {
+                        FixedStartTime = DateTime.Now.AddTicks(span.Ticks);
+                    }
+                    return !Menu.Pause;
+                });
+            
+            if ((span.Minutes < 1 && span.Seconds < 3 && span.Milliseconds % 10 == 0) || previos.Seconds != span.Seconds)
             {
+                if (span.Minutes < 1 && span.Seconds < 3)
+                    audioSource.pitch = 1.1F;
                 SoundMeneger.Play(SoundMeneger.Sounds.Tick, audioSource);
                 previos = span;
             }
@@ -149,6 +149,7 @@ public class TimerDetonator : MonoBehaviour
         if(!detonator.isActivate)
         {
             StartTime = 10;
+            audioSource.pitch = 1F;
             return;
         }
     }

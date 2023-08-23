@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 
-public class TNT : Detonator
+public class TNT : Detonator, ITakenEntity, IDropEntity
 {
-    public override EffectItem ExplosionEffect => EffectItem.TNT_Explosion;
+    public override EffectItem ExplosionEffect => EffectItem.Low_Explosion;
     public override float Radius => 4F;
 
     public override float TimeDetonate => 7F;
 
     public override float Volume => 0.5F;
+
+    Rigidbody IDropEntity.Rigidbody => Rigidbody;
 
     protected override void OnStart()
     {

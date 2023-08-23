@@ -61,48 +61,62 @@
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IThrowed.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\ILockable.cs" />
     <Compile Include="Assets\Scripts\Menu\Localisation.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Padlock\Padlock.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityCreate.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeFolderEntity.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IDropEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\TypeMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
-    <Compile Include="Assets\Scripts\Entity\Item\GameButton.cs" />
+    <Compile Include="Assets\Scripts\Entity\InteractiveBodies\GameButton.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TimerDetonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\EntityParametrs.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Box.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IDiesing.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3_Timer.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\ILocking.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\FoodSearch.cs" />
     <Compile Include="Assets\Scripts\Entity\Regdoll.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\Tree.cs" />
     <Compile Include="Assets\Scripts\Expansion.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\AI.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\DebugAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MediaPlayer.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
     <Compile Include="Assets\Scripts\Debug\OldConsole.cs" />
+    <Compile Include="Assets\Scripts\Entity\InteractiveBodies\InteractiveBody.cs" />
     <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerControll.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
+    <Compile Include="Assets\Scripts\Entity\InteractiveBodies\Door.cs" />
+    <Compile Include="Assets\Scripts\Menu\Chat.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />
-    <Compile Include="Assets\Scripts\Entity\IRegdoll.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CameraControll.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
     <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeEntity.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IInteractive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Fence\Fence.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomWalk.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehaviour.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuScreenSave.cs" />
-    <Compile Include="Assets\Scripts\Entity\ITakenEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\CalendarHolidays.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IDamaged.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Fence\Pillar.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator_Timer.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Door.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT.cs" />
@@ -115,27 +129,33 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Detonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Fox.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\PlantsCreating.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Padlock\Key.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\TypePlant.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\ItemsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\Idle.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
-    <Compile Include="Assets\Scripts\Entity\IAlive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IStriker.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IDropped.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityStencilCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TrashCan.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Apple_Tree.cs" />
     <Compile Include="Assets\Scripts\Entity\TriggerDetect.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\ViewInteractEntity.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TypeItem.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\IGerminatable.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IRegdoll.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainGroup.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\ITakenEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\ConsoleMenu.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IEntityCreated.cs" />
     <Compile Include="Assets\Scripts\MasksProject.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\Mushroom.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3.cs" />
@@ -144,8 +164,10 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Shaders\Crown.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -860,14 +882,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NavMeshComponentsEditor.csproj">
-      <Project>{9FBBFF9B-A8CF-1D4A-0875-EA25AD4B97D0}</Project>
-      <Name>NavMeshComponentsEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="NavMeshComponents.csproj">
-      <Project>{50FB13A0-4D8B-CD3D-379A-6B605F57477F}</Project>
-      <Name>NavMeshComponents</Name>
-    </ProjectReference>
     <ProjectReference Include="TweenerEditor.csproj">
       <Project>{146E8E25-85B5-0839-3065-1A6AC13737D8}</Project>
       <Name>TweenerEditor</Name>
@@ -875,6 +889,14 @@
     <ProjectReference Include="Tweener.csproj">
       <Project>{F629E610-3C16-DDDA-3925-613C229A916D}</Project>
       <Name>Tweener</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{9FBBFF9B-A8CF-1D4A-0875-EA25AD4B97D0}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{50FB13A0-4D8B-CD3D-379A-6B605F57477F}</Project>
+      <Name>NavMeshComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

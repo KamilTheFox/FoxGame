@@ -23,12 +23,17 @@ namespace GroupMenu
 
             MenuUI<Button>.Create("LoadPoligon", GetTransform(), LText.Start_Game, AutoRect: true).OnClick(StartPoligon);
 
-            MenuUI<Button>.Create("LoadPrototype", GetTransform(), LText.Start_Prototype, AutoRect: true).OnClick(StartPrototype);
+            //MenuUI<Button>.Create("LoadPrototype", GetTransform(), LText.Start_Prototype, AutoRect: true).OnClick(StartPrototype);
 
-            MenuUI<Text>.Create("InfoPrototype", GetTransform(), LText.Start_Prototype_Info, AutoRect: true, (rect) => rect = new Rect(rect.x, rect.y, rect.width, rect.height * 2));
+            //MenuUI<Text>.Create("InfoPrototype", GetTransform(), LText.Start_Prototype_Info, AutoRect: true, (rect) => rect = new Rect(rect.x, rect.y, rect.width, rect.height * 2));
 
-            MenuUI<Toggle>.Create("CreativeMode", GetTransform(), LText.Creative, true).OnValueChanged
+            MenuUI<Button>.Create("StartLVL1", GetTransform(), "Level 1".GetTextUI(), AutoRect: true).OnClick(StartLVL1);
+
+            MenuUI<Toggle> toggle = MenuUI<Toggle>.Create("CreativeMode", GetTransform(), LText.Creative, true);
+            toggle.OnValueChanged
                 ( (value) => StartMode = value ? GameState.TypeModeGame.Creative : GameState.TypeModeGame.Adventure);
+
+            toggle.Component.isOn = false;
 
             MenuUI<Button>.Create("Exit", GetTransform(), LText.Exit, AutoRect: true).OnClick(Menu.ExitGame);
 
@@ -40,6 +45,10 @@ namespace GroupMenu
         private void StartPrototype()
         {
             GameState.StartGame(StartMode, 2);
+        }
+        private void StartLVL1()
+        {
+            GameState.StartGame(StartMode, 3);
         }
         protected override void Activate()
         {

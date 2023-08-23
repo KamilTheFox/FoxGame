@@ -30,7 +30,7 @@ namespace FactoryEntity
         public void LoadPrefab(GameObject gameObject)
         {
             GetPrefab = gameObject;
-            
+                if(EntityGroup)
             GetPrefab.transform.SetParent(EntityGroup.transform);
         }
         private GameObject LoadInResource(string path)
@@ -75,7 +75,9 @@ namespace FactoryEntity
 
             if (obj == null)
             {
+#if !UNITY_EDITOR
                 Menu.Error(LText.Temporarily_unavailable.GetTextUI().ToString());
+#endif
                 return;
             }
 
@@ -147,7 +149,7 @@ namespace FactoryEntity
                             Chield.convex = true;
                     }
             }
-            #endregion
+#endregion
             LoadPrefab(obj);
             GetPrefab.name = Name;
         }
