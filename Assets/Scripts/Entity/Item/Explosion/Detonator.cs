@@ -5,6 +5,8 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Threading;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public abstract class Detonator : ItemEngine, IInteractive
 {
@@ -13,6 +15,17 @@ public abstract class Detonator : ItemEngine, IInteractive
     public float Force => Radius * 120F;
     public abstract float TimeDetonate { get; }
     public abstract float Volume { get; }
+
+    public UnityEvent<Detonator, Collision> OnCollision { get; set; } = new UnityEvent<Detonator, Collision>();
+
+    Rigidbody IInteractive.Rigidbody => base.Rigidbody;
+
+    public event Action onInteractionDetonator;
+
+    protected override void OnStart()
+    {
+       // IsDetectionModeContinuousDynamic = true;
+    }
     public abstract EffectItem ExplosionEffect { get; }
 
     public bool isActivate { get; protected set; }
@@ -20,8 +33,6 @@ public abstract class Detonator : ItemEngine, IInteractive
     {
         InteractionTimeActivation(TimeDetonate);
     }
-
-    public event Action onInteractionDetonator;
     private void InteractionTimeActivation(float time)
     {
         if (isActivate)
@@ -29,6 +40,10 @@ public abstract class Detonator : ItemEngine, IInteractive
         isActivate = true;
         onInteractionDetonator?.Invoke();
         Delete(time);
+    }
+    public void OnCollisionEnter(Collision collision)
+    {
+        OnCollision.Invoke(this,collision);
     }
     protected override void onDestroy()
     {
@@ -38,15 +53,10 @@ public abstract class Detonator : ItemEngine, IInteractive
         }
     }
     public void Diactivate() => isActivate = false;
-    
     void ExplosionForce (Rigidbody rb , float ForceDelta = 1F)
     {
         if (!rb) return;
         rb.AddExplosionForce(Force / 3 / ForceDelta, Transform.position, Radius * (float)(6F / 3 * 1.2F));
-        //for (int i = 6; i > 1; i -= 2)
-        //{
-        //    rb.AddExplosionForce(Force / i / ForceDelta, Transform.position, Radius * (float)(6F / i * 1.2F));
-        //}
     }
     private Collider[] OverlapSphere(LayerMask layer, float Radius)
     {
@@ -55,10 +65,19 @@ public abstract class Detonator : ItemEngine, IInteractive
     void Explosion()
     {
         Destroy(GetEffect(ExplosionEffect, Transform.position), 8F);
-        SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position, true , Volume);
+        SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position, true , Volume).pitch = UnityEngine.Random.Range(0.8F,1.2F);
 
         Collider[] colliders = OverlapSphere(MasksProject.EntityPlayer, Radius * 5F);
         Collider[] collidersKill = OverlapSphere(MasksProject.EntityPlayer, Radius * 0.6F);
+        List<IDiesing> diesings = new();
+        foreach (Collider collider in collidersKill)
+        {
+            IDiesing loc;
+            if (!diesings.Contains(loc = collider.GetComponentInParent<IDiesing>()))
+            {
+                diesings.Add(loc);
+            }
+        }
         for (int i = 0; i < colliders.Length; i++)
         {
             EntityEngine item = colliders[i].GetComponentInParent<EntityEngine>();
@@ -67,12 +86,18 @@ public abstract class Detonator : ItemEngine, IInteractive
                     rb = item.Rigidbody;
                 else
                     rb = colliders[i].GetComponentInParent<Rigidbody>();
-            float Distance = Vector3.Distance(colliders[i].transform.position, Transform.position);
+
             IDiesing Alive = colliders[i].GetComponentInParent<IDiesing>();
-            bool isDeath = collidersKill.Contains(colliders[i]);
+            bool isDeath = diesings.Contains(Alive);
+            diesings.Remove(Alive);
             if (Alive != null && isDeath)
             {
-                Alive.Death();
+                float ThicknessWall = 0;
+                if (Physics.Linecast(transform.position, colliders[i].ClosestPoint(transform.position), out RaycastHit raycast1, MasksProject.Terrain) &&
+                    Physics.Linecast(colliders[i].ClosestPoint(transform.position), transform.position, out RaycastHit raycast2, MasksProject.Terrain))
+                    ThicknessWall = Vector3.Distance(raycast1.point, raycast2.point);
+                if(ThicknessWall< 1.5)
+                    Alive.Death();
             }
             if (isDeath)
             {

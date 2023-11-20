@@ -14,16 +14,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Trunk
     second: {fileID: 2100000, guid: 5eda7315685afbc4e8a690fb46e23e2f, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Maple_Bark_2_COLOR
-    second: {fileID: 2800000, guid: 51a0eba97cac64a49a40d4f63cdfab1b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Tree Branch
-    second: {fileID: 2800000, guid: 02231dabda250ae4bbfaadec578c74ed, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -62,15 +62,18 @@
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\IThrowed.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerBody.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\ILockable.cs" />
-    <Compile Include="Assets\Scripts\Menu\Localisation.cs" />
+    <Compile Include="Assets\Scripts\Localization\Localisation.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Padlock\Padlock.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityCreate.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeFolderEntity.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\IDropEntity.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuWinLose.cs" />
     <Compile Include="Assets\Scripts\Menu\TypeMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\GameButton.cs" />
+    <Compile Include="Assets\Scripts\Entity\Plants\GroupPlant.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TimerDetonator.cs" />
@@ -86,20 +89,26 @@
     <Compile Include="Assets\Scripts\Entity\Plants\Tree.cs" />
     <Compile Include="Assets\Scripts\Expansion.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\AI.cs" />
+    <Compile Include="Assets\tes.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\DebugAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MediaPlayer.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
-    <Compile Include="Assets\Scripts\Debug\OldConsole.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\NextLevel.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\InteractiveBody.cs" />
     <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\PlayerControll.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\IViewedCamera.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\LevelFirstBoss.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\Door.cs" />
     <Compile Include="Assets\Scripts\Menu\Chat.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\Ballistics.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\TypeAnimation.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\CameraControll.cs" />
+    <Compile Include="Assets\Scripts\Localization\LText.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\CameraControll.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\ThirdPerson.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
     <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
@@ -109,6 +118,7 @@
     <Compile Include="Assets\Scripts\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Fence\Fence.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\Level2\GameplayСontrolLevel2.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomWalk.cs" />
@@ -118,7 +128,8 @@
     <Compile Include="Assets\Scripts\Entity\Interface\IDamaged.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Fence\Pillar.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator_Timer.cs" />
-    <Compile Include="Assets\Scripts\Entity\Item\Door.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IMoveablePlatorm.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\FrameDoor.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT.cs" />
     <Compile Include="Assets\Scripts\NavMeshRebuild.cs" />
     <Compile Include="Assets\Settings.cs" />
@@ -130,30 +141,37 @@
     <Compile Include="Assets\Scripts\Entity\Animal\Fox.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\PlantsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Padlock\Key.cs" />
-    <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimation.cs" />
+    <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimationAnimal.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\TypePlant.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\ItemsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\Idle.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\BoxEnemy.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
+    <Compile Include="Assets\Scripts\Entity\Interface\IHootKeys.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\IStriker.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\IDropped.cs" />
-    <Compile Include="Assets\Scripts\FactoryEntity\EntityStencilCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TrashCan.cs" />
+    <Compile Include="Assets\Scripts\FactoryEntity\EntityStencilCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Apple_Tree.cs" />
     <Compile Include="Assets\Scripts\Entity\TriggerDetect.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\ViewInteractEntity.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TypeItem.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\IGerminatable.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\IRegdoll.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\AnimatorPlayerInput.cs" />
+    <Compile Include="Assets\Scripts\Localization\LocalisationList.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainGroup.cs" />
     <Compile Include="Assets\Scripts\Entity\Interface\ITakenEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\ConsoleMenu.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IEntityCreated.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\EnemyBoss.cs" />
     <Compile Include="Assets\Scripts\MasksProject.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\FirstPerson.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Mushroom.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
@@ -161,6 +179,7 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -184,6 +203,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TerrainSampleAssets\ShaderGraphs\CustomFunctions\CustomLighting.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -429,6 +449,21 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Mdb">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Pdb">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.6\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -838,11 +873,17 @@
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder">
+      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
@@ -859,6 +900,9 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ProBuilder.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
@@ -868,14 +912,41 @@
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>

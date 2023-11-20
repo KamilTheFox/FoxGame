@@ -33,7 +33,7 @@ using UnityEngine.AI;
         }
         OnStart();
         if (GameObject.FindObjectOfType<NavMeshSurface>() != null && Behavior == null)
-            SetBehavior(new Idle());
+            SetBehavior(new Idle(UnityEngine.Random.Range(0,2) == 0));
     }
 
     protected abstract void OnUpdate(); 
@@ -72,18 +72,18 @@ using UnityEngine.AI;
     {
         return Navigation.pathStatus == status;
     }
-    public void SetAnimation(TypeAnimation _enum)
+    public void SetAnimation(TypeAnimationAnimal _enum)
     {
-        if (_enum == TypeAnimation.Walk)
-            _enum = TypeAnimation.None;
+        if (_enum == TypeAnimationAnimal.Walk)
+            _enum = TypeAnimationAnimal.None;
         Animator.Play(_enum.ToString());
         float speed;
         switch (_enum)
         { 
-            case TypeAnimation.Run_Fast:
+            case TypeAnimationAnimal.Run_Fast:
                 speed = 3.5F * 2.4F;
                 break;
-            case TypeAnimation.Run:
+            case TypeAnimationAnimal.Run:
                 speed = 3.5F * 1.8F;
                 break;
             default:

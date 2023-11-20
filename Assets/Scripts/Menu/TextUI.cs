@@ -80,4 +80,12 @@ public struct TextUI
     {
         return Text;
     }
+    public static implicit operator TextUI(string text)
+    {
+        return text.GetTextUI();
+    }
+    public static implicit operator TextUI(LText text)
+    {
+        return text.GetTextUI();
+    }
 }

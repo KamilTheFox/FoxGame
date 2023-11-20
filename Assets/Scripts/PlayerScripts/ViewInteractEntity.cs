@@ -8,9 +8,14 @@ public class ViewInteractEntity
 {
     private Transform transform;
     private const float ForceKick = 700F;
+
+    private static ViewInteractEntity viewInteract;
+
+    public static bool isMoveItem => viewInteract ==null ? false : (bool)(viewInteract?.IsMoveEntity);
     public ViewInteractEntity(Transform _transform)
     {
         transform = _transform;
+        viewInteract = this;
     }
 
     private ITakenEntity MoveEntity;
@@ -18,6 +23,8 @@ public class ViewInteractEntity
     private IExpansionTween Rotation;
 
     private Dictionary<Rigidbody, InfoRigidBody> RigidbodyInterpolations = new();
+
+    public Vector3 pointTarget { get; private set; }
     private struct InfoRigidBody
     {
         public InfoRigidBody(RigidbodyInterpolation _interpolation, bool _kinematic)
@@ -27,10 +34,6 @@ public class ViewInteractEntity
         }
         public RigidbodyInterpolation interpolation;
         public bool isKinematic;
-    }
-    public void GiveItem(ItemEngine item)
-    {
-        ItemTake(item);
     }
     public void ItemThrow()
     {
@@ -61,29 +64,37 @@ public class ViewInteractEntity
     {
         if (IsMoveEntity)
             ItemThrow();
-        
-        if (entity != null)
-        {
-            MoveEntity = entity.Take();
-            if (MoveEntity == null) return;
 
-            MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
-            MoveEntity.Transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-            foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
-            {
-                chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
-            }
-            if (MoveEntity.Rigidbody)
-            {
-                MoveEntity.Rigidbody.angularVelocity = MoveEntity.Rigidbody.velocity = Vector3.zero;
-                foreach(Rigidbody rigidbody in MoveEntity.GetEngine.gameObject.GetComponentsInChildren<Rigidbody>())
-                {
-                    RigidbodyInterpolations.Add(rigidbody, new InfoRigidBody(rigidbody.interpolation, rigidbody.isKinematic));
-                    rigidbody.interpolation = RigidbodyInterpolation.None;
-                    rigidbody.isKinematic = true;
-                }
-            }
+        if (entity == null)
+        {
+            Debug.Log("Entity: Null Reference");
+            return;
         }
+
+        MoveEntity = entity.Take();
+
+        if (MoveEntity == null)
+        {
+            Debug.Log("MoveEntity: Null Reference");
+            return;
+        }
+
+        MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
+        MoveEntity.Transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
+        {
+            chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
+        }
+        if (MoveEntity.Rigidbody)
+        {
+            MoveEntity.Rigidbody.angularVelocity = MoveEntity.Rigidbody.velocity = Vector3.zero;
+            foreach(Rigidbody rigidbody in MoveEntity.GetEngine.gameObject.GetComponentsInChildren<Rigidbody>())
+            {
+                RigidbodyInterpolations.Add(rigidbody, new InfoRigidBody(rigidbody.interpolation, rigidbody.isKinematic));
+                rigidbody.interpolation = RigidbodyInterpolation.None;
+                rigidbody.isKinematic = true;
+            }
+            }
     }
     private bool IsMoveEntity
     {
@@ -101,7 +112,7 @@ public class ViewInteractEntity
     public void RayCast()
     {
         Ray ray = CameraControll.RayCastCenterScreen;
-        Vector3 newPosition = ray.GetPoint(3F);
+        Vector3 newPosition = ray.GetPoint(CameraControll.instance.DistanseRay);
 
         ITakenEntity Taken = null;
 
@@ -132,35 +143,38 @@ public class ViewInteractEntity
             if (Scroll < 0)
                 Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, -10F, 0F)).ChangeEase(Ease.CubicRoot);
         }
-        if (Taken == null)
+        if (Taken != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (IsMoveEntity)
+                {
+                    ItemThrow();
+                    if (Taken is IThrowed throwed)
+                        throwed.ToThrow();
+                }
+                else
+                    ItemTake(Taken.Take());
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Taken is IDropEntity drop)
+            {
+                if (drop.Rigidbody != null)
+                {
+                    ItemThrow();
+                    if (Taken is IDropped toDrop)
+                        toDrop.ToDrop();
+                    Taken.Transform.position = newPosition - transform.forward * 0.2F;
+                    drop.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * drop.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Delete) && GameState.IsCreative)
+                Taken.GetEngine.Delete();
+        }
+        if (interactive == null && Taken == null)
             return;
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (IsMoveEntity)
-            {
-                ItemThrow();
-                if (Taken is IThrowed throwed)
-                    throwed.ToThrow();
-            }
-            else
-                ItemTake(Taken.Take());
-        }
-        if(Input.GetKeyDown(KeyCode.Mouse0) && Taken is IDropEntity drop)
-        {
-            if (drop.Rigidbody != null)
-            {
-                ItemThrow();
-                if (Taken is IDropped toDrop)
-                    toDrop.ToDrop();
-                Taken.Transform.position = newPosition - transform.forward * 0.2F;
-                drop.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * drop.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Delete))
-            Taken.GetEngine.Delete();
         if (Input.GetKeyDown(KeyCode.F) && interactive != null)
             interactive.Interaction();
-
+        pointTarget = newPosition;
         None.SetInfoEntity(true, interactive != null? interactive.GetEngine : Taken.GetEngine);
     }
     

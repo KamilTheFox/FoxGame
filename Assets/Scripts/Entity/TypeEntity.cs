@@ -1,8 +1,10 @@
 ﻿
 public enum TypeEntity
 {
-    Animal,
+    None = -1,
+    Animal = 0,
     Plant,
     Item,
-    InteractiveBody
+    InteractiveBody,
+    Group
 }

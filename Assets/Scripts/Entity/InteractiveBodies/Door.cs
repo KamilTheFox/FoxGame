@@ -7,18 +7,30 @@ namespace InteractiveBodies
     public class Door : InteractiveBody, ILockable, IInteractive
     {
         private bool isClosed = true;
+
+        private ILocking Locker
+        {
+            get
+            {
+                if(locker == null) return null;
+                return locker.GetComponent<ILocking>();
+            }
+        }
+        [SerializeField] private GameObject locker;
+
+        [SerializeField] private Vector3 OpenEuler = new Vector3(0,90,0);
         public bool IsClosed 
         {
             get
             {
                 return isClosed;
             }
-            set
+            private set
             {
                 isClosed = value;
                 if(!value)
                     locked = null;
-                Tween.AddRotation(Transform, new Vector3(0f, value ? 90F : -90F, 0))
+                Tween.AddRotation(Transform, OpenEuler * (value ? 1F : -1F))
                 .ChangeEase(Ease.CubicRoot);
             }
         }
@@ -43,6 +55,8 @@ namespace InteractiveBodies
             List<MeshCollider> meshes = new List<MeshCollider>();
             meshes.AddRange(GetComponentsInChildren<MeshCollider>());
             meshes.ForEach(c => c.convex = true);
+            if (Locker == null) return;
+                Lock(Locker);
         }
         protected override void OnAwake()
         {

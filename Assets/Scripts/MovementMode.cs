@@ -18,6 +18,7 @@ public static class MovementMode
         newPosition = transform.right * deltaTimeSpeed;
         if (Input.GetKey(KeyCode.D)) velosity += newPosition;
         if (Input.GetKey(KeyCode.A)) velosity += -newPosition;
+
         return velosity;
     }
     public static Vector3 WASD(Transform transform, float Speed, out bool IsMove, bool FixedUpdate = false)
@@ -32,51 +33,6 @@ public static class MovementMode
         if (Input.GetKey(KeyCode.D)) { velosity += newPosition; IsMove = true; }
         if (Input.GetKey(KeyCode.A)) { velosity += -newPosition; IsMove = true; }
         return velosity;
-    }
-    public static void MovementWASD(Rigidbody obj, float Speed, PlayerControll player)
-    {
-        Vector3 velosity = WASD(obj.transform, Speed);
-        Vector3 newPosition = obj.position + new Vector3(velosity.x, 0, velosity.z);
-        bool RayChack = RayCheck(obj.position, new Vector3(velosity.x, 0, velosity.z), player.RecommendedHeight);
-            //if (obj.SweepTest(newPosition, out RaycastHit hit, Vector3.Distance(obj.position, newPosition)))
-            //{
-            //bool isStationaryEntity = false;
-            //EntityEngine entity = hit.collider.gameObject.GetComponentInParent<EntityEngine>();
-            //if (entity)
-            //    isStationaryEntity = entity.Stationary;
-            //   if (!isStationaryEntity && RayChack)
-            //   {
-            //     obj.MovePosition(newPosition);
-            //   }
-            //}
-            if(RayChack)
-                obj.MovePosition(newPosition);
-       
-    }
-    public static void MovementWASDVelocity(Rigidbody obj, float Speed)
-    {
-        Vector3 velosity = WASD(obj.transform, Speed, out bool isMove, true);
-        if (isMove)
-            obj.velocity = new Vector3(velosity.x, obj.velocity.y, velosity.z);
-        else 
-            obj.velocity = Vector3.up * obj.velocity.y;
-    }
-    private static bool RayCheck(Vector3 oldV,Vector3 newV, float Height)
-    {
-        int Layer = LayerMask.GetMask(new string[] { "Terrain", "Default", "Entity" });
-        EntityEngine Entity = null;
-        bool collider = Physics.SphereCast(oldV + Height * Vector3.up, 0.35F * Height, newV, out RaycastHit hit, 0.26F, Layer);
-        if(collider)
-        Entity = hit.collider.gameObject.GetComponentInParent<EntityEngine>();
-        if (Entity && !Entity.Stationary)
-            return true;
-        return !collider;
-        //bool isTerrain = !Physics.Raycast(oldV, newV, out RaycastHit hit, 0.71F ,Layer ) && !Physics.Raycast(oldV + Vector3.up * 0.7F, newV, out hit, 0.71F, Layer);
-        //if(!isTerrain && hit.collider.gameObject.TryGetComponent(out EntityEngine entity))
-        //{
-        //    return !entity.Stationary;
-        //}
-        //return isTerrain;
     }
     public static void MovementWASD(Transform obj, float Speed)
     {

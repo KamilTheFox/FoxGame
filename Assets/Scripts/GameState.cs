@@ -16,6 +16,14 @@ static class GameState
         Adventure,
         Creative
     }
+
+    public static TypeDifficulty Difficulty { get; set; } = TypeDifficulty.Hard;
+    public enum TypeDifficulty
+    {
+        Easy = 0,
+        Normal,
+        Hard
+    }
     public static bool IsCreative => TypeGame == TypeModeGame.Creative;
     public static bool IsAdventure => TypeGame == TypeModeGame.Adventure;
 

@@ -11,10 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Polygon.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartPrototype.unity
     guid: d6f86c29794d6574db5b3766df0abe47
   - enabled: 1
-    path: Assets/Scenes/Location1.unity
-    guid: 17c9ae6dcc0492442915c923d603adcb
+    path: Assets/Scenes/LocationLevel1.unity
+    guid: 41f0340a8bda5d443a207677c9d7ddb9
+  - enabled: 1
+    path: Assets/Scenes/LocationLevel2.unity
+    guid: 17e81b76519e8aa4fb08db16708cefe5
+  - enabled: 1
+    path: Assets/Scenes/LevelFirstBoss.unity
+    guid: 40317c7d5b4ea504e879f8a94f9a0f2b
   m_configObjects: {}

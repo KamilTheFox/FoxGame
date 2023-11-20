@@ -9,6 +9,8 @@ public class SoundMeneger : MonoBehaviour
 {
     private static Dictionary<Enum, AudioClip> DictionarySounds;
 
+    [SerializeField] private BackgroundSounds backgroundSounds = BackgroundSounds.Forest_Birds;
+
     [SerializeField]
     private AudioSource AudioModifer, AudioDefault, Music;
 
@@ -107,7 +109,7 @@ public class SoundMeneger : MonoBehaviour
         }
         Debug.Log($"Sucsess Load Audio {DictionarySounds.Count} / {NameTypes.Length + NameMusic.Length}");
 
-        Background.clip = AudioLoad(BackgroundSounds.Forest_Birds);
+        Background.clip = AudioLoad(backgroundSounds);
         Background.Play();
         Background.loop = true;
         audioSources.Add(Background);
@@ -175,6 +177,7 @@ public class SoundMeneger : MonoBehaviour
     }
     private static void ChangeVolumeMusic(float value)
     {
+        Background.volume = value;
         _Music.volume = value;    }
     private static void ChangeVolume(float value)
     {
@@ -221,14 +224,15 @@ public class SoundMeneger : MonoBehaviour
                     PlayClipAtPoint(clip, vector, volume, volume > 1F);
 
     }
-    public static void PlayPoint(Sounds type, Vector3 vector, bool isModiferSourse = true, float volume = 1F)
+    public static AudioSource PlayPoint(Sounds type, Vector3 vector, bool isModiferSourse = true, float volume = 1F)
     {
         AudioClip clip = GetAudio(type);
         if (clip)
-                PlayClipAtPoint(clip, vector, volume, isModiferSourse);
+                return PlayClipAtPoint(clip, vector, volume, isModiferSourse);
+        return null;
 
     }
-    private static void PlayClipAtPoint(AudioClip audioClip, Vector3 vector, float volume, bool isModiferSourse)
+    private static AudioSource PlayClipAtPoint(AudioClip audioClip, Vector3 vector, float volume, bool isModiferSourse)
     {
         AudioSource source = isModiferSourse ? instance.AudioModifer : instance.AudioDefault;
         source = Instantiate(source.gameObject, vector,Quaternion.identity).GetComponent<AudioSource>();
@@ -236,6 +240,7 @@ public class SoundMeneger : MonoBehaviour
         source.PlayOneShot(audioClip, volume);
         audioSources.Add(source);
         Destroy(source.gameObject, audioClip.length);
+        return source;
     }
 #region Overload Play()
     public static void Play(Sounds type)
@@ -289,6 +294,7 @@ public class SoundMeneger : MonoBehaviour
     public enum BackgroundSounds
     {
         Forest_Birds,
+        Horror_Home,
     }
     public enum Musics
     {

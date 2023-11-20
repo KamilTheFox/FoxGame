@@ -13,21 +13,43 @@ namespace GroupMenu
     {
         public override TypeMenu TypeMenu => TypeMenu.MainMenu;
 
+        private MenuUI<Dropdown> SellectDifficulty;
         protected override bool IsActiveBackHot => false;
 
         private static GameState.TypeModeGame StartMode;
+
+
+        private static object[] GetTextDifficulty()
+        {
+            return new object[]
+            {
+                (LText)Enum.Parse(typeof(LText),$"Difficulty{GameState.Difficulty}")
+            };
+        }
 
         protected override void Start()
         {
             StartMode = GameState.TypeModeGame.Creative;
 
-            MenuUI<Button>.Create("LoadPoligon", GetTransform(), LText.Start_Game, AutoRect: true).OnClick(StartPoligon);
+            MenuUI<Button>.Create("LoadPolygone", GetTransform(), "Polygone", AutoRect: true).OnClick(StartPolygon);
 
-            //MenuUI<Button>.Create("LoadPrototype", GetTransform(), LText.Start_Prototype, AutoRect: true).OnClick(StartPrototype);
+            MenuUI<Button>.Create("StartLVL1", GetTransform(), "PrototypeLevel1", AutoRect: true).OnClick(StartTestLevel1);
 
-            //MenuUI<Text>.Create("InfoPrototype", GetTransform(), LText.Start_Prototype_Info, AutoRect: true, (rect) => rect = new Rect(rect.x, rect.y, rect.width, rect.height * 2));
+            MenuUI<Button>.Create("StartLVL2", GetTransform(), "PrototypeLevel2", AutoRect: true).OnClick(StartTestLevel2);
 
-            MenuUI<Button>.Create("StartLVL1", GetTransform(), "Level 1".GetTextUI(), AutoRect: true).OnClick(StartLVL1);
+            MenuUI<Button>.Create("StartLVL3", GetTransform(), "PrototypeLevel3", AutoRect: true).OnClick(StartTestLevel3);
+
+            Transform SellectDifficultyHorizontal = MenuUI<HorizontalLayoutGroup>.Create("SellectDifficulty", GetTransform(), LText.Null, true).gameObject.transform;
+
+            MenuUI<Text>.Create("SellectDifficultyText", SellectDifficultyHorizontal, LText.Difficulty, false);
+
+            SellectDifficulty = MenuUI<Dropdown>.Create("SellectDifficulty", SellectDifficultyHorizontal, new TextUI(LText.None, GetTextDifficulty), false, MenuUIAutoRect.SetWidth(140F));
+            SellectDifficulty.Component.AddOptions(Enum.GetNames(typeof(GameState.TypeDifficulty)).ToList());
+            SellectDifficulty.Component.onValueChanged.AddListener((index) =>
+            {
+                GameState.Difficulty = (GameState.TypeDifficulty)index;
+            });
+            SellectDifficulty.Component.value = (int)GameState.Difficulty;
 
             MenuUI<Toggle> toggle = MenuUI<Toggle>.Create("CreativeMode", GetTransform(), LText.Creative, true);
             toggle.OnValueChanged
@@ -38,21 +60,25 @@ namespace GroupMenu
             MenuUI<Button>.Create("Exit", GetTransform(), LText.Exit, AutoRect: true).OnClick(Menu.ExitGame);
 
         }
-        private void StartPoligon()
+        private void StartPolygon()
         {
             GameState.StartGame(StartMode, 1);
         }
-        private void StartPrototype()
+        private void StartTestLevel1()
         {
             GameState.StartGame(StartMode, 2);
         }
-        private void StartLVL1()
+        private void StartTestLevel2()
         {
             GameState.StartGame(StartMode, 3);
         }
+        private void StartTestLevel3()
+        {
+            GameState.StartGame(GameState.TypeModeGame.Adventure, 4);
+        }
         protected override void Activate()
         {
-            CallBeckActivate(false);
+            CallBackActivate(false);
             Menu.PauseEnableGame(false);
         }
     }

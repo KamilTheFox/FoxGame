@@ -8,52 +8,63 @@ using UnityEngine;
 public class RegdollPlayer : IRegdoll
 {
    
-        private Animator Animator;
+    private Animator Animator;
 
-        private List<Rigidbody> RegdoolBody = new();
+    private List<Rigidbody> RegdoolBody = new();
 
-        private Rigidbody BodyController;
-        public RegdollPlayer(Animator animator, PlayerControll player)
+    private Rigidbody BodyController;
+    public RegdollPlayer(Animator animator, PlayerBody player)
+    {
+        BodyController = player.gameObject.GetComponent<Rigidbody>();
+        BodyController.interpolation = RigidbodyInterpolation.Interpolate;
+        List<Rigidbody> ParentsForRegdoll = player.gameObject.GetComponentsInChildren<Rigidbody>().ToList();
+        Animator = animator;
+        foreach (Rigidbody rigidbody in ParentsForRegdoll)
         {
-            BodyController = player.gameObject.GetComponent<Rigidbody>();
-            BodyController.interpolation = RigidbodyInterpolation.Interpolate;
-            List<Rigidbody> ParentsForRegdoll = player.gameObject.GetComponentsInChildren<Rigidbody>().ToList();
-            Animator = animator;
-            foreach (Rigidbody rigidbody in ParentsForRegdoll)
-            {
-                RegdoolBody.Add(rigidbody);
-                RegdollDetect detect = rigidbody.gameObject.AddComponent<RegdollDetect>();
-                if (BodyController == rigidbody)
-                    detect.isController = true;
-                detect.Entity = player;
-                rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            }
-            ActivateKinematic();
+            RegdoolBody.Add(rigidbody);
+            RegdollDetect detect = rigidbody.gameObject.AddComponent<RegdollDetect>();
+            if (BodyController == rigidbody)
+                detect.isController = true;
+            else
+                rigidbody.gameObject.layer = MasksProject.SkinPlayer;
+            detect.Entity = player;
+            rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
-        private void ActivateKinematic(bool isActivate = true)
-        {
-            if (Animator) Animator.enabled = isActivate;
         if (BodyController)
+            BodyController.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    ActivateKinematic();
+    }
+    private void ActivateKinematic(bool isActivateKinematic = true)
+    {
+        if (Animator) Animator.enabled = isActivateKinematic;
+    if (BodyController)
+    {
+        BodyController.isKinematic = !isActivateKinematic;
+        BodyController.detectCollisions = isActivateKinematic;
+    }
+    foreach (Rigidbody body in RegdoolBody)
         {
-            BodyController.isKinematic = !isActivate;
-            BodyController.detectCollisions = isActivate;
+        if (BodyController == body) continue;
+        body.interpolation = isActivateKinematic ? RigidbodyInterpolation.None : RigidbodyInterpolation.Interpolate;
+        body.isKinematic = isActivateKinematic;
         }
-        foreach (Rigidbody body in RegdoolBody)
-            {
-            if (BodyController == body) continue;
-            body.interpolation = isActivate ? RigidbodyInterpolation.None : RigidbodyInterpolation.Interpolate;
-            body.isKinematic = isActivate;
-            }
-        }
-        public void Activate()
-        {
-            ActivateKinematic(false);
-        }
+    }
+    public void Activate()
+    {
+        ActivateKinematic(false);
+    }
 
-        public void Deactivate()
+    public void Deactivate()
+    {
+        Transform Skin = BodyController.transform.Find("Skin");
+        Vector3 ewPosition = Skin.GetComponentsInChildren<Transform>().ToList().Find(find => find.name == "Hips").position;
+        if(Physics.Raycast(ewPosition,Vector3.down, out RaycastHit hit , MasksProject.Terrain))
         {
-            ActivateKinematic();
+            ewPosition = hit.point;
         }
+        BodyController.transform.position = ewPosition;
+        ActivateKinematic();
+    }
 }
     
 

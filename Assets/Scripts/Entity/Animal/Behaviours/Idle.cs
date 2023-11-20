@@ -20,11 +20,11 @@ public class Idle : IBehavior
     float time;
     float timeFatigue;
 
-    TypeAnimation CurrentAnimation;
+    TypeAnimationAnimal CurrentAnimation;
     public void Activate(AI _ai)
     {
         AI = _ai;
-        CurrentAnimation = TypeAnimation.Idle;
+        CurrentAnimation = TypeAnimationAnimal.Idle;
         AI.SetAnimation(CurrentAnimation);
         time = 0;
         if(!startSits)
@@ -33,8 +33,8 @@ public class Idle : IBehavior
 
     public void Deactivate()
     {
-        if(CurrentAnimation == TypeAnimation.Sits)
-            AI.SetAnimation(TypeAnimation.StendUp);
+        if(CurrentAnimation == TypeAnimationAnimal.Sits)
+            AI.SetAnimation(TypeAnimationAnimal.StendUp);
     }
 
     private void RandomFatigueTime()
@@ -43,18 +43,18 @@ public class Idle : IBehavior
     }
     private void TimerFatigue()
     {
-        if(time >= timeFatigue && CurrentAnimation == TypeAnimation.Idle)
+        if(time >= timeFatigue && CurrentAnimation == TypeAnimationAnimal.Idle)
         {
             time = 0;
-            CurrentAnimation = TypeAnimation.Sits;
+            CurrentAnimation = TypeAnimationAnimal.Sits;
             AI.SetAnimation(CurrentAnimation);
         }
-        else if( time >= timeRest && CurrentAnimation == TypeAnimation.Sits)
+        else if( time >= timeRest && CurrentAnimation == TypeAnimationAnimal.Sits)
         {
             time = 0;
             RandomFatigueTime();
-            AI.SetAnimation(TypeAnimation.StendUp);
-            CurrentAnimation = TypeAnimation.Idle;
+            AI.SetAnimation(TypeAnimationAnimal.StendUp);
+            CurrentAnimation = TypeAnimationAnimal.Idle;
         }
     }
 

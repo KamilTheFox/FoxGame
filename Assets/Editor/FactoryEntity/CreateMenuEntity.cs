@@ -23,16 +23,16 @@ namespace Assets.Editors
         public static void RebuildAllEntity()
         {
             Transform[] entities = GameObject.Find("Entityes").GetComponentsInChildren<Transform>();
-
-            entities.ToList().ForEach(obj => RebuildEntity(obj));
+            for (int i = 0; i < entities.Length; i++)
+                RebuildEntity(entities[i]);
         }
 
         [MenuItem("GameObject/3D Object/Rebuild Selected Entities")]
         public static void RebuildSelectedEntities()
         {
             Transform[] entities = Selection.transforms;
-
-            entities.ToList().ForEach(obj => RebuildEntity(obj));
+            for (int i = 0; i < entities.Length; i++)
+                RebuildEntity(entities[i]);
         }
 
         public static void RebuildEntity(Transform transform)
@@ -52,9 +52,10 @@ namespace Assets.Editors
             {
                 PlantEngine.AddPlant(plant.typePlant, transform.position, transform.rotation);
             }
-
+            entityEngine.transform.localScale = transform.localScale;
             Undo.RecordObject(transform.gameObject, transform.name + " Delete RebuildEntitynull");
             GameObject.DestroyImmediate(transform.gameObject);
+
         }
             [MenuItem("GameObject/3D Object/Item")]
         public static void CreateItems()

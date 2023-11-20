@@ -7,7 +7,7 @@ public abstract class RandomGo : IBehavior
 
     public AI AI { get; set; }
 
-    abstract protected TypeAnimation Go { get; }
+    abstract protected TypeAnimationAnimal Go { get; }
 
     abstract protected Action Stopped { get; }
 

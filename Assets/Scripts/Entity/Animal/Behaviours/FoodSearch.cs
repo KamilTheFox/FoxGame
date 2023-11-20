@@ -9,7 +9,7 @@ using System.Threading.Tasks;
     {
         public string Name => nameof(FoodSearch);
 
-        public Action<TypeAnimation> ActivateAnimation { get; set; }
+        public Action<TypeAnimationAnimal> ActivateAnimation { get; set; }
         public AI AI { get; set; }
 
         public void Activate(AI ai)

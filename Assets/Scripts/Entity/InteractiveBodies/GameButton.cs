@@ -1,23 +1,59 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace InteractiveBodies
 {
     public class GameButton : InteractiveBody
     {
-        public event Action OnClick;
+        public event UnityAction OnClick
+        {
+            add
+            {
+                if (onClick == null)
+                    onClick = new();
+                onClick.AddListener(value);
+            }
+            remove => onClick?.RemoveListener(value);
+        }
 
-        public event Action OnDubleClick;
 
-        public event Action OnTripleClick;
+        public event UnityAction OnDubleClick
+        {
+            add
+            {
+                if (onDubleClick == null)
+                    onDubleClick = new();
+                onDubleClick.AddListener(value);
+            }
+            remove => onDubleClick?.RemoveListener(value);
+        }
+
+
+        public event UnityAction OnTripleClick
+        {
+            add
+            {
+                if (onTripleClick == null)
+                    onTripleClick = new ();
+                onTripleClick.AddListener(value);
+            }
+            remove => onTripleClick?.RemoveListener(value);
+        }
+
+        [SerializeField] private bool enableRender;
+
+        [SerializeField] private UnityEvent onClick, onDubleClick, onTripleClick;
 
         private sbyte state = 0;
         protected override void OnStart()
         {
-            Destroy(GetComponent<Renderer>());
-            MeshCollider collider = GetComponent<MeshCollider>();
-            collider.enabled = true;
-            collider.convex = true;
+            GetComponent<Renderer>().enabled = enableRender;
+            if (TryGetComponent(out MeshCollider collider))
+            {
+                collider.enabled = true;
+                collider.convex = true;
+            }
         }
         public override void Interaction()
         {
@@ -34,17 +70,17 @@ namespace InteractiveBodies
             switch (state)
             {
                 case 2:
-                    if (OnDubleClick == null)
+                    if (onDubleClick == null)
                         goto default;
-                    OnDubleClick.Invoke();
+                    onDubleClick.Invoke();
                     break;
                 case 3:
-                    if (OnTripleClick == null)
+                    if (onTripleClick == null)
                         goto case 2;
-                    OnTripleClick.Invoke();
+                    onTripleClick.Invoke();
                     break;
                 default:
-                    OnClick?.Invoke();
+                    onClick?.Invoke();
                     break;
             }
             state = 0;

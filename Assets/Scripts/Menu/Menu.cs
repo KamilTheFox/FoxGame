@@ -23,7 +23,9 @@ public class Menu : MonoBehaviour
 
     private static Sprite[] SpriteAtlasMenu;
 
-    public static List<IUpdateMenuUI> ListTextUpdate { get; private set; }
+    public IHootKeys hootKeys;
+
+    public static List<IUpdateUIElement> ListTextUpdate { get; private set; }
 
     public static event Action EventInitializeComponent = () => { };
 
@@ -31,7 +33,14 @@ public class Menu : MonoBehaviour
 
     private static bool isClickBack;
 
+    public static IActivatableMenu CurrentPauseMenu { get; set; }
+
     public static bool Pause => Time.timeScale == 0;
+
+    public static void ActivatePauseMenu()
+    {
+        ActivateMenu(CurrentPauseMenu);
+    }
 
     private void Awake()
     {
@@ -41,6 +50,7 @@ public class Menu : MonoBehaviour
             GameObject.Destroy(gameObject);
             return;
         }
+        CurrentPauseMenu = new Lobby();
         PreviousMenu = new();
 
         instance = this;
@@ -192,13 +202,26 @@ public class Menu : MonoBehaviour
         {
             ScreenCapture.CaptureScreenshotAsTexture();
         }
+        if(hootKeys != null)
+        {
+            hootKeys.Action();
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            CameraControll.instance.OnFirstPerson();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            CameraControll.instance.OnThirdPerson();
+        }
     }
 
     public static void UpdateTextUI()
     {
         if(ListTextUpdate != null)
-        foreach (IUpdateMenuUI update in ListTextUpdate)
-            update.UpdateText();
+        foreach (IUpdateUIElement update in ListTextUpdate)
+            update?.UpdateText();
     }
     public void OnDestroy()
     {

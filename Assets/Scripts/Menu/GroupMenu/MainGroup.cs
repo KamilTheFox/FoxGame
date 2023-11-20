@@ -15,7 +15,7 @@ namespace GroupMenu
 
         private static MenuUI<Button> buttonCallBack;
 
-        private static MenuUI<Text> MainTitle;
+        protected static MenuUI<Text> MainTitle;
         protected static GameObject mainGroup { get; private set; }
 
         private static Dictionary<TypeMenu, GameObject> MenuChildren = new();
@@ -37,6 +37,11 @@ namespace GroupMenu
 
         protected virtual void Update() { }
 
+        public static GameObject GetMenu(TypeMenu menu)
+        {
+            return MenuChildren[menu];
+        }
+
         protected virtual bool IsActiveBackHot => true;
 
         void IActivatableMenu.Update()
@@ -46,7 +51,7 @@ namespace GroupMenu
             Update();
             }
 
-        protected void CallBeckActivate(bool isActive, Action action = null)
+        public static void CallBackActivate(bool isActive, Action action = null)
         {
             buttonCallBack.Component.gameObject.SetActive(isActive);
             if (action != null)
@@ -116,7 +121,6 @@ namespace GroupMenu
             mainGroup.SetActive(active);
             MenuChildren[TypeMenu].SetActive(active);
         }
-        
         void IActivatableMenu.Activate()
         {
             SetActive(true);
@@ -124,7 +128,7 @@ namespace GroupMenu
 
             MainTitle.SetText(new TextUI(TypeMenu.ToString().GetLText()));
 
-            CallBeckActivate(true, () => Menu.PopMenu(isCallBack: true));
+            CallBackActivate(true, () => Menu.PopMenu(isCallBack: true));
 
             Activate();
         }

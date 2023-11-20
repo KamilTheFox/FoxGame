@@ -3,7 +3,7 @@
 
 public class Barrel_Detonator_Timer : Barrel_Detonator
 {
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         Transform timer = Transform.Find("Timer");
         timerDetonator = timer.gameObject.AddComponent<TimerDetonator>();

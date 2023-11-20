@@ -58,7 +58,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 90000
   field of view: 60
   orthographic: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1a4fb62c13ea44aaafd73215e52c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabPlayerBody: {fileID: 1369774753837167443, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
+  PrefabPlayerBody: {fileID: 1285184315203314608, guid: a57e9d0188507de4ba04c41e78bd6bbc, type: 3}
   MouseVertical: 0
   MouseHorizontal: 0
   isCameraMove: 1

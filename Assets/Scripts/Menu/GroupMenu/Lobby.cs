@@ -25,9 +25,9 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.PlayerControll?.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.CPlayerBody?.PlayerInput.isFly.GetLText() }), true);
 
-                Button_Fly.OnClick().AddListener(() => CameraControll.instance?.PlayerControll?.Fly());
+                Button_Fly.OnClick().AddListener(() => CameraControll.instance?.CPlayerBody?.PlayerInput.Fly());
 
 
                 MenuUI<Button> GiveBody = MenuUI<Button>.Create("GiveBody", GetTransform(), new TextUI(() => new object[] { LText.Give, " ", LText.Body }), true);
@@ -35,7 +35,7 @@ namespace GroupMenu
                 GiveBody.OnClick().AddListener(() =>
                 {
                     Menu.PopMenu(true);
-                    if (CameraControll.instance.PlayerControll == null)
+                    if (CameraControll.instance.CPlayerBody == null)
                         CameraControll.instance.GiveBody();
                     else
                         MessageBox.Info("Нельзя выдать новое тело находясь в теле");
@@ -93,7 +93,7 @@ namespace GroupMenu
             MenuUI<Button>.Create("GiveItem", GroupAddItems, LText.Give).OnClick(() =>
             {
 
-                PlayerControll player = CameraControll.instance?.PlayerControll;
+                PlayerBody player = CameraControll.instance?.CPlayerBody;
                 if (player)
                 {
                     var CheckGive = GiveItem();

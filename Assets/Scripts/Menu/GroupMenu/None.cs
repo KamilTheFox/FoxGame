@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace GroupMenu
 {
@@ -12,26 +13,52 @@ namespace GroupMenu
 
         private static MenuUI<Image> Aim;
 
+        private static UnityEvent<bool> onActivate = new UnityEvent<bool>();
+
+        public static event UnityAction<bool> OnActivate
+        {
+            add
+            {
+                onActivate.AddListener(value);
+            }
+            remove 
+            {
+                onActivate.RemoveListener(value);
+            }
+        }
+
+        public static void EnableAim(bool Ensable = true)
+        {
+            Aim.gameObject.SetActive(Ensable);
+        }
+        public static void EnableInfoEntity(bool Ensable = true)
+        {
+            InfoEntity.gameObject.SetActive(Ensable);
+        }
+
         void IActivatableMenu.Activate()
         {
-            if (Aim != null)
-                Aim.gameObject?.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
-                Menu.PauseEnableGame(false);
+            if (Aim != null)
+                Aim.Component.enabled = true;
+                Menu.PauseEnableGame(false);;
+            onActivate.Invoke(true);
         }
 
         void IActivatableMenu.Deactivate()
         {
             Cursor.lockState = CursorLockMode.None;
             if (Aim != null)
-                Aim.gameObject.SetActive(false);
+                Aim.Component.enabled = false;
             Menu.PushMenu();
             Menu.PauseEnableGame(true);
             SetInfoEntity(false);
+            onActivate.Invoke(false);
         }
         public static void SetInfoEntity(bool Activate, EntityEngine entity = null)
         {
-            InfoEntity.gameObject.SetActive(Activate);
+            if(InfoEntity != null && InfoEntity.Component != null)
+                InfoEntity.Component.enabled = Activate;
             if (!Activate)
             {
                 return;
@@ -48,7 +75,7 @@ namespace GroupMenu
         void IActivatableMenu.Update()
         {
             if (Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Escape))
-                Menu.ActivateMenu<Lobby>();
+                Menu.ActivatePauseMenu();
         }
     }
 }

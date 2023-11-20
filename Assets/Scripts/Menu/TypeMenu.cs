@@ -9,5 +9,6 @@
     MediaPlayer,
     DebugAnimation,
     ConsoleMenu,
-    MenuScreenSave
+    MenuScreenSave,
+    MenuWinLose
 }

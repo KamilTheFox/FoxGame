@@ -4,7 +4,7 @@ using UnityEngine;
 public class RandomWalk : RandomGo
 {
     protected override IBehavior AbsencePath => new Idle();
-    protected override TypeAnimation Go => TypeAnimation.Walk;
+    protected override TypeAnimationAnimal Go => TypeAnimationAnimal.Walk;
 
     protected override Action Stopped => StoppedRun;
 

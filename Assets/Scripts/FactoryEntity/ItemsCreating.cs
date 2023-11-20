@@ -77,7 +77,7 @@ namespace FactoryEntity
             },
             [TypeItem.DoorLegasy] = new InfoItem()
             {
-                EngineComponent = typeof(Door),
+                EngineComponent = typeof(FrameDoor),
                 Mass = 30F,
                 RandomSeze = new RandomSize(0.6F),
                 ProtectStatic = true,
@@ -107,7 +107,7 @@ namespace FactoryEntity
             [TypeItem.Wardrobe] = new InfoItem()
             {
                 ProtectStatic = true,
-                EngineComponent = typeof(Door)
+                EngineComponent = typeof(FrameDoor)
             },
             [TypeItem.Box] = new InfoItem()
             {
@@ -151,7 +151,7 @@ namespace FactoryEntity
                     itemEngine.Rigidbody = body;
                     itemEngine.isController = Controller;
                     if (Controller)
-                        Prefab.gameObject.AddComponent<PlayerControll>();
+                        Prefab.gameObject.AddComponent<PlayerBody>();
                 }
                 if (itemEngine.Rigidbody)
                 {

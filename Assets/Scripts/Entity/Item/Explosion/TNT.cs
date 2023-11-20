@@ -11,15 +11,15 @@ public class TNT : Detonator, ITakenEntity, IDropEntity
 
     Rigidbody IDropEntity.Rigidbody => Rigidbody;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
-        base.OnStart();
+        base.OnAwake();
         base.onInteractionDetonator += OnInteractionDetonator;
     }
 
     private void OnInteractionDetonator()
     {
-        GameObject Detonate = EntityCreate.GetEntity(EffectItem.TNT_Detonate, Transform).GetPrefab;
+        GameObject Detonate = EntityCreate.GetEntity(EffectItem.TNT_Detonate, transform).GetPrefab;
         Transform transformDetonate = Detonate.transform;
         SoundMeneger.Play(SoundMeneger.Sounds.TNT_Detonate,
             Detonate.GetComponent<AudioSource>());

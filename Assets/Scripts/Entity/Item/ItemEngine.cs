@@ -25,6 +25,18 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
     [HideInInspector] public TypeItem itemType;
     Rigidbody ITakenEntity.Rigidbody => Rigidbody;
 
+    private bool isDetectionModeContinuousDynamic;
+    public bool IsDetectionModeContinuousDynamic
+    {
+        get => isDetectionModeContinuousDynamic;
+        set
+        {
+            isDetectionModeContinuousDynamic = value;
+            if(value)
+                Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+    }
+
     public static int CountItemTypes { get { return Enum.GetNames(typeof(TypeItem)).Length; } }
     public int ID
     {
@@ -84,11 +96,11 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
     }
     private void FixedUpdate()
     {
-        if (Rigidbody)
+        if (Rigidbody && !isDetectionModeContinuousDynamic)
         {
-            if (Rigidbody.collisionDetectionMode != CollisionDetectionMode.Discrete && Rigidbody.velocity.magnitude < 4F)
-                Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            else if (Rigidbody.collisionDetectionMode == CollisionDetectionMode.Discrete && Rigidbody.velocity.magnitude > 4F)
+            if (Rigidbody.collisionDetectionMode != CollisionDetectionMode.Continuous && Rigidbody.velocity.magnitude < 2F)
+                Rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            else if (Rigidbody.collisionDetectionMode == CollisionDetectionMode.Discrete && Rigidbody.velocity.magnitude > 2F)
                 Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
         if (transform.position.y < -100F)

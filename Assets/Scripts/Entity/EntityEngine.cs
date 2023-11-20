@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using FactoryEntity;
+[SelectionBase, DisallowMultipleComponent]
 public abstract class EntityEngine : MonoBehaviour
 {
-    
     public Rigidbody Rigidbody;
     public Transform Transform { get; private set; }
     protected LayerMask layer;
@@ -50,6 +50,10 @@ public abstract class EntityEngine : MonoBehaviour
     protected static T AddEntity<T>(Enum _enum, Vector3 position, Quaternion quaternion, bool isStatic = true) where T : EntityEngine
     {
         return EntityCreate.GetEntity(_enum, position, quaternion, isStatic).GetEngine as T;
+    }
+    public void CancelDelete()
+    {
+        CancelInvoke("DestroyInvoke");
     }
     public virtual void Delete(float time = 0F)
     {

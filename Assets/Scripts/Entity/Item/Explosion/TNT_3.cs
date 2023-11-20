@@ -11,9 +11,9 @@ public class TNT_3 : Detonator, ITakenEntity, IDropEntity
 
     Rigidbody IDropEntity.Rigidbody => Rigidbody;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
-        base.OnStart();
+        base.OnAwake();
         base.onInteractionDetonator += OnInteractionDetonator;
     }
 

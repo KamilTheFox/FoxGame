@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class RandomRun : RandomGo
 {
-    protected override TypeAnimation Go => TypeAnimation.Run;
+    protected override TypeAnimationAnimal Go => TypeAnimationAnimal.Run;
 
     protected override Action Stopped => StoppedRun;
 

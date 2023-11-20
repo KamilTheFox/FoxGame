@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public interface IUpdateMenuUI
+public interface IUpdateUIElement
 {
     void UpdateText();
 }
@@ -136,12 +136,29 @@ public interface IUpdateMenuUI
     }
     private static int NumberComponent;
 }
-public class MenuUI<T> : IUpdateMenuUI where T : Component
+public class MenuUI<T> : IUpdateUIElement where T : Component
 {
     private TextUI TextUI;
     public string Text { get => text != null ? text.text : null; private set { if (text) text.text = value; } }
 
     private Text text;
+
+    private Text GetTextComponent
+    {
+        get
+        {
+            if(Component == null)
+                return null;
+            if(isText) 
+                return text;
+            if(text == null)
+            {
+                text = component.GetComponentInChildren<Text>();
+            }
+            return text;
+        }
+    }
+    public bool isUpdateText { get; set; } = true;
     private bool isText;
     private Image image;
 
@@ -176,14 +193,24 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
     private void Init(T _component, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {
         _component.gameObject.SetActive(true);
-        
-        Menu.ListTextUpdate.Add(this);
         TextUI = textUI;
+        Menu.ListTextUpdate.Add(this);
         MenuUIAutoRect.TypeRect type = MenuUIAutoRect.TypeRect.Default;
 
         if (AutoRect)
         {
             MenuUIAutoRect.AutoPositionComponent(_component, type, ModiferAutoRect);
+        }
+        else if(!AutoRect && ModiferAutoRect != null)
+        {
+            RectTransform rectTransform = _component.GetComponent<RectTransform>();
+            Rect rect = ModiferAutoRect(new Rect());
+            Vector2 ancorLeftTop = new Vector2(0, 1);
+            rectTransform.anchorMin = ancorLeftTop;
+            rectTransform.anchorMax = ancorLeftTop;
+            rectTransform.pivot = ancorLeftTop;
+            rectTransform.sizeDelta = rect.size;
+            rectTransform.anchoredPosition = new Vector2(rect.position.x, -rect.position.y);
         }
         if (ModiferAutoRect != null && !AutoRect)
         {
@@ -355,13 +382,17 @@ public class MenuUI<T> : IUpdateMenuUI where T : Component
     }
     public MenuUI<T> SetText(TextUI textUI = new TextUI())
     {
-        if (!text) return this;
+        if (!text && (text = component.GetComponentInChildren<Text>()) == null)
+        {
+            return this;
+        }
         TextUI = textUI;
         UpdateText();
         return this;
     }
     public void UpdateText()
     {
+        if (!isUpdateText) return;
         if (!text) return;
         if (component is Dropdown)
         {

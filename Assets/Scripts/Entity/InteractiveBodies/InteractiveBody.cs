@@ -6,7 +6,11 @@ namespace InteractiveBodies
     public abstract class InteractiveBody : EntityEngine, IInteractive
     {
         public override TypeEntity typeEntity => TypeEntity.InteractiveBody;
-
+        protected override void OnAwake()
+        {
+            if(gameObject.layer == MasksProject.Default)
+                gameObject.layer = MasksProject.Entity;
+        }
         protected override abstract void OnStart();
         public virtual void Interaction()
         {

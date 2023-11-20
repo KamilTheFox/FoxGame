@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class RandomFustRun : RandomGo
 { 
-    protected override TypeAnimation Go => TypeAnimation.Run_Fast;
+    protected override TypeAnimationAnimal Go => TypeAnimationAnimal.Run_Fast;
 
     protected override Action Stopped => StoppedRun;
 
