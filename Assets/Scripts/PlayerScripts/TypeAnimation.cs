@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum TypeAnimation
+namespace PlayerDescription
 {
-    Idle01,
-    Idle02,
-    Walk,
-    Run,
-    Jump,
-    Fall,
-    Landing,
-    StendUp,
+    public enum TypeAnimation
+    {
+        Idle01,
+        Idle02,
+        Walk,
+        RunForward,
+        RunRight,
+        Jump,
+        Fall,
+        Landing,
+        StendUp,
 
+    }
 }

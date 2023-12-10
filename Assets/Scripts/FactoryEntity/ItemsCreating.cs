@@ -16,29 +16,29 @@ namespace FactoryEntity
             },
             [TypeItem.Basket] = new InfoItem()
             {
-                Controller = true,
+                Controller = false,
                 Mass = 2F
             },
             [TypeItem.Barrel] = new InfoItem()
             {
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 400F
+                Mass = 4000F
             },
             [TypeItem.Barrel_Detonator] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator),
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 400F
+                Mass = 4000F
             },
             [TypeItem.Barrel_Detonator_Timer] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator_Timer),
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 400F,
+                Mass = 4000F,
             },
             [TypeItem.Table_Cardboard] = new InfoItem()
             {
-                Controller = true,
+                Controller = false,
                 Mass = 30F,
                 RandomSeze = new RandomSize(0.5F),
                 ChangeCenterMass = true,
@@ -46,7 +46,7 @@ namespace FactoryEntity
             },
             [TypeItem.Chair_Cardboard] = new InfoItem()
             {
-                Controller = true,
+                Controller = false,
                 Mass = 15F,
                 RandomSeze = new RandomSize(0.85F)
             },
@@ -85,8 +85,7 @@ namespace FactoryEntity
                 AdditionalConstructor = (Item) =>
                 {
                     Transform DoorObject = Item.transform.Find("Door");
-                    NavMeshObstacle obst = DoorObject.gameObject.AddComponent<NavMeshObstacle>();
-                    obst.carving = true;
+                    DoorObject.gameObject.AddComponent<InteractiveBodies.Door>();
                     DoorObject.localScale = Vector3.one * 0.99F;
                     DoorObject.localPosition += new Vector3(0.005F, 0F, 0F);
                     Transform Glass = DoorObject.transform.Find("Door_Glass");
@@ -111,11 +110,11 @@ namespace FactoryEntity
             },
             [TypeItem.Box] = new InfoItem()
             {
-                Mass = 15F
+                Mass = 100F
             },
             [TypeItem.BoxMetal] = new InfoItem()
             {
-                Mass = 50F
+                Mass = 150F
             },
             [TypeItem.Bed] = new InfoItem()
             {
@@ -143,12 +142,20 @@ namespace FactoryEntity
             {
                 ItemEngine itemEngine = Prefab as ItemEngine;
                 itemEngine.transform.localScale = Size;
-                if (!itemEngine.Stationary && !ProtectStatic)
+                if (!itemEngine.Stationary)
                 {
                     if (!itemEngine.gameObject.TryGetComponent(out Rigidbody body))
                         body = Prefab.gameObject.AddComponent<Rigidbody>();
 
                     itemEngine.Rigidbody = body;
+                    foreach (Transform child in body.transform.GetComponentsInChildren<Transform>())
+                    {
+                        if (!child.TryGetComponent(out NavMeshObstacle nav))
+                        {
+                            NavMeshObstacle obst = child.gameObject.AddComponent<NavMeshObstacle>();
+                            obst.carving = true;
+                        }
+                    }
                     itemEngine.isController = Controller;
                     if (Controller)
                         Prefab.gameObject.AddComponent<PlayerBody>();
@@ -176,7 +183,10 @@ namespace FactoryEntity
         private static bool PritectStaticObject(TypeItem itemType, bool IsStatic)
         {
             if (keyOfTypeParameters.TryGetValue(itemType, out IParametersEntityes parameters))
-                return (parameters as InfoItem).ProtectStatic;
+            {
+                if((parameters as InfoItem).ProtectStatic)
+                        return true;
+            }
             return IsStatic;
 
         }
@@ -191,6 +201,7 @@ namespace FactoryEntity
                 itemEngine = obj;
             else
                 itemEngine = GetPrefab.AddComponent(parameters.EngineComponent) as ItemEngine;
+            itemEngine.Stationary = _isStaticItem;
             parameters.SetParametrs(itemEngine);
             itemEngine.itemType = itemType;
         }

@@ -1,8 +1,9 @@
-﻿using System;
+﻿ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using GroupMenu;
+using UnityEngine.AI;
 
 public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
 {

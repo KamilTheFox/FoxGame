@@ -15,12 +15,7 @@ public class FrameDoor : ItemEngine, IDiesing, IInteractive, ITakenEntity
 
     protected override void OnStart()
     {
-        foreach (Transform findDoor in Transform)
-            if (findDoor != Transform && findDoor.name.Contains("Door"))
-            {
-                DoorObject = findDoor.gameObject.AddComponent<InteractiveBodies.Door>();
-                break;
-            }
+        DoorObject = GetComponentInChildren<Door>();
         if (DoorObject != null)
         {
             Rigidbody = DoorObject.Rigidbody;

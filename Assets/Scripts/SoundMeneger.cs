@@ -177,8 +177,8 @@ public class SoundMeneger : MonoBehaviour
     }
     private static void ChangeVolumeMusic(float value)
     {
-        Background.volume = value;
-        _Music.volume = value;    }
+        _Music.volume = value;   
+    }
     private static void ChangeVolume(float value)
     {
         EnumAudioSources((audio) => audio.volume = Volume);

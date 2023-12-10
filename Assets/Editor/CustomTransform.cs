@@ -119,7 +119,7 @@ namespace Assets.Editors
                 if (!iAlive.IsDie && GUILayout.Button("Kill AddForse"))
                 {
                     iAlive.Death();
-                    iAlive.Transform.GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up);
+                    iAlive.Transform.GetChild(0).GetComponentsInChildren<Rigidbody>().ToList().ForEach((r) => r.AddForce(Vector3.up));
                 }
             }
             GUILayout.BeginHorizontal();

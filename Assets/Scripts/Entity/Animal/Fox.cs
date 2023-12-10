@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class Fox : AnimalEngine
         {
             base.GetTextUI(),
             " " + TypeAnimal.ToString() +
-            (IsDie? "" : "\nPserss F to change animation")
+            (IsDie? "" : "\nPserss F to Debug animation")
         });
     }
 }

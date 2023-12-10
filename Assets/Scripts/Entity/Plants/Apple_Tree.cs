@@ -19,7 +19,7 @@ public class Apple_Tree : Tree
         public void CreateApple()
         {
             if (!Free) return;
-            apple = (IGerminatable)ItemEngine.AddItem(TypeItem.Apple, Transform.position, Quaternion.identity);
+            apple = (IGerminatable)ItemEngine.AddItem(TypeItem.Apple, Transform.position, Quaternion.identity, false);
             apple.OnRipen += ToFall;
             apple.OnRipen += ToFallApple;
             apple.Start(Transform.position);

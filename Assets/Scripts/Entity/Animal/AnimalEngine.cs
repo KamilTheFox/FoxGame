@@ -60,6 +60,7 @@ public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
     }
     public void Interaction()
     {
+        if (IsDie) return;
         None.SetInfoEntity(false);
         DebugAnimation.Animator = Animator;
         Menu.ActivateMenu<DebugAnimation>();
