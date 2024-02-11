@@ -70,12 +70,19 @@ public abstract class Detonator : ItemEngine, IInteractive
         Collider[] colliders = OverlapSphere(MasksProject.EntityPlayer, Radius * 5F);
         Collider[] collidersKill = OverlapSphere(MasksProject.EntityPlayer, Radius * 0.6F);
         List<IDiesing> diesings = new();
+        List<IExplosionDamage> explosionDamage = new();
+        List<EntityEngine> Items = new();
         foreach (Collider collider in collidersKill)
         {
             IDiesing loc;
+            EntityEngine entity;
             if (!diesings.Contains(loc = collider.GetComponentInParent<IDiesing>()))
             {
                 diesings.Add(loc);
+            }
+            if (!Items.Contains(entity = collider.GetComponentInParent<EntityEngine>()))
+            {
+                Items.Add(entity);
             }
         }
         for (int i = 0; i < colliders.Length; i++)
@@ -96,28 +103,33 @@ public abstract class Detonator : ItemEngine, IInteractive
                 if (Physics.Linecast(transform.position, colliders[i].ClosestPoint(transform.position), out RaycastHit raycast1, MasksProject.Terrain) &&
                     Physics.Linecast(colliders[i].ClosestPoint(transform.position), transform.position, out RaycastHit raycast2, MasksProject.Terrain))
                     ThicknessWall = Vector3.Distance(raycast1.point, raycast2.point);
-                if(ThicknessWall< 1.5)
-                    Alive.Death();
-            }
-            if (isDeath)
-            {
-                if (item is ItemEngine)
+                if (ThicknessWall < 1.5)
                 {
-                    if (item is Detonator Detonators)
-                    {
-                        new Random.State();
-                        float Detonate = Random.Range(0.32F, TimeDetonate);
-                        if (Detonators.isActivate)
-                            Detonators.Delete(Detonate);
-                        else
-                            Detonators.InteractionTimeActivation(Detonate);
-                        ExplosionForce(rb, 5F);
-                        continue;
-                    }
-                    else if (item is not IDiesing && isDeath)
-                        item.Delete();
+                    Alive.Death();
+                    if(Alive is IExplosionDamage damage)
+                        damage.Explosion();
                 }
             }
+            
+            if (Items.Contains(item) && item is ItemEngine)
+            {
+                if (item is Detonator Detonators)
+                {
+                    new Random.State();
+                    float Detonate = Random.Range(0.32F, TimeDetonate);
+                    if (Detonators.isActivate)
+                        Detonators.Delete(Detonate);
+                    else
+                        Detonators.InteractionTimeActivation(Detonate);
+                    ExplosionForce(rb, 5F);
+                    continue;
+                }
+                else if (item is not IDiesing)
+                    item.Delete();
+                if(item is IExplosionDamage damageExp)
+                    damageExp.Explosion();
+            }
+            Items.Remove(item);
             ExplosionForce(rb);
         }
     }

@@ -147,11 +147,11 @@ public class MenuUI<T> : IUpdateUIElement where T : Component
     {
         get
         {
-            if(Component == null)
+            if (Component == null)
                 return null;
-            if(isText) 
+            if (isText)
                 return text;
-            if(text == null)
+            if (text == null)
             {
                 text = component.GetComponentInChildren<Text>();
             }
@@ -167,7 +167,15 @@ public class MenuUI<T> : IUpdateUIElement where T : Component
     {
         get { return isText ? (T)(Component)text : component; }
     }
-    public GameObject gameObject => Component?.gameObject;
+    public GameObject gameObject
+    {
+        get
+        {
+            if (Component == null)
+                return null;
+            return Component.gameObject;
+        }
+    }
 
     private MenuUI(T component, TextUI textUI = new TextUI(), bool AutoRect = false, Func<Rect, Rect> ModiferAutoRect = null)
     {

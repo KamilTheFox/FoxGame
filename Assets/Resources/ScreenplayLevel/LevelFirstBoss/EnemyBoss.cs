@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using PlayerDescription;
 
 namespace ScreenplayLevel
 {
+    
     public class EnemyBoss : MonoBehaviour
     {
-        [SerializeField] private Transform targetPlayer;
         private Transform Transform { get; set; }
 
         [SerializeField] private float AngleInDegrees;
@@ -24,13 +25,16 @@ namespace ScreenplayLevel
 
         [SerializeField] List<BoxEnemy> EnemyHealth = new ();
 
+        [SerializeField] private Animator animator;
         public static EnemyBoss Instance { get; private set; }
 
         public byte countHealth => (byte)EnemyHealth.Count;
 
         private Vector3 fromTo, fromToXZ;
 
-        private Transform SpawnTransform;
+        [SerializeField] private Transform SpawnTransform;
+
+        [SerializeField] private CharacterBody Player;
 
         private static UnityEvent deathEnemy = new();
         [Serializable]
@@ -58,14 +62,20 @@ namespace ScreenplayLevel
         private bool isShot = true;
         float Gravity => Physics.gravity.y;
 
+        private ItemEngine[] TNTVariants;
+
         private void Awake()
         {
             Instance = this;
             Transform = transform;
-            SpawnTransform = new GameObject("SpawnTransformTNT").transform;
-            SpawnTransform.parent = transform;
-            SpawnTransform.localPosition = Vector3.up;
-            PlayerBody.OnDied += () => { isShot = false; };
+            Player.OnDied += () => { isShot = false; };
+            TNTVariants = new ItemEngine[]
+            {
+                ItemEngine.AddItem(TypeItem.TNT_3, SpawnTransform.position, Quaternion.identity, false),
+                ItemEngine.AddItem(TypeItem.TNT, SpawnTransform.position, Quaternion.identity, false)
+            };
+            TNTVariants[0].gameObject.SetActive(false);
+            TNTVariants[1].gameObject.SetActive(false);
         }
         private void Start()
         {
@@ -85,34 +95,31 @@ namespace ScreenplayLevel
         }
         private IEnumerator BehavourShootTNT()
         {
-            yield return new WaitForSeconds(0.1F);
+            yield return new WaitForSeconds(1F);
             while (EnemyHealth.Count > 0 && isShot)
             {
-                Transform.rotation = Quaternion.LookRotation(fromToXZ, Vector3.up);
-                Shot();
+                animator.transform.localEulerAngles = Vector3.zero;
+                animator.transform.localPosition = Vector3.down;
+                animator.SetTrigger("Throw");
                 yield return new WaitForSeconds(CooldownDrop);
             }
             yield break;
         }
         public void Update()
         {
-            SpawnTransform.localEulerAngles = new Vector3(-AngleInDegrees, 0f, 0f);
-            Vector3 targetVector = new Vector3(targetPlayer.position.x, 1.5F, targetPlayer.position.z);
-            fromTo = targetVector  - Transform.position;
+            Vector3 targetVector = new Vector3(Player.Transform.position.x, 2F, Player.Transform.position.z);
+            fromTo = targetVector - SpawnTransform.position;
             fromToXZ = new Vector3(fromTo.x, 0f, fromTo.z);
-
-
-            float x = fromToXZ.magnitude;
-            float y = fromTo.y;
-            if(Input.GetKeyDown(KeyCode.Y) || Input.GetKeyDown(KeyCode.T))
-            {
-                Shot();
-            }
+            Transform.rotation = Quaternion.LookRotation(fromToXZ, Vector3.up);
+            SpawnTransform.localEulerAngles = new Vector3(-AngleInDegrees, 0f, 0f);
         }
         public void Damage(BoxEnemy box)
         {
             if (DestroyBoxCount % current.DestroyBoxCountDelay == 0)
+            {
                 CooldownDrop *= 1F - current.deltaCooldownDrop;
+                animator.speed += current.deltaCooldownDrop;
+            }
             DestroyBoxCount++;
             if(DestroyBoxCount % current.DestroyBoxCountRandomTNTDelay == 0)
             {
@@ -128,7 +135,7 @@ namespace ScreenplayLevel
             if (EnemyHealth.Count < 1)
                 deathEnemy.Invoke();
         }
-        private int t;
+        private int t = 1;
         private void TntInteractDropLogic(Detonator tnt, Collision collision)
         {
             tnt.Rigidbody.velocity = Vector3.zero;
@@ -136,6 +143,7 @@ namespace ScreenplayLevel
         }
         public void Shot()
         {
+            
             float x = fromToXZ.magnitude;
             float y = fromTo.y;
 
@@ -144,11 +152,12 @@ namespace ScreenplayLevel
             float v2 = (Gravity * x * x) / (2 * (y - Mathf.Tan(AngleInRadians) * x) * Mathf.Pow(Mathf.Cos(AngleInRadians), 2));
             float v = Mathf.Sqrt(Mathf.Abs(v2));
 
-            IInteractive newBullet = ItemEngine.AddItem(t % RandomTNT == 0 ? TypeItem.TNT_3 : TypeItem.TNT, SpawnTransform.position, Quaternion.identity, false) as IInteractive;
+            IInteractive newBullet = GameObject.Instantiate<ItemEngine>(TNTVariants[(t % RandomTNT == 0 ? 0 : 1)]) as IInteractive;
+            Detonator tnt = newBullet as Detonator;
+            tnt.gameObject.SetActive(true);
             newBullet.Rigidbody.velocity = SpawnTransform.forward * v;
             newBullet.Rigidbody.AddTorque(UnityEngine.Random.rotation.eulerAngles,ForceMode.Force);
             newBullet.Interaction();
-            Detonator tnt = newBullet as Detonator;
             tnt.OnCollision.AddListener(TntInteractDropLogic);
             foreach(Transform obj in tnt.gameObject.transform)
             {

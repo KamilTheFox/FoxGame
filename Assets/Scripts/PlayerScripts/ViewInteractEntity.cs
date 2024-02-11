@@ -41,7 +41,7 @@ namespace PlayerDescription
         {
             if (MoveEntity == null)
                 return;
-            MoveEntity.Transform.gameObject.layer = MoveEntity.GetEngine.Layer;
+            MoveEntity.Transform.gameObject.layer = (int)Mathf.Log(MoveEntity.GetEngine.Layer.value, 2);
             foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
             {
                 chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;

@@ -7,7 +7,7 @@ using UnityEngine;
 using GroupMenu;
 
 
-public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
+public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive, ICollideableDoll
 {
     #region Description
     public static List<AnimalEngine> AnimalList
@@ -42,7 +42,7 @@ public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
     {
         SetAI(FactoryEntity.AnimalsCreating.GetAI(TypeAnimal));
 
-        Regdool = new Regdoll(Animator, this);
+        Regdool = new Regdoll(Animator, gameObject);
     }
     public void SetAI(AI _AI)
     {
@@ -74,7 +74,6 @@ public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
     {
         AI?.Update();
     }
-    public Action<Collision, GameObject> BehaviorFromCollision => AI?.BehaviorFromCollision;
 
     public bool IsDie { get; private set; }
 
@@ -89,5 +88,9 @@ public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive
         Delete(120F);
     }
 
+    public void OnCollision(Collision collision, GameObject sourceObject)
+    {
+        AI?.BehaviorFromCollision(collision, sourceObject);
+    }
 }
 

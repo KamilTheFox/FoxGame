@@ -2,12 +2,13 @@
 using GroupMenu;
 using CameraScripts;
 using System.Linq;
+using PlayerDescription;
 public class CameraControll : MonoBehaviour
 {
-    public PlayerBody CPlayerBody { get; private set; }
+    public CharacterBody CPlayerBody { get; private set; }
 
     [SerializeField]
-    GameObject PrefabPlayerBody;
+    private GameObject[] PrefabsPlayerBody;
     public static Camera MainCamera { get; private set; }
 
     public static AudioSource CameraSource { get; private set;}
@@ -38,30 +39,6 @@ public class CameraControll : MonoBehaviour
 
     private Transform[] viewedCameraPositions;
 
-    CoiceSkin coiceSkin = new();
-    class CoiceSkin
-    {
-        public Color OldColor;
-        public Color NewColor { get { return Color.red; } }
-        public Material material;
-        public void ReplacementColor(Material material)
-        {
-            if (this.material == null)
-            {
-                this.material = material;
-                OldColor = material.color;
-                this.material.color = NewColor;
-            }
-        }
-        public void SetOldColor()
-        {
-            if (material != null)
-            {
-                material.color = OldColor;
-                material = null;
-            }
-        }
-    }
     void Awake()
     {
         if (instance) 
@@ -74,7 +51,7 @@ public class CameraControll : MonoBehaviour
         MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
         CameraSource = GetComponent<AudioSource>();
-        CPlayerBody = GetComponentInParent<PlayerBody>();
+        CPlayerBody = GetComponentInParent<CharacterBody>();
         if (CPlayerBody)
         {
             EntranceBody(CPlayerBody.gameObject);
@@ -94,33 +71,18 @@ public class CameraControll : MonoBehaviour
         if (Physics.Raycast(RayCastCenterScreen, out RaycastHit raycast, 3F, 1 << LayerMask.NameToLayer("Player")))
         {
             GameObject game = raycast.collider.gameObject;
-            Renderer renderer = game.GetComponentInChildren<Renderer>();
-            if (renderer)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Material material = renderer.material;
-                if (material != coiceSkin.material)
-                {
-                    coiceSkin.SetOldColor();
-                }
-                coiceSkin.ReplacementColor(material);
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    coiceSkin.SetOldColor();
-                    EntranceBody(game);
-                }
+                EntranceBody(game);
             }
-        }
-        else
-        {
-            coiceSkin.SetOldColor();
         }
     }
     private static bool IsCanInstall(ref GameObject gameObject)
     {
-        PlayerBody _PlayerControll = gameObject.GetComponent<PlayerBody>();
+        CharacterBody _PlayerControll = gameObject.GetComponent<CharacterBody>();
         if (_PlayerControll == null)
         {
-            _PlayerControll = gameObject.transform.GetComponentInParent<PlayerBody>();
+            _PlayerControll = gameObject.transform.GetComponentInParent<CharacterBody>();
             if (_PlayerControll == null)
                 return false;
             gameObject = gameObject.transform.parent.gameObject;
@@ -134,7 +96,13 @@ public class CameraControll : MonoBehaviour
     }
     public void OnFirstPerson()
     {
-        ChangeViewPerson(new FirstPerson(this, viewedCameraPositions.ToList().Find((t) => t.name.ToLower().Contains("firstperson"))));
+        Transform position = viewedCameraPositions.ToList().Find((t) => t.name.ToLower().Contains("firstperson"));
+        if(position == null)
+        {
+            OnThirdPerson();
+            return;
+        }
+        ChangeViewPerson(new FirstPerson(this, position));
     }
     public void OnThirdPerson()
     {
@@ -143,6 +111,7 @@ public class CameraControll : MonoBehaviour
     private void OnFreeCamera()
     {
         ChangeViewPerson(new FreeCamera(this));
+        None.EnableAim(false);
     }
     
     public void ChangeViewPerson(IViewedCamera viewed)
@@ -160,7 +129,7 @@ public class CameraControll : MonoBehaviour
         if(MouseHorizontal <= viewedCamera.ViewAxisMaxHorizontal.y)
             MouseHorizontal = viewedCamera.ViewAxisMaxHorizontal.y;
     }
-    private void CameraMove()
+    private void AxisView()
     {
         float mouseMove = Input.GetAxis("Mouse Y") * SensetiveMouse * 0.3F;
         MouseVertical += mouseMove;
@@ -185,10 +154,11 @@ public class CameraControll : MonoBehaviour
         }
         if (CPlayerBody)
             ExitBody();
-        CPlayerBody = @object.GetComponent<PlayerBody>();
+        CPlayerBody = @object.GetComponent<CharacterBody>();
         CPlayerBody.EntrancePlayerControll(instance);
         viewedCameraPositions = 
         CPlayerBody.transform.GetComponentsInChildren<Transform>().Where(ViewT => ViewT.name.ToLower().Contains("person")).ToArray();
+        None.EnableAim(true);
         OnFirstPerson();
     }
     public void ExitBody()
@@ -201,15 +171,15 @@ public class CameraControll : MonoBehaviour
     {
         MovementMode.MovementWASD(transform, 10F);
     }
-    public void GiveBody()
+    public void GiveBody(int indexBody = 0)
     {
         if (IsPlayerControll())
         {
-            GameObject body = Instantiate(PrefabPlayerBody, transform.localPosition, Quaternion.Euler(EulerHorizontal));
+            GameObject body = Instantiate(PrefabsPlayerBody[indexBody], transform.localPosition, Quaternion.Euler(EulerHorizontal));
             EntranceBody(body);
         }
     }
-    public bool IsPlayerControll(PlayerBody playerControll = null)
+    public bool IsPlayerControll(CharacterBody playerControll = null)
     {
         return CPlayerBody == playerControll;
     }
@@ -218,7 +188,7 @@ public class CameraControll : MonoBehaviour
         if (Menu.IsEnabled || !isCameraMove)
             return;
 
-        CameraMove();
+        AxisView();
         if(CPlayerBody != null && viewedCamera != null)
             CPlayerBody.Rigidbody.MoveRotation(Quaternion.Euler(viewedCamera.RotateBody()));
 
@@ -231,7 +201,7 @@ public class CameraControll : MonoBehaviour
             ChoiceSkinPlayer();
             return;
         }
-        if ( Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             ExitBody();
         }

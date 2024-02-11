@@ -29,6 +29,8 @@ namespace GroupMenu
 
         public static void EnableAim(bool Ensable = true)
         {
+            if (Aim == null || Aim.gameObject == null) return;
+
             Aim.gameObject.SetActive(Ensable);
         }
         public static void EnableInfoEntity(bool Ensable = true)

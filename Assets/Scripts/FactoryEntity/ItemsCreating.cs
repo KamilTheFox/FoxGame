@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using PlayerDescription;
+
 namespace FactoryEntity
 {
     public class ItemsCreating : EntityStencilCreating, IEntityCreated
@@ -16,7 +18,6 @@ namespace FactoryEntity
             },
             [TypeItem.Basket] = new InfoItem()
             {
-                Controller = false,
                 Mass = 2F
             },
             [TypeItem.Barrel] = new InfoItem()
@@ -38,7 +39,6 @@ namespace FactoryEntity
             },
             [TypeItem.Table_Cardboard] = new InfoItem()
             {
-                Controller = false,
                 Mass = 30F,
                 RandomSeze = new RandomSize(0.5F),
                 ChangeCenterMass = true,
@@ -46,7 +46,6 @@ namespace FactoryEntity
             },
             [TypeItem.Chair_Cardboard] = new InfoItem()
             {
-                Controller = false,
                 Mass = 15F,
                 RandomSeze = new RandomSize(0.85F)
             },
@@ -148,17 +147,14 @@ namespace FactoryEntity
                         body = Prefab.gameObject.AddComponent<Rigidbody>();
 
                     itemEngine.Rigidbody = body;
-                    foreach (Transform child in body.transform.GetComponentsInChildren<Transform>())
+                    if (!itemEngine.TryGetComponent(out NavMeshObstacle nav))
                     {
-                        if (!child.TryGetComponent(out NavMeshObstacle nav))
-                        {
-                            NavMeshObstacle obst = child.gameObject.AddComponent<NavMeshObstacle>();
-                            obst.carving = true;
-                        }
+                        NavMeshObstacle obst = itemEngine.gameObject.AddComponent<NavMeshObstacle>();
+                        obst.carving = true;
                     }
                     itemEngine.isController = Controller;
                     if (Controller)
-                        Prefab.gameObject.AddComponent<PlayerBody>();
+                        Prefab.gameObject.AddComponent<CharacterBody>();
                 }
                 if (itemEngine.Rigidbody)
                 {

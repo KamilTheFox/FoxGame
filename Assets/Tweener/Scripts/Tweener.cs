@@ -79,6 +79,9 @@ namespace Tweener
                 return time;
             }
         }
+
+        public bool isFixedUpdate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         internal void Restart()
         {
             eventRestart?.Invoke();

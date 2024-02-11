@@ -45,13 +45,13 @@ public static class MovementMode
         if (Input.GetKey(KeyCode.LeftShift)) obj.transform.position += Vector3.down * deltaTimeSpeed;
         if (Input.GetKey(KeyCode.Space)) obj.transform.position += Vector3.up * deltaTimeSpeed;
     }
-    public static void MovementFlySpaseLSift(Rigidbody obj, float Speed,bool isGround = false)
+    public static void MovementFlySpaseLSift(Rigidbody obj, float Speed , bool isGround = false)
     {
-        float deltaTimeSpeed = Speed * MovementSpeed * Time.deltaTime;
+        float deltaTimeSpeed = Speed * MovementSpeed;
         Vector3 velosity = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftShift)&& !isGround) velosity += Vector3.down * deltaTimeSpeed;
         if (Input.GetKey(KeyCode.Space)) velosity += Vector3.up * deltaTimeSpeed;
-        obj.MovePosition(obj.position + new Vector3(0, velosity.y, 0));
+        obj.velocity = new Vector3(obj.velocity.x, velosity.y, obj.velocity.z);
     }
     public static void MovementFlySpaseLSift(CharacterController obj, float Speed, bool isGround = false)
     {

@@ -8,8 +8,17 @@ public abstract class EntityEngine : MonoBehaviour
 {
     public Rigidbody Rigidbody;
     public Transform Transform { get; private set; }
-    protected LayerMask layer;
-    public LayerMask Layer => layer;
+
+
+    [SerializeField] protected LayerMask layer;
+    public LayerMask Layer
+    {
+        get { return layer; }
+        set 
+        { 
+            layer = value;
+        }
+    }
     public abstract TypeEntity typeEntity { get; }
     public bool IsItem => typeEntity == TypeEntity.Item;
     public bool IsAnimal => typeEntity == TypeEntity.Animal;
@@ -37,7 +46,6 @@ public abstract class EntityEngine : MonoBehaviour
     private void Awake()
     {
         Transform = transform;
-        layer = gameObject.layer;
         if(typeEntity != TypeEntity.InteractiveBody)
             Entities[typeEntity].Add(this);
         OnAwake();
@@ -49,7 +57,8 @@ public abstract class EntityEngine : MonoBehaviour
     [HideInInspector] public bool Stationary;
     protected static T AddEntity<T>(Enum _enum, Vector3 position, Quaternion quaternion, bool isStatic = true) where T : EntityEngine
     {
-        return EntityCreate.GetEntity(_enum, position, quaternion, isStatic).GetEngine as T;
+        T entity = EntityCreate.GetEntity(_enum, position, quaternion, isStatic).GetEngine as T;
+        return entity;
     }
     public void CancelDelete()
     {

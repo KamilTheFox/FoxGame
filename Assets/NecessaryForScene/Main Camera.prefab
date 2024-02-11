@@ -98,7 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1a4fb62c13ea44aaafd73215e52c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabPlayerBody: {fileID: 1285184315203314608, guid: a57e9d0188507de4ba04c41e78bd6bbc, type: 3}
+  PrefabsPlayerBody:
+  - {fileID: 1285184315203314608, guid: a57e9d0188507de4ba04c41e78bd6bbc, type: 3}
+  - {fileID: 3435015298320484077, guid: 45959e9a8583b0b418cde8c5605517af, type: 3}
+  - {fileID: 3681368780541008790, guid: 195a93b93d75a95499ae84a9570ffe8a, type: 3}
+  - {fileID: 8014016246386658191, guid: d874ef2691d46ef408109f6eb5fb41e3, type: 3}
+  - {fileID: 2971440790982759204, guid: 6a3ab5a463dc95142bd59d5111b2a7cb, type: 3}
+  - {fileID: 3592701946122414750, guid: d750f4fe41b0ae145b309cabfae02dd3, type: 3}
   MouseVertical: 0
   MouseHorizontal: 0
   isCameraMove: 1

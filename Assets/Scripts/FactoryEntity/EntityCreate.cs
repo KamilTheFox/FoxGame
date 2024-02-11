@@ -17,8 +17,11 @@ using FactoryEntity;
             if (!AcceptableEnum.ContainsKey(_enum.GetType()))
                 return null;
         IEntityCreated entity = (IEntityCreated)Activator.CreateInstance(AcceptableEnum[_enum.GetType()], new object[] { _enum, position, quaternion, isStatic });
-        if(entity != null && entity.GetEngine != null)
+        if (entity != null && entity.GetEngine != null)
+        {
             entity.GetEngine.Stationary = entity.isStatic;
+            entity.GetEngine.Layer = 1 << entity.GetPrefab.layer;
+        }
         return entity;
         }
         public static IEntityCreated GetEntity(Enum _enum, Transform parent, bool isStatic = true)
@@ -27,7 +30,10 @@ using FactoryEntity;
                 return null;
         IEntityCreated entity = (IEntityCreated)Activator.CreateInstance(AcceptableEnum[_enum.GetType()], new object[] { _enum, parent, isStatic });
         if (entity != null && entity.GetEngine != null)
+        {
             entity.GetEngine.Stationary = entity.isStatic;
+            entity.GetEngine.Layer = 1 << entity.GetPrefab.layer;
+        }
         return entity;
         }
     }

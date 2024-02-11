@@ -4,22 +4,23 @@ using UnityEngine;
 using UnityEngine.AI;
 public class NavMeshRebuild : MonoBehaviour
 {
-    public void Start()
+    public void Reset()
     {
         NavMeshSurface MeshSurface = GetComponent<NavMeshSurface>();
 
-        PlantEngine[] plants = PlantEngine.GetPlants;
+        EntityEngine[] entity = GameObject.FindObjectsOfType<EntityEngine>();
 
-        foreach (PlantEngine plant in plants)
-            foreach (Transform transform in plant.GetComponentsInChildren<Transform>())
+        foreach (EntityEngine plant in entity)
+            if(plant is PlantEngine || plant.Stationary)
+            foreach (MeshCollider transform in plant.GetComponentsInChildren<MeshCollider>())
             {
-                transform.gameObject.layer = LayerMask.NameToLayer("Terrain");
+                    transform.gameObject.layer = LayerMask.NameToLayer("Terrain");
             }
 
         MeshSurface.BuildNavMesh();
 
-        foreach (PlantEngine plant in plants)
-            foreach (Transform transform in plant.GetComponentsInChildren<Transform>())
-                transform.gameObject.layer = plant.Layer;
+        foreach (EntityEngine plant in entity)
+            foreach (MeshCollider transform in plant.GetComponentsInChildren<MeshCollider>())
+                transform.gameObject.layer = (int)Mathf.Log(plant.Layer.value, 2) ;
     }
 }

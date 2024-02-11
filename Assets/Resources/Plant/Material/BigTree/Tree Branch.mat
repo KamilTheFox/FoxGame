@@ -79,7 +79,7 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
-    - _AO: 2.1
+    - _AO: 2.63
     - _BaseLight: 0.69
     - _BlendOp: 0
     - _BumpScale: 1
@@ -87,7 +87,7 @@ Material:
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
     - _Cull: 2
-    - _Cutoff: 0.61
+    - _Cutoff: 0.417
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
@@ -103,7 +103,7 @@ Material:
     - _LightingEnabled: 1
     - _Metallic: 0
     - _Mode: 0
-    - _Occlusion: 9.1
+    - _Occlusion: 10
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ShadowStrength: 1

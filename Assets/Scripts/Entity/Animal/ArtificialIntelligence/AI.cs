@@ -48,6 +48,11 @@ using UnityEngine.AI;
     public bool SetDestination(Vector3 position)
     {
         NavMeshPath navMeshPath = new NavMeshPath();
+        if (Navigation == null)
+        {
+            Debug.LogWarning("Navigation obect Null");
+            return false;
+        }
         Navigation.CalculatePath(position, navMeshPath);
         if (navMeshPath.status == NavMeshPathStatus.PathComplete)
         {

@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LocationLevel2.unity
     guid: 17e81b76519e8aa4fb08db16708cefe5
   - enabled: 1
+    path: Assets/Scenes/Fabric.unity
+    guid: 68c6d43848d37d34cbf9807009b67142
+  - enabled: 1
     path: Assets/Scenes/LevelFirstBoss.unity
     guid: 40317c7d5b4ea504e879f8a94f9a0f2b
   m_configObjects: {}

@@ -33,11 +33,13 @@ namespace GroupMenu
 
             MenuUI<Button>.Create("LoadPolygone", GetTransform(), "Polygone", AutoRect: true).OnClick(StartPolygon);
 
-            MenuUI<Button>.Create("StartLVL1", GetTransform(), "PrototypeLevel1", AutoRect: true).OnClick(StartTestLevel1);
+            MenuUI<Button>.Create("StartLVL1", GetTransform(), "PrototypeBackyard", AutoRect: true).OnClick(StartTestLevel1);
 
-            MenuUI<Button>.Create("StartLVL2", GetTransform(), "PrototypeLevel2", AutoRect: true).OnClick(StartTestLevel2);
+            MenuUI<Button>.Create("StartLVL2", GetTransform(), "PrototypeBigHome", AutoRect: true).OnClick(StartTestLevel2);
 
-            MenuUI<Button>.Create("StartLVL3", GetTransform(), "PrototypeLevel3", AutoRect: true).OnClick(StartTestLevel3);
+            MenuUI<Button>.Create("StartLVL3", GetTransform(), "PrototypeFactory", AutoRect: true).OnClick(StartTestLevel3);
+
+            MenuUI<Button>.Create("StartLVL4", GetTransform(), "PrototypeBoss", AutoRect: true).OnClick(StartTestLevel4);
 
             Transform SellectDifficultyHorizontal = MenuUI<HorizontalLayoutGroup>.Create("SellectDifficulty", GetTransform(), LText.Null, true).gameObject.transform;
 
@@ -75,6 +77,10 @@ namespace GroupMenu
         private void StartTestLevel3()
         {
             GameState.StartGame(GameState.TypeModeGame.Adventure, 4);
+        }
+        private void StartTestLevel4()
+        {
+            GameState.StartGame(GameState.TypeModeGame.Adventure, 5);
         }
         protected override void Activate()
         {

@@ -1,0 +1,419 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MaskTails
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Release
+    m_Weight: 0
+  - m_Path: Release/ControllerArm.L
+    m_Weight: 0
+  - m_Path: Release/ControllerArm.L/ControllerArm.L_end
+    m_Weight: 0
+  - m_Path: Release/ControllerArm.R
+    m_Weight: 0
+  - m_Path: Release/ControllerArm.R/ControllerArm.R_end
+    m_Weight: 0
+  - m_Path: Release/FootController.L
+    m_Weight: 0
+  - m_Path: Release/FootController.L/Toes.L
+    m_Weight: 0
+  - m_Path: Release/FootController.L/Toes.L/Toes.L_end
+    m_Weight: 0
+  - m_Path: Release/FootController.R
+    m_Weight: 0
+  - m_Path: Release/FootController.R/Toes.R
+    m_Weight: 0
+  - m_Path: Release/FootController.R/Toes.R/Toes.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/belly.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/belly.L/belly.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/belly.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/belly.R/belly.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001/BackHead.L.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001/BackHead.R.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L/Eye.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R/Eye.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger/EyeTrigger_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead/Forehead_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L/Forehead.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R/Forehead.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004/UpperLip.L.004_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004/UpperLip.R.004_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001/LowerEar.L.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002/Upper.L.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002/LowerEar.L.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001/LowerEar.R.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002/Upper.R.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002/LowerEar.R.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002/LowerEyelid.L.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002/LowerEyelid.R.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose/Nose_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L/Shields1.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R/Shields1.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L/Shields2.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R/Shields2.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L/Shields3.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R/Shields3.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002/UpperEyelid.L.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005/UpperEyelid.L.005_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002/UpperEyelid.R.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005/UpperEyelid.R.005_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001/UpperLip.L.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001/UpperLip.R.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L/Boob.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R/Boob.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001/Shoulder.L.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002/Shoulder.L.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L/IndexDistal.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L/LittleDistal.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L/MiddleDistal.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L/RingDistal.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L/ThumbDistal.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001/Shoulder.R.001_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002/Shoulder.R.002_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R/IndexDistal.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R/LittleDistal.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R/MiddleDistal.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R/RingDistal.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R/ThumbDistal.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Edge1.L
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Edge1.L/Edge1.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Edge1.R
+    m_Weight: 0
+  - m_Path: Release/Hips/BoneHips/LowerSpine/Edge1.R/Edge1.R_end
+    m_Weight: 0
+  - m_Path: Release/Hips/Rump1
+    m_Weight: 0
+  - m_Path: Release/Hips/Rump1/Rump1_end
+    m_Weight: 0
+  - m_Path: Release/Hips/rump2
+    m_Weight: 0
+  - m_Path: Release/Hips/rump2/rump3
+    m_Weight: 0
+  - m_Path: Release/Hips/rump2/rump3/rump3_end
+    m_Weight: 0
+  - m_Path: Release/Hips/TailStart
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001/TailMiddle
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001
+    m_Weight: 1
+  - m_Path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001/TailEnd.001_end
+    m_Weight: 1
+  - m_Path: Release/Hips/UpperLeg.L
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.L/LowerLeg.L
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.R
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.R/LowerLeg.R
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R
+    m_Weight: 0
+  - m_Path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+    m_Weight: 0
+  - m_Path: Release/TailEndController
+    m_Weight: 0
+  - m_Path: Release/TailEndController/TailEndController_end
+    m_Weight: 0
+  - m_Path: Retopology.001
+    m_Weight: 0

@@ -60,25 +60,14 @@ namespace Tweener
         private void DependenceOnTime(float percentage)
         {
             ProgressWay = percentage;
-            float progressPrevious = 0F;
-            if(Way.Count < 2)
-            {
-                Debug.LogError("Error: No Segments to Way in object: " + transform.name);
-                Stop();
-                return;
-            }
-            int CurrentLine = Way.GetSegment(percentage);
+            var value = BezierWay.GetPositionInProgress(Way, percentage);
 
-            for (int i = 1; i < CurrentLine; i++)
-                progressPrevious += Way.GetSegmentPercentage(i);
-
-            ProgressLine = (ProgressWay - progressPrevious) / Way.GetSegmentPercentage(CurrentLine);
-
-            CurrentPosition = GetPoint(Way[CurrentLine - 1].Point, Way[CurrentLine - 1].Exit, Way[CurrentLine].Enter, Way[CurrentLine].Point, ProgressLine);
-            CurrentRotation = GetDirection(Way[CurrentLine - 1].Point, Way[CurrentLine - 1].Exit, Way[CurrentLine].Enter, Way[CurrentLine].Point, ProgressLine);
+            CurrentPosition = value.Item1;
+            CurrentRotation = value.Item2;
 
             transform.SetPositionAndRotation(CurrentPosition, Quaternion.LookRotation(CurrentRotation));
         }
+
         protected override void OnUpdate(float percentage)
         {
             if (isSpeed) DependenceOnSpeed();

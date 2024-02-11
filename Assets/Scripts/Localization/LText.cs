@@ -83,4 +83,7 @@ public enum LText
     DifficultyEasy,
     DifficultyNormal,
     DifficultyHard,
+    Range,
+    Distance,
+    Distance_Drawing,
 }

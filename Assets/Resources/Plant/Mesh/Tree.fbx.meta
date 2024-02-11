@@ -7,13 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Tree Branch
-    second: {fileID: 2100000, guid: 6329c1beae7af2541855be86352d55f6, type: 2}
+      name: NewTreeMaterial
+    second: {fileID: 2100000, guid: 1a80a15f06e19fb429c7e3d0820f2005, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Trunk
-    second: {fileID: 2100000, guid: 5eda7315685afbc4e8a690fb46e23e2f, type: 2}
+      name: Tree Branch
+    second: {fileID: 2100000, guid: 6329c1beae7af2541855be86352d55f6, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tree Branch
+    second: {fileID: 2800000, guid: ff124f6470f2ad04b8158c3ad8f053bb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TreeTexture
+    second: {fileID: 2800000, guid: 2a9c6e56960482041bb0e5f5bae1d7bf, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

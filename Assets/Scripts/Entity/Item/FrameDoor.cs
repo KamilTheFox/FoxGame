@@ -16,13 +16,23 @@ public class FrameDoor : ItemEngine, IDiesing, IInteractive, ITakenEntity
     protected override void OnStart()
     {
         DoorObject = GetComponentInChildren<Door>();
-        if (DoorObject != null)
+        if(DoorObject == null)
         {
-            Rigidbody = DoorObject.Rigidbody;
-            ILocking locking = GetComponentInChildren<ILocking>();
-            if (locking != null)
-                ((ILockable)DoorObject).Lock(locking);
+            foreach(Transform child in transform)
+            {
+                if(child.name.ToLower().Contains("door"))
+                {
+                    DoorObject = child.gameObject.AddComponent<Door>();
+                    break;
+                }
+            }
+            if (DoorObject == null)
+                return;
         }
+        Rigidbody = DoorObject.Rigidbody;
+        ILocking locking = GetComponentInChildren<ILocking>();
+        if (locking != null)
+            ((ILockable)DoorObject).Lock(locking);
     }
     public override ITakenEntity Take()
     {

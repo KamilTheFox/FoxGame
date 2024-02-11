@@ -70,6 +70,20 @@ namespace Tweener
             }
             return Distance;
         }
+        public static (Vector3, Vector3) GetPositionInProgress(BezierWay way, float percentage)
+        {
+            float progressPrevious = 0F;
+
+            int CurrentLine = way.GetSegment(percentage);
+
+            for (int i = 1; i < CurrentLine; i++)
+                progressPrevious += way.GetSegmentPercentage(i);
+
+            float ProgressLine = (percentage - progressPrevious) / way.GetSegmentPercentage(CurrentLine);
+
+            return (Bezier.GetPoint(way[CurrentLine - 1].Point, way[CurrentLine - 1].Exit, way[CurrentLine].Enter, way[CurrentLine].Point, ProgressLine),
+            Bezier.GetDirection(way[CurrentLine - 1].Point, way[CurrentLine - 1].Exit, way[CurrentLine].Enter, way[CurrentLine].Point, ProgressLine));
+        }
         public void ReverseWay()
         {
 #if UNITY_EDITOR

@@ -6,6 +6,7 @@ using CameraScripts;
 using System.Text;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using PlayerDescription;
 
 namespace ScreenplayLevel
 {
@@ -16,11 +17,13 @@ namespace ScreenplayLevel
 
         [SerializeField] private Texture2D IconEnemy;
 
+        [SerializeField] private CharacterBody Player;
+
         private MenuUI<Text> WinLoseText;
 
         public class ThirdPersonViewTop : IViewedCamera
         {
-            private PlayerBody Player;
+            private CharacterBody Player;
             private CameraControll _camera;
 
             private GameObject ThirdObject;
@@ -30,14 +33,14 @@ namespace ScreenplayLevel
             private Vector3 ForvardRotate;
 
             private Quaternion SmoothRotate = Quaternion.identity;
-            public ThirdPersonViewTop(CameraControll camera, PlayerBody _Player)
+            public ThirdPersonViewTop(CameraControll camera, CharacterBody _Player)
             {
                 Player = _Player;
                 _camera = camera;
             }
             public Vector3 RotateBody()
             {
-                Vector3 vector = Player.PlayerInput.Velosity;
+                Vector3 vector = Player.CharacterInput.Velosity;
                 if (vector != Vector3.zero)
                 {
                     ForvardRotate = SmoothRotate.eulerAngles;
@@ -65,14 +68,14 @@ namespace ScreenplayLevel
             public void Dispose()
             {
                 _camera.transform.SetParent(Player.Transform);
-                Player.PlayerInput.ForwardTransform = null;
+                Player.CharacterInput.ForwardTransform = null;
                 GameObject.Destroy(ThirdObject);
             }
             
             public void Construct()
             {
                 ThirdObject = new GameObject("ThirdObject");
-                Player.PlayerInput.ForwardTransform = ThirdObject.transform;
+                Player.CharacterInput.ForwardTransform = ThirdObject.transform;
                 _camera.transform.SetParent(null);
                 _camera.Transform.localPosition = Vector3.zero;
                 _camera.Transform.localEulerAngles = Vector3.zero;
@@ -80,10 +83,10 @@ namespace ScreenplayLevel
         }
         private class HealthPlayer : IDiesing
         {
-            private PlayerBody body;
+            private CharacterBody body;
 
             UnityAction<int> updateValue;
-            public HealthPlayer(PlayerBody player, byte _Health, UnityAction<int> _updateValue)
+            public HealthPlayer(CharacterBody player, byte _Health, UnityAction<int> _updateValue)
             {
                 body = player;
                 Health = _Health;
@@ -101,13 +104,23 @@ namespace ScreenplayLevel
             public void Death()
             {
                 if (IsDie) return;
-
+                body.Fell();
                 Health--;
                 updateValue.Invoke(Health);
                 if (Health <= 0)
                 {
                     body.Die();
                 }
+                else
+                {
+                    body.StartCoroutine(NotFell());
+                }
+            }
+            private IEnumerator NotFell()
+            {
+                yield return new WaitForSeconds(1F);
+                body.StendUp();
+                yield break;
             }
         }
 
@@ -148,7 +161,7 @@ namespace ScreenplayLevel
             Menu.instance.hootKeys = this;
             ConstructMenuNone();
 
-            PlayerBody.OnDied += Over;
+            Player.OnDied += Over;
             EnemyBoss.DeathEnemy += Win;
 
         }

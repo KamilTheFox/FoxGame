@@ -17,6 +17,6 @@ namespace PlayerDescription
         Fall,
         Landing,
         StendUp,
-
+        Fly,
     }
 }

@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Tweener;
-public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity
+public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity, ICollideableDoll
 {
     public bool IsDie { get; set; }
-
-    public Action<Collision, GameObject> BehaviorFromCollision => BehaviorFromCollisionEnter;
 
     private Animator Animator;
 
@@ -18,7 +16,7 @@ public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity
 
     protected override void OnAwake()
     {
-        regdoll = new Regdoll(Animator, this);
+        regdoll = new Regdoll(Animator, gameObject);
     }
     private IEnumerator Crumble()
     {
@@ -51,7 +49,7 @@ public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity
         }
         yield break;
     }
-    private void BehaviorFromCollisionEnter(Collision collision, GameObject Attacked)
+    public void OnCollision(Collision collision, GameObject Attacked)
     {
         Rigidbody AttackingRig = collision.gameObject.GetComponent<Rigidbody>();
         float Force = Rigidbody.mass * Rigidbody.velocity.magnitude;
@@ -82,5 +80,4 @@ public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity
             new TextUI(() => new object[] {"\n[", LText.KeyCodeMouse0 ,"] - ",LText.Drop }),
         });
     }
-
 }

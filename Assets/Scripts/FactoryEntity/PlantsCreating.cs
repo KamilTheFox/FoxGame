@@ -11,12 +11,12 @@ namespace FactoryEntity
         private static Dictionary<TypePlant, IParametersEntityes> keyValuePlants = new Dictionary<TypePlant, IParametersEntityes>
         {
             [TypePlant.Fir_Tree] = new PlantInfo() { EngineComponent = typeof(Tree), RandomSeze = new RandomSize(0.6F, 2F) },
-            [TypePlant.Tree] = new PlantInfo() { EngineComponent = typeof(Tree), RandomSeze = new RandomSize(0.4F, 2F) },
-            [TypePlant.White_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.5F, 2F), isIntangible = true },
-            [TypePlant.Nasty_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.5F, 2F), isIntangible = true },
-            [TypePlant.Agaric_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.5F, 2F), isIntangible = true },
-            [TypePlant.Apple_Tree] = new PlantInfo() { EngineComponent = typeof(Apple_Tree), RandomSeze = new RandomSize(2F) },
-            [TypePlant.Bush] = new PlantInfo() { RandomSeze = new RandomSize(2F, 5F) },
+            [TypePlant.Tree] = new PlantInfo() { EngineComponent = typeof(Tree), RandomSeze = new RandomSize(0.4F, 1.5F) },
+            [TypePlant.White_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.7F, 2F), isIntangible = true },
+            [TypePlant.Nasty_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.7F, 2F), isIntangible = true },
+            [TypePlant.Agaric_Mushroom] = new PlantInfo() { EngineComponent = typeof(Mushroom), RandomSeze = new RandomSize(0.7F, 2F), isIntangible = true },
+            [TypePlant.Apple_Tree] = new PlantInfo() { EngineComponent = typeof(Apple_Tree), RandomSeze = new RandomSize(0.6F,1.4F) },
+            [TypePlant.Bush] = new PlantInfo() { RandomSeze = new RandomSize(1.5F, 3F) },
         };
         private class PlantInfo : IParametersEntityes
         {

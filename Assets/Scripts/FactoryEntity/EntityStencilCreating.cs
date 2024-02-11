@@ -115,13 +115,27 @@ namespace FactoryEntity
                         else
                         {
                             collider.convex = true;
-                            Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
+#if UNITY_EDITOR
+                            if (Application.isPlaying)
+                            {
+                                Object.Destroy(gameObject.GetComponent<MeshRenderer>());
+                            }
+                            else
+#endif
+                                Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
                         }
                         IsColliders = true;
                     }
                     else if(Chield.name.Contains("Trigger"))
                     {
-                        Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
+#if UNITY_EDITOR
+                        if (Application.isPlaying)
+                        {
+                            Object.Destroy(gameObject.GetComponent<MeshRenderer>());
+                        }
+                        else
+#endif
+                            Object.DestroyImmediate(gameObject.GetComponent<MeshRenderer>());
                         gameObject.AddComponent<Rigidbody>().isKinematic = true;
                         gameObject.AddComponent<TriggerDetect>();
                         collider.convex = true;

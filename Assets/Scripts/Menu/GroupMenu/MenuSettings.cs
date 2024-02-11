@@ -16,12 +16,43 @@ namespace GroupMenu
         private static MenuUI<Slider> Sensitive;
         protected static MenuUI<Slider> VolumeSound, VolumeMusic;
 
+        protected static MenuUI<Slider> DrawingRangePlant, QuantityRangePlant;
+
         public override TypeMenu TypeMenu => TypeMenu.MenuSettings;
+
+        private void InitSliderRangePlant()
+        {
+            DrawingRangePlant = MenuUI<Slider>.Create("DrawingRangePlant", GetTransform(), new TextUI(
+                () => new object[] { LText.Distance_Drawing , ": " , Math.Round(Settings.DrawingRangePlant) }), true);
+            QuantityRangePlant = MenuUI<Slider>.Create("QuantityRangePlant", GetTransform(), new TextUI(
+                () => new object[] { LText.Range, ": ", Math.Round(Math.Round(Settings.QuantityRangePlant)) }), true);
+
+
+            var drawing = Settings.DrawingRangePlant;
+            var quantity = Settings.QuantityRangePlant;
+            DrawingRangePlant.OnValueChanged().AddListener((value) =>
+            {
+                Settings.DrawingRangePlant = value;
+            });
+
+            DrawingRangePlant.SetMinMax(20F, 200F);
+
+            QuantityRangePlant.OnValueChanged().AddListener((value) =>
+            {
+                Settings.QuantityRangePlant = value;
+            });
+
+            QuantityRangePlant.SetMinMax(20F, 200F);
+            DrawingRangePlant.Component.value = drawing;
+            QuantityRangePlant.Component.value = quantity;
+
+        }
         protected override void Start()
         {
 
             FindComponent();
 
+            InitSliderRangePlant();
 
             b_ChangeLanguage.OnClick().AddListener(() => Settings.ChangeLanguage(Localisation.Language == Language.En ? Language.Ru : Language.En));
 

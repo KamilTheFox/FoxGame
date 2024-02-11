@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BodyBot
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armor
+    m_Weight: 0
+  - m_Path: BB.BP
+    m_Weight: 0
+  - m_Path: Finger.L
+    m_Weight: 0
+  - m_Path: Finger.R
+    m_Weight: 0
+  - m_Path: Finger2.L
+    m_Weight: 0
+  - m_Path: Finger2.R
+    m_Weight: 0
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Index.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Index.L/Intermediate.Index.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Index.L/Intermediate.Index.L/Distal.Index.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Index.L/Intermediate.Index.L/Distal.Index.L/Distal.Index.L_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Middle.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Middle.L/Intermediate.Middle.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Middle.L/Intermediate.Middle.L/Distal.Middle.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/Proximal.Middle.L/Intermediate.Middle.L/Distal.Middle.L/Distal.Middle.L_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Index.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Index.R/Intermediate.Index.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Index.R/Intermediate.Index.R/Distal.Index.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Index.R/Intermediate.Index.R/Distal.Index.R/Distal.Index.R_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Middle.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Middle.R/Intermediate.Middle.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Middle.R/Intermediate.Middle.R/Distal.Middle.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Collarbone.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/Proximal.Middle.R/Intermediate.Middle.R/Distal.Middle.R/Distal.Middle.R_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Ear.L"
+    m_Weight: 0
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Ear.L/Ear.L_end"
+    m_Weight: 0
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Ear.R"
+    m_Weight: 0
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Ear.R/Ear.R_end"
+    m_Weight: 0
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Jaw"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/Spine/Chest/Neck/Head/Jaw/Jaw_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.L/LowerLeg.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.L/LowerLeg.L/Foot.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Toes.L"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Toes.L/Toes.L_end"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.R/LowerLeg.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.R/LowerLeg.R/Foot.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Toes.R"
+    m_Weight: 1
+  - m_Path: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Toes.R/Toes.R_end"
+    m_Weight: 1

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using PlayerDescription;
 
 public class FoxAI : AI
 {
@@ -26,7 +27,7 @@ public class FoxAI : AI
     } 
     public override Action<Collision, GameObject> BehaviorFromCollision => (col, Attached) =>
     {
-        if (col.gameObject.TryGetComponent(out PlayerBody player))
+        if (col.gameObject.TryGetComponent(out CharacterBody player))
         {
             if (Attached.name.ToLower().Contains("teil")) //|| player.Rigidbody.velocity.magnitude * player.Rigidbody.mass > 70F)
                 SetBehavior(new RandomRun());

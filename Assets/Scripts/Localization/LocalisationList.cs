@@ -115,5 +115,8 @@ public partial class Localisation
             "Hard",
             "Трудная",
         },
+        [LText.Range] = "Диапозон",
+        [LText.Distance] = "Дистанция",
+        [LText.Distance_Drawing] = "Дистанция прорисовки",
     };
 }

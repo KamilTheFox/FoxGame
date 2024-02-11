@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerDescription;
 
 namespace GroupMenu
 {
@@ -25,21 +26,44 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.CPlayerBody?.PlayerInput.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.CPlayerBody?.CharacterInput.isFly.GetLText() }), true);
 
-                Button_Fly.OnClick().AddListener(() => CameraControll.instance?.CPlayerBody?.PlayerInput.Fly());
+                Button_Fly.OnClick().AddListener(() => CameraControll.instance?.CPlayerBody?.CharacterInput.Fly());
 
+                Transform group = MenuUI<HorizontalLayoutGroup>.Create("Bodyes", GetTransform(), LText.Null, true).gameObject.transform;
 
-                MenuUI<Button> GiveBody = MenuUI<Button>.Create("GiveBody", GetTransform(), new TextUI(() => new object[] { LText.Give, " ", LText.Body }), true);
+                MenuUI<Button> GiveBodyFox = MenuUI<Button>.Create("Fox", group, new TextUI(() => new object[] { LText.Fox, }));
 
-                GiveBody.OnClick().AddListener(() =>
+                MenuUI<Button> GiveBodyRedBot = MenuUI<Button>.Create("RedBot", group, new TextUI(() => new object[] { LText.Red, " Bot" }));
+
+                MenuUI<Button> GiveBodyBlackBot = MenuUI<Button>.Create("BlackBot", group, new TextUI(() => new object[] { LText.Black + " Bot"}));
+
+                MenuUI<Button> GiveBodyBDSMFox = MenuUI<Button>.Create("BDSMFox", group, new TextUI(() => new object[] { LText.Fox + " BDSM" }));
+
+                GiveBodyFox.OnClick().AddListener(() =>
                 {
-                    Menu.PopMenu(true);
-                    if (CameraControll.instance.CPlayerBody == null)
-                        CameraControll.instance.GiveBody();
-                    else
-                        MessageBox.Info("Нельзя выдать новое тело находясь в теле");
+                    GiveBody();
                 });
+
+                GiveBodyRedBot.OnClick().AddListener(() =>
+                {
+                    GiveBody(1);
+                });
+
+                GiveBodyBlackBot.OnClick().AddListener(() =>
+                {
+                    GiveBody(2);
+                });
+
+                GiveBodyBDSMFox.OnClick().AddListener(() =>
+                {
+                    GiveBody();
+                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    putOnClothes.SelectClothes(0);
+                    putOnClothes.SelectClothes(1);
+                    putOnClothes.SelectClothes(2);
+                });
+
                 MenuUI<Button> TabEntity = MenuUI<Button>.Create("TabEntity", GetTransform(), new TextUI(() => new object[] { LText.Create, " ", LText.Entities }), true);
 
                 TabEntity.OnClick(() =>
@@ -48,6 +72,14 @@ namespace GroupMenu
                 });
             }
             FindExtitButton();
+        }
+        private void GiveBody(int indexBody = 0)
+        {
+            Menu.PopMenu(true);
+            if (CameraControll.instance.CPlayerBody == null)
+                CameraControll.instance.GiveBody(indexBody);
+            else
+                MessageBox.Info("Нельзя выдать новое тело находясь в теле");
         }
         private void FindBackMainMenu()
         {
@@ -93,7 +125,7 @@ namespace GroupMenu
             MenuUI<Button>.Create("GiveItem", GroupAddItems, LText.Give).OnClick(() =>
             {
 
-                PlayerBody player = CameraControll.instance?.CPlayerBody;
+                CharacterBody player = CameraControll.instance?.CPlayerBody;
                 if (player)
                 {
                     var CheckGive = GiveItem();

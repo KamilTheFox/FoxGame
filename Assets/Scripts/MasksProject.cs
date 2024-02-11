@@ -2,7 +2,7 @@
     public static class MasksProject
     {
         public static LayerMask Default => LayerMask.NameToLayer("Default");
-        public static LayerMask RigidObject => LayerMask.GetMask(new string[] { "Terrain", "Entity",  "Default" });
+        public static LayerMask RigidObject => LayerMask.GetMask(new string[] { "Default" , "Terrain", "Entity" });
 
         public static LayerMask Terrain => LayerMask.GetMask(new string[] { "Terrain", "Default" });
 
