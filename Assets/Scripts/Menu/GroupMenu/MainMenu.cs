@@ -64,23 +64,38 @@ namespace GroupMenu
         }
         private void StartPolygon()
         {
-            GameState.StartGame(StartMode, 1);
+            MovingAvatarAndCamera.MoveWayMenu("Play", () =>
+            {
+                GameState.StartGame(StartMode, 1);
+            });
         }
         private void StartTestLevel1()
         {
-            GameState.StartGame(StartMode, 2);
+            MovingAvatarAndCamera.MoveWayMenu("Play", () =>
+            {
+                GameState.StartGame(StartMode, 2);
+            });
         }
         private void StartTestLevel2()
         {
-            GameState.StartGame(StartMode, 3);
+            MovingAvatarAndCamera.MoveWayMenu("Play", () =>
+            {
+                GameState.StartGame(StartMode, 3);
+            });
         }
         private void StartTestLevel3()
         {
-            GameState.StartGame(GameState.TypeModeGame.Adventure, 4);
+            MovingAvatarAndCamera.MoveWayMenu("Play", () =>
+            {
+                GameState.StartGame(GameState.TypeModeGame.Adventure, 4);
+            });
         }
         private void StartTestLevel4()
         {
-            GameState.StartGame(GameState.TypeModeGame.Adventure, 5);
+            MovingAvatarAndCamera.MoveWayMenu("Play", () =>
+            {
+                GameState.StartGame(GameState.TypeModeGame.Adventure, 5);
+            });
         }
         protected override void Activate()
         {

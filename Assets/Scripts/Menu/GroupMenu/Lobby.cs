@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using PlayerDescription;
+using System.Collections.Generic;
 
 namespace GroupMenu
 {
@@ -40,11 +41,16 @@ namespace GroupMenu
 
                 MenuUI<Button> GiveBodyBDSMFox = MenuUI<Button>.Create("BDSMFox", group, new TextUI(() => new object[] { LText.Fox + " BDSM" }));
 
+                MenuUI<Button> Swim = MenuUI<Button>.Create("FoxSwim", group, new TextUI(() => new object[] { LText.Fox + " Swim" }));
+
+                MenuUI<Button> kein = MenuUI<Button>.Create("Kevin", group, new TextUI(() => new object[] { "Kevin" }));
+
                 GiveBodyFox.OnClick().AddListener(() =>
                 {
                     GiveBody();
                 });
 
+                
                 GiveBodyRedBot.OnClick().AddListener(() =>
                 {
                     GiveBody(1);
@@ -55,6 +61,12 @@ namespace GroupMenu
                     GiveBody(2);
                 });
 
+                kein.OnClick().AddListener(() =>
+                {
+                    GiveBody(5);
+                });
+
+
                 GiveBodyBDSMFox.OnClick().AddListener(() =>
                 {
                     GiveBody();
@@ -62,6 +74,12 @@ namespace GroupMenu
                     putOnClothes.SelectClothes(0);
                     putOnClothes.SelectClothes(1);
                     putOnClothes.SelectClothes(2);
+                });
+                Swim.OnClick().AddListener(() =>
+                {
+                    GiveBody();
+                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    putOnClothes.SelectClothes(3);
                 });
 
                 MenuUI<Button> TabEntity = MenuUI<Button>.Create("TabEntity", GetTransform(), new TextUI(() => new object[] { LText.Create, " ", LText.Entities }), true);
@@ -99,12 +117,17 @@ namespace GroupMenu
             Transform GroupAddItems = MenuUI<HorizontalLayoutGroup>.Create("AddItem", GetTransform(), LText.Null, true).gameObject.transform;
 
             MenuUI<Dropdown> SellectItem = MenuUI<Dropdown>.Create("SellectItem", GroupAddItems, LText.Null, false, MenuUIAutoRect.SetWidth(100F));
-            SellectItem.Component.AddOptions(Enum.GetNames(typeof(TypeItem)).ToList());
+
+            List<string> TypesItem = Enum.GetNames(typeof(TypeItem)).ToList();
+            TypesItem.Remove("None");
+            TypesItem.Sort();
+
+            SellectItem.Component.AddOptions(TypesItem);
             SellectItem.Component.onValueChanged.AddListener((index) =>
             {
-                typeItem = (TypeItem)index;
+                typeItem = (TypeItem)Enum.Parse(typeof(TypeItem),  TypesItem[index]);
             });
-
+            typeItem = TypeItem.Apple;
             MenuUI<Button>.Create("Add", GroupAddItems, LText.Add).OnClick(() => GiveItem());
             MenuUI<Button>.Create("X20", GroupAddItems, "X20".GetTextUI()).OnClick(() =>
             {

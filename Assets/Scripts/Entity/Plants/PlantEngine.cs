@@ -44,6 +44,7 @@ public class PlantEngine : EntityEngine, IDiesing
     {
         base.OnAwake();
         EnableDistanceVersion(false);
+        distanceOrder = Settings.DrawingRangePlant;
     }
     [ContextMenu("GenerateSimpleVersion")]
     private void GenerateSimpleVersion()
@@ -93,17 +94,12 @@ public class PlantEngine : EntityEngine, IDiesing
         bounds.min /= meshRenderers.Length;
         return bounds;
     }
-    private void FixedUpdate()
+    public override void OnBatchDistanceCalculated(bool enable)
     {
         if (objectSimplePlant == null)
             return;
         Vector3 target = CameraControll.instance.transform.position;
-        if (Vector3.Distance(target,transform.position) < Settings.DrawingRangePlant)
-        {
-            EnableDistanceVersion(false);
-        }
-        else
-        EnableDistanceVersion();
+        EnableDistanceVersion(!enable);
         target = new Vector3 (target.x, objectSimplePlant.transform.position.y, target.z);
         objectSimplePlant.transform.LookAt(target, Vector3.up);
     }

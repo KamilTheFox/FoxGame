@@ -12,6 +12,7 @@ public class Barrel_Detonator : Detonator
     protected override void OnAwake()
     {
         Stationary = GameState.IsAdventure;
+        VolumeObject = 0.1F;
         base.onInteractionDetonator += OnInteractionDetonator;
     }
     private void OnInteractionDetonator()

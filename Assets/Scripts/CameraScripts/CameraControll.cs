@@ -3,6 +3,8 @@ using GroupMenu;
 using CameraScripts;
 using System.Linq;
 using PlayerDescription;
+using System;
+
 public class CameraControll : MonoBehaviour
 {
     public CharacterBody CPlayerBody { get; private set; }
@@ -37,7 +39,7 @@ public class CameraControll : MonoBehaviour
 
     private IViewedCamera viewedCamera;
 
-    private Transform[] viewedCameraPositions;
+    [SerializeField] private Transform[] viewedCameraPositions;
 
     void Awake()
     {
@@ -47,6 +49,9 @@ public class CameraControll : MonoBehaviour
             Destroy(gameObject);
         }
         instance = this;
+
+
+
         Transform = transform;
         MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
@@ -57,7 +62,8 @@ public class CameraControll : MonoBehaviour
             EntranceBody(CPlayerBody.gameObject);
             return;
         }
-        OnFreeCamera();
+        if(isCameraMove)
+            OnFreeCamera();
         if (isCameraMove && !GameState.IsCreative)
             GiveBody();
        
@@ -102,18 +108,23 @@ public class CameraControll : MonoBehaviour
             OnThirdPerson();
             return;
         }
-        ChangeViewPerson(new FirstPerson(this, position));
+        ChangeViewPerson(position.gameObject.GetComponent<FirstPerson>());
     }
     public void OnThirdPerson()
     {
-        ChangeViewPerson(new ThirdPerson(this, viewedCameraPositions.ToList().Find((t) => t.name.ToLower().Contains("thirdperson"))));
+        Transform transform =  viewedCameraPositions.ToList().Find((t) => t.name.ToLower().Contains("thirdperson"));
+        if(transform != null)
+            ChangeViewPerson(new ThirdPerson(this, transform));
     }
     private void OnFreeCamera()
     {
         ChangeViewPerson(new FreeCamera(this));
         None.EnableAim(false);
     }
-    
+    public bool IsTypeViewPerson(Type type)
+    {
+        return viewedCamera.GetType().Name == type.Name;
+    }
     public void ChangeViewPerson(IViewedCamera viewed)
     {
         viewedCamera?.Dispose();
@@ -164,6 +175,7 @@ public class CameraControll : MonoBehaviour
     public void ExitBody()
     {
         CPlayerBody?.ExitPlayerControll(instance);
+        viewedCameraPositions = new Transform[0];
         CPlayerBody = null;
         OnFreeCamera();
     }
@@ -190,7 +202,7 @@ public class CameraControll : MonoBehaviour
 
         AxisView();
         if(CPlayerBody != null && viewedCamera != null)
-            CPlayerBody.Rigidbody.MoveRotation(Quaternion.Euler(viewedCamera.RotateBody()));
+            CPlayerBody.RotateBody(Quaternion.Euler(viewedCamera.RotateBody()));
 
         if (!GameState.IsCreative) 
             return;

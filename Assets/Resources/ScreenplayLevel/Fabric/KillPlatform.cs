@@ -13,7 +13,7 @@ public class KillPlatform : MonoBehaviour
         if (body.IsDie) return;
         body.Death();
         if (body is IExplosionDamage explosionDamage)
-            explosionDamage.Explosion();
+            explosionDamage.Explosion(0f);
         CameraControll.instance.Transform.position = positionRespawn;
         CameraControll.instance.GiveBody(UnityEngine.Random.Range(1,5));
 

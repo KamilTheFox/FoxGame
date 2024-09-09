@@ -16,6 +16,7 @@ public partial class Localisation
         [LText.False] = new string[] { "Off", "Выкл" },
         [LText.Statistics] = "Статистика",
         [LText.MainMenu] = new string[] { "Main Menu", "Главное меню" },
+        [LText.ConsoleMenu] = new string[] { "Console", "Консоль" },
         [LText.MediaPlayer] = new string[] { "Media Player", "Музыкальный Плеер" },
         [LText.Lobby] = "Холл",
         [LText.Exit] = "Выход",
@@ -118,5 +119,6 @@ public partial class Localisation
         [LText.Range] = "Диапозон",
         [LText.Distance] = "Дистанция",
         [LText.Distance_Drawing] = "Дистанция прорисовки",
+
     };
 }

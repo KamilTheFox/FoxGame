@@ -10,5 +10,6 @@
     DebugAnimation,
     ConsoleMenu,
     MenuScreenSave,
-    MenuWinLose
+    MenuWinLose,
+    Inventory
 }

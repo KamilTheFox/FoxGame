@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8437600800461512862}
   - component: {fileID: 8437600800461512857}
   - component: {fileID: 8437600800461512858}
+  - component: {fileID: 6518566639551039668}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -104,10 +105,11 @@ MonoBehaviour:
   - {fileID: 3681368780541008790, guid: 195a93b93d75a95499ae84a9570ffe8a, type: 3}
   - {fileID: 8014016246386658191, guid: d874ef2691d46ef408109f6eb5fb41e3, type: 3}
   - {fileID: 2971440790982759204, guid: 6a3ab5a463dc95142bd59d5111b2a7cb, type: 3}
-  - {fileID: 3592701946122414750, guid: d750f4fe41b0ae145b309cabfae02dd3, type: 3}
+  - {fileID: 5178200825123098080, guid: 8f1fe33726754c045b2788c83c71b04d, type: 3}
   MouseVertical: 0
   MouseHorizontal: 0
   isCameraMove: 1
+  viewedCameraPositions: []
 --- !u!82 &8437600800461512858
 AudioSource:
   m_ObjectHideFlags: 0
@@ -117,7 +119,7 @@ AudioSource:
   m_GameObject: {fileID: 8437600800461512861}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8948707016566302515, guid: 241263c28597c264d87cc60071d404e5, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -204,3 +206,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6518566639551039668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437600800461512861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 8437600800461512856}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 2147483664
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []

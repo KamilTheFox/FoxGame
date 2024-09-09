@@ -20,11 +20,10 @@ namespace Tweener
             _Enter.localPosition = ControllerForEnter ? EnterLocal : ExitLocal;
 #endif
         }
-#if UNITY_EDITOR
-        [Obsolete("For EditorController. #if UNITY_EDITOR")]
         public Transform _Enter;
-        [Obsolete("For EditorController. #if UNITY_EDITOR")]
         public Transform _Point;
+#if UNITY_EDITOR
+
         [Obsolete("For EditorController. #if UNITY_EDITOR")]
         public bool ControllerForEnter;
         [Obsolete("For Editor. #if UNITY_EDITOR")]

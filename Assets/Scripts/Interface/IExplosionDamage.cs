@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 internal interface IExplosionDamage
 {
-    public void Explosion();
+    public void Explosion(float distanse) { }
 }

@@ -15,7 +15,7 @@ public abstract class AnimalEngine : EntityEngine, IDiesing, IInteractive, IColl
         get
         {
             List<AnimalEngine> list = new();
-            Entities[TypeEntity.Animal].ForEach(e => list.Add(e as AnimalEngine));
+            Base[TypeEntity.Animal].ForEach(e => list.Add(e as AnimalEngine));
             return list;
         }
     }

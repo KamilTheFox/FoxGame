@@ -31,5 +31,8 @@
     KeyBlack,
     KeyWhite,
     Wardrobe,
-        Bed
+    Bed,
+    Banana,
+    Melon,
+    Pineapple
 }

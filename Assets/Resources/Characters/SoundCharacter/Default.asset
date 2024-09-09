@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d23ff8fb73c5c4f8ba904037c1d327, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  <MovementRun>k__BackingField:
+  - {fileID: 8300000, guid: 7d077f52f02af1442b2652471ca776a8, type: 3}
+  <MovementWalk>k__BackingField:
+  - {fileID: 8300000, guid: 94c029e7593cb034e90ecb4d512330f5, type: 3}
+  <Swimming>k__BackingField:
+  - {fileID: 8300000, guid: b2620c259785a354d8c57efa43e549b5, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 4168ba1ad61f1ba4283d0213d9ccfe42, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: c67b67fd9b1ea294dbe476a70419a62f, type: 3}
+  <SwimEnter>k__BackingField:
+  - {fileID: 8300000, guid: 7a3112dfdb407aa47b75c2c5d07151d8, type: 3}
+  <SwimExit>k__BackingField:
+  - {fileID: 8300000, guid: 4151862611ceb534d8bbb58d68362175, type: 3}
+  <Landing>k__BackingField:
+  - {fileID: 8300000, guid: fdb6637d66cb6df45a49abff95899cc3, type: 3}
+  <Jump>k__BackingField:
+  - {fileID: 8300000, guid: 5653985bb6f52014c83bf3401c1bb978, type: 3}

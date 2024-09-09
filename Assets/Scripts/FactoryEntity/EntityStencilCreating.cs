@@ -10,11 +10,13 @@ namespace FactoryEntity
     {
         protected readonly bool _isStaticItem;
 
-        private static GameObject entityGroup;
-        public static GameObject EntityGroup { get
+        private static EntityEngineBase entityGroup;
+        public static EntityEngineBase EntityGroup { get
             {
-                if (entityGroup == null && (entityGroup = GameObject.Find("Entityes")) == null)
-                    entityGroup = new GameObject("Entityes");
+                if (entityGroup == null && (entityGroup = GameObject.Find("Entityes").GetComponent<EntityEngineBase>()) == null)
+                {
+                    entityGroup = new GameObject("Entityes").AddComponent<EntityEngineBase>();
+                }
                 return entityGroup;
             }
         }
@@ -71,7 +73,13 @@ namespace FactoryEntity
                 GetPrefab.name = Name;
                 return;
             }
-            obj = LoadInResource($"{path}Mesh\\{Name}");
+            else if ((obj = Resources.Load<GameObject>($"{path}Prefabs\\EmptyProperty\\{Name}")) != null)
+            {
+                LoadPrefab(GameObject.Instantiate(obj, vector, quaternion));
+                GetPrefab.name = Name;
+            }
+            else
+                obj = LoadInResource($"{path}Mesh\\{Name}");
 
             if (obj == null)
             {

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class SoundMeneger : MonoBehaviour
@@ -12,11 +13,19 @@ public class SoundMeneger : MonoBehaviour
     [SerializeField] private BackgroundSounds backgroundSounds = BackgroundSounds.Forest_Birds;
 
     [SerializeField]
-    private AudioSource AudioModifer, AudioDefault, Music;
+    private AudioSource AudioModifer, AudioDefault, Music, Beckground;
+
+    [SerializeField] private AudioMixer audioMixer;
+
+    [SerializeField] private AudioMixerSnapshot SnapshotDefault;
 
     public static AudioSource _Music { get; private set; }
 
     public static AudioSource Background { get; private set; }
+
+    public static List<SoundZone> SoundBackgroundZone { get; private set; } = new List<SoundZone>();
+
+    private static SoundZone CurrentSoundBackgroundZone { get; set; }
 
     public static SoundMeneger instance;
 
@@ -29,7 +38,6 @@ public class SoundMeneger : MonoBehaviour
     private static List<AudioSource> audioSources;
 
     private static Stack<Musics> PreviousMusic = new Stack<Musics>();
-
     public static Musics CurrentMusic { get; private set; }
 
     public static UnityEvent<bool> ChangeValuePauseMusic = new UnityEvent<bool>();
@@ -74,7 +82,7 @@ public class SoundMeneger : MonoBehaviour
 
         _Music = Instantiate(Music, transform).GetComponent<AudioSource>();
 
-        Background = Instantiate(Music, transform).GetComponent<AudioSource>();
+        Background = Instantiate(Beckground, transform).GetComponent<AudioSource>();
 
         Settings.VolumeSoundChange.AddListener((newValue) => { Volume = newValue; ChangeVolume(newValue); });
 
@@ -126,11 +134,53 @@ public class SoundMeneger : MonoBehaviour
     private void OnDestroy()
     {
         instance = null;
+        SoundBackgroundZone.Clear();
         ChangeValuePauseMusic = new UnityEvent<bool>();
         PlayMusicClipEvent = new UnityEvent<AudioSource>();
         PlayClip = new UnityEvent<AudioSource>();
         PreviousMusic = new Stack<Musics>();
         SpopCoroutine = true;
+    }
+    private void FixedUpdate()
+    {
+        Vector3 positionCam = CameraControll.instance.transform.position;
+        foreach (var zone in SoundBackgroundZone)
+        {
+            float dist = float.PositiveInfinity;
+            foreach (var collider in zone.GetColliders)
+            {
+                if (!collider.isTrigger) continue;
+                var closestPoint = collider.ClosestPoint(positionCam);
+                var сorrection = ((closestPoint - positionCam) / 2f).sqrMagnitude;
+                if (сorrection < dist)
+                    dist = сorrection;
+            }
+            float blendDistance = zone.BlendDistanse * zone.BlendDistanse;
+            if (dist > blendDistance)
+            {
+                if (CurrentSoundBackgroundZone == zone)
+                {
+                    CurrentSoundBackgroundZone = null;
+                    SnapshotDefault.TransitionTo(0.5f);
+                    AudioClip clip = AudioLoad(backgroundSounds);
+                    if(clip!= null)
+                        if (Background.clip.name.Contains(clip.name))
+                        Background.clip = clip;
+                }
+                continue;
+            }
+            BlendChangeBackground(zone);
+        }
+    }
+    private void BlendChangeBackground(SoundZone zone)
+    {
+        if (CurrentSoundBackgroundZone == zone) return;
+
+        CurrentSoundBackgroundZone = zone;
+        if (zone.Snapshot != null)
+            zone.Snapshot.TransitionTo(0.2f);
+        if (zone.AudioZone != null)
+            Background.clip = zone.AudioZone;
     }
     private static void PlayRandomMusic()
     {
@@ -265,7 +315,7 @@ public class SoundMeneger : MonoBehaviour
     }
 #endregion
     /// <param name="volume"> значение от 0 до 1</param>
-    public static void Play(Sounds type, AudioSource source = null, float volume = 1F, int X = 1, bool _3D = true)
+    public static void Play(Sounds type, AudioSource source = null, float volume = 1F, int X = 1, bool _3D = true, bool oneShoot = true)
     {
         AudioClip clip = GetAudio(type);
         if (!source)
@@ -275,10 +325,45 @@ public class SoundMeneger : MonoBehaviour
         source.volume = Volume;
         if (source && _3D)
             source.spatialBlend = 1F;
-        if (clip&& source)
+        if (clip && source)
             for (int i = 0; i < X; i++)
-                source.PlayOneShot(clip, volume);
+                if (oneShoot)
+                {
+                    source.PlayOneShot(clip, volume);
+                }
+                else if (!source.isPlaying)
+                {
+                    source.clip = clip;
+                    source.Play();
+                }
         if(!audioSources.Contains(source))
+            audioSources.Add(source);
+    }
+    public static void Play(AudioClip clip, AudioSource source = null, float volume = 1F, int X = 1, bool _3D = true, bool oneShoot = true)
+    {
+        if (clip == null) return;
+        if (!source)
+        {
+            source = CameraControll.CameraSource;
+        }
+        source.volume = Volume;
+        if (source && _3D)
+            source.spatialBlend = 1F;
+        if (clip && source)
+            for (int i = 0; i < X; i++)
+            {
+                if (oneShoot)
+                {
+                    source.PlayOneShot(clip, volume);
+                }
+                else if(!source.isPlaying)
+                {
+                    if(source.clip != clip)
+                        source.clip = clip;
+                    source.Play();
+                }
+            }
+        if (!audioSources.Contains(source))
             audioSources.Add(source);
     }
     public enum Sounds

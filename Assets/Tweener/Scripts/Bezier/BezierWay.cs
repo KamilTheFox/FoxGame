@@ -86,13 +86,10 @@ namespace Tweener
         }
         public void ReverseWay()
         {
-#if UNITY_EDITOR
             isReverse = !isReverse;
-#else
                pointsBezier.Reverse();
                foreach (BezierPoint point in pointsBezier)
                 point.ReverseEntranceExit();
-#endif
         }
         public IEnumerator GetEnumerator()
         {
@@ -100,8 +97,8 @@ namespace Tweener
                 pointsBezier = new();
             return pointsBezier.GetEnumerator();
         }
-#if UNITY_EDITOR
         private bool isReverse;
+#if UNITY_EDITOR
         [Obsolete("For EditorController. #if UNITY_EDITOR")]
         public BezierWay Parent;
         public bool Visible = true;

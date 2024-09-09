@@ -83,8 +83,9 @@ public class Box : ItemEngine, IDiesing
              itemType.ToString() 
         });
     }
-    private void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
         Rigidbody rigidbody;
         if (rigidbody = collision.gameObject.GetComponentInParent<Rigidbody>())
             if (rigidbody.mass * rigidbody.velocity.magnitude > (IsMetallBox ? 300F : 30F))

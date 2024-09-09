@@ -86,4 +86,5 @@ public enum LText
     Range,
     Distance,
     Distance_Drawing,
+    ConsoleMenu,
 }

@@ -14,7 +14,7 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
         get 
         { 
             List<ItemEngine> itemEngines = new List<ItemEngine>();
-            Entities[TypeEntity.Item].ForEach(engine => { if (engine is ItemEngine item) { itemEngines.Add(item); } });
+            Base[TypeEntity.Item].ForEach(engine => { if (engine is ItemEngine item) { itemEngines.Add(item); } });
                 return itemEngines.ToArray();
         }
     }

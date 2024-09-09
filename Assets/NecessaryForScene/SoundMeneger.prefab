@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e883f4888adba714bb2abddcffa09905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundSounds: 0
   AudioModifer: {fileID: 6256696089616333875, guid: 558cf1b40c1795346ac3b2cf7ea60ae0, type: 3}
   AudioDefault: {fileID: -8005966478796107362, guid: 62e0df8586f2b8f4f9db2b4733d25b7f, type: 3}
   Music: {fileID: -4799996713052473246, guid: f0c05dda123ba674492b208ddec339ea, type: 3}
+  Beckground: {fileID: -4799996713052473246, guid: 94da6da35ad504745a253e9a0fed8d0c, type: 3}
+  audioMixer: {fileID: 24100000, guid: 241263c28597c264d87cc60071d404e5, type: 2}
+  SnapshotDefault: {fileID: 1677992604503095611, guid: 241263c28597c264d87cc60071d404e5, type: 2}

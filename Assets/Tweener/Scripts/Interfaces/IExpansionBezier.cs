@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tweener
 {
@@ -6,5 +7,7 @@ namespace Tweener
     {
         Vector3 CurrentPosition { get; }
         Vector3 CurrentRotation { get; }
+
+        UnityEvent onUpdate { get; }
     }
 }

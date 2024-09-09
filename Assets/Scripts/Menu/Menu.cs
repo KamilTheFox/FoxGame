@@ -19,7 +19,13 @@ public class Menu : MonoBehaviour
     public static TypeMenu CurrentMenu => instance.ICurrentMenu.TypeMenu;
     public static IActivatableMenu IActiveMenu => instance.ICurrentMenu;
 
-    public static bool IsEnabled => instance && instance.ICurrentMenu != null  && instance.ICurrentMenu.TypeMenu != TypeMenu.None;
+    public static bool IsEnabled
+        {
+            get
+            {
+            return instance && instance.ICurrentMenu != null  && instance.ICurrentMenu.TypeMenu != TypeMenu.None;
+            }
+        }
 
     private static Sprite[] SpriteAtlasMenu;
 
@@ -41,7 +47,6 @@ public class Menu : MonoBehaviour
     {
         ActivateMenu(CurrentPauseMenu);
     }
-
     private void Awake()
     {
         if (instance)

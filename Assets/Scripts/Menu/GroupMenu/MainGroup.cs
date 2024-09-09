@@ -15,6 +15,8 @@ namespace GroupMenu
 
         private static MenuUI<Button> buttonCallBack;
 
+        private static List<Button> hatButtons;
+
         protected static MenuUI<Text> MainTitle;
         protected static GameObject mainGroup { get; private set; }
 
@@ -41,7 +43,13 @@ namespace GroupMenu
         {
             return MenuChildren[menu];
         }
-
+        public static void InteractableHat(bool interactive)
+        {
+            foreach(var button in hatButtons)
+            {
+                button.interactable = interactive;
+            }
+        }
         protected virtual bool IsActiveBackHot => true;
 
         void IActivatableMenu.Update()
@@ -62,6 +70,7 @@ namespace GroupMenu
         private void Initialize()
         {
             MenuChildren = new();
+            hatButtons = new();
             Menu.onDestroy.AddListener(() => { mainGroup = null; MenuChildren.Clear(); });
 
             string mainGroupName = nameof(MainGroup);
@@ -76,6 +85,11 @@ namespace GroupMenu
                 if (name == "Hat")
                 {
                     SetSkinComponent(child.gameObject, name);
+                    foreach (Transform child2 in child.transform)
+                    {
+                        Button hatButton = child2.gameObject.GetComponent<Button>();
+                        if (hatButton) hatButtons.Add(hatButton);
+                    }
                     continue;
                 }
                 if (Enum.TryParse(typeof(TypeMenu), name, out object value))

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tweener
 {
@@ -49,6 +50,8 @@ namespace Tweener
 
         public Vector3 CurrentRotation { get; private set; }
 
+        public UnityEvent onUpdate { get; private set; } = new();
+
         protected override void RewriteReverseValue()
         {
             Way.ReverseWay();
@@ -64,8 +67,7 @@ namespace Tweener
 
             CurrentPosition = value.Item1;
             CurrentRotation = value.Item2;
-
-            transform.SetPositionAndRotation(CurrentPosition, Quaternion.LookRotation(CurrentRotation));
+            onUpdate.Invoke();
         }
 
         protected override void OnUpdate(float percentage)

@@ -10,8 +10,16 @@ public class TNT_3_Timer : TNT_3
         timerDetonator = timer.gameObject.AddComponent<TimerDetonator>();
 
         timerDetonator.Initialized(this);
+        distanceOrder = 15f;
     }
+
     public override float TimeDetonate => timerDetonator.StartTime;
 
     private TimerDetonator timerDetonator;
+
+    public override void OnBatchDistanceCalculated(bool enable)
+    {
+        base.OnBatchDistanceCalculated(enable);
+        timerDetonator.ActivateCanvas = enable;
+    }
 }

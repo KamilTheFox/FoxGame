@@ -2,31 +2,41 @@
 
 namespace CameraScripts
 {
-    public class FirstPerson : IViewedCamera
+    public class FirstPerson : MonoBehaviour , IViewedCamera
     {
-        CameraControll cameraControll;
-        Transform _parent;
-        public FirstPerson(CameraControll camera, Transform parent)
-        {
-            cameraControll = camera;
-            _parent = parent;
-        }
+        [SerializeField] Transform positionCamera;
+
+        [SerializeField] private float correction = 0.22F;
+
         public Vector2 ViewAxisMaxVertical => new Vector2(-90, 90);
 
         public void Construct()
         {
-            cameraControll.Transform.parent = _parent;
-            cameraControll.Transform.localPosition = Vector3.zero;
+            if (positionCamera == null)
+                throw new MissingReferenceException("Transform Position Camera is Null");
+            CameraControll.instance.Transform.parent = transform.parent;
+            CameraControll.instance.Transform.position = positionCamera.position + Vector3.up * correction;
+            ViewMeshOrShadow(true);
         }
+
+        private void ViewMeshOrShadow(bool ShadowOnly)
+        {
+            foreach(var renderer in transform.parent.gameObject.GetComponentsInChildren<Renderer>())
+            {
+
+                renderer.shadowCastingMode = ShadowOnly ? UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly : UnityEngine.Rendering.ShadowCastingMode.On;
+            }
+        }
+
 
         public void Dispose()
         {
-
+            ViewMeshOrShadow(false);
         }
 
         public Vector3 RotateBody()
         {
-            return cameraControll.EulerHorizontal;
+            return CameraControll.instance.EulerHorizontal;
         }
 
         public void ViewAxis(Transform camera, Vector3 euler)

@@ -14,6 +14,8 @@ public static class Settings
     {
         public float drawingRangePlant;
         public float quantityRangePlant;
+        public float distanceDrawShadow;
+        public float distanceDrawCharacters;
     }
      static Settings()
      {
@@ -21,7 +23,7 @@ public static class Settings
         GetValue();
      }
 
-    private static ValuesSettings values = new ValuesSettings() { drawingRangePlant = 60F, quantityRangePlant = 100F };
+    private static ValuesSettings values = new ValuesSettings() { drawingRangePlant = 60F, quantityRangePlant = 100F, distanceDrawShadow = 45f };
 
     public static float DrawingRangePlant
     {
@@ -32,6 +34,29 @@ public static class Settings
         set
         {
             values.drawingRangePlant = value;
+        }
+    }
+    public static float DistanceDrawCharacters
+    {
+        get
+        {
+            return values.distanceDrawCharacters;
+        }
+        set
+        {
+            values.distanceDrawCharacters = value;
+        }
+    }
+
+    public static float DistanceDrawShadow
+    {
+        get
+        {
+            return values.distanceDrawShadow;
+        }
+        set
+        {
+            values.distanceDrawShadow = value;
         }
     }
 
@@ -107,7 +132,7 @@ public static class Settings
         {
             return PlayerPrefs.GetInt(field.Name);
         }
-        Debug.LogError($"Field boes not carry an object of the type {field.FieldType.Name}");
+        Debug.LogWarning($"Field boes not carry an object of the type {field.FieldType.Name}");
         return default;
     }
     private static void SaveValueReflect(FieldInfo field, object obj)

@@ -41,8 +41,9 @@ public abstract class Detonator : ItemEngine, IInteractive
         onInteractionDetonator?.Invoke();
         Delete(time);
     }
-    public void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
+        base.OnCollisionEnter(collision);
         OnCollision.Invoke(this,collision);
     }
     protected override void onDestroy()
@@ -62,6 +63,11 @@ public abstract class Detonator : ItemEngine, IInteractive
     {
         return Physics.OverlapSphere(Transform.position, Radius, layer);
     }
+
+    static List<IDiesing> diesings = new();
+    static List<IExplosionDamage> explosionDamage = new();
+    static List<EntityEngine> Items = new();
+
     void Explosion()
     {
         Destroy(GetEffect(ExplosionEffect, Transform.position), 8F);
@@ -69,9 +75,11 @@ public abstract class Detonator : ItemEngine, IInteractive
 
         Collider[] colliders = OverlapSphere(MasksProject.EntityPlayer, Radius * 5F);
         Collider[] collidersKill = OverlapSphere(MasksProject.EntityPlayer, Radius * 0.6F);
-        List<IDiesing> diesings = new();
-        List<IExplosionDamage> explosionDamage = new();
-        List<EntityEngine> Items = new();
+
+        Items.Clear();
+        explosionDamage.Clear();
+        diesings.Clear();
+
         foreach (Collider collider in collidersKill)
         {
             IDiesing loc;
@@ -93,6 +101,9 @@ public abstract class Detonator : ItemEngine, IInteractive
                     rb = item.Rigidbody;
                 else
                     rb = colliders[i].GetComponentInParent<Rigidbody>();
+            Vector3 pointHit = colliders[i].ClosestPoint(transform.position);
+
+            float distance = Vector3.Distance(transform.position, pointHit);
 
             IDiesing Alive = colliders[i].GetComponentInParent<IDiesing>();
             bool isDeath = diesings.Contains(Alive);
@@ -100,14 +111,15 @@ public abstract class Detonator : ItemEngine, IInteractive
             if (Alive != null && isDeath)
             {
                 float ThicknessWall = 0;
-                if (Physics.Linecast(transform.position, colliders[i].ClosestPoint(transform.position), out RaycastHit raycast1, MasksProject.Terrain) &&
-                    Physics.Linecast(colliders[i].ClosestPoint(transform.position), transform.position, out RaycastHit raycast2, MasksProject.Terrain))
+                
+                if (Physics.Linecast(transform.position, pointHit, out RaycastHit raycast1, MasksProject.Terrain) &&
+                    Physics.Linecast(pointHit, transform.position, out RaycastHit raycast2, MasksProject.Terrain))
                     ThicknessWall = Vector3.Distance(raycast1.point, raycast2.point);
                 if (ThicknessWall < 1.5)
                 {
                     Alive.Death();
                     if(Alive is IExplosionDamage damage)
-                        damage.Explosion();
+                        damage.Explosion(distance);
                 }
             }
             
@@ -127,7 +139,7 @@ public abstract class Detonator : ItemEngine, IInteractive
                 else if (item is not IDiesing)
                     item.Delete();
                 if(item is IExplosionDamage damageExp)
-                    damageExp.Explosion();
+                    damageExp.Explosion(distance);
             }
             Items.Remove(item);
             ExplosionForce(rb);

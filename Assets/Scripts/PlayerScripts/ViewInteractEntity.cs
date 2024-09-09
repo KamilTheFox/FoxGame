@@ -113,7 +113,7 @@ namespace PlayerDescription
         {
             Ray ray = CameraControll.RayCastCenterScreen;
             Vector3 newPosition = ray.GetPoint(CameraControll.instance.DistanseRay);
-
+            pointTarget = newPosition;
             ITakenEntity Taken = null;
 
             IInteractive interactive = null;
@@ -128,7 +128,7 @@ namespace PlayerDescription
                 interactive = raycastHit.collider.gameObject.GetComponent<IInteractive>();
                 if (interactive == null)
                     interactive = raycastHit.collider.gameObject.GetComponentInParent<IInteractive>();
-
+                
             }
 
             if (IsMoveEntity)
@@ -174,9 +174,9 @@ namespace PlayerDescription
                 return;
             if (Input.GetKeyDown(KeyCode.F) && interactive != null)
                 interactive.Interaction();
-            pointTarget = newPosition;
             None.SetInfoEntity(true, interactive != null ? interactive.GetEngine : Taken.GetEngine);
+            pointTarget = newPosition;
         }
-
+        
     }
 }

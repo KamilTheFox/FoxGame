@@ -16,6 +16,17 @@ public class TimerDetonator : MonoBehaviour
 
     private AudioSource audioSource;
 
+    private Canvas canvasUIText;
+
+    public bool ActivateCanvas
+    {
+        set
+        {
+            if (canvasUIText == null) return;
+            canvasUIText.enabled = value;
+        }
+    }
+
     private int startTime;
 
     public int StartTime { 
@@ -52,14 +63,13 @@ public class TimerDetonator : MonoBehaviour
             StartCoroutine(UpdateTick());
         };
     }
-    private static void SetUIOfTransformTimer(Transform UIRect)
+    private static void SetUIOfTransformTimer(Transform UIRect, Canvas canvas)
     {
         Renderer rendererRect = UIRect.gameObject.GetComponent<Renderer>();
         RectTransform Rect = GameObject.Instantiate(Resources.Load<RectTransform>($"Item\\UI\\DetonatorTimer\\{UIRect.name}"), UIRect);
-        Rect.GetComponent<Canvas>().worldCamera = CameraControll.MainCamera;
         Bounds bounds = rendererRect.bounds;
         if(rendererRect.name.Contains("Button"))
-        rendererRect.enabled = false;
+            rendererRect.enabled = false;
         Rect.localPosition = Vector3.up * -0.001F;
         Rect.localRotation = Quaternion.Euler(new Vector3(-90F, 180F, 0F));
         Rect.sizeDelta = new Vector2(bounds.size.x * 2, bounds.size.y * 2);
@@ -101,12 +111,15 @@ public class TimerDetonator : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
 
+        canvasUIText = gameObject.AddComponent<Canvas>();
+        canvasUIText.worldCamera = CameraControll.MainCamera;
+
         Button_1 = transform.Find("Button_1").gameObject.AddComponent<GameButton>();
-        SetUIOfTransformTimer(Button_1.transform);
+        SetUIOfTransformTimer(Button_1.transform, canvasUIText);
         Button_2 = transform.Find("Button_2").gameObject.AddComponent<GameButton>();
-        SetUIOfTransformTimer(Button_2.transform);
+        SetUIOfTransformTimer(Button_2.transform, canvasUIText);
         Button_Reset = transform.Find("Button_Reset").gameObject.AddComponent<GameButton>();
-        SetUIOfTransformTimer(Button_Reset.transform);
+        SetUIOfTransformTimer(Button_Reset.transform, canvasUIText);
 
         TextButtonReset = Button_Reset.transform.GetComponentInChildren<TMP_Text>();
 
@@ -117,7 +130,8 @@ public class TimerDetonator : MonoBehaviour
         });
 
         Transform Dial = transform.Find("Dial");
-        SetUIOfTransformTimer(Dial);
+        SetUIOfTransformTimer(Dial, canvasUIText);
+
         textBox = Dial.GetComponentInChildren<TMP_Text>();
 
         Button_1.OnClick += () => IncreaseTime(1);

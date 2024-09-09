@@ -47,6 +47,11 @@ public class Padlock : ItemEngine, ILocking, ITakenEntity, IInteractive, IDropEn
         if (Transform.parent == GetGroup.transform || Transform.parent == null)
             Unlock();
     }
+    protected override void onDestroy()
+    {
+        Unlock();
+        base.onDestroy();
+    }
     public void Interaction()
     {
         if (!_unlock)
@@ -85,6 +90,7 @@ public class Padlock : ItemEngine, ILocking, ITakenEntity, IInteractive, IDropEn
             isLock ? "" : new TextUI(() => new object[] { "\n[", LText.KeyCodeMouse0, "] - ", LText.Drop }),
         });
     }
+    
     public void ToThrow()
     {
         if (isLock) return;

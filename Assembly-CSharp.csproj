@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\Bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_2021_3_0;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_SEARCH_EXTENSION_API;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2021_3_0;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;USE_SEARCH_ENGINE_API;USE_SEARCH_TABLE;USE_SEARCH_MODULE;USE_PROPERTY_DATABASE;USE_SEARCH_EXTENSION_API;SCENE_TEMPLATE_MODULE;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -58,84 +58,141 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterBotBody.cs" />
+    <Compile Include="Assets\Scripts\SwitchLODs.cs" />
     <Compile Include="Assets\Scripts\Interface\IExplosionDamage.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IParametrsEntity.cs" />
+    <Compile Include="Assets\Scripts\NavMeshJobTest\NavmeshView.cs" />
+    <Compile Include="Assets\Scripts\AI\AIBrain.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Scripts\TDControl.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
     <Compile Include="Assets\Scripts\Regdoll\ICollideableDoll.cs" />
     <Compile Include="Assets\Scripts\Interface\IThrowed.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\EventHandlerAnimationThrow.cs" />
     <Compile Include="Assets\Scripts\Interface\ILockable.cs" />
     <Compile Include="Assets\Scripts\Localization\Localisation.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Padlock\Padlock.cs" />
+    <Compile Include="Assets\Scripts\AI\TackingIK.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityCreate.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeFolderEntity.cs" />
     <Compile Include="Assets\Scripts\Interface\IDropEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuWinLose.cs" />
     <Compile Include="Assets\Scripts\Menu\TypeMenu.cs" />
     <Compile Include="Assets\Scripts\Regdoll\RegdollPlayer.cs" />
+    <Compile Include="Assets\Scripts\AI\IAIOrchestrated.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\GameButton.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\GroupPlant.cs" />
+    <Compile Include="Assets\Scripts\AI\AISeeWorld.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
+    <Compile Include="Assets\Scripts\SoundZone.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\VignetteComponent.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TimerDetonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
-    <Compile Include="Assets\Scripts\Interface\IInputAI.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\AI\AIOrchestrator.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityParametrs.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Box.cs" />
+    <Compile Include="Assets\Scripts\NavMeshJobTest\AStar.cs" />
     <Compile Include="Assets\Scripts\Interface\IDiesing.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3_Timer.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\Fabric\KillPlatform.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
     <Compile Include="Assets\Scripts\Interface\ILocking.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\FoodSearch.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingContext.cs" />
+    <Compile Include="Assets\Scripts\AI\IHunted.cs" />
     <Compile Include="Assets\Scripts\Regdoll\RegdollDetect.cs" />
+    <Compile Include="Assets\Scripts\AI\MovementAtWay.cs" />
+    <Compile Include="Assets\Scripts\Entity\DistanceEntityJob.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Tree.cs" />
     <Compile Include="Assets\Scripts\Expansion.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\AI.cs" />
-    <Compile Include="Assets\tes.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\VignetteModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\FogModel.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\DebugAnimation.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MediaPlayer.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MessageBox.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\NextLevel.cs" />
+    <Compile Include="Assets\Scripts\AI\BehaviourInput.cs" />
+    <Compile Include="Assets\Resources\Characters\Clothes\ClothesParametress.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\InteractiveBody.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\ITrackIK.cs" />
     <Compile Include="Assets\Scripts\Menu\TextUI.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFright.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ItemInfo.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\IViewedCamera.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\BaseAnimate.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\LevelFirstBoss.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\Door.cs" />
     <Compile Include="Assets\Scripts\Menu\Chat.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
+    <Compile Include="Assets\Scripts\Menu\ScriptScene\MovingAvatarAndCamera.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\Ballistics.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\IInputCaracter.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\TypeAnimation.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />
     <Compile Include="Assets\Scripts\Localization\LText.cs" />
+    <Compile Include="Assets\Scripts\GPUInstansingEnable.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\#NVJOB Assets\Dynamic Sky (For Demo)\DynamicSkyForDemo.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraControll.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterInput.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\ThirdPerson.cs" />
+    <Compile Include="Assets\Scripts\NavMeshJobTest\PathFinder.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
+    <Compile Include="Assets\Scripts\AI\AIMovement.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryCharacter.cs" />
     <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\ICustomingJump.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeEntity.cs" />
     <Compile Include="Assets\Scripts\Interface\IInteractive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
-    <Compile Include="Assets\Resources\ScreenplayLevel\MainMenuScripts\PrimaMovementAgent.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\MainMenuScripts\MovementAgentScripst.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\TaaComponent.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\AnimalEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Fence\Fence.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\Level2\GameplayСontrolLevel2.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\Bone.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\UserLutModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\#NVJOB Water Shaders V2\NVWaterShaders.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\FxaaComponent.cs" />
+    <Compile Include="Assets\Scripts\NavMeshJobTest\AStarPool.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingProfile.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomGo.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomWalk.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\IBehaviour.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuScreenSave.cs" />
     <Compile Include="Assets\Scripts\Regdoll\Regdoll.cs" />
+    <Compile Include="Assets\MovingCameraAtScene.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\ThirdlookPerson.cs" />
     <Compile Include="Assets\Scripts\Menu\CalendarHolidays.cs" />
     <Compile Include="Assets\Scripts\Interface\IDamaged.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Fence\Pillar.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationStendUp.cs" />
+    <Compile Include="Assets\Scripts\Inventory\IInventoryItem.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\DitheringModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator_Timer.cs" />
     <Compile Include="Assets\Scripts\Interface\IMoveablePlatorm.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\FrameDoor.cs" />
@@ -143,7 +200,11 @@
     <Compile Include="Assets\Scripts\NavMeshRebuild.cs" />
     <Compile Include="Assets\Settings.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\Polygone\StartPrimaLie.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
     <Compile Include="Assets\Scripts\SceneMenu.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\BloomComponent.cs" />
+    <Compile Include="Assets\Scripts\Interface\IGlobalUpdates.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomRun.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Detonator.cs" />
@@ -151,71 +212,149 @@
     <Compile Include="Assets\Scripts\FactoryEntity\PlantsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Padlock\Key.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimationAnimal.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Scripts\Lighthouse.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\TypePlant.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingComponent.cs" />
+    <Compile Include="Assets\Scripts\Water.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\ItemsCreating.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\Idle.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\BoxEnemy.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
-    <Compile Include="Assets\Scripts\Interface\IHootKeys.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\GrainComponent.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator.cs" />
+    <Compile Include="Assets\Scripts\Interface\IHootKeys.cs" />
     <Compile Include="Assets\Scripts\Interface\IStriker.cs" />
+    <Compile Include="Assets\Scripts\Attributs\ButtonAttribute.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\GrainModel.cs" />
     <Compile Include="Assets\Scripts\Interface\IDropped.cs" />
+    <Compile Include="Assets\Scripts\Menu\GroupMenu\Inventory.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TrashCan.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityStencilCreating.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\UserLutComponent.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Apple_Tree.cs" />
     <Compile Include="Assets\Scripts\Entity\TriggerDetect.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\ViewInteractEntity.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\DitheringComponent.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\TypeItem.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\IGerminatable.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\AnimatorCharacterInput.cs" />
+    <Compile Include="Assets\Scripts\AI\AILinkPool.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimatorCharacterInput.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
     <Compile Include="Assets\Scripts\Clothes.cs" />
     <Compile Include="Assets\Scripts\Localization\LocalisationList.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainGroup.cs" />
     <Compile Include="Assets\Scripts\Interface\ITakenEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\ConsoleMenu.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\MainMenuScripts\CameraMovement.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
+    <Compile Include="Assets\Scripts\AudioCharacter.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IEntityCreated.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\FogComponent.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\EnemyBoss.cs" />
     <Compile Include="Assets\Scripts\MasksProject.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\FirstPerson.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
     <Compile Include="Assets\Scripts\Regdoll\IRegdoll.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Mushroom.cs" />
     <Compile Include="Assets\Scripts\Platforms.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterBody.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\BloomModel.cs" />
+    <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
+    <Compile Include="Assets\Scripts\AI\Harassment.cs" />
+    <Compile Include="Assets\Scripts\Interface\IAtWater.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3.cs" />
+    <Compile Include="Assets\Scripts\Entity\EntityEngineBase.cs" />
+    <Compile Include="Assets\Scripts\Inventory\GridSell.cs" />
+    <Compile Include="Assets\Scripts\RendererBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\#NVJOB Water Shaders V2\Water Specular.shader" />
     <None Include="Assets\TerrainSampleAssets\ThirdPartyNotices.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\GrainGen.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\DepthOfField.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\FXAA3.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\#NVJOB Assets\Dynamic Sky (For Demo)\Dynamic Sky (For Demo).shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\DiskKernels.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
     <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Palm Trees\Materials\Standard 2-Sided.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Uber.shader" />
+    <None Include="Assets\Materials\Standard.shader" />
     <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Common.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Fog.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\MotionBlur.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\license_unity.txt" />
     <None Include="Assets\Shaders\Crown.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Bloom.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\license_nvjob.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Blit.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\DepthOfField.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Flag\Materials\Flag.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\UI\Trackball.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\VectorscopeRender.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
+    <None Include="Assets\#NVJOB Water Shaders V2\#NVJOB Water Shaders V2\Water Surface.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Bloom.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Rainbow\Materials\No Fog.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\LutGen.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\TAA.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\TAA.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ACES.cginc" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\FXAA.shader" />
     <None Include="Assets\TerrainSampleAssets\ShaderGraphs\CustomFunctions\CustomLighting.hlsl" />
+    <None Include="Assets\#NVJOB Water Shaders V2\#NVJOB Water Shaders V2\NvWaters.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +432,9 @@
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.NVIDIAModule">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.NVIDIAModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
@@ -873,6 +1015,15 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
     </Reference>
+    <Reference Include="Autodesk.Fbx.Editor">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Formats.Fbx.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Formats.Fbx.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
@@ -900,20 +1051,26 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    <Reference Include="Autodesk.Fbx">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
@@ -936,6 +1093,12 @@
     <Reference Include="Unity.Burst">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
+    <Reference Include="Whinarn.UnityMeshSimplifier.Editor">
+      <HintPath>Library\ScriptAssemblies\Whinarn.UnityMeshSimplifier.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
       <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
     </Reference>
@@ -945,8 +1108,8 @@
     <Reference Include="Unity.TerrainTools.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+    <Reference Include="Unity.Formats.Fbx.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Formats.Fbx.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
@@ -959,6 +1122,9 @@
     </Reference>
     <Reference Include="Unity.Animation.Rigging.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Whinarn.UnityMeshSimplifier.Runtime">
+      <HintPath>Library\ScriptAssemblies\Whinarn.UnityMeshSimplifier.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>

@@ -6,5 +6,6 @@ public enum TypeEntity
     Plant,
     Item,
     InteractiveBody,
-    Group
+    Group,
+    BodyController
 }

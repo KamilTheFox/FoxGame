@@ -17,6 +17,7 @@ public class PosterTazWanted : ItemEngine, IDiesing, ITakenEntity, ICollideableD
     protected override void OnAwake()
     {
         regdoll = new Regdoll(Animator, gameObject);
+        VolumeObject = 10F;
     }
     private IEnumerator Crumble()
     {

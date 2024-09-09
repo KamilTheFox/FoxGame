@@ -18,5 +18,8 @@ namespace PlayerDescription
         Landing,
         StendUp,
         Fly,
+        Swimming,
+        DontSwimming,
+        Climbing,
     }
 }

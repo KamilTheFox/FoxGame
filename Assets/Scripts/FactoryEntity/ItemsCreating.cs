@@ -13,8 +13,23 @@ namespace FactoryEntity
             [TypeItem.Apple] = new InfoItem()
             {
                 EngineComponent = typeof(Apple),
-                RandomSeze = new RandomSize(0.3F, 0.8F),
+                RandomSeze = new RandomSize(0.13F, 0.17F),
                 Mass = 0.1F
+            },
+            [TypeItem.Pineapple] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(0.1F, 0.17F),
+                Mass = 1F
+            },
+            [TypeItem.Melon] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(0.1F, 0.17F),
+                Mass = 3F
+            },
+            [TypeItem.Banana] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(0.1F, 0.2F),
+                Mass = 0.2F
             },
             [TypeItem.Basket] = new InfoItem()
             {

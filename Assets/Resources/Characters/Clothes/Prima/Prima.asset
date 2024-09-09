@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f86ff55c266cea40ac6fa9d405847c7, type: 3}
+  m_Name: Prima
+  m_EditorClassIdentifier: 
+  clothesPrefab:
+  - {fileID: 919132149155446097, guid: 64a6ce94ec5ec7d4b95ad0bb9d3aac2b, type: 3}
+  - {fileID: 919132149155446097, guid: 03b9adca7732272409cd96bd97daca25, type: 3}
+  clothes:
+  - {fileID: 1855590981599007143, guid: 64a6ce94ec5ec7d4b95ad0bb9d3aac2b, type: 3}
+  - {fileID: -534061909791038914, guid: 64a6ce94ec5ec7d4b95ad0bb9d3aac2b, type: 3}
+  - {fileID: 4453995593432499819, guid: 64a6ce94ec5ec7d4b95ad0bb9d3aac2b, type: 3}
+  - {fileID: -523448524002785029, guid: 03b9adca7732272409cd96bd97daca25, type: 3}
+  names:
+  - Belt_Lower
+  - Belt_Upper
+  - Choker
+  - Swimsuit
+  opposition:
+  - nameCurrentPut: Swimsuit
+    NotCompatible:
+    - Belt_Upper
+    - Belt_Lower
+  - nameCurrentPut: Belt_Upper
+    NotCompatible:
+    - Swimsuit
+  - nameCurrentPut: Belt_Lower
+    NotCompatible:
+    - Swimsuit

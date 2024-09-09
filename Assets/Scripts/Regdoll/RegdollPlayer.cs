@@ -15,10 +15,13 @@ public class RegdollPlayer : IRegdoll
 
     private Rigidbody BodyController;
 
+    private CharacterBody characterBody;
+
     public bool isActive { get; private set; }
 
     public RegdollPlayer(Animator animator, CharacterBody player)
     {
+        characterBody = player;
         BodyController = player.gameObject.GetComponent<Rigidbody>();
         BodyController.interpolation = RigidbodyInterpolation.Interpolate;
         List<Rigidbody> ParentsForRegdoll = player.gameObject.GetComponentsInChildren<Rigidbody>().ToList();
@@ -41,16 +44,21 @@ public class RegdollPlayer : IRegdoll
     private void ActivateKinematic(bool isActivateKinematic = true)
     {
         if (Animator) Animator.enabled = isActivateKinematic;
-    if (BodyController)
-    {
-        BodyController.isKinematic = !isActivateKinematic;
-        BodyController.detectCollisions = isActivateKinematic;
-    }
-    foreach (Rigidbody body in RegdoolBody)
+        if (BodyController)
         {
-        if (BodyController == body) continue;
-        body.interpolation = isActivateKinematic ? RigidbodyInterpolation.None : RigidbodyInterpolation.Interpolate;
-        body.isKinematic = isActivateKinematic;
+            BodyController.isKinematic = !isActivateKinematic;
+            BodyController.detectCollisions = isActivateKinematic;
+        }
+        foreach (Rigidbody body in RegdoolBody)
+        {
+            if (BodyController == body) continue;
+            if (body == null || body.gameObject == null)
+                {
+                    Debug.LogWarning($"{characterBody.name} - RegdoolBody is Null");
+                    continue;
+                }
+            body.interpolation = isActivateKinematic ? RigidbodyInterpolation.None : RigidbodyInterpolation.Interpolate;
+            body.isKinematic = isActivateKinematic;
         }
     }
     public void Activate()
@@ -62,13 +70,19 @@ public class RegdollPlayer : IRegdoll
     public void Deactivate()
     {
         isActive = false;
-        Transform Skin = BodyController.transform.Find("Skin");
-        Vector3 ewPosition = Skin.GetComponentsInChildren<Transform>().ToList().Find(find => find.name == "Hips").position;
-        if(Physics.Raycast(ewPosition,Vector3.down, out RaycastHit hit , MasksProject.Terrain))
+        Vector3 ewPosition = characterBody.Hips.position;
+        Quaternion quaternion = characterBody.Hips.rotation;
+
+        Vector3 direction = characterBody.Hips.up;
+
+        direction.y = 0f;
+
+        if (Physics.Raycast(ewPosition,Vector3.down, out RaycastHit hit , MasksProject.Terrain))
         {
             ewPosition = hit.point;
         }
-        BodyController.transform.position = ewPosition;
+        characterBody.Transform.position = ewPosition;
+        characterBody.Transform.rotation = Quaternion.FromToRotation(characterBody.Transform.forward, direction.normalized);
         ActivateKinematic();
     }
 }
