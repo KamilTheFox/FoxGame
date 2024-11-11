@@ -87,11 +87,13 @@ public class MovingAvatarAndCamera : MonoBehaviour
         movementAtWay.Initialize(WaysAvatar[currentIndex]);
         movementAtWay.IsRun = true;
         
-        movementAtWay.AddToCompleted(() => {
+        movementAtWay.AddToCompleted(() => 
+        {
             if (currentIndex == 0)
             {
-                movementAtWay.AnimatorCharacter.Animator.Play("Macarena");
+                movementAtWay.AnimatorCharacter.AnimatorHuman.Play("Macarena");
                 movementAtWay.AnimatorCharacter.applyRootMotion = true;
+                
             }
         });
 

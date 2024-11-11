@@ -10,66 +10,108 @@ using AIInput;
 
 namespace PlayerDescription
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-    public class CharacterInput : MonoBehaviour, IAtWater, IGlobalUpdates
+    public class CharacterInput : MonoBehaviour, IGlobalUpdates, IAtWater
     {
+
         private const float DIVIDER_TO_FOOT_TOUCH = 10F;
 
         private const float MAX_KICK_MASS_BODY = 5F;
 
         private const float MAX_TIME_FALLING = 0.25F;
+        public bool _isGroundedCast => isGroundedCast;
+        public bool _isGrounded
+        {
+            get
+            {
+                if (!_isContactsFoot)
+                {
+                    return _isGroundedCast;
+                }
+                return contactsFoot.Count() > 0;
+            }
+        }
+        public bool _isGroundedContact
+        {
+            get
+            {
+                return _isContactsFoot;
+            }
+        }
+        public bool _isContactsFoot
+        {
+            get
+            {
+                return contactsFoot != null && contactsFoot.Count > 0;
+            }
+        }
+        public bool IsInAir => !_isGrounded && !isSwim;
 
-        [field: SerializeField] public float VolumeObject { get; private set; } = 100F;
+        [field: SerializeField] public bool IsCanClimbinding { get; set; } = true;
 
-        public bool isSwim { get; private set; }
+        public bool IsClimbinding => IsCanClimbinding && IsInAir;
 
-        [SerializeField] private float forseJump = 4F, maxAngleMove = 60F, stepSteirs = 0.3F;
+        [field: SerializeField] public bool IsEdgePlaneClimbing { get; private set; }
+
+        [field: SerializeField] public RaycastHit PointEdgePlaneClimbing { get; private set; }
+
+        private bool IsSurfaseWall => angleSurface == 90;
+
+        private bool IsMaxAngleSurface
+        {
+            get
+            {
+                if (IsSurfaseWall)
+                    return false;
+                return angleSurface > maxAngleMove;
+            }
+        }
 
         public float MaxAngleMove => maxAngleMove;
 
         public float StepSteirs => stepSteirs;
 
-        public float ForseJump => forseJump;
+        public bool isSwim { get; private set; }
 
-        [SerializeField] private Vector3 normalSurfaces, velocityBody;
+        public CapsuleCollider CharacterCollider { get; private set; }
+
+        [field: SerializeField] public float VolumeObject { get; private set; } = 100F;
+
+        public Bounds BoundsCollider => CharacterCollider.bounds;
 
         private bool UseGravity => Rigidbody.useGravity;
 
+        public Rigidbody Rigidbody
+        {
+            get
+            {
+                if (!_rigidbody)
+                {
+                    _rigidbody = GetComponent<Rigidbody>();
+                }
+                return _rigidbody;
+            }
+        }
+
+        [field: SerializeField] private float forseJump = 4F;
+
+        public float ForseJump => forseJump;
+
         #region ServiceField
-        
-        private static PhysicMaterial physicMaterial;
 
         private List<Func<bool>> eventStopMovement = new();
 
-        private List<ContactPoint> contactsFoot = new(), contacts = new(), contactPointsAll = new();
-
         private bool startJump;
-
-        private int angleSurface;
-
-        private bool checkCollisionExit = false;
-
-        private bool hasContact;
-
-        private bool isSteirs;
-
-        private Collider Collider;
-
-        private Rigidbody _rigidbody;
-
-        private IInputCaracter inputCaracter;
-
-        private Stack<IInputCaracter> inputPreviousCaracters = new Stack<IInputCaracter>();
-
-        private bool isGroundedCast;
 
         private Vector3 lastPosition;
 
         [SerializeField] private float movementThreshold = 0.1f;
 
-        #endregion
+        [SerializeField] private float maxAngleMove = 60F, stepSteirs = 0.3F;
 
-        [SerializeField] private float doubleJump = 0.9f, doubleJumpMax = 1.5F;
+        private static PhysicMaterial physicMaterial;
+
         public static PhysicMaterial PhysicMaterial
         {
             get
@@ -81,6 +123,35 @@ namespace PlayerDescription
                 return physicMaterial;
             }
         }
+
+        private List<ContactPoint> contactsFoot = new(), contacts = new(), contactPointsAll = new();
+
+        private bool isSteirs;
+
+        private Collider Collider;
+
+        private Vector3 normalSurfaces, velocityBody;
+
+        private IMoveablePlatform platform;
+
+        private bool checkCollisionExit = false;
+
+        private bool hasContact;
+
+        private bool hasStop, isJumping;
+
+        private int angleSurface;
+
+        private bool isGroundedCast;
+
+        private RaycastHit groundCastHit;
+
+        private Rigidbody _rigidbody;
+
+        #endregion
+
+        [SerializeField] private float doubleJump = 0.9f, doubleJumpMax = 1.5F;
+
 
         private Transform forwardTransform;
         public Transform ForwardTransform
@@ -99,22 +170,9 @@ namespace PlayerDescription
             }
         }
 
-        public CapsuleCollider CharacterCollider { get; private set; }
+
 
         [field: SerializeField] public bool isMultyJump { get; private set; }
-        public Bounds BoundsCollider => CharacterCollider.bounds;
-        
-        public Rigidbody Rigidbody
-        {
-            get
-            {
-                if (!_rigidbody)
-                {
-                    _rigidbody = GetComponent<Rigidbody>();
-                }
-                return _rigidbody;
-            }
-        }
 
         public Transform Transform { get; private set; }
 
@@ -125,19 +183,22 @@ namespace PlayerDescription
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public float SpeedRun { get; private set; }
 
+        [field: SerializeField] public float SpeedCrouch { get; private set; }
+
         [field: SerializeField] public bool CanSwim { get; private set; } = true;
 
         public float SpeedSwim => (Speed + SpeedRun) / 2;
         [field: SerializeField] public bool isFly { get; private set; }
-        public IInputCaracter IntroducingCaracter
-        { 
+
+        public IInputCaracter IntroducingCharacter
+        {
             get
             {
                 return inputCaracter;
             }
             set
             {
-                if(inputCaracter != null)
+                if (inputCaracter != null)
                     inputCaracter.Disable();
                 IInputCaracter current = value;
                 if (current == null)
@@ -149,14 +210,18 @@ namespace PlayerDescription
                     }
                 }
                 inputCaracter = value;
-                goEnd:
-                if(inputCaracter != null)
+goEnd:
+                if (inputCaracter != null)
                     inputCaracter.Enable();
                 if (current == null) return;
-                if(!current.GetType().Name.ToLower().Contains("Default".ToLower()))
+                if (!current.GetType().Name.ToLower().Contains("Default".ToLower()))
                     inputPreviousCaracters.Push(value);
             }
         }
+
+        private IInputCaracter inputCaracter;
+
+        private Stack<IInputCaracter> inputPreviousCaracters = new Stack<IInputCaracter>();
 
         public bool IsStopMovement
         {
@@ -171,55 +236,17 @@ namespace PlayerDescription
             }
         }
 
-        public Vector3 Velosity => velocityBody;
-
         public Vector3 VelosityDefaultDirection { get; private set; }
 
         public bool isRun { get; private set; }
 
-        public bool IsPlaneUpWater { get; private set; }
+        public bool isPressCrouch { get; private set; }
 
-        public bool _isGroundedCast => isGroundedCast;
-        public bool _isGrounded
-        {
-            get
-            {
-                if (!_isContactsFoot)
-                {
-                    return _isGroundedCast;
-                }
-                return contactsFoot.Count() > 0;
-            }
-        }
-        public bool _isContactsFoot
-        {
-            get
-            {
-                return contactsFoot != null && contactsFoot.Count > 0;
-            }
-        }
+        public bool isCrouch { get; set; }
+
+        public Vector3 Velosity => velocityBody;
 
         [field: SerializeField] public EventInputAnimation eventInput { get; private set; } = new EventInputAnimation();
-
-        private bool IsSurfaseWall => angleSurface == 90;
-
-        private bool IsMaxAngleSurface
-        {
-            get
-            {
-                if (IsSurfaseWall)
-                    return false;
-                return angleSurface > maxAngleMove;
-            }
-        }
-        private void OnEnable()
-        {
-            if (IntroducingCaracter != null) IntroducingCaracter.Enable();
-        }
-        private void OnDisable()
-        {
-            if (IntroducingCaracter != null) IntroducingCaracter.Disable();
-        }
         public void OnAwake()
         {
             this.AddListnerUpdate();
@@ -228,9 +255,19 @@ namespace PlayerDescription
             CharacterCollider = GetComponent<CapsuleCollider>();
             Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             CharacterCollider.material = PhysicMaterial;
+
             base.StartCoroutine(FallInvoke());
+
             if (AudioCharacter != null)
                 AudioCharacter.AddListnerEventInput(this);
+        }
+        private void OnEnable()
+        {
+            if (IntroducingCharacter != null) IntroducingCharacter.Enable();
+        }
+        private void OnDisable()
+        {
+            if (IntroducingCharacter != null) IntroducingCharacter.Disable();
         }
         private void Reset()
         {
@@ -246,153 +283,29 @@ namespace PlayerDescription
 
             Rigidbody.drag = isFly ? 9 : 0;
         }
-        private void Move(Vector3 direction, ref bool isMove)
+        private void CalculateEdgePlaneClimbing()
         {
-            VelosityDefaultDirection = direction.normalized;
-
-            direction = DirectionFromSrface(direction);
-
-            if (!isSteirs && IsMaxAngleSurface && IsDirectionInverseNormal(direction, normalSurfaces) || CheckWall(direction))
+            if (!isSwim && !IsClimbinding) return;
+            Ray rayCheckPlane = new Ray(transform.position + transform.up * 2F + transform.forward * CharacterCollider.radius * 1.2F, Vector3.down * 1.1F);
+            Debug.DrawRay(rayCheckPlane.origin, rayCheckPlane.direction);
+            IsEdgePlaneClimbing = Physics.Raycast(rayCheckPlane, out RaycastHit hit, 1.3f, MasksProject.Climbinding, QueryTriggerInteraction.Ignore);
+            if (hit.rigidbody != null)
+                IsEdgePlaneClimbing = false;
+            if (IsEdgePlaneClimbing)
             {
-                isMove = false;
-                direction = Vector3.zero;
-            }
-            float speed = (isRun ? SpeedRun : Speed);
-            if (isSwim)
-            {
-                speed = SpeedSwim;
-                if (IntroducingCaracter != null)
-                {
-                    if (IntroducingCaracter.Space())
-                    {
-                        Vector3 newDir = new Vector3(direction.x, 0.02F, direction.z);
-                        if (!IsWaterLine(newDir))
-                        {
-                            direction = newDir;
-                        }
-                    }
-                    if (IntroducingCaracter.Shift())
-                    {
-                        direction = new Vector3(direction.x, -0.02F, direction.z);
-                    }
-                }
-            }
-            velocityBody = direction.normalized * speed;
-
-            float VelosityUp = Velosity.y;
-
-            if((UseGravity || !_isContactsFoot) && !isSwim)
-            {
-                VelosityUp = Rigidbody.velocity.y;
+                IsEdgePlaneClimbing = !Physics.Raycast(hit.point + hit.normal * 0.01F, Vector3.up, CharacterCollider.height);
             }
 
-            Rigidbody.velocity = new Vector3(Velosity.x, VelosityUp , Velosity.z);
+            PointEdgePlaneClimbing = IsEdgePlaneClimbing ? hit : default;
         }
-        private bool IsWaterLine(Vector3 direction)
+        private void CalculateGroundCast()
         {
-            return Physics.Raycast(new Ray(Rigidbody.worldCenterOfMass + direction, Vector3.down), direction.normalized.y * Speed, MasksProject.Water , QueryTriggerInteraction.Collide);
-        }
-        private bool IsDirectionInverseNormal(Vector3 direction, Vector3 normal)
-        {
-            return Vector3.Dot(direction, normal) > 0;
-        }
-        private Vector3 DirectionFromSrface(Vector3 direction)
-        {
-            Vector3 localNormalSurfase = normalSurfaces;
-            if (contacts != null && contactsFoot != null && contacts.Count + contactsFoot.Count > 0 && contactPointsAll.Count > 0)
-            {
-                Vector3 point = contactPointsAll[0].point;
-                float y = transform.InverseTransformPoint(point).y;
-                float maxY = stepSteirs;
-                float minY = 0.01F;
-                if (y < maxY && y > minY)
-                {
-                    RaycastHit hit;
-                    if (Physics.Raycast(point + Vector3.up * 0.7F + direction.normalized * Speed * Time.fixedDeltaTime, Vector3.down, out hit, MasksProject.RigidObject))
-                    {
-                        if (Vector3.Angle(hit.normal, normalSurfaces) > 2F)
-                        {
-                            localNormalSurfase = contactPointsAll[0].normal;
-                            if (!contactsFoot.Contains(contactPointsAll[0]))
-                            {
-                                contactsFoot.Insert(0, contactPointsAll[0]);
-                            }
-                            Debug.DrawRay(point, localNormalSurfase, Color.yellow);
-                            isSteirs = true;
-                            Rigidbody.useGravity = false;
-                        }
-                        else
-                            isSteirs = false;
-                    }
+            CapsuleCollider capsule = CharacterCollider;
+            Ray directionCast = new Ray(transform.position + Vector3.up * capsule.radius, Vector3.down);
 
-                }
-            }
-            return direction - Vector3.Dot(direction, localNormalSurfase) * localNormalSurfase;
-        }
-        private void TrySpace()
-        {
-            if (isSwim && startJump)
-            {
-                if (IsPlaneUpWater)
-                {
-                    eventInput[TypeAnimation.Climbing].Invoke();
-                }
-                goto endTryJump;
-            }
-
-            if (!isSteirs && IsMaxAngleSurface)
-            {
-                goto endTryJump;
-            }
-            
-            if (_isGrounded && startJump)
-            {
-                ClearNurmalSurface();
-                Rigidbody.MovePosition(Vector3.up * 0.01F + Transform.position);
-                Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, forseJump * (isMultyJump ? doubleJump : 1F), Rigidbody.velocity.z);
-                doubleJump = 0.9f;
-                eventInput[TypeAnimation.Jump]?.Invoke();
-            }
-            endTryJump:
-            startJump = false;
-        }
-
-        void IGlobalUpdates.FixedUpdate()
-        {
-            CalculateGroundCast();
-
-            ClearContactAndNormal();
-
-            CalculatePlaneUpWater();
-
-            Movement();
-
-            hasContact = false;
-        }
-
-        private void CalculatePlaneUpWater()
-        {
-            if (!isSwim) return;
-            Ray rayCheckPlane = new Ray(transform.position + transform.up * 2F + transform.forward, Vector3.down);
-            IsPlaneUpWater = Physics.Raycast(rayCheckPlane, 1f, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
-        }
-        private void Movement()
-        {
-            if (IsStopMovement)
-            {
-                Rigidbody.velocity = new Vector3(0, UseGravity || isFly ? Rigidbody.velocity.y : 0, 0);
-                eventInput.eventMovement?.Invoke(Vector3.zero, false);
-                return;
-            }
-
-            bool isMove = false;
-            Vector3 direction = Vector3.zero;
-
-            if (IntroducingCaracter != null)
-                direction = IntroducingCaracter.Move(ForwardTransform, out isMove);
-            Move(direction, ref isMove);
-            TrySpace();
-            eventInput.eventMovement.Invoke(VelosityDefaultDirection, isMove);
+            float newRadius = capsule.radius - 0.02F;
+            isGroundedCast = Physics.SphereCast(directionCast, newRadius, out RaycastHit hit, 0.4F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
+            groundCastHit = isGroundedCast ? hit : default;
         }
         private void ClearContactAndNormal()
         {
@@ -404,67 +317,20 @@ namespace PlayerDescription
                 checkCollisionExit = false;
             }
         }
-        private void CalculateGroundCast()
-        {
-            if (_isContactsFoot)
-                return;
-            CapsuleCollider capsule = CharacterCollider;
-            Ray directionCast = new Ray(Transform.position + Vector3.up * capsule.radius, Vector3.down);
-            float newRadius = capsule.radius - 0.02F;
-            isGroundedCast = Physics.SphereCast(directionCast, newRadius, 0.4F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
-        }
-        private bool CheckWall(Vector3 direction)
-        {
-            int angle;
-            if (contacts == null || _isGrounded)
-                return false;
-            foreach (var point in contacts)
-            {
-                angle = (int)Vector3.Angle(Vector3.up, point.normal);
-                if (angle > maxAngleMove && !IsDirectionInverseNormal(direction, point.normal))
-                    return true;
-            }
-            return false;
-        }
-        void IGlobalUpdates.Update()
-        {
-            eventInput[TypeAnimation.Landing]?.Invoke();
-            if (IntroducingCaracter == null || IsStopMovement)
-                return;
-            isRun = IntroducingCaracter.IsRun;
-            bool isJump = IntroducingCaracter.Space();
-            if (isMultyJump && isJump)
-            {
-                if (doubleJumpMax > doubleJump)
-                {
-                    doubleJump += Time.deltaTime;
-                    if (doubleJump > doubleJumpMax)
-                        doubleJump = doubleJumpMax;
-                }
-            }
-            if (IntroducingCaracter.Space() && (isSwim || _isGrounded))
-            {
-                startJump = true;
-            }
-        }
-        public void AddFuncStopMovement(Func<bool> func)
-        {
-            eventStopMovement.Add(func);
-        }
         public void OnCollisionEnter(Collision collision)
         {
+            isJumping = false;
             RefreshContact(collision);
             if (_isGrounded && !isSwim)
             {
                 if (collision.gameObject.TryGetComponent(out Rigidbody rigidbody) && rigidbody.mass < MAX_KICK_MASS_BODY)
                     Rigidbody.velocity.Set(Rigidbody.velocity.x, 0, Rigidbody.velocity.z);
-                IMoveablePlatform platform;
-                if(!IsSurfaseWall)
-                    if(_isContactsFoot)
-                    if ((platform = collision.gameObject.GetComponent<IMoveablePlatform>()) != null)
-                    {
-                        this.transform.SetParent(platform.Guide);
-                    }
+                if (!IsSurfaseWall)
+                    if (_isContactsFoot)
+                        if ((platform = collision.gameObject.GetComponent<IMoveablePlatform>()) != null)
+                        {
+                            this.transform.SetParent(platform.Guide);
+                        }
                 Rigidbody.useGravity = false;
             }
         }
@@ -512,41 +378,270 @@ namespace PlayerDescription
             }
             angleSurface = (int)Vector3.Angle(Vector3.up, normalSurfaces);
         }
+        private void Move(Vector3 direction, ref bool isMove)
+        {
+            VelosityDefaultDirection = direction.normalized;
+
+            direction = DirectionFromSrface(direction);
+
+            bool isWall = CheckWall(direction);
+
+            if (!isSteirs && IsMaxAngleSurface && IsDirectionInverseNormal(direction, normalSurfaces) || isWall)
+            {
+                isMove = false;
+                direction = Vector3.zero;
+            }
+            if (!isJumping)
+            {
+                bool shouldResetVerticalVelocity = false;
+                if (hasStop && !isMove)
+                {
+                    shouldResetVerticalVelocity = true;
+                    hasStop = false;
+                }
+                else if (isMove)
+                {
+                    hasStop = true;
+                    if (!_isGroundedContact)
+                    {
+                        shouldResetVerticalVelocity = true;
+                    }
+                }
+                if (shouldResetVerticalVelocity)
+                {
+                    if (Rigidbody.velocity.y > 0)
+                    {
+                        direction.y = 0F;
+                        Rigidbody.velocity = direction;
+                    }
+                    else if (!isSteirs && !_isGroundedContact && _isGroundedCast &&
+                        Vector3.Distance(groundCastHit.point, Transform.position) < 0.25F)
+                    {
+                        Transform.position += Vector3.down * 0.09F;
+                        normalSurfaces = groundCastHit.normal;
+                        direction = direction - Vector3.Dot(direction, normalSurfaces) * normalSurfaces;
+                    }
+                }
+            }
+            float speed = (isRun ? SpeedRun : Speed);
+            if(isCrouch)
+            {
+                speed = SpeedCrouch;
+            }
+            if (isSwim)
+            {
+                speed = SpeedSwim;
+                if (IntroducingCharacter != null)
+                {
+                    if (startJump)
+                    {
+                        Vector3 newDir = new Vector3(direction.x, 0.02F, direction.z);
+                        if (!IsWaterLine(newDir))
+                        {
+                            direction = newDir;
+                        }
+                    }
+                    if (IntroducingCharacter.Shift())
+                    {
+                        direction = new Vector3(direction.x, -0.02F, direction.z);
+                    }
+                }
+            }
+            velocityBody = direction.normalized * speed;
+
+            float VelosityUp = Velosity.y;
+
+            if ((UseGravity || !_isContactsFoot) && !isSwim)
+            {
+                VelosityUp = Rigidbody.velocity.y;
+            }
+
+            Rigidbody.velocity = new Vector3(Velosity.x, VelosityUp, Velosity.z);
+        }
+
+        public bool CanStandUp()
+        {
+            Vector3 top = transform.position + Vector3.up * (CharacterCollider.height - 0.3F);
+
+            float radius = CharacterCollider.radius * 2.3F;
+
+            Debug.DrawRay(top, Vector3.up * radius, Color.magenta);
+
+            return !Physics.Raycast(top, Vector3.up, radius, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
+        }
+
+        private bool IsWaterLine(Vector3 direction)
+        {
+            return Physics.Raycast(new Ray(Rigidbody.worldCenterOfMass + direction, Vector3.down), direction.normalized.y * Speed, MasksProject.Water, QueryTriggerInteraction.Collide);
+        }
+        private bool IsDirectionInverseNormal(Vector3 direction, Vector3 normal)
+        {
+            return Vector3.Dot(direction, normal) > 0;
+        }
+        private Vector3 DirectionFromSrface(Vector3 direction)
+        {
+            Vector3 localNormalSurfase = normalSurfaces;
+            if (contacts != null && contactsFoot != null && contacts.Count + contactsFoot.Count > 0 && contactPointsAll.Count > 0)
+            {
+                Vector3 point = contactPointsAll[0].point;
+                float y = transform.InverseTransformPoint(point).y;
+                float maxY = stepSteirs;
+                float minY = 0.01F;
+                if (y < maxY && y > minY)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(point + Vector3.up * 0.7F + direction.normalized * Speed * Time.fixedDeltaTime, Vector3.down, out hit, 1F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore))
+                    {
+                        if (Vector3.Angle(hit.normal, normalSurfaces) > 2F)
+                        {
+                            localNormalSurfase = contactPointsAll[0].normal;
+                            if (!contactsFoot.Contains(contactPointsAll[0]))
+                            {
+                                contactsFoot.Insert(0, contactPointsAll[0]);
+                            }
+                            Debug.DrawRay(point, localNormalSurfase, Color.yellow);
+                            isSteirs = true;
+                            Rigidbody.useGravity = false;
+                        }
+                        else
+                            isSteirs = false;
+                    }
+
+                }
+            }
+            return direction - Vector3.Dot(direction, localNormalSurfase) * localNormalSurfase;
+        }
+        private void TrySpace()
+        {
+            if (((isSwim || IsClimbinding) && startJump))
+            {
+                if (IsEdgePlaneClimbing)
+                {
+                    if ((platform = PointEdgePlaneClimbing.collider.gameObject.GetComponent<IMoveablePlatform>()) != null)
+                    {
+                        this.transform.SetParent(platform.Guide);
+                    }
+                    eventInput[TypeAnimation.Climbing].Invoke();
+                }
+                goto endTryJump;
+            }
+            if (isJumping)
+                goto endTryJump;
+            if (!isSteirs && IsMaxAngleSurface)
+            {
+                goto endTryJump;
+            }
+            if (_isGrounded && startJump)
+            {
+                isJumping = true;
+                ClearNurmalSurface();
+                Vector3 direction = Rigidbody.velocity;
+                direction.y = 0F;
+                Rigidbody.velocity = direction;
+                Rigidbody.MovePosition(Vector3.up * 0.01F + Transform.position);
+                Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, forseJump * (isMultyJump ? doubleJump : 1F), Rigidbody.velocity.z);
+                doubleJump = 0.9f;
+                eventInput[TypeAnimation.Jump]?.Invoke();
+            }
+endTryJump:
+            startJump = false;
+        }
+
+        void IGlobalUpdates.FixedUpdate()
+        {
+            if (_isContactsFoot == false)
+                CalculateGroundCast();
+
+            ClearContactAndNormal();
+
+            CalculateEdgePlaneClimbing();
+
+            Movement();
+
+            hasContact = false;
+        }
+
+        private void Movement()
+        {
+            if (IsStopMovement)
+            {
+                Rigidbody.velocity = new Vector3(0, UseGravity || isFly ? Rigidbody.velocity.y : 0, 0);
+                eventInput.eventMovement?.Invoke(Vector3.zero, false);
+                return;
+            }
+
+            bool isMove = false;
+            Vector3 direction = Vector3.zero;
+
+            if (IntroducingCharacter != null)
+                direction = IntroducingCharacter.Move(ForwardTransform, out isMove);
+            Move(direction, ref isMove);
+            TrySpace();
+            eventInput.eventMovement.Invoke(VelosityDefaultDirection, isMove);
+        }
+
+
+        private bool CheckWall(Vector3 direction)
+        {
+            int angle;
+            if (contacts == null || contacts.Count == 0 || _isGrounded)
+                return false;
+            foreach (var point in contacts)
+            {
+                angle = (int)Vector3.Angle(Vector3.up, point.normal);
+                if (angle > maxAngleMove && !IsDirectionInverseNormal(direction, point.normal))
+                    return true;
+            }
+            return false;
+        }
+        void IGlobalUpdates.Update()
+        {
+            eventInput[TypeAnimation.Landing]?.Invoke();
+            if (IntroducingCharacter == null || IsStopMovement)
+                return;
+            isRun = IntroducingCharacter.IsRun;
+            isPressCrouch = IntroducingCharacter.IsCrouch;
+            eventInput[TypeAnimation.Crouch]?.Invoke();
+            
+            bool isJump = IntroducingCharacter.Space();
+            if (isCrouch && !CanStandUp() && !IsInAir)
+                isJump = false;
+            if (isMultyJump && isJump)
+            {
+                if (doubleJumpMax > doubleJump)
+                {
+                    doubleJump += Time.deltaTime;
+                    if (doubleJump > doubleJumpMax)
+                        doubleJump = doubleJumpMax;
+                }
+            }
+            if (isJump && (isSwim || _isGrounded || (!_isGrounded && IsEdgePlaneClimbing)))
+            {
+                startJump = true;
+            }
+        }
+        public void AddFuncStopMovement(Func<bool> func)
+        {
+            eventStopMovement.Add(func);
+        }
+
         bool HasMoved()
         {
             return Vector3.Distance(transform.position, lastPosition) > movementThreshold;
         }
-        public void OnCollisionExit(Collision collision)
-        {
-            ClearNurmalSurface();
-            contacts.Clear();
-            if (Transform.parent == collision.transform.parent)
-                Transform.SetParent(null);
-        }
-        private void ClearNurmalSurface()
-        {
-            normalSurfaces = Vector3.up;
-            angleSurface = 0;
-            contactsFoot.Clear();
-            contactPointsAll.Clear();
-            Rigidbody.useGravity = true;
-            if (isFly)
-            {
-                eventInput[TypeAnimation.Fly]?.Invoke();
-                return;
-            }
-        }
+
+
         private float waitSecondFall;
         private IEnumerator FallInvoke()
         {
             while (true)
             {
-                retContinue:
-                yield return new WaitUntil(() => !_isGrounded);
+retContinue:
+                yield return new WaitUntil(() => !_isGrounded && enabled && !Rigidbody.isKinematic);
                 while (waitSecondFall < MAX_TIME_FALLING)
                 {
                     waitSecondFall += Time.fixedDeltaTime;
-                    if(_isGrounded)
+                    if (_isGrounded)
                     {
                         waitSecondFall = 0f;
                         goto retContinue;
@@ -554,7 +649,7 @@ namespace PlayerDescription
                     yield return new WaitForFixedUpdate();
                 }
                 waitSecondFall = 0f;
-                if (_isGrounded || isSwim)
+                if (_isGrounded || isSwim || Rigidbody.isKinematic)
                 {
                     goto retContinue;
                 }
@@ -562,70 +657,7 @@ namespace PlayerDescription
             }
         }
         private Vector2 oldSizeCollider = Vector2.zero;
-        public void EnterWater()
-        {
-            if (CanSwim == false) return;
 
-            CapsuleCollider cap = CharacterCollider;
-            if (cap)
-            {
-                oldSizeCollider = new Vector2(cap.radius, cap.height);
-
-                cap.radius = 0.5F;
-                cap.height = 1F;
-            }
-            eventInput[TypeAnimation.Swimming].Invoke();
-            isSwim = true;
-        }
-
-        public void ExitWater()
-        {
-            if (CanSwim == false) return;
-
-            CapsuleCollider cap = CharacterCollider;
-            if (oldSizeCollider != Vector2.zero && cap)
-            {
-                cap.radius = oldSizeCollider.x;
-                cap.height = oldSizeCollider.y;
-            }    
-            eventInput[TypeAnimation.DontSwimming].Invoke();
-            startJump = isSwim = false;
-        }
-#if UNITY_EDITOR
-        #region Debug
-        [SerializeField] private bool isDrawDebug;
-
-        private void OnDrawGizmos()
-        {
-            if (!isDrawDebug)
-                return;
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, Velosity.normalized);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position, normalSurfaces.normalized);
-            Gizmos.color = Color.green;
-            if (!CharacterCollider)
-                return;
-            Gizmos.DrawSphere(transform.position + Vector3.up * (CharacterCollider.bounds.max.y - CharacterCollider.bounds.min.y) / DIVIDER_TO_FOOT_TOUCH, 0.05F);
-            if (contacts != null)
-            {
-                Gizmos.color = Color.red;
-                contacts.ToList().ForEach (contact =>
-                 {
-                     Gizmos.DrawSphere(contact.point, 0.05F);
-                 }) ;
-            }
-            if (contactsFoot == null || contactsFoot.Count < 0)
-                return;
-            Gizmos.color = Color.magenta;
-            contactsFoot.ToList().ForEach(contact =>
-            {
-                Gizmos.DrawSphere(contact.point, 0.05F);
-            });
-
-        }
-        #endregion
-#endif
         [Serializable]
         public class EventInputAnimation
         {
@@ -677,6 +709,106 @@ namespace PlayerDescription
                 Events.Clear();
             }
         }
+        public void OnCollisionExit(Collision collision)
+        {
+            ClearNurmalSurface();
+            contacts.Clear();
+            if (platform == null) return;
+            if (IsEdgePlaneClimbing && PointEdgePlaneClimbing.transform.parent == platform.Guide &&
+                PointEdgePlaneClimbing.transform.parent == collision.transform.parent)
+                return;
+            if (platform.Guide == transform.parent && transform.parent == collision.transform.parent)
+            {
+                platform = null;
+                transform.SetParent(null);
+            }
+        }
 
+        private void ClearNurmalSurface()
+        {
+            normalSurfaces = Vector3.up;
+            angleSurface = 0;
+            contactsFoot.Clear();
+            contactPointsAll.Clear();
+            platform = null;
+            if (!IsEdgePlaneClimbing)
+                transform.SetParent(null);
+            Rigidbody.useGravity = true;
+            if (isFly)
+            {
+                eventInput[TypeAnimation.Fly]?.Invoke();
+                return;
+            }
+        }
+        public void EnterWater()
+        {
+            if(isPressCrouch)
+            {
+                isPressCrouch = false;
+                eventInput[TypeAnimation.Crouch]?.Invoke();
+            }
+            CapsuleCollider cap = CharacterCollider;
+            if (cap)
+            {
+                oldSizeCollider = new Vector2(cap.radius, cap.height);
+
+                cap.radius = 0.5F;
+                cap.height = 1F;
+            }
+            eventInput[TypeAnimation.Swimming].Invoke();
+            isSwim = true;
+        }
+
+        public void ExitWater()
+        {
+            CapsuleCollider cap = CharacterCollider;
+            if (oldSizeCollider != Vector2.zero && cap)
+            {
+                cap.radius = oldSizeCollider.x;
+                cap.height = oldSizeCollider.y;
+            }
+            eventInput[TypeAnimation.DontSwimming].Invoke();
+            startJump = isSwim = false;
+        }
+
+
+
+#if UNITY_EDITOR
+        #region Debug
+        [SerializeField] private bool isDrawDebug;
+
+        private void OnDrawGizmos()
+        {
+            if (!isDrawDebug)
+                return;
+            Gizmos.color = Color.red;
+
+            Gizmos.DrawRay(groundCastHit.point, groundCastHit.normal);
+
+            Gizmos.DrawRay(transform.position, Velosity.normalized);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, normalSurfaces.normalized);
+            Gizmos.color = Color.green;
+            if (!CharacterCollider)
+                return;
+            Gizmos.DrawSphere(transform.position + Vector3.up * (CharacterCollider.bounds.max.y - CharacterCollider.bounds.min.y) / DIVIDER_TO_FOOT_TOUCH, 0.05F);
+            if (contacts != null)
+            {
+                Gizmos.color = Color.red;
+                contacts.ToList().ForEach(contact =>
+                {
+                    Gizmos.DrawSphere(contact.point, 0.05F);
+                });
+            }
+            if (contactsFoot == null || contactsFoot.Count < 0)
+                return;
+            Gizmos.color = Color.magenta;
+            contactsFoot.ToList().ForEach(contact =>
+            {
+                Gizmos.DrawSphere(contact.point, 0.05F);
+            });
+        }
+        #endregion
+#endif
     }
 }

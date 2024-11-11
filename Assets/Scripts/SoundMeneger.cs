@@ -12,6 +12,8 @@ public class SoundMeneger : MonoBehaviour
 
     [SerializeField] private BackgroundSounds backgroundSounds = BackgroundSounds.Forest_Birds;
 
+    [SerializeField] private Musics[] PlayListLevel;
+
     [SerializeField]
     private AudioSource AudioModifer, AudioDefault, Music, Beckground;
 
@@ -61,7 +63,8 @@ public class SoundMeneger : MonoBehaviour
     {
         do
         {
-            if (!CurrentMusicPause && !_Music.isPlaying && _Music.clip != null && _Music.time != _Music.clip.length) PlayRandomMusic();
+            if (!CurrentMusicPause && !_Music.isPlaying && _Music.clip != null && _Music.time != _Music.clip.length) 
+                PlayRandomMusic();
             PlayClip.Invoke(_Music);
             yield return new WaitForSecondsRealtime(1F);
         }
@@ -121,9 +124,7 @@ public class SoundMeneger : MonoBehaviour
         Background.Play();
         Background.loop = true;
         audioSources.Add(Background);
-#if !UNITY_EDITOR
-       // PlayRandomMusic();
-#endif
+        PlayRandomMusic();
     }
     private static AudioClip AudioLoad(Enum value)
     {
@@ -182,9 +183,11 @@ public class SoundMeneger : MonoBehaviour
         if (zone.AudioZone != null)
             Background.clip = zone.AudioZone;
     }
-    private static void PlayRandomMusic()
+    private void PlayRandomMusic()
     {
-        PlayMusic((Musics)UnityEngine.Random.Range(1, Enum.GetValues(typeof(Musics)).Length));
+        if (PlayListLevel.Length == 0) return;
+        Musics musicRand = PlayListLevel[UnityEngine.Random.Range(0, PlayListLevel.Length)];
+        PlayMusic(musicRand);
     }
     public static void PlayPopMusic()
     {
@@ -193,6 +196,8 @@ public class SoundMeneger : MonoBehaviour
     }
     public static void PlayMusic(Musics music, bool PushStack = true)
     {
+        if (music == Musics.None)
+            return;
         if(PushStack)
             PreviousMusic.Push(music);
         CurrentMusic = music;
@@ -375,17 +380,27 @@ public class SoundMeneger : MonoBehaviour
         EatApple,
         ClickButton,
         Tick,
+        CrushWoodBox,
     }
     public enum BackgroundSounds
     {
         Forest_Birds,
         Horror_Home,
+        Warehouse
     }
     public enum Musics
     {
         None,
         FKJ_Us,
         TomMisch_GypsyWoman,
-        Absofacto_Dissolve
+        Absofacto_Dissolve,
+        C418_Thunderbird,
+        C418_Nest,
+        C418_The_President_Is_Dead,
+        C418_Leak,
+        C418_Cold_Summer,
+        AC_DC_TNT,
+        Hugo_99Problems
+
     }
 }

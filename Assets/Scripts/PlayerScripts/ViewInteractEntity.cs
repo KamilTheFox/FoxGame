@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GroupMenu;
 using Tweener;
 using UnityEngine;
@@ -9,24 +10,51 @@ namespace PlayerDescription
     public class ViewInteractEntity
     {
         private Transform transform;
+
         private const float ForceKick = 700F;
 
         private static ViewInteractEntity viewInteract;
 
+        private CharacterBody character;
+
         public static bool isMoveItem => viewInteract == null ? false : (bool)(viewInteract?.IsMoveEntity);
-        public ViewInteractEntity(Transform _transform)
+
+        private bool IsMoveEntity
+        {
+            get
+            {
+                bool Enable = MoveEntity != null;
+                if (Enable && MoveEntity.Transform == null)
+                {
+                    Enable = false;
+                    MoveEntity = null;
+                }
+                return Enable;
+            }
+        }
+
+        public ViewInteractEntity(Transform _transform, CharacterBody body)
         {
             transform = _transform;
             viewInteract = this;
+            character = body;
         }
 
         private ITakenEntity MoveEntity;
+
+        private int lauerTakeEntity;
 
         private IExpansionTween Rotation;
 
         private Dictionary<Rigidbody, InfoRigidBody> RigidbodyInterpolations = new();
 
+
         public Vector3 pointTarget { get; private set; }
+
+        public void ResetTarget()
+        {
+            pointTarget = character.Head.position + character.Head.forward * 100f + Vector3.down * 2F;
+        }
         private struct InfoRigidBody
         {
             public InfoRigidBody(RigidbodyInterpolation _interpolation, bool _kinematic)
@@ -41,7 +69,31 @@ namespace PlayerDescription
         {
             if (MoveEntity == null)
                 return;
-            MoveEntity.Transform.gameObject.layer = (int)Mathf.Log(MoveEntity.GetEngine.Layer.value, 2);
+            MoveEntity.Transform.gameObject.layer = lauerTakeEntity;
+            if (MoveEntity is IWieldable wieldable)
+            {
+
+                MoveEntity.Transform.SetParent(EntityEngine.GetGroup.transform);
+
+                wieldable.DisableWeapon();
+
+                wieldable.RootParent = null;
+
+                character.Drop();
+
+                character.wieldable = null;
+
+                MoveEntity.Throw();
+
+                MoveEntity.Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+
+                MoveEntity.Rigidbody.isKinematic = false;
+
+                MoveEntity = null;
+
+                return;
+            }
+
             foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
             {
                 chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
@@ -59,6 +111,7 @@ namespace PlayerDescription
                 Tween.Stop(Rotation);
                 Rotation = null;
             }
+            MoveEntity.Throw();
             MoveEntity = null;
             RigidbodyInterpolations = new();
         }
@@ -78,9 +131,38 @@ namespace PlayerDescription
             {
                 return;
             }
+            lauerTakeEntity = MoveEntity.Transform.gameObject.layer;
+            MoveEntity.Transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+            if (MoveEntity is IWieldable wieldable)
+            {
+                Debug.Log("Take IWieldable");
+                //MoveEntity.Transform.SetParent(character.RightHand);
+
+                MoveEntity.Rigidbody.isKinematic = true;
+
+                MoveEntity.Rigidbody.interpolation = RigidbodyInterpolation.None;
+
+                wieldable.RootParent = character.Transform;
+
+                Transform hand = character.RightHand.GetChilds().FirstOrDefault(name => name.name.Contains("Wield" + wieldable.UpAxis));
+
+                if(hand == null)
+                {
+                    ItemThrow();
+                }
+
+                wieldable.SetWieldHand(hand);
+
+                character.wieldable = wieldable;
+
+                character.Took();
+
+                return;
+            }
 
             MoveEntity.Transform.rotation = Quaternion.AngleAxis(MoveEntity.Transform.rotation.eulerAngles.y, Vector3.up);
-            MoveEntity.Transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            
             foreach (Transform chield in MoveEntity.Transform.GetComponentsInChildren<Transform>())
             {
                 chield.gameObject.layer = MoveEntity.Transform.gameObject.layer;
@@ -96,19 +178,7 @@ namespace PlayerDescription
                 }
             }
         }
-        private bool IsMoveEntity
-        {
-            get
-            {
-                bool Enable = MoveEntity != null;
-                if (Enable && MoveEntity.Transform == null)
-                {
-                    Enable = false;
-                    MoveEntity = null;
-                }
-                return Enable;
-            }
-        }
+        
         public void RayCast()
         {
             Ray ray = CameraControll.RayCastCenterScreen;
@@ -134,14 +204,17 @@ namespace PlayerDescription
             if (IsMoveEntity)
             {
                 Taken = MoveEntity;
-                if (MoveEntity is IInteractive value)
-                    interactive = value;
-                MoveEntity.Transform.position = newPosition;
-                float Scroll = Input.GetAxis("Mouse ScrollWheel");
-                if (Scroll > 0)
-                    Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, 10F, 0F)).ChangeEase(Ease.CubicRoot);
-                if (Scroll < 0)
-                    Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, -10F, 0F)).ChangeEase(Ease.CubicRoot);
+                if (MoveEntity is not IWieldable)
+                {
+                    if (MoveEntity is IInteractive value)
+                        interactive = value;
+                    MoveEntity.Transform.position = newPosition;
+                    float Scroll = Input.GetAxis("Mouse ScrollWheel");
+                    if (Scroll > 0)
+                        Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, 10F, 0F)).ChangeEase(Ease.CubicRoot);
+                    if (Scroll < 0)
+                        Rotation = Tween.AddRotation(MoveEntity.Transform, new Vector3(0F, -10F, 0F)).ChangeEase(Ease.CubicRoot);
+                }
             }
             if (Taken != null)
             {
@@ -156,15 +229,22 @@ namespace PlayerDescription
                     else
                         ItemTake(Taken.Take());
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse0) && Taken is IDropEntity drop)
+                if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    if (drop.Rigidbody != null)
+                    if (MoveEntity is IWieldable)
                     {
-                        ItemThrow();
-                        if (Taken is IDropped toDrop)
-                            toDrop.ToDrop();
-                        Taken.Transform.position = newPosition - transform.forward * 0.2F;
-                        drop.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * drop.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
+                        character.Attack();
+                    }
+                    else if (Taken is IDropEntity drop)
+                    {
+                        if (drop.Rigidbody != null)
+                        {
+                            ItemThrow();
+                            if (Taken is IDropped toDrop)
+                                toDrop.ToDrop();
+                            Taken.Transform.position = newPosition - transform.forward * 0.2F;
+                            drop.Rigidbody.AddForce(CameraControll.MainCamera.transform.forward * ForceKick * drop.Rigidbody.mass * UnityEngine.Random.Range(0.8F, 1F));
+                        }
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Delete) && GameState.IsCreative)

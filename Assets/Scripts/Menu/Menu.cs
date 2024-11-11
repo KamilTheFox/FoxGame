@@ -220,6 +220,10 @@ public class Menu : MonoBehaviour
         {
             CameraControll.instance.OnThirdPerson();
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            CameraControll.instance.OnThirdUnlookPerson();
+        }
     }
 
     public static void UpdateTextUI()

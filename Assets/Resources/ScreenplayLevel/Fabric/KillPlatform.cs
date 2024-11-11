@@ -10,10 +10,15 @@ public class KillPlatform : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         CharacterBody body = collision.gameObject.GetComponentInParent<CharacterBody>();
+        if (body == null)
+            return;
         if (body.IsDie) return;
+
         body.Death();
-        if (body is IExplosionDamage explosionDamage)
-            explosionDamage.Explosion(0f);
+
+        if (body is IExplosionDamaged explosionDamage)
+            explosionDamage.Explosion(UnityEngine.Random.Range(0.2F, 5F));
+
         CameraControll.instance.Transform.position = positionRespawn;
         CameraControll.instance.GiveBody(UnityEngine.Random.Range(1,5));
 

@@ -28,17 +28,18 @@ public class Key : ItemEngine, IDiesing, ITakenEntity, IInteractive
     }
     protected override void onDestroy()
     {
-        keys[typeKey]--;
         base.onDestroy();
     }
     public void Interaction()
     {
         if (isUsed)
             return;
-        if(keys[typeKey] > 0)
-            MessageBox.Info($"Ключ {typeKey} найден." + (keys[typeKey] - 1 > 1 ? $"Осталось найти: {keys[typeKey] - 1}" : ""));
-        Tweener.Tween.SetColor(Transform, new Color(0F,0F,0F,0F)).IgnoreAdd(Tweener.IgnoreARGB.RGB).ToCompletion(() => Delete());
         isUsed = true;
+        if (keys[typeKey] > 0)
+            MessageBox.Info($"Ключ {typeKey} найден." + (keys[typeKey] - 1 > 1 ? $"Осталось найти: {keys[typeKey] - 1}" : ""));
+        keys[typeKey]--;
+        Tweener.Tween.SetColor(Transform, new Color(0F,0F,0F,0F)).IgnoreAdd(Tweener.IgnoreARGB.RGB).ToCompletion(() => Delete());
+        
     }
     public override TextUI GetTextUI()
     {

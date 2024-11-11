@@ -8,6 +8,7 @@ namespace InteractiveBodies
         public override TypeEntity typeEntity => TypeEntity.InteractiveBody;
         protected override void OnAwake()
         {
+            OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
             if(gameObject.layer == MasksProject.Default)
                 gameObject.layer = MasksProject.Entity;
         }

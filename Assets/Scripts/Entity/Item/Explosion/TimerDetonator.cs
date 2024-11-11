@@ -68,8 +68,8 @@ public class TimerDetonator : MonoBehaviour
         Renderer rendererRect = UIRect.gameObject.GetComponent<Renderer>();
         RectTransform Rect = GameObject.Instantiate(Resources.Load<RectTransform>($"Item\\UI\\DetonatorTimer\\{UIRect.name}"), UIRect);
         Bounds bounds = rendererRect.bounds;
-        if(rendererRect.name.Contains("Button"))
-            rendererRect.enabled = false;
+        if (rendererRect.name.Contains("Button"))
+            GameObject.Destroy(rendererRect);
         Rect.localPosition = Vector3.up * -0.001F;
         Rect.localRotation = Quaternion.Euler(new Vector3(-90F, 180F, 0F));
         Rect.sizeDelta = new Vector2(bounds.size.x * 2, bounds.size.y * 2);
@@ -112,6 +112,9 @@ public class TimerDetonator : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
 
         canvasUIText = gameObject.AddComponent<Canvas>();
+
+        canvasUIText.GetComponent<RectTransform>().sizeDelta = Vector2.one;
+
         canvasUIText.worldCamera = CameraControll.MainCamera;
 
         Button_1 = transform.Find("Button_1").gameObject.AddComponent<GameButton>();

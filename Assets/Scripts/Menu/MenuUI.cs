@@ -266,6 +266,11 @@ public class MenuUI<T> : IUpdateUIElement where T : Component
             isText = true;
             text = item;
         }
+        else if(component is Dropdown dropdown)
+        {
+            dropdown.captionText = null;
+            dropdown.onValueChanged.AddListener(value => SetText(dropdown.options[value].text));
+        }
         
         foreach (Image image in _component.gameObject.GetComponentsInChildren<Image>(true))
         {
@@ -402,10 +407,6 @@ public class MenuUI<T> : IUpdateUIElement where T : Component
     {
         if (!isUpdateText) return;
         if (!text) return;
-        if (component is Dropdown)
-        {
-            return;
-        }
         Text = TextUI.Text;
     }
 

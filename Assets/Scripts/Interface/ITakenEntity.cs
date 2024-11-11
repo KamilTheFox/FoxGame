@@ -13,4 +13,6 @@ public interface ITakenEntity
 
     ITakenEntity Take();
 
+    void Throw();
+
 }

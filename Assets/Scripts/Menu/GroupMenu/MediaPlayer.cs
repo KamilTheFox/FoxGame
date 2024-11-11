@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,9 +73,11 @@ namespace GroupMenu
             });
 
             ListMusic = MenuUI<Dropdown>.Find("ListMusic", GetTransform(), LText.Null);
+
             ListMusic.Component.AddOptions(Enum.GetNames(typeof(SoundMeneger.Musics)).ToList());
 
             ListMusic.Component.onValueChanged.AddListener((value) => SoundMeneger.PlayMusic((SoundMeneger.Musics)value));
+
             SoundMeneger.PlayMusicClipEvent.AddListener((value) =>
             {
                 PlayLine.SetMinMax(0, value.clip.length);
@@ -89,11 +92,10 @@ namespace GroupMenu
                 ListMusic.Component,
             };
             MenuUIAutoRect.Add_Queue(conponents);
-
         }
         private static void ResetTextDownDrop()
         {
-            ListMusic.SetText(SoundMeneger.CurrentMusic.ToString().GetTextUI());
+            ListMusic.SetText(SoundMeneger.CurrentMusic.ToString());
         }
         public static void ButtonEnabled(bool Activate)
         {
@@ -104,10 +106,9 @@ namespace GroupMenu
             Volume.Component.value = SoundMeneger.VolumeM;
             Volume.UpdateText();
 
-            ButtonEnabled(false);
-
             ResetTextDownDrop();
 
+            ButtonEnabled(false);
         }
         protected override void Deactivate()
         {

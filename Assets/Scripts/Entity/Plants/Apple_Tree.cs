@@ -38,7 +38,7 @@ public class Apple_Tree : Tree
     };
     private static Random random = new Random();
 
-    [SerializeField] private int countaple;
+    [SerializeField] private int countApple;
 
     List<PointerCreate> pointerCreate;
     protected override void OnStart()
@@ -49,14 +49,14 @@ public class Apple_Tree : Tree
         pointerCreate = new();
         foreach (Transform Create in Pointer)
         {
-        pointerCreate.Add(new PointerCreate(Create, toFall));
+            pointerCreate.Add(new PointerCreate(Create, toFall));
         }
         random = new Random();
-        RandomSpawnApple();
+        Invoke(nameof(RandomSpawnApple),10f);
     }
     public void CheckItGrowing()
     {
-        int CountFreeApple = pointerCreate.Where(point => !point.Free).Count();
+        int CountFreeApple = pointerCreate.Where(point => point.Free).Count();
         if (CountFreeApple == 0)
         {
             RandomSpawnApple();
@@ -66,18 +66,15 @@ public class Apple_Tree : Tree
     {
         if (IsDie) return;
         int i = 0;
-        while (i < random.Next(pointerCreate.Count))
+        int max = random.Next(1, pointerCreate.Count);
+        while (i < max)
         {
-            if (pointerCreate.Where(point => point.Free).Count() < 1)
+            if (pointerCreate.Where(point => point.Free).Count() == 0)
                 break;
-            int y = random.Next(pointerCreate.Count);
-            if (pointerCreate[y].Free)
-            {
-                pointerCreate[y].CreateApple();
-                i++;
-            }
+            pointerCreate.First((t) => t.Free).CreateApple();
+            i++;
         }
-        countaple = pointerCreate.Where(point => !point.Free).Count();
+        countApple = pointerCreate.Where(point => !point.Free).Count();
     }
     public override void Death()
     {

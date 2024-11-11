@@ -7,10 +7,14 @@ using UnityEngine;
 
 namespace PlayerDescription
 {
-    public class CharacterBotBody : CharacterBody , IExplosionDamage
+    [DisallowMultipleComponent]
+    public class CharacterBotBody : CharacterBody , IExplosionDamaged, IDamaged
     {
+        [field: SerializeField] public float Health { get; private set; } = 5f;
+
         public void Explosion(float distanse)
         {
+            if (enabled == false) return;
             gameObject.GetComponentsInChildren<CharacterJoint>().ToList().ForEach(joint =>
             {
                 GameObject newJoint = joint.gameObject;
@@ -20,6 +24,16 @@ namespace PlayerDescription
                     GameObject.Destroy(joint);
                 }
             });
+        }
+
+        public void TakeHit(IStriker striker)
+        {
+            Health -= striker.Damage;
+            if(Health <= 0)
+            {
+                Death();
+                Explosion(1);
+            }
         }
     }
 }

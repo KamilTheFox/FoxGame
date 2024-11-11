@@ -102,7 +102,8 @@ namespace AIInput
                 aIOrchestrateds.Clear();
             }
             jobHandle.Complete();
-            jobHandles.Dispose();
+            if(jobHandles.IsCreated)
+                jobHandles.Dispose();
         }
     }
 }

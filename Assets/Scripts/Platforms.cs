@@ -7,7 +7,7 @@ public class Platforms : MonoBehaviour, IMoveablePlatform
 {
     public Vector3 Velosity => Vector3.zero;
 
-    [SerializeField] Vector3 torward;
+    [SerializeField] Vector3 torward, started;
 
     private GameObject obj2;
 
@@ -17,11 +17,17 @@ public class Platforms : MonoBehaviour, IMoveablePlatform
 
     [SerializeField] private float time;
 
+    private void OnValidate()
+    {
+        started = transform.position;
+    }
+
     void Start()
     {
         GameObject obj = new GameObject("targeTest");
         obj2 = new GameObject("targeTest2");
         transform.SetParent(obj.transform);
+        started = transform.position;
         move = Tween.AddPosition(obj2.transform, torward, time).ChangeLoop(TypeLoop.PingPong);
         if (reverse)
             move.ReverseProgress();
@@ -29,7 +35,7 @@ public class Platforms : MonoBehaviour, IMoveablePlatform
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, torward + transform.position);
+        Gizmos.DrawLine(started, torward + started);
     }
     private void FixedUpdate()
     {

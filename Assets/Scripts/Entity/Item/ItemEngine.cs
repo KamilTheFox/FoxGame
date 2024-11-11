@@ -14,12 +14,21 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
         get 
         { 
             List<ItemEngine> itemEngines = new List<ItemEngine>();
-            Base[TypeEntity.Item].ForEach(engine => { if (engine is ItemEngine item) { itemEngines.Add(item); } });
-                return itemEngines.ToArray();
+            if(Base)
+                Base[TypeEntity.Item].ForEach(engine => { if (engine is ItemEngine item) { itemEngines.Add(item); } });
+            return itemEngines.ToArray();
         }
     }
 
     [HideInInspector] public bool isController;
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        rendererBuffer.IsDynamicSprite = true;
+        if(IsLittleItem(itemType))
+            rendererBuffer.IsGenerateSprite = false;
+    }
 
     public static int CountItems => GetItems.Length;
 
@@ -51,12 +60,13 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
             return -1;
         }
     }
+
     private bool IsTake => (Rigidbody == null && GameState.IsAdventure) || (GameState.IsAdventure && Rigidbody.mass > 20f);
 
     private bool IsDrop => (GameState.IsCreative &!Stationary && Rigidbody ) || (!Stationary && Rigidbody && Rigidbody.mass <= 5f);
     Rigidbody IDropEntity.Rigidbody => IsDrop ? Rigidbody : null;
 
-    public event Action OnTake;
+    public event Action OnTake, OnTrown;
     public static ItemEngine AddItem(TypeItem type, Vector3 position, Quaternion quaternion, bool isStatic = true)
     {
         if (type == TypeItem.None) return null;
@@ -66,6 +76,15 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
     protected static GameObject GetEffect(EffectItem type, Vector3 position)
     {
         return EntityCreate.GetEntity(type, position, Quaternion.identity).GetPrefab;
+    }
+    public bool IsLittleItem(TypeItem type)
+    {
+        return new List<TypeItem>()
+        { 
+            TypeItem.Apple, TypeItem.Banana, TypeItem.Melon, TypeItem.CocaCola, TypeItem.Pineapple,
+            TypeItem.PadlockBlue, TypeItem.PadlockGreen, TypeItem.PadlockRed, TypeItem.PadlockWhite, TypeItem.PadlockYellow,
+            TypeItem.KeyBlack, TypeItem.KeyBlue, TypeItem.KeyGreen, TypeItem.KeyRed, TypeItem.KeyYellow, TypeItem.KeyWhite
+        }.Contains(type);
     }
     public static void RemoveItemAll()
     {
@@ -95,6 +114,10 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
         OnTake?.Invoke();
         return this;
     }
+    void ITakenEntity.Throw()
+    {
+        OnTrown?.Invoke();
+    }
     private void FixedUpdate()
     {
         if (Rigidbody && !isDetectionModeContinuousDynamic)
@@ -117,6 +140,14 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
             !IsDrop ? "" : new TextUI(() => new object[] { "\n[", LText.KeyCodeMouse0, "] - ", LText.Drop })
             });
     }
+    protected override void onDestroy()
+    {
+        base.onDestroy();
+        OnTake = null;
+        OnTrown = null;
+    }
+
+    
 }
 
 

@@ -10,7 +10,7 @@ public class TackingIK : ITrackIK
     {
         Animator = animator;
         Transform head = Animator.GetBoneTransform(HumanBodyBones.Head);
-        smoothLookPoint = head.position + head.forward * 20F;
+        smoothLookPoint = head.position + head.forward * 20F + Vector3.down * 0.2F;
     }
     [field: SerializeField] public Animator Animator { get; set; }
 
@@ -49,7 +49,7 @@ public class TackingIK : ITrackIK
         if (Target == null)
         {
             Transform head = Animator.GetBoneTransform(HumanBodyBones.Head);
-            target = head.position + head.forward * 20F;
+            target = head.position + head.forward * 20F + Vector3.down * 0.2F;
         }
         else
         {
@@ -58,5 +58,9 @@ public class TackingIK : ITrackIK
         smoothLookPoint = Vector3.Lerp(smoothLookPoint, target, Time.deltaTime * LookIKSpeed);
         Animator.SetLookAtWeight(LookIKWeight, BodyWeight, HeadWeight, EyesWeight, ClampWeight);
         Animator.SetLookAtPosition(smoothLookPoint);
+    }
+    public void SetDefaultLook()
+    {
+        Animator.SetLookAtWeight(0F);
     }
 }

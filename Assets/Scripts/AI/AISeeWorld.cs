@@ -89,7 +89,7 @@ namespace AIInput
         {
             CharacterBody.OnFell += Lost;
             CharacterBody.OnDied += Lost;
-            Animator animator = CharacterBody.AnimatorInput.Animator;
+            Animator animator = CharacterBody.AnimatorInput.AnimatorHuman;
             if (tackingIK == null)
             {
                 tackingIK = new TackingIK(animator);
@@ -142,37 +142,37 @@ namespace AIInput
 
         private void UpdateSee()
         {
-            foreach (Ray ray in getRays)
-            {
-                if (Physics.Raycast(ray, out RaycastHit hit, DistanceSee, MasksProject.RigidObject | MasksProject.SkinPlayer))
-                {
-                    if (Vector3.Angle(Vector3.up, hit.normal) <= CharacterBody.CharacterInput.MaxAngleMove)
-                    {
-                        viewPointsFloor.Add(hit);
-                    }
-                    else
-                    {
-                        viewPoints.Add(hit);
-                    }
-                }
-                else
-                {
-                    viewPointEmpty.Add(ray.GetPoint(DistanceSee));
-                }
-                if (Physics.Raycast(ray, out RaycastHit hit2, DistanceSee, MasksProject.RigidObject | MasksProject.Water))
-                {
-                    if (MasksProject.Water == 1 << hit2.collider.gameObject.layer)
-                        viewPointsWater.Add(hit2);
-                }
-            }
+            //foreach (Ray ray in getRays)
+            //{
+            //    if (Physics.Raycast(ray, out RaycastHit hit, DistanceSee, MasksProject.RigidObject | MasksProject.SkinPlayer))
+            //    {
+            //        if (Vector3.Angle(Vector3.up, hit.normal) <= CharacterBody.CharacterInput.MaxAngleMove)
+            //        {
+            //            viewPointsFloor.Add(hit);
+            //        }
+            //        else
+            //        {
+            //            viewPoints.Add(hit);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        viewPointEmpty.Add(ray.GetPoint(DistanceSee));
+            //    }
+            //    if (Physics.Raycast(ray, out RaycastHit hit2, DistanceSee, MasksProject.RigidObject | MasksProject.Water))
+            //    {
+            //        if (MasksProject.Water == 1 << hit2.collider.gameObject.layer)
+            //            viewPointsWater.Add(hit2);
+            //    }
+            //}
 
-            ViewPointsWater = viewPointsWater.ToArray();
+            //ViewPointsWater = viewPointsWater.ToArray();
 
-            ViewPointsFloor = viewPointsFloor.ToArray();
+            //ViewPointsFloor = viewPointsFloor.ToArray();
 
-            ViewPoints = viewPoints.ToArray();
+            //ViewPoints = viewPoints.ToArray();
 
-            ViewPointEmpty = viewPointEmpty.ToArray();
+            //ViewPointEmpty = viewPointEmpty.ToArray();
         }
 
         [SerializeField] private bool onDrawViewLine;
@@ -231,7 +231,7 @@ namespace AIInput
                     viewPointsWater.Add(hit);
                 else
                 {
-                    if(Vector3.Angle(Vector3.up, hit.normal) <= CharacterBody.CharacterInput.MaxAngleMove)
+                    if (Vector3.Angle(Vector3.up, hit.normal) <= CharacterBody.CharacterInput.MaxAngleMove)
                     {
                         viewPointsFloor.Add(hit);
                     }

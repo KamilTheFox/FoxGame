@@ -36,9 +36,11 @@ internal class AudioCharacter : ScriptableObject
         AnimatorCharacterInput characterInputAnim = input.GetComponent<AnimatorCharacterInput>();
         input.eventInput.EventMovement += (Velosity, isMove) =>
         {
-            if(isMove && (input._isGrounded || input.isSwim))
-                SoundMeneger.Play(input.isSwim ? GetRandomAudio(Swimming) : 
-                    input.isRun? GetRandomAudio(MovementRun) :
+            if (input.isCrouch) return;
+            if (Velosity == Vector3.zero) return;
+            if (isMove && !input.IsInAir)
+                SoundMeneger.Play(input.isSwim ? GetRandomAudio(Swimming) :
+                    input.isRun ? GetRandomAudio(MovementRun) :
                     GetRandomAudio(MovementWalk),
                     input.AudioSource, oneShoot: false);
         };

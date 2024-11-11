@@ -21,5 +21,7 @@ namespace PlayerDescription
         Swimming,
         DontSwimming,
         Climbing,
+        Attack,
+        Crouch
     }
 }

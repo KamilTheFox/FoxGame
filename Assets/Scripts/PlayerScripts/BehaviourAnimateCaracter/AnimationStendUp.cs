@@ -10,6 +10,11 @@ namespace PlayerDescription
 {
     public class AnimationStendUp : BaseAnimate
     {
+        private IEnumerator corrutainStendUp;
+        private bool IsStendUp { get; set; }
+        private AnimationClip clipStendUpFace, clipStendUpBack;
+        private Vector3 lastUpVector; // Для отладки
+
         public AnimationStendUp(AnimatorCharacterInput animatorCharacterInput) : base(animatorCharacterInput)
         {
             animatorCharacterInput.InputC.AddFuncStopMovement(() => IsStendUp || IsPlayStateStendUp());
@@ -18,11 +23,6 @@ namespace PlayerDescription
             clipStendUpFace = AnimationClip[0];
             clipStendUpBack = AnimationClip[1];
         }
-        private IEnumerator corrutainStendUp;
-
-        private bool IsStendUp { get; set; }
-
-        private AnimationClip clipStendUpFace, clipStendUpBack;
 
         private AnimationClip ClipStendUp
         {
@@ -30,16 +30,20 @@ namespace PlayerDescription
             {
                 if (clipStendUpFace == null)
                 {
-                    clipStendUpFace = Animator.runtimeAnimatorController.animationClips.First(clip => clip.name.ToLower().Contains("standup"));
+                    clipStendUpFace = Animator.runtimeAnimatorController.animationClips
+                        .First(clip => clip.name.ToLower().Contains("standup"));
                 }
                 return clipStendUpFace;
             }
         }
+
+
         public bool IsPlayStateStendUp()
         {
             AnimatorStateInfo state = Animator.GetCurrentAnimatorStateInfo(0);
             return state.IsName("StendUp") || state.IsName("StendUpFace");
         }
+
         public override void StartAnimation()
         {
             if (corrutainStendUp != null) return;
@@ -47,43 +51,53 @@ namespace PlayerDescription
             animatorCharacter.StartCoroutine(corrutainStendUp);
         }
 
+        private (Vector3 targetForward, bool isForwardDown) CalculateTargetOrientation(Transform hips)
+        {
+            Vector3 hipsDown = -hips.up;
+            Vector3 hipsForward = hips.forward;
+
+            Vector3 hipsDownFlat = Vector3.ProjectOnPlane(hipsDown, Vector3.up).normalized;
+
+            bool isForwardDown = Vector3.Dot(hipsForward, Vector3.down) > 0.5f;
+
+            if (isForwardDown)
+            {
+                return (hipsDownFlat, true);
+            }
+            else
+            {
+                return (-hipsDownFlat, false);
+            }
+        }
+
         private IEnumerator StendUpCoroutin()
         {
             CharacterBody PBody = animatorCharacter.PBody;
 
-            bool isHipsForwardDown = animatorCharacter.IsHipsForwardDown;
+            var (targetForward, isForwardDown) = CalculateTargetOrientation(PBody.Hips);
 
             List<Transform> originBone = PBody.Hips.GetComponentsInChildren<Transform>().ToList();
-
             List<Bone> bonesStart = originBone.Select(x => (Bone)x).ToList();
-
-            Vector3 vectorUpHips = PBody.Hips.up;
 
             PBody.Regdool.Deactivate();
 
-            vectorUpHips.Normalize();
+            Quaternion intitRotation = PBody.Transform.rotation;
 
-            PBody.Transform.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.right, vectorUpHips), 0);
+            Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
+            PBody.Transform.rotation = targetRotation;
 
-            animatorCharacter.Animator.SetFloat("StandUpIndex", isHipsForwardDown ? 1f : 0f);
+            animatorCharacter.AnimatorHuman.SetFloat("StandUpIndex", isForwardDown ? 1f : 0f);
+            animatorCharacter.AnimatorHuman.Play(TypeAnimation.StendUp.ToString(), 0, 0);
 
-            animatorCharacter.Animator.Play(TypeAnimation.StendUp.ToString(), 0, 0);
+            AnimationClip stendUpClip = isForwardDown && clipStendUpBack != null
+                ? clipStendUpBack
+                : ClipStendUp;
 
-            AnimationClip stendUpClip;
-            if (isHipsForwardDown && clipStendUpBack != null)
-            {
-                stendUpClip = clipStendUpBack;
-            }
-            else
-            {
-                stendUpClip = ClipStendUp;
-                //PBody.Transform.rotation = Quaternion.Euler(PBody.Transform.eulerAngles + Vector3.up * 180);
-            }
-            stendUpClip.SampleAnimation(animatorCharacter.Animator.gameObject, 0);
+            stendUpClip.SampleAnimation(animatorCharacter.AnimatorHuman.gameObject, 0F);
 
             List<Bone> bonesEnd = originBone.Select(x => (Bone)x).ToList();
 
-            animatorCharacter.Animator.enabled = false;
+            animatorCharacter.AnimatorHuman.enabled = false;
             IsStendUp = true;
             float lerp = 0F;
 
@@ -92,18 +106,16 @@ namespace PlayerDescription
                 lerp += Time.deltaTime;
                 for (int i = 0; i < originBone.Count(); i++)
                 {
-                    originBone[i].rotation = Quaternion.Lerp(bonesStart[i].rotation, bonesEnd[i].rotation, lerp);
-                    originBone[i].position = Vector3.Lerp(bonesStart[i].position, bonesEnd[i].position, lerp);
+                    originBone[i].localRotation = Quaternion.Lerp(bonesStart[i].rotation, bonesEnd[i].rotation, lerp);
+                    originBone[i].localPosition = Vector3.Lerp(bonesStart[i].position, bonesEnd[i].position, lerp);
                 }
                 yield return null;
             }
-            animatorCharacter.Animator.enabled = true;
 
+            animatorCharacter.AnimatorHuman.enabled = true;
             IsStendUp = false;
-
             corrutainStendUp = null;
-
-            yield break;
         }
+
     }
 }

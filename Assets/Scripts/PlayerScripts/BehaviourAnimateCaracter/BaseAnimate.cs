@@ -9,7 +9,7 @@ namespace PlayerDescription
 
         public CharacterBody PBody => animatorCharacter.PBody;
 
-        public Animator Animator => animatorCharacter.Animator;
+        public Animator Animator => animatorCharacter.AnimatorHuman;
 
         public Transform Transform => PBody.Transform;
 

@@ -17,6 +17,21 @@ public static class Settings
         public float distanceDrawShadow;
         public float distanceDrawCharacters;
     }
+
+    public static InputJobPropertyData InputJobPropertyRendererData { get; private set; } = new InputJobPropertyData()
+    {
+        maxBottomY = -100,
+        maxTopY = 300,
+        maxVisibilityDistance = 300,
+        VisibilitySprite = 120,
+        isCastingShadow = true,
+        isReceivingShadow = true,
+        calculateAngleToCamera = true,
+        shadowVisibilityDistance = 70,
+        orderDistance = 20,
+        cullAngle = 30
+    };
+
      static Settings()
      {
         LogWisible = new bool[3];

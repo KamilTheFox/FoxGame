@@ -167,6 +167,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317b5884355518b429fa9fbc23f573f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
+  talkingTargetInteractEntity: 1
+  rendererBuffer:
+    debug: 0
+    levelLods: 
+    currentLODLevel: 0
   _isItemController: 0
 --- !u!114 &1166204446412613924
 MonoBehaviour:
@@ -180,19 +186,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08fe3fcebe9e1bd4b81a0810f02579a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsCanClimbinding>k__BackingField: 1
+  <IsEdgePlaneClimbing>k__BackingField: 0
   <VolumeObject>k__BackingField: 20
   forseJump: 4.7
+  movementThreshold: 0.1
   maxAngleMove: 60
-  StepSteirs: 0.3
-  normalSurfaces: {x: 0, y: 0, z: 0}
-  pointContact: {x: 0, y: 0, z: 0}
-  velocityBody: {x: 0, y: 0, z: 0}
+  stepSteirs: 0.3
   doubleJump: 0.9
   doubleJumpMax: 1.5
   <isMultyJump>k__BackingField: 0
   <AudioCharacter>k__BackingField: {fileID: 0}
   <Speed>k__BackingField: 2
   <SpeedRun>k__BackingField: 6
+  <SpeedCrouch>k__BackingField: 1.7
   <CanSwim>k__BackingField: 1
   <isFly>k__BackingField: 0
   <eventInput>k__BackingField:
@@ -217,6 +224,7 @@ MonoBehaviour:
   <AnimationClips>k__BackingField:
   - {fileID: 8941822194108821619, guid: 1767cea53dc2bba4381fec1d70c214e5, type: 3}
   - {fileID: -203655887218126122, guid: 1fca241ee1641fc448140dc610cdd882, type: 3}
+  "\u0441orrectClimbinding": 0
   BlandShapes: []
   directionSmooth: {x: 0, y: 0, z: 0}
   farvardLo: {x: 0, y: 0, z: 0}

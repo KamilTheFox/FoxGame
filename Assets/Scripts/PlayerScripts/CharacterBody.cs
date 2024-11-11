@@ -10,10 +10,11 @@ using AIInput;
 
 namespace PlayerDescription
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterInput), typeof(AnimatorCharacterInput), typeof(Rigidbody))]
     public class CharacterBody : MonoBehaviour, IDiesing, IHunted, ICollideableDoll, IGlobalUpdates
     {
-        public Rigidbody Rigidbody => CharacterInput.Rigidbody;
+        public Rigidbody Rigidbody => gameObject.GetComponent<Rigidbody>();
 
         private CharacterInput _inputs;
 
@@ -31,6 +32,9 @@ namespace PlayerDescription
             }
         }
 
+        public IWieldable wieldable;
+
+        private AnimationAttack attack;
 
         private Transform head;
         public Transform Head
@@ -38,7 +42,7 @@ namespace PlayerDescription
             get
             {
                 if (head == null)
-                    head = AnimatorInput.Animator.GetBoneTransform(HumanBodyBones.Head);
+                    head = AnimatorInput.AnimatorHuman.GetBoneTransform(HumanBodyBones.Head);
                 return head;
             }
         }
@@ -49,7 +53,7 @@ namespace PlayerDescription
             get
             {
                 if (hips == null)
-                    hips = AnimatorInput.Animator.GetBoneTransform(HumanBodyBones.Hips);
+                    hips = AnimatorInput.AnimatorHuman.GetBoneTransform(HumanBodyBones.Hips);
                 return hips;
             }
         }
@@ -60,7 +64,7 @@ namespace PlayerDescription
             get
             {
                 if (chest == null)
-                    chest = AnimatorInput.Animator.GetBoneTransform(HumanBodyBones.Chest);
+                    chest = AnimatorInput.AnimatorHuman.GetBoneTransform(HumanBodyBones.Chest);
                 return chest;
             }
         }
@@ -71,7 +75,7 @@ namespace PlayerDescription
             get
             {
                 if (rightHand == null)
-                    rightHand = AnimatorInput.Animator.GetBoneTransform(HumanBodyBones.RightHand);
+                    rightHand = AnimatorInput.AnimatorHuman.GetBoneTransform(HumanBodyBones.RightHand);
                 return rightHand;
             }
         }
@@ -82,7 +86,7 @@ namespace PlayerDescription
             get
             {
                 if (leftHand == null)
-                    leftHand = AnimatorInput.Animator.GetBoneTransform(HumanBodyBones.LeftHand);
+                    leftHand = AnimatorInput.AnimatorHuman.GetBoneTransform(HumanBodyBones.LeftHand);
                 return leftHand;
             }
         }
@@ -97,7 +101,11 @@ namespace PlayerDescription
 
         private float targetRotate;
 
-        public RendererBuffer rendererBuffer;
+        public bool debug;
+
+        public bool talkingTargetInteractEntity = true;
+
+        [SerializeField] private RendererBuffer rendererBuffer;
 
         private const float SMOTH_DELAY = 50f;
 
@@ -139,6 +147,11 @@ namespace PlayerDescription
         [SerializeField]
         private bool _isItemController;
 
+        private void OnDestroy()
+        {
+            OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
+            rendererBuffer.Dispose();
+        }
 
         public float RecommendedHeight
         {
@@ -152,8 +165,6 @@ namespace PlayerDescription
         public bool IsDie { get; private set; }
 
         public IRegdoll Regdool { get; private set; }
-
-
 
         public Vector3? TargetView
         {
@@ -181,17 +192,17 @@ namespace PlayerDescription
                 }
             }
         }
-
         private void Awake()
         {
-            CharacterInput.OnAwake();
-            AnimatorInput.OnAwake();
-
             this.AddListnerUpdate();
 
             rendererBuffer = new RendererBuffer(gameObject);
+            OptimizedRenderer.AddRendererBuffer(rendererBuffer);
 
-            FactoryEntity.EntityEngineBase.AddCharacterInfoEntity(this);
+            AnimatorInput.OnAwake();
+            CharacterInput.OnAwake();
+            
+            rendererBuffer.IsDynamicSprite = true;
 
             _isItemController = gameObject.layer == MasksProject.Entity;
 
@@ -200,9 +211,7 @@ namespace PlayerDescription
                 return Regdool.isActive;
             });
             if (!_isItemController)
-                Regdool = new RegdollPlayer(AnimatorInput.Animator, this);
-
-
+                Regdool = new RegdollPlayer(AnimatorInput.AnimatorHuman, this);
         }
         private void FixedUpdate()
         {
@@ -218,12 +227,16 @@ namespace PlayerDescription
         {
             if (Menu.IsEnabled || !CameraControll.instance.IsPlayerControll(this))
                 return;
+
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //    Attack();
+
             interactEntity?.RayCast();
         }
 
         public void RotateBody(Quaternion quaternion)
         {
-            if (AnimatorInput.IsPlayStateAnimator(TypeAnimation.Climbing))
+            if (animationInput.IsPlayStateAnimator(TypeAnimation.Climbing) || animationInput.applyRootMotion)
                 return;
             smoothRotateBody = transform.rotation.eulerAngles.y;
             targetRotate = quaternion.eulerAngles.y;
@@ -237,15 +250,15 @@ namespace PlayerDescription
         public void EntrancePlayerControll(CameraControll camera)
         {
             ChangeLayerIsItemToPlayer(true);
-            FactoryEntity.EntityEngineBase.RemoveCharacterInfoEntity(this);
             Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             if (isItemController)
             {
                 foreach (var collider in GetComponentsInChildren<Collider>())
                     collider.material = CharacterInput.PhysicMaterial;
             }
-            CharacterInput.IntroducingCaracter = new InputDefault(this);
-            interactEntity = new ViewInteractEntity(transform);
+            CharacterInput.IntroducingCharacter = new InputDefault(this);
+            interactEntity = new ViewInteractEntity(transform, this);
+            OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
         }
         public void ExitPlayerControll(CameraControll camera)
         {
@@ -254,12 +267,22 @@ namespace PlayerDescription
                 foreach (var collider in GetComponentsInChildren<Collider>())
                     collider.material = null;
             }
-            FactoryEntity.EntityEngineBase.AddCharacterInfoEntity(this);
-            interactEntity?.ItemThrow();
             None.SetInfoEntity(false);
             ChangeLayerIsItemToPlayer(false);
-            CharacterInput.IntroducingCaracter = null;
+            CharacterInput.IntroducingCharacter = null;
             camera.Transform.parent = null;
+            ClearInteractEntity();
+            OptimizedRenderer.AddRendererBuffer(rendererBuffer);
+        }
+        public void ResetTargetLook()
+        {
+            if (interactEntity == null) return;
+            interactEntity.ResetTarget();
+        }
+        public void ClearInteractEntity()
+        {
+            if (interactEntity == null) return;
+            interactEntity.ItemThrow();
             interactEntity = null;
         }
         private void ChangeLayerIsItemToPlayer(bool IsEnabled)
@@ -269,6 +292,7 @@ namespace PlayerDescription
         }
         public void Death()
         {
+            if (enabled == false) return;
             if (UniqueDeathscenario != null)
             {
                 UniqueDeathscenario.Death();
@@ -291,9 +315,45 @@ namespace PlayerDescription
             AnimatorInput.BlinkingEyes(0F);
             AnimatorInput.StendUp();
         }
+
+        public void Took()
+        {
+            AnimatorInput.StartUniqueAnimation<AnimationTook>();
+        }
+
+        public void Drop()
+        {
+            if(attack != null)
+            {
+                AttackFinished();
+            }
+            AnimatorInput.StartUniqueAnimation<AnimationDrop>();
+        }
+
+        public void Attack()
+        {
+            if (wieldable == null || attack != null) return;
+
+            attack = AnimatorInput.StartUniqueAnimation<AnimationAttack>();
+
+            attack.OnAnimationStarted += wieldable.EnableWeapon;
+
+            attack.OnAnimationFinished += AttackFinished;
+
+        }
+        private void AttackFinished()
+        {
+            attack.OnAnimationStarted -= wieldable.EnableWeapon;
+            wieldable.DisableWeapon();
+            attack.OnAnimationFinished -= AttackFinished;
+            attack = null;
+        }
+
+
         [ContextMenu("Fell")]
         public void Fell()
         {
+            if (enabled == false) return;
             if (Regdool != null && !isItemController)
                 Regdool.Activate();
             AnimatorInput?.BlinkingEyes(100F);
@@ -302,6 +362,7 @@ namespace PlayerDescription
         }
         public void Die()
         {
+            if (enabled == false) return;
             if (IsDie) return;
 
             IsDie = true;
@@ -326,9 +387,10 @@ namespace PlayerDescription
             public InputDefault(CharacterBody _input)
             {
                 input = _input;
-                tacking = new TackingIK(_input.AnimatorInput.Animator);
+                tacking = new TackingIK(_input.AnimatorInput.AnimatorHuman);
+                tacking.LookIKSpeed = 10F;
                 tacking.LookIKWeight = 1f;
-                tacking.BodyWeight = 0.2f;
+                tacking.BodyWeight = 0.35f;
                 tacking.ClampWeight = 0.5f;
                 tacking.EyesWeight = 1f;
                 tacking.HeadWeight = 0.9f;
@@ -338,9 +400,11 @@ namespace PlayerDescription
             private TackingIK tacking;
             public bool IsRun => Input.GetKey(KeyCode.LeftShift);
 
+            public bool IsCrouch => Input.GetKey(KeyCode.C);
+
             public void Enable()
             {
-                tacking.Target = new GameObject("Target").transform;
+                tacking.Target = new GameObject("TargetInputDefault").transform;
                 tacking.Target.SetParent(input.gameObject.transform);
                 input.AnimatorInput.AddListenerIK(tacking);
             }
@@ -353,7 +417,7 @@ namespace PlayerDescription
 
             bool IInputCaracter.Space()
             {
-                return input.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+               return input.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCaracter.Shift()
@@ -363,7 +427,9 @@ namespace PlayerDescription
 
             Vector3 IInputCaracter.Move(Transform source, out bool isMove)
             {
-                tacking.Target.position = input.interactEntity.pointTarget;
+                if(input.talkingTargetInteractEntity)
+                if(tacking != null && input.interactEntity != null)
+                    tacking.Target.position = input.interactEntity.pointTarget;
                 return MovementMode.WASD(source, 1F, out isMove, true);
             }
 

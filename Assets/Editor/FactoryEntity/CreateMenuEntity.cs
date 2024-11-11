@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using System;
 using UnityEditor;
-
 using Random = UnityEngine.Random;
 
 namespace Assets.Editors
@@ -22,7 +21,9 @@ namespace Assets.Editors
         [MenuItem("GameObject/3D Object/Rebuild All Entity")]
         public static void RebuildAllEntity()
         {
-            Transform[] entities = GameObject.Find("Entityes").GetComponentsInChildren<Transform>();
+            Transform[] entities = GameObject.FindObjectsOfType<EntityEngine>()
+                .Where(t => (int)t.typeEntity >= 0 && (int)t.typeEntity < 3)
+                .Select(p => p.transform).ToArray();
             for (int i = 0; i < entities.Length; i++)
                 RebuildEntity(entities[i]);
         }
@@ -37,6 +38,7 @@ namespace Assets.Editors
 
         public static void RebuildEntity(Transform transform)
         {
+            if (transform == null) return;
             if (!transform.TryGetComponent(out EntityEngine entityEngine)) return;
 
             Undo.RecordObject(transform, transform.name + " RebuildEntitynull");

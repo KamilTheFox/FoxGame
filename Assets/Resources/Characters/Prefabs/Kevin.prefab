@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4736644301010517982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6284850521397150946}
+  m_Layer: 0
+  m_Name: WieldX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6284850521397150946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736644301010517982}
+  m_LocalRotation: {x: 0.656059, y: 0, z: 0, w: 0.7547096}
+  m_LocalPosition: {x: -0.092, y: -0.0005, z: 0.0321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5887377446941812934}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6164990659865902726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5002786353616981315}
+  m_Layer: 0
+  m_Name: WieldY
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5002786353616981315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164990659865902726}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0.00000031391647}
+  m_LocalPosition: {x: -0.092, y: -0.0005, z: 0.0321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5887377446941812934}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 3.18, z: -180}
 --- !u!1001 &3299569181399554632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -852,6 +914,11 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &5887377446941812934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8970684646165148302, guid: be292610981c21a4f90c84bfdd940711, type: 3}
+  m_PrefabInstance: {fileID: 3299569181399554632}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6096649291751228734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8741991049848528758, guid: be292610981c21a4f90c84bfdd940711, type: 3}
@@ -1207,6 +1274,10 @@ PrefabInstance:
       propertyPath: positionCamera
       value: 
       objectReference: {fileID: 3303979820738888220}
+    - target: {fileID: 4917585060537080598, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8716408054984372214, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -56,6 +56,9 @@ public class Apple : ItemEngine, IGerminatable, ITakenEntity, IInteractive, IDro
     {
         IsRipen = false;
         base.OnTake += OnRipen.Invoke;
+
+        OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
+
         Rigidbody.isKinematic = true;
         float timeSpeedTween = Random.Range(50F, 500F);
 
@@ -81,6 +84,8 @@ public class Apple : ItemEngine, IGerminatable, ITakenEntity, IInteractive, IDro
         Rigidbody.WakeUp();
         Rigidbody.isKinematic = false;
         OnRipen.RemoveAllListeners();
+
+        OptimizedRenderer.AddRendererBuffer(rendererBuffer);
     }
     public override TextUI GetTextUI()
     {

@@ -59,13 +59,16 @@
     <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterBotBody.cs" />
     <Compile Include="Assets\Scripts\SwitchLODs.cs" />
-    <Compile Include="Assets\Scripts\Interface\IExplosionDamage.cs" />
+    <Compile Include="Assets\Scripts\Interface\IAppliedForce.cs" />
+    <Compile Include="Assets\Scripts\Interface\IExplosionDamaged.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\IParametrsEntity.cs" />
     <Compile Include="Assets\Scripts\NavMeshJobTest\NavmeshView.cs" />
     <Compile Include="Assets\Scripts\AI\AIBrain.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
+    <Compile Include="Assets\Scripts\Optimized\InputJobPropertyData.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Scripts\TDControl.cs" />
+    <Compile Include="Assets\Scripts\GPUInstansingEnableAddRendererOptimized.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuUI_1.cs" />
     <Compile Include="Assets\Scripts\Regdoll\ICollideableDoll.cs" />
     <Compile Include="Assets\Scripts\Interface\IThrowed.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\GameButton.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\GroupPlant.cs" />
     <Compile Include="Assets\Scripts\AI\AISeeWorld.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\Container.cs" />
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundZone.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\VignetteComponent.cs" />
@@ -94,6 +98,7 @@
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationDrop.cs" />
     <Compile Include="Assets\Scripts\AI\AIOrchestrator.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityParametrs.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Box.cs" />
@@ -102,6 +107,7 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3_Timer.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\Fabric\KillPlatform.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
+    <Compile Include="Assets\TestSwitchFade.cs" />
     <Compile Include="Assets\Scripts\Interface\ILocking.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\FoodSearch.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
@@ -109,7 +115,7 @@
     <Compile Include="Assets\Scripts\AI\IHunted.cs" />
     <Compile Include="Assets\Scripts\Regdoll\RegdollDetect.cs" />
     <Compile Include="Assets\Scripts\AI\MovementAtWay.cs" />
-    <Compile Include="Assets\Scripts\Entity\DistanceEntityJob.cs" />
+    <Compile Include="Assets\Scripts\Optimized\CalculatePropertyRendererJob.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\Tree.cs" />
     <Compile Include="Assets\Scripts\Expansion.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\AI.cs" />
@@ -138,17 +144,20 @@
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\Door.cs" />
     <Compile Include="Assets\Scripts\Menu\Chat.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\CharacterCapsuleData.cs" />
     <Compile Include="Assets\Scripts\Menu\ScriptScene\MovingAvatarAndCamera.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\Ballistics.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\IInputCaracter.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\TypeAnimation.cs" />
+    <Compile Include="Assets\Scripts\Optimized\ResultsJobProperty.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />
     <Compile Include="Assets\Scripts\Localization\LText.cs" />
     <Compile Include="Assets\Scripts\GPUInstansingEnable.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\#NVJOB Assets\Dynamic Sky (For Demo)\DynamicSkyForDemo.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraControll.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterInput.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\IWieldable.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\ThirdPerson.cs" />
     <Compile Include="Assets\Scripts\NavMeshJobTest\PathFinder.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
@@ -157,10 +166,12 @@
     <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\ICustomingJump.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
+    <Compile Include="Assets\Resources\ScreenplayLevel\Fabric\Conveyer.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeEntity.cs" />
     <Compile Include="Assets\Scripts\Interface\IInteractive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
+    <Compile Include="Assets\Scripts\Optimized\GenerateSprite\GenerateLODSprite.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\MainMenuScripts\MovementAgentScripst.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
@@ -173,6 +184,7 @@
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\UserLutModel.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\#NVJOB Water Shaders V2\NVWaterShaders.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\FxaaComponent.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationTook.cs" />
     <Compile Include="Assets\Scripts\NavMeshJobTest\AStarPool.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuSettings.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingProfile.cs" />
@@ -184,11 +196,15 @@
     <Compile Include="Assets\Scripts\Regdoll\Regdoll.cs" />
     <Compile Include="Assets\MovingCameraAtScene.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
-    <Compile Include="Assets\Scripts\CameraScripts\ThirdlookPerson.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\ThirdUnlookPerson.cs" />
+    <Compile Include="Assets\Scripts\Optimized\OptimizedRenderer.cs" />
     <Compile Include="Assets\Scripts\Menu\CalendarHolidays.cs" />
     <Compile Include="Assets\Scripts\Interface\IDamaged.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Fence\Pillar.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\ArmamentItem.cs" />
+    <Compile Include="Assets\Scripts\Optimized\IPropertysRendererUpdate.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationStendUp.cs" />
     <Compile Include="Assets\Scripts\Inventory\IInventoryItem.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\DitheringModel.cs" />
@@ -216,6 +232,7 @@
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\None.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\TypePlant.cs" />
+    <Compile Include="Assets\Scripts\Optimized\RendererBuffer.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\PostProcessingComponent.cs" />
     <Compile Include="Assets\Scripts\Water.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\ItemsCreating.cs" />
@@ -224,6 +241,7 @@
     <Compile Include="Assets\Scripts\Menu\MenuUI.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\GrainComponent.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\IListenedStateAnimation.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\ItemEngine.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator.cs" />
     <Compile Include="Assets\Scripts\Interface\IHootKeys.cs" />
@@ -245,6 +263,7 @@
     <Compile Include="Assets\Scripts\AI\AILinkPool.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimatorCharacterInput.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationAttack.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
     <Compile Include="Assets\Scripts\Clothes.cs" />
     <Compile Include="Assets\Scripts\Localization\LocalisationList.cs" />
@@ -268,6 +287,7 @@
     <Compile Include="Assets\Scripts\Platforms.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterBody.cs" />
     <Compile Include="Assets\Scripts\MyInput.cs" />
+    <Compile Include="Assets\Scripts\DependencyQueue\IAwakened.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\BloomModel.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
     <Compile Include="Assets\Scripts\AI\Harassment.cs" />
@@ -276,7 +296,6 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TNT_3.cs" />
     <Compile Include="Assets\Scripts\Entity\EntityEngineBase.cs" />
     <Compile Include="Assets\Scripts\Inventory\GridSell.cs" />
-    <Compile Include="Assets\Scripts\RendererBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
@@ -295,11 +314,12 @@
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
     <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
+    <None Include="Assets\Shaders\FadeShader.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Palm Trees\Materials\Standard 2-Sided.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Uber.shader" />
-    <None Include="Assets\Materials\Standard.shader" />
+    <None Include="Assets\Shaders\Standard.shader" />
     <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\Common.cginc" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />

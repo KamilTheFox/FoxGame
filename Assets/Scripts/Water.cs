@@ -18,6 +18,10 @@ internal class Water : MonoBehaviour
 
     [SerializeField] private Collider triggerCollider;
 
+    [SerializeField] private Vector2 course;
+
+    [SerializeField] private float courseMagnitude;
+
     private float offset;
 
     private List<WaterObject> waterObjects = new List<WaterObject>();
@@ -58,7 +62,7 @@ internal class Water : MonoBehaviour
         }
         else
         {
-            waterObject.time = 0f;
+            waterObject.time = 0F;
         }
         if (waterObject.atWater != null)
         {
@@ -96,15 +100,22 @@ internal class Water : MonoBehaviour
     {
         obj.gameObject.AddForce(new Vector3 (0f, obj.archimedes, 0f),ForceMode.Acceleration);
     }
+    private void CalculateRotateCourse(WaterObject obj)
+    {
+        obj.gameObject.AddForce(new Vector3(course.x * courseMagnitude * 2, 0f, course.y * courseMagnitude * 2), ForceMode.Acceleration);
+        if(!obj.gameObject.freezeRotation)
+            obj.gameObject.AddTorque(new Vector3(course.x * courseMagnitude * 0.5F, 0f, course.y * courseMagnitude * 0.5F), ForceMode.Acceleration);
+    }
 
     private void FixedUpdate()
     {
-        foreach (var water in waterObjects)
+        for(int i = 0; i < waterObjects.Count; i++)
         {
+            var water = waterObjects[i];
             if (water.gameObject == null)
             {
                 waterObjects = waterObjects.Where(obj => obj.gameObject != null).ToList();
-                return;
+                continue;
             }
             water.time += Time.fixedDeltaTime;
             if (water.time > 0.2f)
@@ -113,7 +124,7 @@ internal class Water : MonoBehaviour
                 continue;
             }
             CalculateWaterArchimedes(water);
-            CalculateWaterForse(water);
+            CalculateWaterForse(water); CalculateRotateCourse(water);
             if (water.atWater != null)
             {
                 if (water.atWater.isSwim && water.gameObject.worldCenterOfMass.y - 0.1F > triggerCollider.bounds.max.y)
@@ -121,6 +132,4 @@ internal class Water : MonoBehaviour
             }
         }
     }
-
-
 }

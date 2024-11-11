@@ -20,4 +20,10 @@ public class TriggerDetect : MonoBehaviour
     {
         Stay?.Invoke(other);
     }
+    private void OnDestroy()
+    {
+        Enter = null;
+        Exit = null;
+        Stay = null;
+    }
 }

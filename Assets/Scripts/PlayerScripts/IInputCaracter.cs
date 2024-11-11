@@ -11,6 +11,8 @@ namespace PlayerDescription
 
         public bool IsRun { get; }
 
+        public bool IsCrouch { get; }
+
         public Vector3 Move(Transform source, out bool isMove);
 
         public bool Space();

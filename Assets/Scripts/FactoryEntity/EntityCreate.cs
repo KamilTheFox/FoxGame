@@ -22,6 +22,10 @@ using FactoryEntity;
             entity.GetEngine.Stationary = entity.isStatic;
             entity.GetEngine.Layer = 1 << entity.GetPrefab.layer;
         }
+        else if(_enum.GetType().Name != nameof(EffectItem))
+        {
+            Debug.LogWarning("EntityCreateFailed");
+        }
         return entity;
         }
         public static IEntityCreated GetEntity(Enum _enum, Transform parent, bool isStatic = true)

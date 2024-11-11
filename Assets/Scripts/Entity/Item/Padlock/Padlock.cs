@@ -72,10 +72,10 @@ public class Padlock : ItemEngine, ILocking, ITakenEntity, IInteractive, IDropEn
     }
     void ILocking.Lock()
     {
-        if(Key.GetCountKey(typeKey) == 0)
-            AddItem(Enum.Parse<TypeItem>(Enum.GetNames(typeof(TypeItem))
-                    .ToList().Where(name => name.Contains("Key" + typeKey.ToString())).ToArray()[0]),
-                    Transform.position + Transform.forward, Quaternion.identity, false).transform.localScale = Transform.localScale;
+        //if(Key.GetCountKey(typeKey) == 0)
+        //    AddItem(Enum.Parse<TypeItem>(Enum.GetNames(typeof(TypeItem))
+        //            .ToList().Where(name => name.Contains("Key" + typeKey.ToString())).ToArray()[0]),
+        //            Transform.position + Transform.forward, Quaternion.identity, false).transform.localScale = Transform.localScale;
         Transform.GetChild(0).localPosition = positionLockers;
         isLock = true;
         Rigidbody.isKinematic = true;
@@ -96,11 +96,12 @@ public class Padlock : ItemEngine, ILocking, ITakenEntity, IInteractive, IDropEn
         if (isLock) return;
         
         ILockable lockable;
-        if (Physics.Raycast(Transform.position + Transform.forward * 0.2F, Transform.forward * -1, out RaycastHit hit, 0.4F, MasksProject.RigidEntity))
+        foreach(RaycastHit hit in Physics.RaycastAll(Transform.position + Transform.forward * 0.4F, -Transform.forward, 0.5F, MasksProject.RigidEntity))
         {
             if ((lockable = hit.collider.gameObject.GetComponentInParent<ILockable>()) != null)
             {
                 lockable.Lock(this);
+                break;
             }
         }
     }

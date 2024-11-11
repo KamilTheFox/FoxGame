@@ -34,5 +34,7 @@
     Bed,
     Banana,
     Melon,
-    Pineapple
+    Pineapple,
+    Scrap,
+    Sword
 }

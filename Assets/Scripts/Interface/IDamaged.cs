@@ -1,5 +1,5 @@
 ﻿
-internal interface IDamaged : IDiesing
+public interface IDamaged : IDiesing
 {
     float Health { get; }
 

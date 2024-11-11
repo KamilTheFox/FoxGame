@@ -23,7 +23,6 @@ namespace CameraScripts
         {
             foreach(var renderer in transform.parent.gameObject.GetComponentsInChildren<Renderer>())
             {
-
                 renderer.shadowCastingMode = ShadowOnly ? UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly : UnityEngine.Rendering.ShadowCastingMode.On;
             }
         }

@@ -78,8 +78,10 @@ namespace Tweener
                     continue;
                 materials.ToList().ForEach(material =>
                 {
-                    if (material.color.a != color.a)
+                    if (color.a != material.color.a)
+                    {
                         material.ToFadeMode();
+                    }
                     string name = material.name + material.GetInstanceID() + " tag_material";
 
                     TweenColors.Add(name, new InfoTweenColor<Material>()

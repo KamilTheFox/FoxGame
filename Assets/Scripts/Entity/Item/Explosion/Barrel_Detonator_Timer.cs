@@ -14,9 +14,4 @@ public class Barrel_Detonator_Timer : Barrel_Detonator
     public override float TimeDetonate => timerDetonator.StartTime;
 
     private TimerDetonator timerDetonator;
-    public override void OnBatchDistanceCalculated(bool enable)
-    {
-        base.OnBatchDistanceCalculated(enable);
-        timerDetonator.ActivateCanvas = enable;
-    }
 }

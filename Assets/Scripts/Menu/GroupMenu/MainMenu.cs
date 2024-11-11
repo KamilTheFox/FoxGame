@@ -57,7 +57,7 @@ namespace GroupMenu
             toggle.OnValueChanged
                 ( (value) => StartMode = value ? GameState.TypeModeGame.Creative : GameState.TypeModeGame.Adventure);
 
-            toggle.Component.isOn = false;
+            toggle.Component.isOn = true;
 
             MenuUI<Button>.Create("Exit", GetTransform(), LText.Exit, AutoRect: true).OnClick(Menu.ExitGame);
 

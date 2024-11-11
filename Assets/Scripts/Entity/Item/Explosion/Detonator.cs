@@ -54,10 +54,15 @@ public abstract class Detonator : ItemEngine, IInteractive
         }
     }
     public void Diactivate() => isActivate = false;
-    void ExplosionForce (Rigidbody rb , float ForceDelta = 1F)
+    void ExplosionForce (Rigidbody rb, float ForceDelta = 1F, IAppliedExplosionForce explosionForce = null)
     {
         if (!rb) return;
-        rb.AddExplosionForce(Force / 3 / ForceDelta, Transform.position, Radius * (float)(6F / 3 * 1.2F));
+        float force = Force / 3 / ForceDelta;
+        Vector3 center = Transform.position;
+        float radius = Radius * (float)(6F / 3 * 1.2F);
+        rb.AddExplosionForce(force, center, radius);
+        if (explosionForce != null)
+            explosionForce.SetExplosionForce(force, center, radius);
     }
     private Collider[] OverlapSphere(LayerMask layer, float Radius)
     {
@@ -65,11 +70,12 @@ public abstract class Detonator : ItemEngine, IInteractive
     }
 
     static List<IDiesing> diesings = new();
-    static List<IExplosionDamage> explosionDamage = new();
+    static List<IExplosionDamaged> explosionDamage = new();
     static List<EntityEngine> Items = new();
 
     void Explosion()
     {
+        if (gameObject.activeSelf) return;
         Destroy(GetEffect(ExplosionEffect, Transform.position), 8F);
         SoundMeneger.PlayPoint(SoundMeneger.Sounds.Explosion, Transform.position, true , Volume).pitch = UnityEngine.Random.Range(0.8F,1.2F);
 
@@ -101,11 +107,33 @@ public abstract class Detonator : ItemEngine, IInteractive
                     rb = item.Rigidbody;
                 else
                     rb = colliders[i].GetComponentInParent<Rigidbody>();
-            Vector3 pointHit = colliders[i].ClosestPoint(transform.position);
+
+            Vector3 pointHit = colliders[i].transform.position;
+
+            MeshCollider mesh = colliders[i] as MeshCollider;
+
+            if (mesh && !mesh.convex || mesh != null)
+            {
+                pointHit = colliders[i].ClosestPoint(transform.position);
+            }
 
             float distance = Vector3.Distance(transform.position, pointHit);
 
             IDiesing Alive = colliders[i].GetComponentInParent<IDiesing>();
+
+            IAppliedExplosionForce appForce = null;
+
+            if(Alive is IAppliedExplosionForce force)
+            {
+                appForce = force;
+            }
+            else if (item is IAppliedExplosionForce force2)
+            {
+                appForce = force2;
+            }
+
+            ExplosionForce(rb, explosionForce: appForce);
+
             bool isDeath = diesings.Contains(Alive);
             diesings.Remove(Alive);
             if (Alive != null && isDeath)
@@ -118,7 +146,7 @@ public abstract class Detonator : ItemEngine, IInteractive
                 if (ThicknessWall < 1.5)
                 {
                     Alive.Death();
-                    if(Alive is IExplosionDamage damage)
+                    if (Alive is IExplosionDamaged damage)
                         damage.Explosion(distance);
                 }
             }
@@ -133,16 +161,14 @@ public abstract class Detonator : ItemEngine, IInteractive
                         Detonators.Delete(Detonate);
                     else
                         Detonators.InteractionTimeActivation(Detonate);
-                    ExplosionForce(rb, 5F);
                     continue;
                 }
                 else if (item is not IDiesing)
                     item.Delete();
-                if(item is IExplosionDamage damageExp)
+                if (item is IExplosionDamaged damageExp)
                     damageExp.Explosion(distance);
             }
             Items.Remove(item);
-            ExplosionForce(rb);
         }
     }
 

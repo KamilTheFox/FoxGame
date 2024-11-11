@@ -80,11 +80,16 @@ namespace AIInput
         }
         private void Update()
         {
-            if (targetVector == null || Character.IsDie) return;
+            if (Character.IsDie) return;
+            if (targetVector == null)
+            {
+                AISeeWorld.TargetLookEyes.position = new Ray(Character.Head.position, Character.Transform.forward).GetPoint(4f);
+                return;
+            }
+            else
+                AISeeWorld.TargetLookEyes.position = targetVector.Value + Vector3.up;
 
-            AISeeWorld.TargetLookEyes.position = new Ray(Character.Head.position, Character.Transform.forward).GetPoint(4f);
-
-            //CalculationOfShortPath();
+            CalculationOfShortPath();
             CalculationPathNavMeshAndLink();
 
         }
@@ -203,7 +208,7 @@ namespace AIInput
 
             Vector3 ForwardSide = medianNormal * -1f;
 
-            if(Physics.Raycast(new Ray(median + ForwardSide + Vector3.up * 1.5f, Vector3.down), out RaycastHit hit, 2f, MasksProject.RigidObject,QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(new Ray(median + ForwardSide + Vector3.up * 1.5f, Vector3.down), out RaycastHit hit, 2f, MasksProject.RigidObject, QueryTriggerInteraction.Ignore))
             {
                 NavMeshLink link = AILinkPool.GetFreeLink();
 
@@ -255,6 +260,15 @@ namespace AIInput
             NavMesh.CalculatePath(GetPointForFloor(startPointPath), GetPointForFloor(endPointPath), NavMesh.AllAreas, navPath);
             status = navPath.status;
             var list = navPath.corners.ToList();
+            for(int i = 0; i < list.Count() - 1; i++)
+            {
+                if(Vector3.Distance(Character.transform.position, list[i]) > Vector3.Distance(Character.transform.position, list[i + 1]))
+                {
+                    list.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+            }
             return list.GetEnumerator();
         }
         private float DistancePath(IEnumerator<Vector3> path)
@@ -283,6 +297,7 @@ namespace AIInput
         public override void Disable()
         {
             GameObject.Destroy(AISeeWorld.TargetLookEyes.gameObject);
+            Character.AnimatorInput.OnCompletedClimbing -= OnCompletedClimbing;
             Character.StopCoroutine(updateAICoroutine);
         }
 
@@ -292,26 +307,43 @@ namespace AIInput
             meshLinks = new();
             var obj = new GameObject("TargetLookEyesAI");
             obj.transform.SetParent(Character.Transform);
+            Character.AnimatorInput.OnCompletedClimbing += OnCompletedClimbing;
             AISeeWorld.TargetLookEyes = obj.transform;
             navMeshPathsCalculate = new();
             updateAICoroutine = UpdateAI();
             Character.StartCoroutine(updateAICoroutine);
         }
-
+        private void OnCompletedClimbing()
+        {
+            CalculateClimbingPathAddLink();
+        }
+        public override bool Space()
+        {
+            bool isSpase = CurrentSpace;
+            CurrentSpace = false;
+            return isSpase;
+        }
         protected override Vector3 Move(Transform source)
         {
             Vector3 velosity = Vector3.zero;
             if (targetVector == null || path == null || targetPath == null)
                 goto Continue;
+            if (CurrentSpace)
+                return Character.Transform.forward;
+            if (Character.CharacterInput.isSwim && Character.CharacterInput.IsEdgePlaneClimbing)
+            {
+                CurrentSpace = true;
+                return Character.Transform.forward;
+            }
 
             if (Vector3.Distance(ZeroY(CurrentPosition), ZeroY(targetPath.Value)) < minDistanceNextPoint)
             {
-                if(path.MoveNext())
+                if (path.MoveNext())
                 {
                     targetPath = (Vector3)path.Current;
                 }
             }
-            if(Vector3.Distance(ZeroY(CurrentPosition), ZeroY(targetVector.Value)) < DistanceStopToTarget)
+            if (Vector3.Distance(ZeroY(CurrentPosition), ZeroY(targetVector.Value)) < DistanceStopToTarget)
             {
                 ClearAllTargets();
                 goto Continue;
@@ -322,7 +354,7 @@ namespace AIInput
 
             velosity = source.forward;
 
-            Continue:
+Continue:
             Vector3 VectorRejection = AvoidOthers();
             Vector3 сorrection = Vector3.Lerp(velosity, VectorRejection, 0.5F);
             velosity += сorrection;

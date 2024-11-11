@@ -86,20 +86,17 @@ namespace AIInput
             way = _way;
             SetStepWay(0);
             stepAtWay = step / way.DistanceWay;
-            sourse.IntroducingCaracter = this;
+            sourse.IntroducingCharacter = this;
         }
         public void ReversePlay()
         {
             way.ReverseWay();
-            bool isCompleted = GetCurrentStep >= 1f;
             Initialize(way);
-            if(!isCompleted)
-                SetStepWay(1F-GetCurrentStep);
             AddToCompleted(way.ReverseWay);
         }
         public void DeInitialize()
-        { 
-            sourse.IntroducingCaracter = null;
+        {
+            sourse.IntroducingCharacter = null;
             ClearToComplited();
         }
         public void AddToCompleted(Action completed)
@@ -112,6 +109,8 @@ namespace AIInput
             ToComplited.AddListener(DeInitialize);
         }
         [field: SerializeField] public bool IsRun { get; set; }
+
+        public bool IsCrouch => false;
 
         public bool Space()
         {
@@ -130,7 +129,7 @@ namespace AIInput
         private void CalculatePathNextPoint()
         {
             currentTargetPosition = BezierWay.GetPositionInProgress(way, currentStepAtWay + stepAtWay).Item1;
-            if(sourse.isSwim)
+            if (sourse.isSwim)
             {
                 TargetPositionPath = currentTargetPosition;
                 return;
@@ -144,7 +143,7 @@ namespace AIInput
         }
         public Vector3 Move(Transform source, out bool isMove)
         {
-            if (way == null)
+            if (way == null || currentStepAtWay >= 1f)
             {
                 isMove = false;
                 return Vector3.zero;
@@ -155,23 +154,22 @@ namespace AIInput
             {
                 CalculatePathNextPoint();
             }
-            
             if (Vector3.Distance(new Vector3(source.position.x, 0, source.position.z), new Vector3(currentTargetPosition.x, 0, currentTargetPosition.z)) < minDistanceNextPoint)
                 NextStepWay();
             if (Vector3.Distance(new Vector3(source.position.x, 0, source.position.z), new Vector3(TargetPositionPath.x, 0, TargetPositionPath.z)) < minDistanceNextPoint)
             {
-                if(PointsPath.MoveNext())
+                if (PointsPath.MoveNext())
                     TargetPositionPath = (Vector3)PointsPath.Current;
             }
 
             direction = Quaternion.LookRotation(transform.position - TargetPositionPath, Vector3.up).eulerAngles;
             body.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
 
-            
-
-            if (currentStepAtWay > 1F)
+            if (currentStepAtWay >= 1F)
             {
                 ToComplited?.Invoke();
+                isMove = false;
+                return Vector3.zero;
             }
             return transform.forward;
         }

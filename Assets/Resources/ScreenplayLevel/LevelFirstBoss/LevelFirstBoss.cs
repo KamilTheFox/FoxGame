@@ -21,7 +21,7 @@ namespace ScreenplayLevel
 
         private MenuUI<Text> WinLoseText;
 
-        public class ThirdPersonViewTop : IViewedCamera
+        public class ThirdPersonViewTop : IViewedCamera, IInputCaracter
         {
             private CharacterBody Player;
             private CameraControll _camera;
@@ -36,6 +36,7 @@ namespace ScreenplayLevel
             public ThirdPersonViewTop(CameraControll camera, CharacterBody _Player)
             {
                 Player = _Player;
+                camera.EntranceBody(Player.gameObject);
                 _camera = camera;
             }
             public Vector3 RotateBody()
@@ -76,9 +77,29 @@ namespace ScreenplayLevel
             {
                 ThirdObject = new GameObject("ThirdObject");
                 Player.CharacterInput.ForwardTransform = ThirdObject.transform;
+                Player.ClearInteractEntity();
                 _camera.transform.SetParent(null);
                 _camera.Transform.localPosition = Vector3.zero;
                 _camera.Transform.localEulerAngles = Vector3.zero;
+            }
+
+            public bool IsRun => Input.GetKey(KeyCode.LeftShift);
+
+            public bool IsCrouch => false;
+
+            bool IInputCaracter.Space()
+            {
+                return Player.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+            }
+
+            bool IInputCaracter.Shift()
+            {
+                return IsRun;
+            }
+
+            Vector3 IInputCaracter.Move(Transform source, out bool isMove)
+            {
+                return MovementMode.WASD(source, 1F, out isMove, true);
             }
         }
         private class HealthPlayer : IDiesing
@@ -156,15 +177,28 @@ namespace ScreenplayLevel
         {
             Menu.CurrentPauseMenu = new MenuWinLose();
             CameraControll controll = CameraControll.instance;
-            controll.ChangeViewPerson(new ThirdPersonViewTop(controll, controll.CPlayerBody));
-            controll.CPlayerBody.UniqueDeathscenario = new HealthPlayer(controll.CPlayerBody, healthPlayer, (count => { imageUI.SetText(count.ToString()); }));
+            var inputView = new ThirdPersonViewTop(controll, Player);
+            controll.ChangeViewPerson(inputView);
+            Player.CharacterInput.IntroducingCharacter = inputView;
+            Player.UniqueDeathscenario = new HealthPlayer(Player, healthPlayer, (count => { imageUI.SetText(count.ToString()); }));
             Menu.instance.hootKeys = this;
             ConstructMenuNone();
 
             Player.OnDied += Over;
+            Player.OnFell += Player_OnFell;
             EnemyBoss.DeathEnemy += Win;
 
         }
+
+        private void Player_OnFell()
+        {
+            EnemyBoss.SetMockery = true;
+            foreach (var tnt in FindObjectsOfType<Detonator>())
+            {
+                tnt.gameObject.SetActive(false);
+            }
+        }
+
         private void Win()
         {
             Menu.ActivateMenu<MenuWinLose>();

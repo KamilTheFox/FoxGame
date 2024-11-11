@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-internal interface IStriker
+public interface IStriker
 {
     GameObject gameObject { get; }
 

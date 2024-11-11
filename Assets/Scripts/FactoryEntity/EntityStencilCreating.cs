@@ -13,9 +13,20 @@ namespace FactoryEntity
         private static EntityEngineBase entityGroup;
         public static EntityEngineBase EntityGroup { get
             {
-                if (entityGroup == null && (entityGroup = GameObject.Find("Entityes").GetComponent<EntityEngineBase>()) == null)
+                if (entityGroup == null)
                 {
-                    entityGroup = new GameObject("Entityes").AddComponent<EntityEngineBase>();
+                    GameObject game = GameObject.Find("Entityes");
+                    if(game == null) 
+                        return null;
+                    entityGroup = game.GetComponent<EntityEngineBase>();
+                    if (entityGroup == null)
+                    {
+                        entityGroup = game.AddComponent<EntityEngineBase>();
+                    }
+                }
+                if(entityGroup == null)
+                {
+                    Debug.LogError("entityGroup == null");
                 }
                 return entityGroup;
             }
@@ -29,57 +40,66 @@ namespace FactoryEntity
         {
             Debug.LogWarning($"Resource not found; Path: {path}");
         }
-        public void LoadPrefab(GameObject gameObject)
+        private void CheckNullGroupEntity()
+        {
+            if (entityGroup == null)
+                entityGroup = new GameObject("Entityes").AddComponent<EntityEngineBase>();
+        }
+        public void SetParent(GameObject gameObject)
         {
             GetPrefab = gameObject;
-                if(EntityGroup)
-            GetPrefab.transform.SetParent(EntityGroup.transform);
+            if (EntityGroup)
+                GetPrefab.transform.SetParent(EntityGroup.transform);
         }
-        private GameObject LoadInResource(string path)
+        private GameObject LoadInResource(string path, bool debug = false)
         {
             GameObject game = Resources.Load<GameObject>(path);
             if (game)
                 return game;
-            DebugWarning(path);
+            if(debug)
+                DebugWarning(path);
             return null;
         }
         public EntityStencilCreating(Transform parent, bool isStatic, TypeEntity typeEntity, string Direction, string Name)
         {
+            CheckNullGroupEntity();
             _isStaticItem = isStatic;
             string path = typeEntity + "\\" + Direction + "\\";
-            GameObject obj = LoadInResource($"{path}{Name}");
+            GameObject obj = LoadInResource($"{path}{Name}", true);
             if (obj == null)
                 return;
-            LoadPrefab(Object.Instantiate(obj, parent));
+            SetParent(Object.Instantiate(obj, parent));
         }
         public EntityStencilCreating(Vector3 vector, Quaternion quaternion, bool isStatic, TypeEntity typeEntity, string Direction, string Name)
         {
+            CheckNullGroupEntity();
             _isStaticItem = isStatic;
             string path = typeEntity + "\\" + Direction + "\\";
-            GameObject obj = LoadInResource($"{path}{Name}");
+            GameObject obj = LoadInResource($"{path}{Name}", true);
             if (obj == null)
                 return;
-            LoadPrefab(Object.Instantiate(obj, vector, quaternion));
+            SetParent(Object.Instantiate(obj, vector, quaternion));
         }
         public EntityStencilCreating(Vector3 vector, Quaternion quaternion, bool isStatic, TypeEntity typeEntity, string Name)
         {
+            CheckNullGroupEntity();
             _isStaticItem = isStatic;
             string path = typeEntity + "\\";
             #region LoadInResources
-            GameObject obj = Resources.Load<GameObject>($"{path}Prefabs\\{Name}");
-            if (obj)
+            GameObject obj = LoadInResource($"{path}Prefabs\\{Name}");
+            if (obj != null)
             {
-                LoadPrefab(GameObject.Instantiate(obj, vector, quaternion));
+                SetParent(GameObject.Instantiate(obj, vector, quaternion));
                 GetPrefab.name = Name;
                 return;
             }
-            else if ((obj = Resources.Load<GameObject>($"{path}Prefabs\\EmptyProperty\\{Name}")) != null)
+            obj = LoadInResource($"{path}Prefabs\\EmptyProperty\\{Name}");
+
+            if (obj == null)
             {
-                LoadPrefab(GameObject.Instantiate(obj, vector, quaternion));
-                GetPrefab.name = Name;
+                obj = LoadInResource($"{path}Mesh\\{Name}", true);
             }
-            else
-                obj = LoadInResource($"{path}Mesh\\{Name}");
+                
 
             if (obj == null)
             {
@@ -172,7 +192,7 @@ namespace FactoryEntity
                     }
             }
 #endregion
-            LoadPrefab(obj);
+            SetParent(obj);
             GetPrefab.name = Name;
         }
     }

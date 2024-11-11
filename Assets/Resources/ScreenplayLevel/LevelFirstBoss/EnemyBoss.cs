@@ -28,6 +28,19 @@ namespace ScreenplayLevel
         [SerializeField] private Animator animator;
         public static EnemyBoss Instance { get; private set; }
 
+        public static bool SetMockery
+        {
+            set
+            {
+                if(value && Instance.isShot)
+                {
+                    Instance.isShot = false;
+                    Instance.animator.Play("Idle 0");
+                    Instance.Invoke(nameof(OffTimeOut),2F);
+                }
+            }
+        }
+
         public byte countHealth => (byte)EnemyHealth.Count;
 
         private Vector3 fromTo, fromToXZ;
@@ -96,11 +109,12 @@ namespace ScreenplayLevel
         private IEnumerator BehavourShootTNT()
         {
             yield return new WaitForSeconds(1F);
-            while (EnemyHealth.Count > 0 && isShot)
+            while (EnemyHealth.Count > 0)
             {
-                animator.transform.localEulerAngles = Vector3.zero;
-                animator.transform.localPosition = Vector3.down;
+                yield return new WaitUntil(() => isShot);
                 animator.SetTrigger("Throw");
+                animator.transform.localPosition = Vector3.zero;
+                animator.transform.localRotation = Quaternion.Euler(Vector3.zero);
                 yield return new WaitForSeconds(CooldownDrop);
             }
             yield break;
@@ -112,6 +126,10 @@ namespace ScreenplayLevel
             fromToXZ = new Vector3(fromTo.x, 0f, fromTo.z);
             Transform.rotation = Quaternion.LookRotation(fromToXZ, Vector3.up);
             SpawnTransform.localEulerAngles = new Vector3(-AngleInDegrees, 0f, 0f);
+        }
+        private void OffTimeOut()
+        {
+            isShot = true;
         }
         public void Damage(BoxEnemy box)
         {
@@ -159,12 +177,15 @@ namespace ScreenplayLevel
             newBullet.Rigidbody.AddTorque(UnityEngine.Random.rotation.eulerAngles,ForceMode.Force);
             newBullet.Interaction();
             tnt.OnCollision.AddListener(TntInteractDropLogic);
+
             foreach(Transform obj in tnt.gameObject.transform)
             {
                 obj.gameObject.layer = LayerMask.NameToLayer("Default");
             }
+
             tnt.IsDetectionModeContinuousDynamic = true;
             tnt.CancelDelete();
+
             t++;
         }
     }

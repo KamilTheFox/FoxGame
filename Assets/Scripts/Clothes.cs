@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using PlayerDescription;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -16,11 +17,8 @@ public class Clothes : MonoBehaviour
     [SerializeField] private int indexSelect;
 
     [SerializeField] private ClothesParametress ClothesParametress;
-
     [HideInInspector]
     [SerializeField] private DictionaryClothes currentSelects;
-
-    
 
     [Serializable]
     private class DictionaryClothes

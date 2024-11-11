@@ -11,8 +11,8 @@ namespace PlayerDescription
         {
             return new Bone()
             {
-                position = transform.position,
-                rotation = transform.rotation,
+                position = transform.localPosition,
+                rotation = transform.localRotation,
             };
         }
     }

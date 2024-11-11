@@ -35,15 +35,6 @@ public class GlobalUpdatesEditor : Editor
         {
             globalUpdates.PrintSummaryByMethod();
         }
-        if(GUILayout.Button("Test"))
-        {
-            long startTime = Stopwatch.GetTimestamp();
-            System.Threading.Thread.Sleep(10);
-            long endTime = Stopwatch.GetTimestamp();
-
-            double elapsedTicks = endTime - startTime;
-            UnityEngine.Debug.Log((elapsedTicks * 1000000.0) / Stopwatch.Frequency);
-        }
     }
 }
 #endif
@@ -51,6 +42,8 @@ public class GlobalUpdatesEditor : Editor
 public interface IGlobalUpdates 
 {
     GameObject gameObject { get; }
+
+    bool enabled { get; }
 
     void Update() { }
 
@@ -72,7 +65,7 @@ namespace Globals
     {
         private Dictionary<Type, PerformanceData> performanceData = new Dictionary<Type, PerformanceData>();
 
-        public struct PerformanceData
+        public class PerformanceData
         {
             public string GameObjectName;
             public string NameMethid;
@@ -97,6 +90,8 @@ namespace Globals
             }
 
             performanceData[type].AddExecution(executionTime);
+            performanceData[type].GameObjectName = global.gameObject.name;
+            performanceData[type].NameMethid = nameMethod;
         }
 
         public double GetTotalExecutionTimeForType(Type type)
@@ -183,6 +178,8 @@ namespace Globals
 
         private void Update()
         {
+            GlobalUpdatesExtension.NextUpdate?.Invoke();
+            GlobalUpdatesExtension.NextUpdate = null;
             for (int i = 0; i < globalUpdates.Count; i++)
             {
                 if (CheckDontDestroyOrActiveObject(ref i))
@@ -200,6 +197,8 @@ namespace Globals
         }
         private void FixedUpdate()
         {
+            GlobalUpdatesExtension.NextFixedUpdate?.Invoke();
+            GlobalUpdatesExtension.NextFixedUpdate = null;
             for (int i = 0; i < globalUpdates.Count; i++)
             {
                 if (CheckDontDestroyOrActiveObject(ref i))
@@ -218,6 +217,8 @@ namespace Globals
 
         private void LateUpdate()
         {
+            GlobalUpdatesExtension.NextLateUpdate?.Invoke();
+            GlobalUpdatesExtension.NextLateUpdate = null;
             for (int i = 0; i < globalUpdates.Count; i++)
             {
                 if (CheckDontDestroyOrActiveObject(ref i))
@@ -235,15 +236,19 @@ namespace Globals
         }
         private void Diagnostic(IGlobalUpdates global, string nameMethod , Action action)
         {
+            if (global.gameObject.activeSelf == false) return;
+
+            if (global.enabled == false) return;
+
             if (debugMode)
             {
                 long startTime = Stopwatch.GetTimestamp();
                 action();
                 long endTime = Stopwatch.GetTimestamp();
 
-                double elapsedTicks = endTime - startTime;
-                double elapsedMicroseconds = (elapsedTicks * 1000000.0) / Stopwatch.Frequency;
-              //  debugger.RecordPerformance(global, nameMethod, elapsedMicroseconds);
+                long elapsedTicks = endTime - startTime;
+                long elapsedMicroseconds = (elapsedTicks * 1000000) / Stopwatch.Frequency;
+                debugger.RecordPerformance(global, nameMethod, elapsedMicroseconds);
             }
             else
                 action();
@@ -266,6 +271,11 @@ namespace Globals
         {
             Instance.globalUpdates.Add(global);
         }
+        
+        public static void InsertFirstListnerUpdate(IGlobalUpdates global)
+        {
+            Instance.globalUpdates.Insert(0, global);
+        }
         private bool CheckDontDestroyOrActiveObject(ref int index)
         {
             if (globalUpdates[index] == null || !globalUpdates[index].gameObject.activeSelf)
@@ -286,8 +296,27 @@ namespace Globals
 
 public static class GlobalUpdatesExtension
 {
+    public static Action NextUpdate, NextFixedUpdate, NextLateUpdate;
+
+    public static void AddListnerNextUpdate(this Action action)
+    {
+        NextUpdate += action;
+    }
+    public static void AddListnerNextFixedUpdate(this Action action)
+    {
+        NextFixedUpdate += action;
+    }
+    public static void AddListnerNextLateUpdate(this Action action)
+    {
+        NextLateUpdate += action;
+    }
+
     public static void AddListnerUpdate(this IGlobalUpdates global)
     {
         Globals.GlobalUpdates.AddListner(global);
+    }
+    public static void InsertFirstListnerUpdate(this IGlobalUpdates global)
+    {
+        Globals.GlobalUpdates.InsertFirstListnerUpdate(global);
     }
 }

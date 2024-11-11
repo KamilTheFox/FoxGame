@@ -4,37 +4,45 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
+using PlayerDescription;
 
 namespace Assets.Editors
 {
-
-    // Кастомный редактор для всех компонентов
-    [CustomEditor(typeof(MonoBehaviour), true)]
+    [CustomEditor(typeof(MonoBehaviour), true), CanEditMultipleObjects]
     public class ButtonAttributeEditor : Editor
     {
-        public override void OnInspectorGUI()
+        private static Type targetType;
+        private IEnumerable<MethodInfo> methods;
+        public void OnEnable()
         {
-            // Отрисовываем стандартный инспектор
-            DrawDefaultInspector();
-
-            // Получаем целевой объект
-
-            var mono = target as MonoBehaviour;
-
-            // Получаем все методы с атрибутом Button
-            var methods = mono.GetType()
+            targetType = target.GetType();
+            methods = targetType
                 .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(m => m.GetCustomAttributes(typeof(ButtonAttribute), false).Length > 0);
+        }
+        
+        public Transform transform = null;
+        public override void OnInspectorGUI()
+        {
+            base.DrawDefaultInspector();
 
-            // Для каждого метода создаем кнопку
+            // Получаем тип целевого объекта
             foreach (var method in methods)
             {
-                var buttonAttr = (ButtonAttribute)method.GetCustomAttributes(typeof(ButtonAttribute), false)[0];
+                var buttonAttr = method.GetCustomAttribute<ButtonAttribute>();
                 string buttonName = string.IsNullOrEmpty(buttonAttr.ButtonName) ? method.Name : buttonAttr.ButtonName;
 
                 if (GUILayout.Button(buttonName))
                 {
-                    method.Invoke(mono, null);
+                    foreach (var targetObject in targets)
+                    {
+                        var targetMono = targetObject as MonoBehaviour;
+                        if (targetMono != null)
+                        {
+                            Undo.RecordObject(targetMono, $"Execute {buttonName}");
+                            method.Invoke(targetMono, null);
+                        }
+                    }
                 }
             }
         }

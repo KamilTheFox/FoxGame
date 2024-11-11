@@ -3,37 +3,7 @@ guid: 5ee98d27d1de0f741aeb99fab8b1df35
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BodyCoyote
-    second: {fileID: 2100000, guid: fa58f2cb569f4b049a881676d9b8294c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Claw
-    second: {fileID: 2100000, guid: 69ec5ba564c3ff14d8339060f7a34203, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyes
-    second: {fileID: 2100000, guid: 136a3ae88cd192f4f89ab9fad3b7a8f1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Jaw
-    second: {fileID: 2100000, guid: 22ee3e31af7542b4082fb44b92b9d2ec, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Teeth
-    second: {fileID: 2100000, guid: 0ec50726f4d56a649b8f31a3ec1cd711, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: tongue
-    second: {fileID: 2100000, guid: 4a7c403fbaf3aa642b10d3984cde1a0b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -272,6 +242,30 @@ ModelImporter:
         modified: 0
     - boneName: Toes.R
       humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Eye.L
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Eye.R
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Jaw
+      humanName: Jaw
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -535,7 +529,7 @@ ModelImporter:
     - name: CoyoteLowPoly
       parentName: CoyotePerson(Clone)
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: CoyoteArmature
       parentName: CoyotePerson(Clone)
@@ -575,23 +569,23 @@ ModelImporter:
     - name: Jaw
       parentName: Head
       position: {x: -1.2927635e-16, y: 0.35285807, z: 0.32301053}
-      rotation: {x: 0.8452798, y: -0.00000019108896, z: -0.0000003022953, w: 0.5343239}
-      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+      rotation: {x: 0.7523661, y: -0.0000002355854, z: -0.00000026906682, w: 0.65874517}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
     - name: UpperLip.L.002
       parentName: Jaw
-      position: {x: -0.09257468, y: 0.7027529, z: -0.035778515}
-      rotation: {x: 0.9716211, y: -0.21796241, z: -0.009948373, w: 0.09135575}
-      scale: {x: 1.0000006, y: 1.0000002, z: 1.0000001}
+      position: {x: -0.09257471, y: 0.7098521, z: -0.071944736}
+      rotation: {x: 0.9716211, y: -0.21796243, z: -0.009948369, w: 0.09135575}
+      scale: {x: 1.0000006, y: 1.0000001, z: 1}
     - name: UpperLip.L.003
       parentName: UpperLip.L.002
-      position: {x: -0.000000014901161, y: 0.22003105, z: -0.00000017229468}
-      rotation: {x: 0.09972588, y: 0.0056721037, z: 0.049658217, w: 0.99375886}
-      scale: {x: 0.9999999, y: 0.9999998, z: 1.0000001}
+      position: {x: 0.00000008940697, y: 0.22003105, z: 0.0000005289912}
+      rotation: {x: 0.0997259, y: 0.005672102, z: 0.049658228, w: 0.99375886}
+      scale: {x: 0.99999994, y: 0.99999976, z: 1}
     - name: UpperLip.L.004
       parentName: UpperLip.L.003
-      position: {x: 0.00000017881393, y: 0.23206511, z: -0.00000052247196}
-      rotation: {x: -0.006833122, y: -0.013394117, z: 0.122667685, w: 0.9923339}
-      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999994}
+      position: {x: -0.000000014901161, y: 0.23206536, z: 0.0000004945323}
+      rotation: {x: -0.006833128, y: -0.01339411, z: 0.12266772, w: 0.9923339}
+      scale: {x: 1.0000001, y: 1, z: 1}
     - name: UpperLip.L.004_end
       parentName: UpperLip.L.004
       position: {x: -0, y: 0.1935305, z: 0}
@@ -599,19 +593,19 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.R.002
       parentName: Jaw
-      position: {x: 0.09257463, y: 0.7027532, z: -0.035778172}
-      rotation: {x: 0.9716211, y: 0.21796246, z: 0.009947828, w: 0.09135563}
+      position: {x: 0.092574604, y: 0.70985216, z: -0.07194439}
+      rotation: {x: 0.9716211, y: 0.21796246, z: 0.009947825, w: 0.09135563}
       scale: {x: 1.0000002, y: 1, z: 1}
     - name: UpperLip.R.003
       parentName: UpperLip.R.002
-      position: {x: -0.000000029802322, y: 0.22003119, z: -0.00000041443855}
-      rotation: {x: 0.09972588, y: -0.005672142, z: -0.049658254, w: 0.99375886}
-      scale: {x: 0.99999976, y: 0.9999999, z: 1}
+      position: {x: -0.000000029802322, y: 0.2200309, z: 0.0000007636845}
+      rotation: {x: 0.0997259, y: -0.0056721373, z: -0.04965825, w: 0.99375886}
+      scale: {x: 0.9999999, y: 1, z: 1}
     - name: UpperLip.R.004
       parentName: UpperLip.R.003
-      position: {x: -0.00000008940697, y: 0.23206553, z: 0.00000027008355}
-      rotation: {x: -0.0068331133, y: 0.0133941, z: -0.12266775, w: 0.9923339}
-      scale: {x: 1, y: 0.99999994, z: 1}
+      position: {x: 0.000000014901161, y: 0.23206517, z: -0.0000007292256}
+      rotation: {x: -0.0068330914, y: 0.013394102, z: -0.12266775, w: 0.9923339}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
     - name: UpperLip.R.004_end
       parentName: UpperLip.R.004
       position: {x: -0, y: 0.1935305, z: 0}
@@ -629,14 +623,14 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.L
       parentName: Head
-      position: {x: -0.10526474, y: 0.4626627, z: 1.0317055}
+      position: {x: -0.10526474, y: 0.4227996, z: 1.0500213}
       rotation: {x: -0.65272987, y: 0.124935046, z: 0.2514537, w: 0.70363766}
       scale: {x: 1, y: 0.99999994, z: 0.9999999}
     - name: UpperLip.L.001
       parentName: UpperLip.L
-      position: {x: 0.000000014901161, y: 0.28899944, z: -0.00000048428774}
-      rotation: {x: -0.1782727, y: 0.05284672, z: 0.004646196, w: 0.98255}
-      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+      position: {x: 0.000000014901161, y: 0.28899944, z: 0.00000018626451}
+      rotation: {x: -0.009863107, y: -0.044103496, z: -0.034512073, w: 0.998382}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
     - name: UpperLip.L.001_end
       parentName: UpperLip.L.001
       position: {x: -0, y: 0.24462824, z: 0}
@@ -764,14 +758,14 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.R
       parentName: Head
-      position: {x: 0.10526474, y: 0.4626627, z: 1.0317055}
+      position: {x: 0.10526474, y: 0.4227996, z: 1.0500213}
       rotation: {x: -0.65272987, y: -0.124935046, z: -0.2514537, w: 0.70363766}
       scale: {x: 1, y: 0.99999994, z: 0.9999999}
     - name: UpperLip.R.001
       parentName: UpperLip.R
-      position: {x: -0.000000014901161, y: 0.28899944, z: -0.00000048428774}
-      rotation: {x: -0.1782727, y: -0.05284672, z: -0.004646196, w: 0.98255}
-      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+      position: {x: -0.000000014901161, y: 0.28899944, z: 0.00000018626451}
+      rotation: {x: -0.009863107, y: 0.044103496, z: 0.034512073, w: 0.998382}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
     - name: UpperLip.R.001_end
       parentName: UpperLip.R.001
       position: {x: -0, y: 0.24462824, z: 0}
@@ -898,33 +892,48 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Forehead
-      parentName: Bone Neck
-      position: {x: -1.2747695e-16, y: 1.6141644, z: 0.20731473}
+      parentName: Head
+      position: {x: -1.2747695e-16, y: 1.2044725, z: 0.20731473}
       rotation: {x: 0.90379685, y: 0.00000010203392, z: 0.00000021548182, w: 0.42796177}
       scale: {x: 1, y: 0.99999994, z: 0.99999964}
-    - name: Forehead_end
-      parentName: Forehead
-      position: {x: -0, y: 0.23905908, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
     - name: Forehead.L
-      parentName: Bone Neck
-      position: {x: -1.2747695e-16, y: 1.6141644, z: 0.20731473}
-      rotation: {x: -0.000000025691111, y: -0.00000003088896, z: 0.8876804, w: 0.4604601}
-      scale: {x: 0.9999999, y: 1, z: 1}
+      parentName: Forehead
+      position: {x: -2.7723914e-13, y: 0.0000005662441, z: -0.000000029802322}
+      rotation: {x: -0.4161625, y: 0.8022827, z: 0.3798933, w: 0.19705948}
+      scale: {x: 1, y: 0.9999998, z: 1}
     - name: Forehead.L_end
       parentName: Forehead.L
       position: {x: -0, y: 0.18982731, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Forehead.R
-      parentName: Bone Neck
-      position: {x: 1.2747695e-16, y: 1.6141644, z: 0.20731473}
-      rotation: {x: 0.000000025691111, y: -0.00000003088896, z: 0.8876804, w: -0.4604601}
-      scale: {x: 0.9999999, y: 1, z: 1}
+      parentName: Forehead
+      position: {x: -2.7723914e-13, y: 0.0000005662441, z: -0.000000029802322}
+      rotation: {x: 0.4161623, y: 0.8022828, z: 0.37989348, w: -0.19705912}
+      scale: {x: 0.9999999, y: 0.9999997, z: 0.9999999}
     - name: Forehead.R_end
       parentName: Forehead.R
       position: {x: -0, y: 0.18982731, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye.L
+      parentName: Head
+      position: {x: -0.26581, y: 0.7640524, z: 0.303339}
+      rotation: {x: -0.00000056254714, y: 0.7028327, z: 0.7113552, w: -0.0000005558083}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Eye.L_end
+      parentName: Eye.L
+      position: {x: -0, y: 0.29668257, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye.R
+      parentName: Head
+      position: {x: 0.26581, y: 0.7640524, z: 0.303339}
+      rotation: {x: 0.00000056254714, y: 0.7028327, z: 0.7113552, w: 0.0000005558083}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Eye.R_end
+      parentName: Eye.R
+      position: {x: -0, y: 0.29668257, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: ShoulderConnector.L

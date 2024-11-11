@@ -77,7 +77,7 @@ namespace Assets.Editors
                 EditorGUIUtility.wideMode = true;
                 EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth / 3;
             }
-            base.OnInspectorGUI();
+            DrawDefaultInspector();
 
             EditorGUI.BeginChangeCheck();
             IsMoveClick = EditorGUILayout.Toggle("Set position to Click", IsMoveClick);
@@ -92,21 +92,34 @@ namespace Assets.Editors
             
             if (GUILayout.Button("Apply position to Terrain"))
             {
-                Ray ray = new Ray(Instanse.position, Vector3.down);
-                if (Physics.Raycast(ray, out RaycastHit Hit))
+                if(targets.Length > 1)
+                {
+                    foreach (var target in targets)
+                    {
+                        Transform transform = (Transform)target;
+                        Ray ray = new Ray(transform.position, Vector3.down);
+                        if (Physics.Raycast(ray, out RaycastHit Hit1))
+                        {
+                            Undo.RecordObject(transform, transform.gameObject.name + "Applay position to Terrain");
+                            transform.position = Hit1.point + ray.direction.normalized * 0.01F;
+                        }
+                    }
+                    return;
+                }
+                Ray ray1 = new Ray(Instanse.position, Vector3.down);
+                if (Physics.Raycast(ray1, out RaycastHit Hit))
                 {
                     Undo.RecordObject(Instanse, Instanse.gameObject.name + "Applay position to Terrain");
-                    Instanse.position = Hit.point + ray.direction.normalized * 0.01F;
+                    Instanse.position = Hit.point + ray1.direction.normalized * 0.01F;
                 }
             }
 
             if (GUILayout.Button("Random rotate"))
             {
-                Undo.RecordObject(Instanse, Instanse.name + " Random rotate");
                 if (Selection.transforms.Length > 1)
                     Selection.transforms.ToList().ForEach(t => t.rotation = Quaternion.AngleAxis(Random.Range(0F, 360), Vector3.up));
                 else
-                Instanse.rotation = Quaternion.AngleAxis(Random.Range(0F, 360), Vector3.up);
+                    Instanse.rotation = Quaternion.AngleAxis(Random.Range(0F, 360), Vector3.up);
             }
             
             EndGUI:
@@ -131,7 +144,11 @@ namespace Assets.Editors
             }
             if(GUILayout.Button("Set Scale"))
             {
-                Instanse.localScale = Vector3.one * (IsRandomScale ? Random.Range(RandomMin, RandomMax) : RandomMin);
+                if (Selection.transforms.Length > 1)
+                    Selection.transforms.ToList().ForEach(t => t.localScale = Vector3.one * (IsRandomScale ? Random.Range(RandomMin, RandomMax) : RandomMin));
+                else
+                    Instanse.localScale = Vector3.one * (IsRandomScale ? Random.Range(RandomMin, RandomMax) : RandomMin);
+
             }
             GUILayout.EndHorizontal();
             if (EditorGUI.EndChangeCheck())

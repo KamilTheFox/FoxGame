@@ -49,24 +49,23 @@ public class CameraControll : MonoBehaviour
             Destroy(gameObject);
         }
         instance = this;
-
-
-
         Transform = transform;
         MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
         CameraSource = GetComponent<AudioSource>();
         CPlayerBody = GetComponentInParent<CharacterBody>();
+    }
+    private void OnEnable()
+    {
         if (CPlayerBody)
         {
             EntranceBody(CPlayerBody.gameObject);
             return;
         }
-        if(isCameraMove)
+        if (isCameraMove)
             OnFreeCamera();
         if (isCameraMove && !GameState.IsCreative)
             GiveBody();
-       
     }
     private void OnDestroy()
     {
@@ -113,8 +112,16 @@ public class CameraControll : MonoBehaviour
     public void OnThirdPerson()
     {
         Transform transform =  viewedCameraPositions.ToList().Find((t) => t.name.ToLower().Contains("thirdperson"));
-        if(transform != null)
+        if (transform != null)
             ChangeViewPerson(new ThirdPerson(this, transform));
+
+    }
+    public void OnThirdUnlookPerson()
+    {
+        if (CPlayerBody != null)
+        {
+            ChangeViewPerson(new ThirdUnlookPerson(this, CPlayerBody));
+        }
     }
     private void OnFreeCamera()
     {

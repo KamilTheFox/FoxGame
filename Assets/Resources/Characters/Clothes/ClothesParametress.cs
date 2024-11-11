@@ -40,6 +40,8 @@ public class ClothesParametress : ScriptableObject
         return t.NotCompatible.Select((y) => GetIndexOfName(y)).ToArray();
     }
 
+
+
     [ContextMenu("ReadClothes")]
     private void ReadClothes()
     {
@@ -52,7 +54,6 @@ public class ClothesParametress : ScriptableObject
         }
         clothes = clothesList.ToArray();
     }
-
 
     [Serializable]
     private class Opposition

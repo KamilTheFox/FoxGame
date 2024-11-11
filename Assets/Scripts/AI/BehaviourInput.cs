@@ -21,11 +21,13 @@ namespace AIInput
 
         [field: SerializeField] protected Vector3 CurrentTorward { private get; set; }
 
-        [field: SerializeField] protected bool CurrentSpace { private get; set; }
+        [field: SerializeField] protected bool CurrentSpace { get; set; }
 
         public abstract void Enable();
 
         public abstract void Disable();
+
+        public bool IsCrouch => false;
 
         protected abstract Vector3 Move(Transform source);
 
@@ -36,11 +38,9 @@ namespace AIInput
             return torward;
         }
 
-        public bool Space()
+        public virtual bool Space()
         {
-            bool isSpace = CurrentSpace;
-            CurrentSpace = false;
-            return isSpace;
+            return CurrentSpace;
 
         }
     }

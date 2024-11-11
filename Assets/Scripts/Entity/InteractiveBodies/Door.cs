@@ -19,7 +19,7 @@ namespace InteractiveBodies
         }
         [SerializeField] private GameObject locker;
 
-        [SerializeField] private Vector3 OpenEuler = new Vector3(0,90,0);
+        [SerializeField] private Vector3 OpenEuler = new Vector3(0,-90,0);
         public bool IsClosed 
         {
             get
@@ -31,7 +31,7 @@ namespace InteractiveBodies
                 isClosed = value;
                 if(!value)
                     locked = null;
-                Tween.AddRotation(Transform, OpenEuler * (value ? 1F : -1F))
+                Tween.AddRotation(Transform, OpenEuler * (!value ? 1F : -1F))
                 .ChangeEase(Ease.CubicRoot);
             }
         }

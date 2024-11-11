@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3617058112257849897}
   - component: {fileID: 694502127275311396}
   m_Layer: 4
-  m_Name: GameObject (1)
+  m_Name: Motor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +98,8 @@ MonoBehaviour:
   speedLimitArchimedes: 2
   speedArchimedes: 1
   triggerCollider: {fileID: 694502127275311398}
+  course: {x: -0.5, y: 0.5}
+  courseMagnitude: 0.3
 --- !u!114 &3617058112257849897
 MonoBehaviour:
   m_ObjectHideFlags: 0

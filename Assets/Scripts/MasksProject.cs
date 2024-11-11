@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
     public static class MasksProject
     {
-        public static LayerMask Default => LayerMask.GetMask(new string[] { "Default" });
+        public static LayerMask All => LayerMask.GetMask("Default", "NotClimbinding", "Entity", "Terrain", "IntangibleEntity", "Player", "SkinPlayer");
+        public static LayerMask Default => LayerMask.GetMask("Default", "NotClimbinding");
+        public static LayerMask Water => LayerMask.GetMask("Water");
+        public static LayerMask RigidObject => LayerMask.GetMask("Default" , "Terrain", "Entity", "NotClimbinding");
 
-        public static LayerMask Water => LayerMask.GetMask(new string[] { "Water" });
-        public static LayerMask RigidObject => LayerMask.GetMask(new string[] { "Default" , "Terrain", "Entity" });
+        public static LayerMask Climbinding => LayerMask.GetMask("Default", "Terrain");
 
-        public static LayerMask Terrain => LayerMask.GetMask(new string[] { "Terrain", "Default" });
-
+        public static LayerMask Terrain => LayerMask.GetMask("Terrain", "Default", "NotClimbinding");
+    
         public static LayerMask RigidEntity => LayerMask.GetMask(new string[] { "Entity", "IntangibleEntity" });
 
         public static LayerMask Entity => LayerMask.NameToLayer("Entity");

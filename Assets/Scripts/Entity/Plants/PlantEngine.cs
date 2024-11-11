@@ -2,11 +2,11 @@
 using System.Linq;
 using UnityEngine;
 using Tweener;
+using System;
 
 public class PlantEngine : EntityEngine, IDiesing
 {
-
-    [SerializeField] private SpriteRenderer objectSimplePlant;
+    private SpriteRenderer objectSimplePlant;
 
     private MeshRenderer[] meshRenderers;
 
@@ -24,13 +24,7 @@ public class PlantEngine : EntityEngine, IDiesing
     {
         get
         {
-#if UNITY_EDITOR
-            return GameObject.FindObjectsOfType<PlantEngine>();
-#else
-            List<PlantEngine> itemEngines = new List<PlantEngine>();
-            Entities[TypeEntity.Plant].ForEach(engine => { if (engine is PlantEngine plant) { itemEngines.Add(plant); } });
-            return itemEngines.ToArray();
-#endif
+            return Base[TypeEntity.Plant].Select(plant => (PlantEngine)plant).ToArray();
         }
     }
 
@@ -43,65 +37,44 @@ public class PlantEngine : EntityEngine, IDiesing
     protected override void OnAwake()
     {
         base.OnAwake();
-        EnableDistanceVersion(false);
-        distanceOrder = Settings.DrawingRangePlant;
+        if (IsLittlePlant(typePlant))
+            rendererBuffer.IsGenerateSprite = false;
+        else
+            ((Action)rendererBuffer.GenerateLODSprite).AddListnerNextUpdate();
     }
-    [ContextMenu("GenerateSimpleVersion")]
+
+    //Устаревшее. Использовать не валидно
     private void GenerateSimpleVersion()
     {
         objectSimplePlant = new GameObject("SimpleVersion").AddComponent<SpriteRenderer>();
         objectSimplePlant.sprite = DistanceVersion;
         Bounds spriteBound = objectSimplePlant.bounds;
-        Bounds bounds = GetMinMaxBoundsPlant();
+        Bounds bounds = GetEncapsulateBoundsPlant();
         objectSimplePlant.transform.position = bounds.center;
         Vector3 Divise = Division(spriteBound.size, bounds.size);
         Vector3 newScale = transform.localScale - Divise + objectSimplePlant.transform.localScale;
         objectSimplePlant.transform.localScale = newScale * 1.15F;
         objectSimplePlant.transform.SetParent(transform);
     }
-    public void EnableDistanceVersion(bool enabled = true)
-    {
-        if (DistanceVersion == null)
-            return;
-        if (objectSimplePlant == null)
-        {
-            GenerateSimpleVersion();
-        }
-        if (objectSimplePlant.gameObject.activeSelf == enabled)
-            return;
-        objectSimplePlant.gameObject.SetActive(enabled);
-        foreach(MeshRenderer meshes in MeshRenderers)
-        {
-            if(meshes != null)
-            meshes.gameObject.SetActive(!enabled);
-        }
-    }
     private Vector3 Division(Vector3 value1 ,Vector3 value2)
     {
         return new Vector3(value1.x / value2.x, value1.y / value2.y, value1.z / value2.z);
     }
-    private Bounds GetMinMaxBoundsPlant()
+    private Bounds GetEncapsulateBoundsPlant()
     {
         Bounds bounds = new Bounds();
         foreach (MeshRenderer renderer in MeshRenderers)
         {
-            Vector3 min = renderer.bounds.min;
-            Vector3 max = renderer.bounds.max;
-            bounds.max += max;
-            bounds.min += min;
+            bounds.Encapsulate(renderer.bounds);
         }
-        bounds.max /= meshRenderers.Length;
-        bounds.min /= meshRenderers.Length;
         return bounds;
     }
-    public override void OnBatchDistanceCalculated(bool enable)
+    public bool IsLittlePlant(TypePlant type)
     {
-        if (objectSimplePlant == null)
-            return;
-        Vector3 target = CameraControll.instance.transform.position;
-        EnableDistanceVersion(!enable);
-        target = new Vector3 (target.x, objectSimplePlant.transform.position.y, target.z);
-        objectSimplePlant.transform.LookAt(target, Vector3.up);
+        return new List<TypePlant>()
+        {
+            TypePlant.Agaric_Mushroom,TypePlant.Nasty_Mushroom,TypePlant.White_Mushroom
+        }.Contains(type);
     }
     public static PlantEngine AddPlant(TypePlant plant, Vector3 vector, Quaternion quaternion)
     {

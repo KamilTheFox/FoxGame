@@ -17,9 +17,4 @@ public class TNT_3_Timer : TNT_3
 
     private TimerDetonator timerDetonator;
 
-    public override void OnBatchDistanceCalculated(bool enable)
-    {
-        base.OnBatchDistanceCalculated(enable);
-        timerDetonator.ActivateCanvas = enable;
-    }
 }

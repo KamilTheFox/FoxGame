@@ -26,6 +26,15 @@ namespace FactoryEntity
                 RandomSeze = new RandomSize(0.1F, 0.17F),
                 Mass = 3F
             },
+            [TypeItem.Scrap] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(1.8F),
+                Mass = 10F
+            },
+            [TypeItem.Sword] = new InfoItem()
+            {
+                Mass = 10F
+            },
             [TypeItem.Banana] = new InfoItem()
             {
                 RandomSeze = new RandomSize(0.1F, 0.2F),
@@ -33,6 +42,7 @@ namespace FactoryEntity
             },
             [TypeItem.Basket] = new InfoItem()
             {
+                EngineComponent = typeof(Container),
                 Mass = 2F
             },
             [TypeItem.Barrel] = new InfoItem()

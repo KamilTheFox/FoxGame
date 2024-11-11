@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace PlayerDescription
         private const float SmoothDelay = 2F;
 
         private Animator animator;
-        public Animator Animator
+        public Animator AnimatorHuman
         {
             get 
             {   if(animator == null)
@@ -27,7 +28,23 @@ namespace PlayerDescription
                 return animator; 
             }
         }
+        [SerializeField] public Animator AnimatorCustom { get; private set; }
+
         private CharacterBody pBody;
+
+        private UnityEvent onCompletedClimbing = new();
+
+        public event Action OnCompletedClimbing
+        {
+            add
+            {
+                onCompletedClimbing.AddListener(value.Invoke);
+            }
+            remove
+            {
+                onCompletedClimbing.RemoveListener(value.Invoke);
+            }
+        }
 
         public CharacterBody PBody 
         {
@@ -42,7 +59,13 @@ namespace PlayerDescription
 
         private BaseAnimate[] baseAnimates;
 
+        private List<IEnumerator> smoothChangeCorrutine;
+
+        public float WeightArm { get; set; }
+
         public CharacterInput InputC => PBody.CharacterInput;
+
+        [SerializeField] private float сorrectClimbinding;
 
         private SkinnedMeshRenderer skinnedMeshRenderer;
 
@@ -54,15 +77,15 @@ namespace PlayerDescription
         {
             get
             {
-                return Animator.applyRootMotion;
+                return AnimatorHuman.applyRootMotion;
             }
             set
             {
-                Animator.applyRootMotion = value;
-                if (!Animator.applyRootMotion)
+                AnimatorHuman.applyRootMotion = value;
+                if (!AnimatorHuman.applyRootMotion)
                 {
-                    Animator.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                    Animator.transform.localPosition = Vector3.zero;
+                    AnimatorHuman.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                    AnimatorHuman.transform.localPosition = Vector3.zero;
                 }
             }
         }
@@ -119,7 +142,7 @@ namespace PlayerDescription
 
         public void AddListenerIK(ITrackIK iK)
         {
-            if (iK == null) return;
+            if (iK == null || interceptionOnIK == null || interceptionOnIK.onAnimatorIK == null) return;
             interceptionOnIK.onAnimatorIK.AddListener(iK.OnIK);
         }
         public void RemoveListenerIK(ITrackIK iK)
@@ -129,60 +152,86 @@ namespace PlayerDescription
         }
         public bool IsPlayStateAnimator(TypeAnimation animation)
         {
-            return Animator.GetCurrentAnimatorStateInfo(0).IsName(animation.ToString());
+            return AnimatorHuman.GetCurrentAnimatorStateInfo(0).IsName(animation.ToString());
+        }
+        public bool IsPlayStateAnimator(string animation)
+        {
+            return AnimatorHuman.GetCurrentAnimatorStateInfo(0).IsName(animation);
         }
         public void SetTrigger(TypeAnimation animation)
         {
-            Animator.SetTrigger(animation.ToString());
+            AnimatorHuman.SetTrigger(animation.ToString());
         }
         public void SetBool(TypeAnimation animation, bool target)
         {
-            Animator.SetBool(animation.ToString(), target);
+            AnimatorHuman.SetBool(animation.ToString(), target);
         }
         public void PlayForced(TypeAnimation animation)
         {
-            Animator.Play(animation.ToString());
+            AnimatorHuman.Play(animation.ToString());
         }
         private void ApplayRootFalseClimbing()
         {
-            InputC.Transform.position = Animator.transform.position;
-            InputC.Transform.rotation = Animator.transform.rotation;
+            InputC.Transform.position = AnimatorHuman.transform.position;
+            InputC.Transform.rotation = AnimatorHuman.transform.rotation;
             applyRootMotion = false;
-            if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+            PBody.Rigidbody.isKinematic = false;
+            if (CameraControll.instance.IsPlayerControll(PBody))
             {
-                CameraControll.instance.OnFirstPerson();
+                if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+                {
+                    CameraControll.instance.OnFirstPerson();
+                }
             }
+            onCompletedClimbing.Invoke();
         }
         public void OnAwake()
         {
-
-            AvatarPositionDefault = Animator.transform.localPosition;
+            AvatarPositionDefault = AnimatorHuman.transform.localPosition;
 
             ResetBlandShapes();
-            interceptionOnIK = Animator.gameObject.AddComponent<InterceptionOnIK>();
+            interceptionOnIK = AnimatorHuman.gameObject.AddComponent<InterceptionOnIK>();
             interceptionOnIK.PBody = PBody;
 
             baseAnimates = new BaseAnimate[]
             {
-                new AnimationStendUp(this)
+                new AnimationStendUp(this),
+                new AnimationAttack(this),
+                new AnimationTook(this),
+                new AnimationDrop(this),
             };
+
+            smoothChangeCorrutine = new();
+
+            smoothChangeCorrutine.AddRange(new IEnumerator[AnimatorHuman.layerCount]);
 
             InputC.eventInput.EventMovement += MoveAnimate;
 
-            InputC.eventInput[TypeAnimation.Jump].AddListener(() => SetTrigger(TypeAnimation.Jump));
+            InputC.eventInput[TypeAnimation.Jump].AddListener(() =>
+            {
+                SetTrigger(TypeAnimation.Jump);
+            });
 
             InputC.eventInput[TypeAnimation.Climbing].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Climbing)) return;
-                if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+                if (CameraControll.instance.IsPlayerControll(PBody))
                 {
-                    CameraControll.instance.transform.SetParent(PBody.Head);
+                    if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+                    {
+                        CameraControll.instance.transform.SetParent(PBody.Head);
+                    }
                 }
+
                 applyRootMotion = true;
-                Animator.transform.position = Animator.transform.position + Animator.transform.forward * 0.05f + Vector3.up * 0.15f;
+                PBody.Rigidbody.isKinematic = true;
+                AnimatorHuman.transform.position = AnimatorHuman.transform.position + AnimatorHuman.transform.forward * 0.05f + Vector3.up * 0.15f * сorrectClimbinding;
+                Vector3 position = PBody.transform.position;
+                PBody.transform.position = new Vector3(position.x, InputC.PointEdgePlaneClimbing.point.y - 1.38F, position.z);
                 PBody.Rigidbody.velocity = Vector3.zero;
+
                 SetTrigger(TypeAnimation.Climbing);
-                Invoke(nameof(ApplayRootFalseClimbing), 3F);
+                Invoke(nameof(ApplayRootFalseClimbing), 2F);
             });
 
             InputC.eventInput[TypeAnimation.Fall].AddListener(() =>
@@ -193,20 +242,30 @@ namespace PlayerDescription
 
             InputC.eventInput[TypeAnimation.Swimming].AddListener(() =>
             {
-                Animator.SetTrigger("Swimming");
-                Animator.ResetTrigger("DontSwimming");
+                AnimatorHuman.SetTrigger("Swimming");
+                AnimatorHuman.ResetTrigger("DontSwimming");
             });
 
             InputC.eventInput[TypeAnimation.DontSwimming].AddListener(() =>
             {
-                Animator.SetTrigger("DontSwimming");
+                AnimatorHuman.SetTrigger("DontSwimming");
+            });
+
+
+
+            InputC.eventInput[TypeAnimation.Crouch].AddListener(Crouch);
+
+            InputC.AddFuncStopMovement(() =>
+            {
+                AnimatorStateInfo stateInfo = AnimatorHuman.GetCurrentAnimatorStateInfo(0);
+                return stateInfo.IsName("StartCrouch") || stateInfo.IsName("EndCrouch");
             });
 
 
             InputC.eventInput[TypeAnimation.Landing].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Landing)) return;
-                    SetBool(TypeAnimation.Landing, InputC._isGrounded);
+                SetBool(TypeAnimation.Landing, InputC._isGrounded);
             });
             InputC.eventInput[TypeAnimation.Fly].AddListener(() =>
             {
@@ -224,6 +283,44 @@ namespace PlayerDescription
             //interceptionOnIK.onAnimatorIK.AddListener(OnAnimatorIK);
         }
 
+        private void Crouch()
+        {
+            if (InputC.isSwim) return;
+            if (InputC.isPressCrouch)
+            {
+                if (!AnimatorHuman.GetBool("IsCrouch"))
+                {
+                    CancelInvoke(nameof(TimeOutResetCrouch));
+                    AnimatorHuman.SetTrigger("Crouch");
+                    AnimatorHuman.SetBool("IsCrouch", true);
+                    InputC.isCrouch = true;
+                    float height = InputC.CharacterCollider.height;
+                    InputC.CharacterCollider.height = height * (2f / 3f);
+                    InputC.CharacterCollider.center -= new Vector3(0, height * (1f / 6f), 0);
+                    return;
+                }
+                
+            }
+            else if(AnimatorHuman.GetBool("IsCrouch"))
+            {
+                if(!InputC.CanStandUp())
+                {
+                    return;
+                }
+                AnimatorHuman.ResetTrigger("Crouch");
+                Invoke(nameof(TimeOutResetCrouch),1f);
+                float height = InputC.CharacterCollider.height;
+                InputC.CharacterCollider.height = height * 1.5f;
+                InputC.CharacterCollider.center += new Vector3(0, height * 0.25f, 0);
+                AnimatorHuman.SetBool("IsCrouch", false);
+            }
+        }
+        private void TimeOutResetCrouch()
+        {
+            InputC.isCrouch = false;
+        }
+        
+
         public void OnDisable()
         {
             interceptionOnIK.onAnimatorIK.RemoveAllListeners();
@@ -239,10 +336,10 @@ namespace PlayerDescription
         {
             if (!move || direction.magnitude < 0.01)
             {
-                Animator.SetInteger("Speed", 0);
+                AnimatorHuman.SetInteger("Speed", 0);
                 velositySmoothAnimation = Vector3.zero;
-                Animator.SetFloat("RunForward", 0);
-                Animator.SetFloat("RunRight", 0);
+                AnimatorHuman.SetFloat("RunForward", 0);
+                AnimatorHuman.SetFloat("RunRight", 0);
                 return;
             }
             int Speed = 2;
@@ -252,12 +349,12 @@ namespace PlayerDescription
             }
             directionSmooth = Vector3Int.RoundToInt(transform.InverseTransformDirection(direction).normalized);
 
-            Animator.SetInteger("Speed", Speed);
+            AnimatorHuman.SetInteger("Speed", Speed);
 
-            Animator.SetFloat("RunForward", velositySmoothAnimation.x);
-            Animator.SetFloat("RunRight", velositySmoothAnimation.z);
+            AnimatorHuman.SetFloat("RunForward", velositySmoothAnimation.x);
+            AnimatorHuman.SetFloat("RunRight", velositySmoothAnimation.z);
 
-            Animator.SetFloat("UpDown", velositySmoothAnimation.y);
+            AnimatorHuman.SetFloat("UpDown", velositySmoothAnimation.y);
 
             velositySmoothAnimation = Vector3.Lerp(velositySmoothAnimation, new Vector3(directionSmooth.z, directionSmooth.y, directionSmooth.x), Time.fixedDeltaTime * SmoothDelay);
         }
@@ -282,12 +379,38 @@ namespace PlayerDescription
             }
             yield break;
         }
+        public void SmoothWeightChange(int Layer, float targetWeight, float duration = 1F)
+        {
+            if (smoothChangeCorrutine[Layer] != null)
+            {
+                StopCoroutine(smoothChangeCorrutine[Layer]);
+            }
+            IEnumerator enumerator = smoothWeightChange(Layer, targetWeight, duration);
+            StartCoroutine(enumerator);
+            smoothChangeCorrutine[Layer] = enumerator;
+        }
+        private IEnumerator smoothWeightChange(int Layer ,float targetWeight, float duration = 1F)
+        {
+            float currentWeight = animator.GetLayerWeight(Layer);
+            float elapsed = 0f;
 
-        public void StartUniqueAnimation<T>() where T : BaseAnimate
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float newWeight = Mathf.Lerp(currentWeight, targetWeight, elapsed / duration);
+                animator.SetLayerWeight(Layer, newWeight);
+                yield return null;
+            }
+            animator.SetLayerWeight(Layer, targetWeight);
+            smoothChangeCorrutine[Layer] = null;
+        }
+
+        public T StartUniqueAnimation<T>() where T : BaseAnimate
         {
             BaseAnimate animate = baseAnimates.FirstOrDefault(x => x is T);
-            if(animate != null)
+            if (animate != null)
                 animate.StartAnimation();
+            return (T)animate;
         }
         
         
