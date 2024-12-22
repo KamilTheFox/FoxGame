@@ -41,7 +41,7 @@ public class ClothesParametress : ScriptableObject
     }
 
 
-
+    [Button("ReadClothes")]
     [ContextMenu("ReadClothes")]
     private void ReadClothes()
     {

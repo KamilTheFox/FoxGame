@@ -149,6 +149,7 @@ namespace PlayerDescription
 
                 if(hand == null)
                 {
+                    Debug.Log("Null Hand");
                     ItemThrow();
                 }
 

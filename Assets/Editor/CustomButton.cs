@@ -8,7 +8,7 @@ using PlayerDescription;
 
 namespace Assets.Editors
 {
-    [CustomEditor(typeof(MonoBehaviour), true), CanEditMultipleObjects]
+    [CustomEditor(typeof(UnityEngine.Object), true), CanEditMultipleObjects]
     public class ButtonAttributeEditor : Editor
     {
         private static Type targetType;
@@ -18,7 +18,8 @@ namespace Assets.Editors
             targetType = target.GetType();
             methods = targetType
                 .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => m.GetCustomAttributes(typeof(ButtonAttribute), false).Length > 0);
+                .Where(m => m.GetCustomAttributes(typeof(ButtonAttribute), false).Length > 0)
+                .OrderBy(m => m.GetCustomAttribute<ButtonAttribute>().Order);
         }
         
         public Transform transform = null;

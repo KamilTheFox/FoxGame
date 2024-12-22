@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Scripts\SoundZone.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\VignetteComponent.cs" />
+    <Compile Include="Assets\Resources\Тест\Motorcycle.cs" />
     <Compile Include="Assets\Scripts\SoundMeneger.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TimerDetonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
