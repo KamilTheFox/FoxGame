@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-
+using System.Linq;
 
 public class Barrel_Detonator_Timer : Barrel_Detonator
 {
     protected override void OnAwake()
     {
-        Transform timer = Transform.Find("Timer");
+        Transform timer = Transform.FirstToLowerPrefix("timer");
         timerDetonator = timer.gameObject.AddComponent<TimerDetonator>();
 
         timerDetonator.Initialized(this);

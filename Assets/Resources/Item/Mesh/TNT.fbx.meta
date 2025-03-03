@@ -3,7 +3,12 @@ guid: 7100e8f8920b53c418fb9d6c46da8afb
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TNT_4Shader
+    second: {fileID: 2100000, guid: c0cae7d757e8d2e4d920f498666ab84c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -34,7 +39,9 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0

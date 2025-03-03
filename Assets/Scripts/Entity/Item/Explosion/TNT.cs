@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VulpesTool;
 
 public class TNT : Detonator, ITakenEntity, IDropEntity
 {

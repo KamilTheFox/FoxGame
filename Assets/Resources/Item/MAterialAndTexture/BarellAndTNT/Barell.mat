@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Barell
+  m_Shader: {fileID: 4800000, guid: 9e4af4e7eb643b545875d393e46b8004, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _USEBLACKTEXTURE_ON
+  - _USEGREENTEXTURE_ON
+  - _USEREDTEXTURE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BlackAlbedo:
+        m_Texture: {fileID: 2800000, guid: ac1e435ec74cd284a95c796245396148, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlackEmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlackNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlueAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlueEmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlueNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GreenAlbedo:
+        m_Texture: {fileID: 2800000, guid: bceb8bcd6edf4c24ba5a8e671d6da7f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GreenEmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GreenNormal:
+        m_Texture: {fileID: 2800000, guid: 8e44058db613e054092ab26d65e34897, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 2800000, guid: 4c4ed3a4e38eb6444a1a9f84e406fc31, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RedAlbedo:
+        m_Texture: {fileID: 2800000, guid: ec54fa101a9151a43acaf3242da057bc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RedEmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RedNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionCube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BlackMetallic: 0
+    - _BlackReflectionIntensity: 1
+    - _BlackSmoothness: 0
+    - _BlueMetallic: 0.869
+    - _BlueReflectionIntensity: 1
+    - _BlueSmoothness: 0.517
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _FresnelPower: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GreenMetallic: 0
+    - _GreenReflectionIntensity: 1
+    - _GreenSmoothness: 0.5
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _RedMetallic: 0
+    - _RedReflectionIntensity: 1
+    - _RedSmoothness: 0
+    - _ReflectionIntensity: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _UseBlackEmission: 0
+    - _UseBlackTexture: 1
+    - _UseBlueEmission: 0
+    - _UseBlueTexture: 0
+    - _UseCustomReflection: 0
+    - _UseGreenEmission: 0
+    - _UseGreenTexture: 1
+    - _UseRedEmission: 0
+    - _UseRedTexture: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BlackColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BlackEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _BlackTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _BlueColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
+    - _BlueEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _BlueTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GreenColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GreenEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _GreenTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _RedColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RedEmission: {r: 0, g: 0, b: 0, a: 1}
+    - _RedTiling: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []

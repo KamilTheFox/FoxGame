@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.Events;
+using VulpesTool;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,7 +13,7 @@ using UnityEditor;
 namespace PlayerDescription
 {
     [RequireComponent(typeof(CharacterInput))]
-    public class AnimatorCharacterInput : MonoBehaviour
+    public class AnimatorCharacterInput : VulpesMonoBehaviour
     {
         private const float SmoothDelay = 2F;
 
@@ -28,7 +26,7 @@ namespace PlayerDescription
                 return animator; 
             }
         }
-        [SerializeField] public Animator AnimatorCustom { get; private set; }
+        public Animator AnimatorCustom { get; private set; }
 
         private CharacterBody pBody;
 
@@ -97,7 +95,7 @@ namespace PlayerDescription
                 if(skinnedMeshRenderer == null)
                 {
                     skinnedMeshRenderer = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>().ToList()
-                    .Find(find => find.name.ToLower().Contains("mainskin"));
+                    .Find(find => find.name.ToLower().Contains("mainskin") && find.gameObject.activeSelf);
                     if (skinnedMeshRenderer == null)
                         Debug.LogError("Don't Find Object Reference MainSkin, You may have forgotten to rename the main skin");
                 }
@@ -109,6 +107,21 @@ namespace PlayerDescription
 
         [SerializeField] private string[] BlandShapes;
 
+        [VulpesTool.SelectImplementation]
+        [SerializeReference]
+        private List<IAdditionalAnimate> additionalAnimates = new List<IAdditionalAnimate>();
+
+        [SerializeField] private AnimationCurve blinkCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+        Vector3Int directionSmooth;
+
+        private Vector3 velositySmoothAnimation = Vector3.zero;
+
+        private bool isBlinking;
+
+        IEnumerator blinkingRoutineProcess;
+
+
         private class InterceptionOnIK : MonoBehaviour
         {
             public UnityEvent onAnimatorIK = new UnityEvent();
@@ -119,7 +132,7 @@ namespace PlayerDescription
                     onAnimatorIK.Invoke();
             }
         }
-        [ContextMenu("ResetBlandShapes")]
+        [Button("ResetBlandShapes", color: ColorsGUI.PastelRed)]
         private void ResetBlandShapes()
         {
             if (SkinnedMeshRenderer == null)
@@ -188,6 +201,8 @@ namespace PlayerDescription
         public void OnAwake()
         {
             AvatarPositionDefault = AnimatorHuman.transform.localPosition;
+
+            AnimatorHuman.Play("Idle01",0, UnityEngine.Random.Range(0f,1f));
 
             ResetBlandShapes();
             interceptionOnIK = AnimatorHuman.gameObject.AddComponent<InterceptionOnIK>();
@@ -281,8 +296,26 @@ namespace PlayerDescription
                 return  IsPlayStateAnimator(TypeAnimation.Climbing) || applyRootMotion;
             });
             //interceptionOnIK.onAnimatorIK.AddListener(OnAnimatorIK);
+            CreateAdditionalAnimate();
+            pBody.OnDied += OnDisableAdditionAnimate;
+            StartBlinking();
         }
-
+        
+        private void CreateAdditionalAnimate()
+        {
+            foreach (var additionalAnimate in additionalAnimates)
+            {
+                additionalAnimate.Initialize(this);
+            }
+        }
+        private void ClearAdditionalAnimate()
+        {
+            pBody.OnDied -= ClearAdditionalAnimate;
+            foreach (var additionalAnimate in additionalAnimates)
+            {
+                additionalAnimate.OnDestroy();
+            }
+        }
         private void Crouch()
         {
             if (InputC.isSwim) return;
@@ -314,24 +347,39 @@ namespace PlayerDescription
                 InputC.CharacterCollider.center += new Vector3(0, height * 0.25f, 0);
                 AnimatorHuman.SetBool("IsCrouch", false);
             }
+            
         }
         private void TimeOutResetCrouch()
         {
             InputC.isCrouch = false;
         }
-        
+        private void OnEnable()
+        {
+            foreach (var additionalAnimate in additionalAnimates)
+            {
+                additionalAnimate.Enable = true;
+            }
+        }
+
+        private void OnDisableAdditionAnimate()
+        {
+            foreach (var additionalAnimate in additionalAnimates)
+            {
+                additionalAnimate.Enable = false;
+            }
+        }
 
         public void OnDisable()
         {
+            OnDisableAdditionAnimate();
             interceptionOnIK.onAnimatorIK.RemoveAllListeners();
         }
 
-        [SerializeField] Vector3Int directionSmooth;
-        [SerializeField] Vector3 farvardLo, farvardNorm;
+        private void OnDestroy()
+        {
+            ClearAdditionalAnimate();
+        }
 
-        [SerializeField] Vector3 vector;
-
-        private Vector3 velositySmoothAnimation = Vector3.zero;
         private void MoveAnimate(Vector3 direction, bool move)
         {
             if (!move || direction.magnitude < 0.01)
@@ -369,15 +417,58 @@ namespace PlayerDescription
         private IEnumerator BlinkingEyesSmooth(float value)
         {
             int indexBlinkingEyes = BlandShapes.ToList().IndexOf("BlinkingEyes");
-            if(indexBlinkingEyes < 0) yield break;
+            if (indexBlinkingEyes < 0) yield break;
             float lerp = 0F;
+            float startValue = SkinnedMeshRenderer.GetBlendShapeWeight(indexBlinkingEyes);
+
             while (lerp < 1F)
             {
-                lerp += Time.deltaTime / 10;
-                SkinnedMeshRenderer.SetBlendShapeWeight(indexBlinkingEyes, Vector2.Lerp(Vector2.right * SkinnedMeshRenderer.GetBlendShapeWeight(indexBlinkingEyes), Vector2.right * value, lerp).x);
+                lerp += Time.deltaTime * 5f;
+                float curveValue = blinkCurve.Evaluate(lerp);
+                SkinnedMeshRenderer.SetBlendShapeWeight(
+                    indexBlinkingEyes,
+                    Mathf.Lerp(startValue, value, curveValue)
+                );
                 yield return null;
             }
-            yield break;
+        }
+        
+        public void StartBlinking()
+        {
+            if (!isBlinking)
+            {
+                blinkingRoutineProcess = BlinkingRoutine();
+                StartCoroutine(blinkingRoutineProcess);
+            }
+        }
+        public void StopBlinking()
+        {
+            if (blinkingRoutineProcess == null) return;
+            StopCoroutine(blinkingRoutineProcess);
+            isBlinking = false;
+            BlinkingEyes(0f);
+        }
+        private IEnumerator BlinkingRoutine()
+        {
+            isBlinking = true;
+
+            while (!pBody.IsDie) 
+            {
+                yield return new WaitForSeconds(UnityEngine.Random.Range(2f, 5f));
+
+                if (pBody.IsDie) break; 
+
+                yield return BlinkingEyesSmooth(100f);
+
+                if (pBody.IsDie) break;
+
+                yield return BlinkingEyesSmooth(0f);
+            }
+            if (pBody.IsDie)
+            {
+                yield return BlinkingEyesSmooth(100f); 
+            }
+            isBlinking = false;
         }
         public void SmoothWeightChange(int Layer, float targetWeight, float duration = 1F)
         {
@@ -412,8 +503,7 @@ namespace PlayerDescription
                 animate.StartAnimation();
             return (T)animate;
         }
-        
-        
+
         public void Happy()
         {
             base.StartCoroutine(HappyEyesSmooth());
@@ -447,5 +537,26 @@ namespace PlayerDescription
         {
             StartUniqueAnimation<AnimationStendUp>();
         }
+#if UNITY_EDITOR
+        private Vector2 scrollPosition;
+        [CreateGUI(title: "AdditionalAnimate",color: ColorsGUI.SuccessGreen,group: "Additional Animate Controls")]
+        private void ConfigurableAdditionalAnimate()
+        {
+            GUILayout.BeginScrollView(scrollPosition);
+            for (int i = 0; i < additionalAnimates.Count; i++)
+            {
+                if (additionalAnimates[i] == null) continue;
+                GUILayout.BeginHorizontal();
+                additionalAnimates[i].Enable = GUILayout.Toggle(additionalAnimates[i].Enable ,$"Elem {i}: {additionalAnimates[i].Name}");
+                if(GUILayout.Button("Reset"))
+                {
+                    additionalAnimates[i].Reset();
+                }
+                GUILayout.EndHorizontal();
+                additionalAnimates[i].OnGUI();
+            }
+            GUILayout.EndScrollView();
+        }
+#endif
     }
 }

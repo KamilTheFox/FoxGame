@@ -10,6 +10,6 @@ namespace AIInput
 
         void OnJobCompleteNextFrame() { }
 
-        bool IsRunning { get; }
+        bool CanThink { get; }
     }
 }

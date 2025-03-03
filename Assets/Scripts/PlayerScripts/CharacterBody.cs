@@ -93,6 +93,8 @@ namespace PlayerDescription
 
         private ViewInteractEntity interactEntity;
 
+        public ViewInteractEntity InteractEntity => interactEntity;
+
         private UnityEvent onDied = new UnityEvent();
 
         private UnityEvent onFell = new UnityEvent();
@@ -104,10 +106,6 @@ namespace PlayerDescription
         public bool debug;
 
         public bool talkingTargetInteractEntity = true;
-
-        [SerializeField] private RendererBuffer rendererBuffer;
-
-        private const float SMOTH_DELAY = 50f;
 
 
         public event UnityAction OnDied
@@ -147,11 +145,6 @@ namespace PlayerDescription
         [SerializeField]
         private bool _isItemController;
 
-        private void OnDestroy()
-        {
-            OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
-            rendererBuffer.Dispose();
-        }
 
         public float RecommendedHeight
         {
@@ -196,13 +189,8 @@ namespace PlayerDescription
         {
             this.AddListnerUpdate();
 
-            rendererBuffer = new RendererBuffer(gameObject);
-            OptimizedRenderer.AddRendererBuffer(rendererBuffer);
-
             AnimatorInput.OnAwake();
             CharacterInput.OnAwake();
-            
-            rendererBuffer.IsDynamicSprite = true;
 
             _isItemController = gameObject.layer == MasksProject.Entity;
 
@@ -258,7 +246,6 @@ namespace PlayerDescription
             }
             CharacterInput.IntroducingCharacter = new InputDefault(this);
             interactEntity = new ViewInteractEntity(transform, this);
-            OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
         }
         public void ExitPlayerControll(CameraControll camera)
         {
@@ -272,7 +259,6 @@ namespace PlayerDescription
             CharacterInput.IntroducingCharacter = null;
             camera.Transform.parent = null;
             ClearInteractEntity();
-            OptimizedRenderer.AddRendererBuffer(rendererBuffer);
         }
         public void ResetTargetLook()
         {
@@ -393,7 +379,7 @@ namespace PlayerDescription
                 tacking.BodyWeight = 0.35f;
                 tacking.ClampWeight = 0.5f;
                 tacking.EyesWeight = 1f;
-                tacking.HeadWeight = 0.9f;
+                tacking.HeadWeight = 0.75f;
             }
             private CharacterBody input;
 

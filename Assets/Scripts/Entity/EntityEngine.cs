@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using FactoryEntity;
+using VulpesTool;
+
 [SelectionBase, DisallowMultipleComponent]
-public abstract class EntityEngine : MonoBehaviour, IAtWater
+public abstract class EntityEngine : VulpesMonoBehaviour, IAtWater
 {
     public float distanceOrder = 100f;
 
@@ -28,13 +30,12 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
             layer = value;
         }
     }
+
     public abstract TypeEntity typeEntity { get; }
     public bool IsItem => typeEntity == TypeEntity.Item;
     public bool IsAnimal => typeEntity == TypeEntity.Animal;
     public bool IsPlant => typeEntity == TypeEntity.Plant;
     public EntityEngine GetEngine => this;
-
-    public RendererBuffer rendererBuffer;
 
     private IMoveablePlatform platform;
 
@@ -69,10 +70,8 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
     private void OnDestroy()
     {
         if (typeEntity != TypeEntity.InteractiveBody)
-            if(Base != null)
+            if (Base != null)
                 Base[typeEntity].Remove(this);
-        OptimizedRenderer.RemoveRendererBuffer(rendererBuffer);
-        rendererBuffer.Dispose();
         onDestroy();
     }
     private void Awake()
@@ -81,8 +80,6 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
         if (typeEntity != TypeEntity.InteractiveBody)
             if (Base != null)
                 Base[typeEntity].Add(this);
-        rendererBuffer = new RendererBuffer(gameObject);
-        OptimizedRenderer.AddRendererBuffer(rendererBuffer);
         OnAwake();
     }
     private void Start()
@@ -99,12 +96,14 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
     {
         CancelInvoke("DestroyInvoke");
     }
-    
+
+
     public virtual void Delete(float time = 0F)
     {
         if (gameObject != null)
             Invoke("DestroyInvoke", time);
     }
+
     private void DestroyInvoke()
     {
         Destroy(gameObject);
@@ -114,14 +113,9 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
         return typeEntity.ToString().GetTextUI();
     }
 
-    protected T GetResources<T>(TypeFolderEntity nameFolder,string nameFile) where T : Component
-    {
-        return Resources.Load<T>(typeEntity + $"\\{nameFolder}\\{nameFile}");
-    }
-
     public virtual void OnCollisionEnter(Collision collision)
     {
-        if(Vector3.Angle(collision.contacts[0].normal, Vector3.up) < 45)
+        if (Vector3.Angle(collision.contacts[0].normal, Vector3.up) < 45)
             if ((platform = collision.gameObject.GetComponent<IMoveablePlatform>()) != null)
             {
                 onSetMoveblePlatform.Invoke(true);
@@ -152,5 +146,29 @@ public abstract class EntityEngine : MonoBehaviour, IAtWater
     public virtual void ExitWater()
     {
         isSwim = false;
+    }
+    [CreateGUI(title: "Info Item", color: ColorsGUI.InfoBlue)]
+    private void CustomEditorGUI()
+    {
+        GUIStyle gUI = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
+        GUILayout.Label("Stationary: " + this.Stationary + "; Type Entity: " + this.typeEntity.ToString(), gUI);
+        if (this is AnimalEngine engine)
+        {
+            GUILayout.Label($"TypeAnimal: {engine.TypeAnimal}", gUI);
+            GUILayout.Label($"AI: {engine.NameAI} / Behavior: {engine.Behavior}", gUI);
+            GUILayout.Label($"All Animal: {AnimalEngine.AnimalList.Count}", gUI);
+        }
+        if (this is ItemEngine Item)
+        {
+            GUILayout.Label($"TypeItem: {Item.itemType}", gUI);
+            if (Item.isController)
+                GUILayout.Label($"IsPlayerController", gUI);
+            GUILayout.Label($"All Item: {ItemEngine.GetItems.Length}", gUI);
+        }
+        if (this is PlantEngine plant)
+        {
+            GUILayout.Label($"TypePlant: {plant.typePlant}", gUI);
+            GUILayout.Label($"All Plant: {PlantEngine.GetPlants.Length}", gUI);
+        }
     }
 }

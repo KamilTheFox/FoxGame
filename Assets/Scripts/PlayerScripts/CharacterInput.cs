@@ -286,7 +286,7 @@ goEnd:
         private void CalculateEdgePlaneClimbing()
         {
             if (!isSwim && !IsClimbinding) return;
-            Ray rayCheckPlane = new Ray(transform.position + transform.up * 2F + transform.forward * CharacterCollider.radius * 1.2F, Vector3.down * 1.1F);
+            Ray rayCheckPlane = new Ray(transform.position + transform.up * 2F + transform.forward * CharacterCollider.radius * 1.35F, Vector3.down * 1.1F);
             Debug.DrawRay(rayCheckPlane.origin, rayCheckPlane.direction);
             IsEdgePlaneClimbing = Physics.Raycast(rayCheckPlane, out RaycastHit hit, 1.3f, MasksProject.Climbinding, QueryTriggerInteraction.Ignore);
             if (hit.rigidbody != null)
@@ -382,11 +382,11 @@ goEnd:
         {
             VelosityDefaultDirection = direction.normalized;
 
-            direction = DirectionFromSrface(direction);
+            direction = DirectionFromSrface(direction).normalized;
 
             bool isWall = CheckWall(direction);
 
-            if (!isSteirs && IsMaxAngleSurface && IsDirectionInverseNormal(direction, normalSurfaces) || isWall)
+            if (!isSteirs && IsMaxAngleSurface && !IsDirectionInverseNormal(direction, normalSurfaces) || isWall)
             {
                 isMove = false;
                 direction = Vector3.zero;
@@ -423,6 +423,7 @@ goEnd:
                     }
                 }
             }
+            
             float speed = (isRun ? SpeedRun : Speed);
             if(isCrouch)
             {
@@ -451,7 +452,7 @@ goEnd:
 
             float VelosityUp = Velosity.y;
 
-            if ((UseGravity || !_isContactsFoot) && !isSwim)
+            if ((UseGravity || !_isContactsFoot) && !isSwim || isWall)
             {
                 VelosityUp = Rigidbody.velocity.y;
             }
@@ -481,34 +482,57 @@ goEnd:
         private Vector3 DirectionFromSrface(Vector3 direction)
         {
             Vector3 localNormalSurfase = normalSurfaces;
-            if (contacts != null && contactsFoot != null && contacts.Count + contactsFoot.Count > 0 && contactPointsAll.Count > 0)
+
+            if (contacts != null && contactsFoot != null &&
+                contacts.Count + contactsFoot.Count > 0 &&
+                contactPointsAll.Count > 0)
             {
                 Vector3 point = contactPointsAll[0].point;
                 float y = transform.InverseTransformPoint(point).y;
-                float maxY = stepSteirs;
-                float minY = 0.01F;
-                if (y < maxY && y > minY)
-                {
-                    RaycastHit hit;
-                    if (Physics.Raycast(point + Vector3.up * 0.7F + direction.normalized * Speed * Time.fixedDeltaTime, Vector3.down, out hit, 1F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore))
-                    {
-                        if (Vector3.Angle(hit.normal, normalSurfaces) > 2F)
-                        {
-                            localNormalSurfase = contactPointsAll[0].normal;
-                            if (!contactsFoot.Contains(contactPointsAll[0]))
-                            {
-                                contactsFoot.Insert(0, contactPointsAll[0]);
-                            }
-                            Debug.DrawRay(point, localNormalSurfase, Color.yellow);
-                            isSteirs = true;
-                            Rigidbody.useGravity = false;
-                        }
-                        else
-                            isSteirs = false;
-                    }
 
+                if (y < stepSteirs && y > 0.01F)
+                {
+                    // Делаем один каст сверху
+                    RaycastHit hit;
+                    if (Physics.Raycast(
+                        point + Vector3.up * 0.7F + direction.normalized * Speed * Time.fixedDeltaTime,
+                        Vector3.down,
+                        out hit,
+                        1F,
+                        MasksProject.RigidObject,
+                        QueryTriggerInteraction.Ignore))
+                    {
+                        float surfaceAngle = Vector3.Angle(hit.normal, Vector3.up);
+
+                        isSteirs = false;
+                        if(isDrawDebug)
+                        {
+                            Debug.DrawRay(hit.point, hit.normal,Color.red);
+                        }
+
+                        normalSurfaces = hit.normal;
+
+                        angleSurface = (int)surfaceAngle;
+
+                        if (surfaceAngle < 90 - MaxAngleMove)
+                        {
+                            float angleDifference = Vector3.Angle(hit.normal, contactPointsAll[0].normal);
+
+                            if (angleDifference > 2F)
+                            {
+                                localNormalSurfase = contactPointsAll[0].normal;
+                                if (!contactsFoot.Contains(contactPointsAll[0]))
+                                {
+                                    contactsFoot.Insert(0, contactPointsAll[0]);
+                                }
+                                isSteirs = true;
+                                Rigidbody.useGravity = false;
+                            }
+                        }
+                    }
                 }
             }
+
             return direction - Vector3.Dot(direction, localNormalSurfase) * localNormalSurfase;
         }
         private void TrySpace()
@@ -551,6 +575,8 @@ endTryJump:
         {
             if (_isContactsFoot == false)
                 CalculateGroundCast();
+            else if (Rigidbody.velocity.y <= 0.1f)
+                isJumping = false;
 
             ClearContactAndNormal();
 
@@ -579,7 +605,6 @@ endTryJump:
             TrySpace();
             eventInput.eventMovement.Invoke(VelosityDefaultDirection, isMove);
         }
-
 
         private bool CheckWall(Vector3 direction)
         {
@@ -771,11 +796,10 @@ retContinue:
             startJump = isSwim = false;
         }
 
-
+        [SerializeField] private bool isDrawDebug;
 
 #if UNITY_EDITOR
         #region Debug
-        [SerializeField] private bool isDrawDebug;
 
         private void OnDrawGizmos()
         {

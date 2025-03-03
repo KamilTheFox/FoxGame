@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using PlayerDescription;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
+using VulpesTool;
 
-public class Clothes : MonoBehaviour
+public class Clothes : VulpesMonoBehaviour
 {
     [SerializeField] private int[] startPutOn;
     
     [SerializeField] private SkinnedMeshRenderer mainMeshRenderer;
 
+    //[ButtonField(nameof(Select), buttonText: "Select", ColorsGUI.Green, ButtonPosition.Left, isChangeScene: true)]
+    [HideInInspector]
     [SerializeField] private int indexSelect;
 
     [SerializeField] private ClothesParametress ClothesParametress;
@@ -50,7 +47,7 @@ public class Clothes : MonoBehaviour
     }
 
 
-    [Button("ResetList")]
+    [Button("ResetList", isChangeScene: true)]
     private void Reset()
     {
         if (currentSelects != null)
@@ -58,7 +55,8 @@ public class Clothes : MonoBehaviour
             foreach (var mesh in currentSelects.Values)
             {
 #if UNITY_EDITOR
-                DestroyImmediate(mesh.gameObject);
+                if(mesh != null)
+                    DestroyImmediate(mesh.gameObject);
 #else
                 Destroy(mesh.gameObject);
 #endif
@@ -66,10 +64,6 @@ public class Clothes : MonoBehaviour
             currentSelects.Clear();
         }
 
-#if UNITY_EDITOR 
-        if(!Application.isPlaying && PrefabUtility.IsPartOfAnyPrefab(gameObject))
-            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
-#endif
     }
     private void Awake()
     {
@@ -79,15 +73,23 @@ public class Clothes : MonoBehaviour
         }
     }
 #if UNITY_EDITOR
-    [Button("Select Clothes to Index")]
     private void Select()
     {
         SelectClothes(indexSelect);
-        if (!Application.isPlaying)
-            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
+    }
+    [CreateGUI(title: "Select", group: "SelectClothes",color: ColorsGUI.SuccessGreen)]
+    private void SelectClothesGUI()
+    {
+        foreach(var nameCloth in ClothesParametress.GetNameClothes())
+        {
+            int currentIndex = ClothesParametress.GetIndexOfName(nameCloth);
+            if (GUILayout.Button($"{nameCloth}: " + IsActiveClothes(currentIndex)))
+            {
+                SelectClothes(currentIndex);
+            }
+        }
     }
 #endif
-    
     public bool IsActiveClothes(int indexClothes)
     {
         if (ClothesParametress.Count - 1 < indexClothes || indexClothes < 0)
@@ -97,6 +99,8 @@ public class Clothes : MonoBehaviour
         if (currentSelects == null)
             currentSelects = new DictionaryClothes();
         if(!currentSelects.ContainsKey(indexClothes))
+            return false;
+        if (currentSelects[indexClothes] == null)
             return false;
         return currentSelects[indexClothes].gameObject.activeSelf;
     }

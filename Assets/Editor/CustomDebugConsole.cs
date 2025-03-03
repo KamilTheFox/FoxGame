@@ -8,24 +8,6 @@ using UnityEditor;
 namespace Assets.Editors
 {
 
-    [CustomEditor(typeof(DebugConsole)), CanEditMultipleObjects]
-    public class DebugConsoleEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            //base.OnInspectorGUI();
-
-            EditorGUI.BeginChangeCheck();
-
-            DebugConsole console = (DebugConsole)target;
-
-
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                EditorUtility.SetDirty(target);
-            }
-        }
-    }
+    
 
 }

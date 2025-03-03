@@ -1,7 +1,10 @@
-﻿public enum TypeItem : ushort
+﻿using VulpesTool;
+public enum TypeItem : ushort
 {
     None,
+    [EnumCategory("Еда")]
     Apple,
+    [EnumCategory("Предмет")]
     Basket,
     Barrel,
     Table_Cardboard,
@@ -15,7 +18,9 @@
     DoorLegasy,
     Bench,
     TrashCanMini,
+    [EnumCategory("Еда")]
     CocaCola,
+    [EnumCategory("Предмет")]
     Box,
     BoxMetal,
     PadlockRed,
@@ -32,9 +37,15 @@
     KeyWhite,
     Wardrobe,
     Bed,
+    [EnumCategory("Еда")]
     Banana,
     Melon,
     Pineapple,
+    [EnumCategory("Оружие")]
     Scrap,
-    Sword
+    Sword,
+    [EnumCategory("Предмет")]
+    Barrel_Content,
+    [EnumCategory("Здания")]
+    Tower_Crane
 }

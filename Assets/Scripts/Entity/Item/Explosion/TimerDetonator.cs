@@ -66,7 +66,10 @@ public class TimerDetonator : MonoBehaviour
     private static void SetUIOfTransformTimer(Transform UIRect, Canvas canvas)
     {
         Renderer rendererRect = UIRect.gameObject.GetComponent<Renderer>();
-        RectTransform Rect = GameObject.Instantiate(Resources.Load<RectTransform>($"Item\\UI\\DetonatorTimer\\{UIRect.name}"), UIRect);
+        string nameAsset = UIRect.name;
+        if (nameAsset.Contains("."))
+            nameAsset = nameAsset.Remove(nameAsset.IndexOf("."));
+        RectTransform Rect = GameObject.Instantiate(Resources.Load<RectTransform>($"Item\\UI\\DetonatorTimer\\{nameAsset}"), UIRect);
         Bounds bounds = rendererRect.bounds;
         if (rendererRect.name.Contains("Button"))
             GameObject.Destroy(rendererRect);
@@ -117,11 +120,11 @@ public class TimerDetonator : MonoBehaviour
 
         canvasUIText.worldCamera = CameraControll.MainCamera;
 
-        Button_1 = transform.Find("Button_1").gameObject.AddComponent<GameButton>();
+        Button_1 = transform.FirstToLowerPrefix("button_1").gameObject.AddComponent<GameButton>();
         SetUIOfTransformTimer(Button_1.transform, canvasUIText);
-        Button_2 = transform.Find("Button_2").gameObject.AddComponent<GameButton>();
+        Button_2 = transform.FirstToLowerPrefix("button_2").gameObject.AddComponent<GameButton>();
         SetUIOfTransformTimer(Button_2.transform, canvasUIText);
-        Button_Reset = transform.Find("Button_Reset").gameObject.AddComponent<GameButton>();
+        Button_Reset = transform.FirstToLowerPrefix("button_reset").gameObject.AddComponent<GameButton>();
         SetUIOfTransformTimer(Button_Reset.transform, canvasUIText);
 
         TextButtonReset = Button_Reset.transform.GetComponentInChildren<TMP_Text>();
@@ -132,7 +135,7 @@ public class TimerDetonator : MonoBehaviour
             .text = LText.Reset.GetTextUI().ToString();
         });
 
-        Transform Dial = transform.Find("Dial");
+        Transform Dial = transform.FirstToLowerPrefix("dial");
         SetUIOfTransformTimer(Dial, canvasUIText);
 
         textBox = Dial.GetComponentInChildren<TMP_Text>();

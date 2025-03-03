@@ -63,35 +63,49 @@ namespace AIInput
         private IEnumerator ExpectationJobHandle()
         {
             WaitForSeconds wait = new WaitForSeconds(0.07f);
-            while(true)
+
+            List<IAIOrchestrated> activeOrchestrateds = new();
+
+            while (true)
             {
                 yield return wait;
+
+                activeOrchestrateds.Clear();
+                foreach (var orchestrated in Instance.aIOrchestrateds)
                 {
-                    IAIOrchestrated[] currentOrchestrateds = Instance.aIOrchestrateds.ToArray();
-                    bool[] isRanning = Instance.aIOrchestrateds.Select(run => run.IsRunning).ToArray();
-                    jobHandles = new NativeArray<JobHandle>(currentOrchestrateds.Length, Allocator.TempJob);
-                    for (int i = 0; i < currentOrchestrateds.Length; i++)
+                    if (orchestrated != null && orchestrated.CanThink)
                     {
-                        if (isRanning[i] && currentOrchestrateds[i] != null)
-                            jobHandles[i] = currentOrchestrateds[i].ScheduleJob();
+                        activeOrchestrateds.Add(orchestrated);
                     }
-                    jobHandle = JobHandle.CombineDependencies(jobHandles);
-                    yield return new WaitUntil(() => Instance.jobHandle.IsCompleted);
-                    jobHandle.Complete();
-                    for (int i = 0; i < currentOrchestrateds.Length; i++)
-                    {
-                        if (i == currentOrchestrateds.Length / 2) yield return null;
-                        if (isRanning[i] && currentOrchestrateds[i] != null)
-                            currentOrchestrateds[i].OnJobComplete();
-                    }
-                    yield return null;
-                    for (int i = 0; i < currentOrchestrateds.Length; i++)
-                    {
-                        if (isRanning[i] && currentOrchestrateds[i] != null)
-                            currentOrchestrateds[i].OnJobCompleteNextFrame();
-                    }
-                    jobHandles.Dispose();
                 }
+
+                jobHandles = new NativeArray<JobHandle>(activeOrchestrateds.Count, Allocator.TempJob);
+
+                for (int i = 0; i < activeOrchestrateds.Count; i++)
+                {
+                    jobHandles[i] = activeOrchestrateds[i].ScheduleJob();
+                }
+
+                jobHandle = JobHandle.CombineDependencies(jobHandles);
+
+                yield return new WaitUntil(() => jobHandle.IsCompleted);
+                jobHandle.Complete();
+
+                int halfCount = activeOrchestrateds.Count / 2;
+                for (int i = 0; i < activeOrchestrateds.Count; i++)
+                {
+                    if (i == halfCount) yield return null;
+                    activeOrchestrateds[i].OnJobComplete();
+                }
+
+                yield return null;
+
+                for (int i = 0; i < activeOrchestrateds.Count; i++)
+                {
+                    activeOrchestrateds[i].OnJobCompleteNextFrame();
+                }
+
+                jobHandles.Dispose();
             }
         }
 

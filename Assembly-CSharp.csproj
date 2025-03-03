@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\NavMeshJobTest\NavmeshView.cs" />
     <Compile Include="Assets\Scripts\AI\AIBrain.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\IActivatableMenu.cs" />
+    <Compile Include="Assets\Resources\Тест\PrintForWallTest.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\EffectItem.cs" />
     <Compile Include="Assets\Scripts\Optimized\InputJobPropertyData.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Scripts\TDControl.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Entity\Item\Padlock\Padlock.cs" />
     <Compile Include="Assets\Scripts\AI\TackingIK.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\EntityCreate.cs" />
+    <Compile Include="Assets\SpawnTNT.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeFolderEntity.cs" />
     <Compile Include="Assets\Scripts\Interface\IDropEntity.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\MenuWinLose.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\Scripts\Regdoll\RegdollPlayer.cs" />
     <Compile Include="Assets\Scripts\AI\IAIOrchestrated.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\PosterTazWanted.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\ICameraCastSubscriber.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\GameButton.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\GroupPlant.cs" />
     <Compile Include="Assets\Scripts\AI\AISeeWorld.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\TimerDetonator.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomFustRun.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\AdditionalAnimates\IAdditionalAnimate.cs" />
     <Compile Include="Assets\Scripts\Debug\DebugConsole.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\BehaviourAnimateCaracter\AnimationDrop.cs" />
     <Compile Include="Assets\Scripts\AI\AIOrchestrator.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\NextLevel.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\AdditionalAnimates\BlendShapeFaceBone.cs" />
     <Compile Include="Assets\Scripts\AI\BehaviourInput.cs" />
     <Compile Include="Assets\Resources\Characters\Clothes\ClothesParametress.cs" />
     <Compile Include="Assets\Scripts\Entity\InteractiveBodies\InteractiveBody.cs" />
@@ -161,19 +166,24 @@
     <Compile Include="Assets\Scripts\Entity\Item\IWieldable.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\ThirdPerson.cs" />
     <Compile Include="Assets\Scripts\NavMeshJobTest\PathFinder.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\ICameraCastObserver.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\TypeAnimal.cs" />
     <Compile Include="Assets\Scripts\AI\AIMovement.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryCharacter.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\AdditionalAnimates\TailAnimatorDefault.cs" />
+    <Compile Include="Assets\Scripts\MoveablePlatform\ConveyorBeltPhysics.cs" />
     <Compile Include="Assets\Scripts\Menu\Holiday.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\ICustomingJump.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\ArtificialIntelligence\FoxAI.cs" />
-    <Compile Include="Assets\Resources\ScreenplayLevel\Fabric\Conveyer.cs" />
+    <Compile Include="Assets\Scripts\MoveablePlatform\ConveyorBelt.cs" />
     <Compile Include="Assets\Scripts\Entity\TypeEntity.cs" />
     <Compile Include="Assets\Scripts\Interface\IInteractive.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Apple.cs" />
+    <Compile Include="Assets\Resources\Тест\PaintedWall.cs" />
     <Compile Include="Assets\Scripts\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Optimized\GenerateSprite\GenerateLODSprite.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\MainMenuScripts\MovementAgentScripst.cs" />
+    <Compile Include="Assets\Resources\Тест\BoxTestTower.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\TaaComponent.cs" />
@@ -222,6 +232,7 @@
     <Compile Include="Assets\Scripts\SceneMenu.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\BloomComponent.cs" />
     <Compile Include="Assets\Scripts\Interface\IGlobalUpdates.cs" />
+    <Compile Include="Assets\Scripts\Entity\Item\TowerСrane.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Entity\Animal\Behaviours\RandomRun.cs" />
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Detonator.cs" />
@@ -247,7 +258,6 @@
     <Compile Include="Assets\Scripts\Entity\Item\Explosion\Barrel_Detonator.cs" />
     <Compile Include="Assets\Scripts\Interface\IHootKeys.cs" />
     <Compile Include="Assets\Scripts\Interface\IStriker.cs" />
-    <Compile Include="Assets\Scripts\Attributs\ButtonAttribute.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Models\GrainModel.cs" />
     <Compile Include="Assets\Scripts\Interface\IDropped.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Inventory.cs" />
@@ -279,6 +289,7 @@
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Runtime\Components\FogComponent.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\EnemyBoss.cs" />
     <Compile Include="Assets\Scripts\MasksProject.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\AdditionalAnimates\EarsAnimateDefault.cs" />
     <Compile Include="Assets\Scripts\Menu\GroupMenu\Lobby.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\FirstPerson.cs" />
     <Compile Include="Assets\Scripts\Entity\Plants\PlantEngine.cs" />
@@ -358,10 +369,12 @@
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\Environment\Rainbow\Materials\No Fog.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\LutGen.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
+    <None Include="Assets\Shaders\ShaderPBR.4.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\TAA.shader" />
+    <None Include="Assets\Resources\MetallConstruct\MetallShaderColor.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\TAA.cginc" />
@@ -371,6 +384,7 @@
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\ACES.cginc" />
+    <None Include="Assets\Shaders\Mask4Material.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Resources\Shaders\FXAA.shader" />
@@ -1081,9 +1095,6 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Autodesk.Fbx">
-      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -1092,6 +1103,9 @@
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Autodesk.Fbx">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
@@ -1152,6 +1166,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VulpesTool.Editor.csproj">
+      <Project>{6E14007A-8FA4-28AA-E170-DF79CFF85399}</Project>
+      <Name>VulpesTool.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="TweenerEditor.csproj">
       <Project>{146E8E25-85B5-0839-3065-1A6AC13737D8}</Project>
       <Name>TweenerEditor</Name>
@@ -1159,6 +1177,10 @@
     <ProjectReference Include="Tweener.csproj">
       <Project>{F629E610-3C16-DDDA-3925-613C229A916D}</Project>
       <Name>Tweener</Name>
+    </ProjectReference>
+    <ProjectReference Include="VulpesTool.csproj">
+      <Project>{00443A99-E062-CD6D-9587-5B9D331D770D}</Project>
+      <Name>VulpesTool</Name>
     </ProjectReference>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
       <Project>{9FBBFF9B-A8CF-1D4A-0875-EA25AD4B97D0}</Project>

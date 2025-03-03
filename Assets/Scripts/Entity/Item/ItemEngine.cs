@@ -25,9 +25,6 @@ public class ItemEngine : EntityEngine, ITakenEntity, IDropEntity
     protected override void OnAwake()
     {
         base.OnAwake();
-        rendererBuffer.IsDynamicSprite = true;
-        if(IsLittleItem(itemType))
-            rendererBuffer.IsGenerateSprite = false;
     }
 
     public static int CountItems => GetItems.Length;

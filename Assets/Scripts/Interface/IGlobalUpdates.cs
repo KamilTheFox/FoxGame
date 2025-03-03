@@ -165,7 +165,14 @@ namespace Globals
             {
                 if (!instance)
                 {
-                    instance = new GameObject(nameof(GlobalUpdates)).AddComponent<GlobalUpdates>();
+                    try
+                    {
+                        instance = new GameObject(nameof(GlobalUpdates)).AddComponent<GlobalUpdates>();
+                    }
+                    catch(Exception e)
+                    {
+                        UnityEngine.Debug.LogWarning(e.Message);
+                    }
                 }
                 return instance;
             }
@@ -271,7 +278,12 @@ namespace Globals
         {
             Instance.globalUpdates.Add(global);
         }
-        
+        public static void RemoveListner(IGlobalUpdates global)
+        {
+            if (instance == null) return;
+            Instance.globalUpdates.Remove(global);
+        }
+
         public static void InsertFirstListnerUpdate(IGlobalUpdates global)
         {
             Instance.globalUpdates.Insert(0, global);

@@ -10,7 +10,7 @@ public class TackingIK : ITrackIK
     {
         Animator = animator;
         Transform head = Animator.GetBoneTransform(HumanBodyBones.Head);
-        smoothLookPoint = head.position + head.forward * 20F + Vector3.down * 0.2F;
+        smoothLookPoint = head.position + head.forward * 100F + Vector3.down * 0.2F;
     }
     [field: SerializeField] public Animator Animator { get; set; }
 

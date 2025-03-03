@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a3eefcf682088242817aee2ef21d919
+guid: a3a5ebed1eff6da40b28338a1483514f
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -7,23 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Barrel
-    second: {fileID: 2100000, guid: e028ab1e97546304396cd550eeedd074, type: 2}
+      name: Barell
+    second: {fileID: 2100000, guid: c374e37253719e048bd5ff294270ac16, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Barrel_Metalll
-    second: {fileID: 2100000, guid: 4ba36fdad73831548a1391c640a68b1c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TNT
-    second: {fileID: 2100000, guid: 01e962c97ab75db46a0f0e0fa6962a23, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TNT_Metall
-    second: {fileID: 2100000, guid: 69ec0b113955c75499b76074d2ccafcc, type: 2}
+      name: TNT_4Shader
+    second: {fileID: 2100000, guid: c0cae7d757e8d2e4d920f498666ab84c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -54,7 +44,9 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0

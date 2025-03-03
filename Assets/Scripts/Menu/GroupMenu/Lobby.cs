@@ -45,12 +45,37 @@ namespace GroupMenu
 
                 MenuUI<Button> kein = MenuUI<Button>.Create("Kevin", group, new TextUI(() => new object[] { "Kevin" }));
 
+                Transform group2 = MenuUI<HorizontalLayoutGroup>.Create("Bodyes2", GetTransform(), LText.Null, true).gameObject.transform;
+
+                MenuUI<Button> coyot = MenuUI<Button>.Create("Coyot", group2, new TextUI(() => new object[] { "Coyot" }));
+                MenuUI<Button> coyotBiker = MenuUI<Button>.Create("Biker", group2, new TextUI(() => new object[] { "Biker" }));
+                MenuUI<Button> wolf = MenuUI<Button>.Create("Wolf", group2, new TextUI(() => new object[] { "Wolf" }));
+
+                coyotBiker.OnClick().AddListener(() =>
+                {
+                    GiveBody(6);
+                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    putOnClothes.SelectClothes(0);
+                    putOnClothes.SelectClothes(1);
+                    putOnClothes.SelectClothes(2);
+                    putOnClothes.SelectClothes(3);
+                });
+
+                coyot.OnClick().AddListener(() =>
+                {
+                    GiveBody(6);
+                });
+
+                wolf.OnClick().AddListener(() =>
+                {
+                    GiveBody(7);
+                });
+
                 GiveBodyFox.OnClick().AddListener(() =>
                 {
                     GiveBody();
                 });
 
-                
                 GiveBodyRedBot.OnClick().AddListener(() =>
                 {
                     GiveBody(1);
@@ -65,7 +90,7 @@ namespace GroupMenu
                 {
                     GiveBody(5);
                 });
-
+                
 
                 GiveBodyBDSMFox.OnClick().AddListener(() =>
                 {
@@ -162,21 +187,7 @@ namespace GroupMenu
             Transform GroupClearItems = MenuUI<HorizontalLayoutGroup>.Create("ClearItem", GetTransform(), LText.Null, true).gameObject.transform;
             CountItems = MenuUI<Text>.Create("CountItems", GroupClearItems, new TextUI(() => new object[] { LText.Count, ": ", ItemEngine.CountItems }));
             MenuUI<Button>.Create("Clear", GroupClearItems, LText.Clear).OnClick().AddListener(() => { ItemEngine.RemoveItemAll(); CountItems.UpdateText(); });
-            Transform GroupFox = MenuUI<HorizontalLayoutGroup>.Create("GroupFox", GetTransform(), LText.Null, true).gameObject.transform;
-            MenuUI<Text>.Create("Label", GroupFox, LText.Create);
-            MenuUI<Button> Fox = MenuUI<Button>.Create("Fox", GroupFox, LText.Fox);
-            Fox.OnClick().AddListener(() =>
-            {
-                PositionEntity(TypeAnimal.Fox);
-            });
-            MenuUI<Button>.Create("Fox_Red", GroupFox, LText.Red).OnClick(() =>
-            {
-                PositionEntity(TypeAnimal.Fox_Red);
-            });
-            MenuUI<Button>.Create("Fox_While", GroupFox, LText.While).OnClick(() =>
-            {
-                PositionEntity(TypeAnimal.Fox_White);
-            });
+            
             MenuUI<Button>.Create("KillAll", GetTransform(), "KillAll".GetTextUI(), true).OnClick(() =>
             {
                 AnimalEngine.AnimalList.ForEach(animal => animal.Death());
@@ -197,6 +208,24 @@ namespace GroupMenu
                 PositionEntity(typePlant);
             });
             FindExtitButton();
+        }
+        private void AnimalCreate()
+        {
+            Transform GroupFox = MenuUI<HorizontalLayoutGroup>.Create("GroupFox", GetTransform(), LText.Null, true).gameObject.transform;
+            MenuUI<Text>.Create("Label", GroupFox, LText.Create);
+            MenuUI<Button> Fox = MenuUI<Button>.Create("Fox", GroupFox, LText.Fox);
+            Fox.OnClick().AddListener(() =>
+            {
+                PositionEntity(TypeAnimal.Fox);
+            });
+            MenuUI<Button>.Create("Fox_Red", GroupFox, LText.Red).OnClick(() =>
+            {
+                PositionEntity(TypeAnimal.Fox_Red);
+            });
+            MenuUI<Button>.Create("Fox_While", GroupFox, LText.While).OnClick(() =>
+            {
+                PositionEntity(TypeAnimal.Fox_White);
+            });
         }
         private static void PositionEntity(Enum _Enum)
         {

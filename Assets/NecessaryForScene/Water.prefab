@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 694502127065397538}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 694502127937678727}
   - component: {fileID: 694502127937678724}
   - component: {fileID: 694502127937678725}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterPlane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

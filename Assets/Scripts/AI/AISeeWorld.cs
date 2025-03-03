@@ -32,7 +32,6 @@ namespace AIInput
 
         [field: SerializeField] private TackingIK tackingIK;
 
-        private IEnumerator updateCanSee;
 
         public List<RaycastHit> viewPoints = new();
         public List<RaycastHit> viewPointsWater = new();
@@ -83,7 +82,7 @@ namespace AIInput
             }
         }
 
-        public bool IsRunning => true;
+        public bool CanThink => true;
 
         private void Start()
         {
@@ -103,8 +102,6 @@ namespace AIInput
             raycastCammands  = new NativeArray<RaycastCommand>(getRays.Length, Allocator.Persistent);
 
             raycastHits = new NativeArray<RaycastHit>(getRays.Length, Allocator.Persistent);
-
-            
 
             ViewPointsFloor = new RaycastHit[0];
             ViewPointsWater = new RaycastHit[0];
@@ -213,6 +210,7 @@ namespace AIInput
                 raycastCammands[i] = new RaycastCommand(getRays[i].origin, getRays[i].direction, DistanceSee, MasksProject.RigidObject | MasksProject.Water | MasksProject.Player);
             }
             return RaycastCommand.ScheduleBatch(raycastCammands, raycastHits, 64);
+            
         }
 
         void IAIOrchestrated.OnJobComplete()

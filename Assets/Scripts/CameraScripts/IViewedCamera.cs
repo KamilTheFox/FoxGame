@@ -7,6 +7,9 @@ namespace CameraScripts
     {
         void Construct();
         Vector3 RotateBody();
+
+        void OnGUI() { }
+
         void ViewAxis(Transform camera,Vector3 euler);
 
         Vector2 ViewAxisMaxVertical { get; }

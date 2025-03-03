@@ -70,7 +70,6 @@
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Monitors\VectorscopeMonitor.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Models\EyeAdaptationModelEditor.cs" />
-    <Compile Include="Assets\Editor\CustomButton.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Monitors\HistogramMonitor.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Models\DefaultPostFxModelEditor.cs" />
     <Compile Include="Assets\#NVJOB Water Shaders V2\Example Scenes\PostProcessing\Editor\Models\MotionBlurModelEditor.cs" />
@@ -1074,9 +1073,6 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Autodesk.Fbx">
-      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -1085,6 +1081,9 @@
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Autodesk.Fbx">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
@@ -1149,6 +1148,10 @@
       <Project>{13D2FAA6-F760-5A25-D026-63A3089C2583}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="VulpesTool.Editor.csproj">
+      <Project>{6E14007A-8FA4-28AA-E170-DF79CFF85399}</Project>
+      <Name>VulpesTool.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="TweenerEditor.csproj">
       <Project>{146E8E25-85B5-0839-3065-1A6AC13737D8}</Project>
       <Name>TweenerEditor</Name>
@@ -1156,6 +1159,10 @@
     <ProjectReference Include="Tweener.csproj">
       <Project>{F629E610-3C16-DDDA-3925-613C229A916D}</Project>
       <Name>Tweener</Name>
+    </ProjectReference>
+    <ProjectReference Include="VulpesTool.csproj">
+      <Project>{00443A99-E062-CD6D-9587-5B9D331D770D}</Project>
+      <Name>VulpesTool</Name>
     </ProjectReference>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
       <Project>{9FBBFF9B-A8CF-1D4A-0875-EA25AD4B97D0}</Project>

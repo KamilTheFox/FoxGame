@@ -48,19 +48,28 @@ namespace FactoryEntity
             [TypeItem.Barrel] = new InfoItem()
             {
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 4000F
+                Mass = 4000F,
+                AdditionalConstructor = SetLOD1of10,
+            },
+            [TypeItem.Barrel_Content] = new InfoItem()
+            {
+                RandomSeze = new RandomSize(0.7F),
+                Mass = 4000F,
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.Barrel_Detonator] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator),
                 RandomSeze = new RandomSize(0.7F),
-                Mass = 4000F
+                Mass = 4000F,
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.Barrel_Detonator_Timer] = new InfoItem()
             {
                 EngineComponent = typeof(Barrel_Detonator_Timer),
                 RandomSeze = new RandomSize(0.7F),
                 Mass = 4000F,
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.Table_Cardboard] = new InfoItem()
             {
@@ -79,18 +88,21 @@ namespace FactoryEntity
                 EngineComponent = typeof(TNT_3),
                 Mass = 2F,
                 RandomSeze = new RandomSize(0.35F),
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.TNT_3_Timer] = new InfoItem()
             {
                 EngineComponent = typeof(TNT_3_Timer),
                 Mass = 2F,
                 RandomSeze = new RandomSize(0.35F),
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.TNT] = new InfoItem()
             {
                 EngineComponent = typeof(TNT),
                 Mass = 0.7F,
-                RandomSeze = new RandomSize(0.35F)
+                RandomSeze = new RandomSize(0.35F),
+                AdditionalConstructor = SetLOD1of10,
             },
             [TypeItem.TazWanted] = new InfoItem()
             {
@@ -121,6 +133,11 @@ namespace FactoryEntity
             {
                 ProtectStatic = true,
             },
+            [TypeItem.Tower_Crane] = new InfoItem()
+            {
+                EngineComponent = typeof(TowerСrane),
+                ProtectStatic = true,
+            },
             [TypeItem.TrashCanMini] = new InfoItem()
             {
                 EngineComponent = typeof(TrashCan),
@@ -146,6 +163,18 @@ namespace FactoryEntity
             }
         };
 
+        private static void SetLOD1of10(ItemEngine Item)
+        {
+            var lodg = Item.GetComponent<LODGroup>();
+            var lods = lodg.GetLODs();
+            lods[0].screenRelativeTransitionHeight = 0.1f;
+            lodg.SetLODs(lods);
+        }
+
+        private static void AddLODGroup(ItemEngine Item)
+        {
+            Item.gameObject.AddComponent<LODGroup>();
+        }
 
         class InfoItem : IParametersEntityes
         {

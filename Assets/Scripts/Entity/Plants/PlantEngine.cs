@@ -30,6 +30,9 @@ public class PlantEngine : EntityEngine, IDiesing
 
     public override TypeEntity typeEntity => TypeEntity.Plant;
     [HideInInspector] public TypePlant typePlant;
+
+    [SerializeField] private RendererBuffer rendererBuffer;
+
     public bool IsDie { get; protected set; }
 
     [field: SerializeField] public Sprite DistanceVersion { get; private set; }
@@ -37,10 +40,11 @@ public class PlantEngine : EntityEngine, IDiesing
     protected override void OnAwake()
     {
         base.OnAwake();
-        if (IsLittlePlant(typePlant))
-            rendererBuffer.IsGenerateSprite = false;
-        else
-            ((Action)rendererBuffer.GenerateLODSprite).AddListnerNextUpdate();
+        //rendererBuffer.SetGameObject(gameObject);
+        //if (IsLittlePlant(typePlant))
+        //    rendererBuffer.IsGenerateSprite = false;
+        //else
+        //    ((Action)rendererBuffer.GenerateLODSprite).AddListnerNextUpdate();
     }
 
     //Устаревшее. Использовать не валидно
@@ -90,7 +94,11 @@ public class PlantEngine : EntityEngine, IDiesing
     {
         if (IsDie) return;
         IsDie = true;
-        tween = Tween.SetColor(Transform, new Color(1, 1, 1, 0), 3F).IgnoreAdd(IgnoreARGB.RGB).ChangeEase(Ease.CubicRoot).TypeOfColorChange(TypeChangeColor.ObjectAndHierarchy).ToCompletion(() => Delete());
+        tween = Tween.SetColor(Transform, new Color(1, 1, 1, 0), 3F).
+            IgnoreAdd(IgnoreARGB.RGB).
+            ChangeEase(Ease.CubicRoot).
+            TypeOfColorChange(TypeChangeColor.ObjectAndHierarchy).
+            ToCompletion(() => Delete());
     }
    
     public override TextUI GetTextUI()

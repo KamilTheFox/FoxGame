@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using GroupMenu;
+using System.Collections.Generic;
 using CameraScripts;
 using System.Linq;
 using PlayerDescription;
 using System;
 
-public class CameraControll : MonoBehaviour
+public class CameraControll : MonoBehaviour , ICameraCastObserver
 {
     public CharacterBody CPlayerBody { get; private set; }
 
@@ -40,6 +41,8 @@ public class CameraControll : MonoBehaviour
     private IViewedCamera viewedCamera;
 
     [SerializeField] private Transform[] viewedCameraPositions;
+
+    private List<ICameraCastSubscriber> castSubscribersCast = new List<ICameraCastSubscriber>();
 
     void Awake()
     {
@@ -202,6 +205,21 @@ public class CameraControll : MonoBehaviour
     {
         return CPlayerBody == playerControll;
     }
+
+    private void OnGUI()
+    {
+        viewedCamera?.OnGUI();
+    }
+
+    private void Update()
+    {
+        Ray ray = CameraControll.RayCastCenterScreen;
+        if(Physics.Raycast(ray,out RaycastHit hit))
+            foreach(var subscribe in castSubscribersCast)
+            {
+                subscribe.OnCameraCasting(hit);
+            }
+    }
     void LateUpdate()
     {
         if (Menu.IsEnabled || !isCameraMove)
@@ -225,6 +243,12 @@ public class CameraControll : MonoBehaviour
             ExitBody();
         }
     }
+
+    public void AddSubscribeToCast(params ICameraCastSubscriber[] cameraCastSubscriber)
+    {
+        castSubscribersCast.AddRange(cameraCastSubscriber);
+    }
+
     private class FreeCamera : IViewedCamera
     {
         CameraControll cameraControll;

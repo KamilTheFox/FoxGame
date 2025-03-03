@@ -103,14 +103,14 @@ MonoBehaviour:
     overrideState: 0
     value: 100
   lift:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: -0.023419123}
+    overrideState: 1
+    value: {x: 1, y: 1, z: 1, w: -0.06597555}
   gamma:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 1}
+    overrideState: 1
+    value: {x: 1, y: 1, z: 1, w: 0.04574411}
   gain:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0.44496483}
+    overrideState: 1
+    value: {x: 1, y: 1, z: 1, w: -0.40697682}
   masterCurve:
     overrideState: 0
     value:
@@ -1340,13 +1340,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
-    overrideState: 1
-    value: 0
+    overrideState: 0
+    value: 5
   threshold:
     overrideState: 1
     value: 0.68

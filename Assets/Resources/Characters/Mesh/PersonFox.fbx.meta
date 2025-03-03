@@ -4,14 +4,17 @@ ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
+      74: 7606049975665405857
+    second: Release|Askal
+  - first:
       74: -1852312040744528164
     second: Release|Happy
   - first:
+      74: 5973758765423688660
+    second: Release|Happy.Smile
+  - first:
       74: -6423500352289716299
     second: Release|Idle
-  - first:
-      74: -7334848553319646251
-    second: Release|Idle.001
   - first:
       74: -2743442375206121871
     second: Release|IhWillNight
@@ -22,37 +25,14 @@ ModelImporter:
       74: 2261316608592667896
     second: Release|Tail_Idle
   - first:
-      74: -2431085077074205238
-    second: Retopology.001|Idle.001
-  - first:
-      74: -8483526887558203607
-    second: Release|Tail_Idle (1)
+      74: 8864233070540525042
+    second: Retopology.001|IhWillNight
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Body.004
-    second: {fileID: 2100000, guid: ea1f35c6cc1c7fd4993c00e8ec41f833, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyes.002
-    second: {fileID: 2100000, guid: c9414e5ec051da042b96a52a028581a2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mat.Jaw.002
-    second: {fileID: 2100000, guid: 2342d6bdb3feda647bbb0960a59b436d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Teeth.002
-    second: {fileID: 2100000, guid: 333a7d07addda6e42a8813a087dbdecd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: tongue.002
-    second: {fileID: 2100000, guid: 1e3589956a920ef4cb5103059f778622, type: 2}
+      name: "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B.001"
+    second: {fileID: 2100000, guid: dbe2a6a9c5ccabc41910ac0a4918dd50, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -68,7 +48,10 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Release|Happy.Smile' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Jaw' has translation animation that will
+      be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -80,1319 +63,8 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Release|Tail_Idle (1)
-      takeName: Release|Tail_Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 60
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Release
-        weight: 1
-      - path: Release/ControllerArm.L
-        weight: 0
-      - path: Release/ControllerArm.L/ControllerArm.L_end
-        weight: 0
-      - path: Release/ControllerArm.R
-        weight: 0
-      - path: Release/ControllerArm.R/ControllerArm.R_end
-        weight: 0
-      - path: Release/FootController.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L/Toes.L_end
-        weight: 0
-      - path: Release/FootController.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R/Toes.R_end
-        weight: 0
-      - path: Release/Hips
-        weight: 1
-      - path: Release/Hips/BoneHips
-        weight: 1
-      - path: Release/Hips/BoneHips/belly.L
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.L/belly.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R/belly.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001/BackHead.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001/BackHead.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L/Eye.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R/Eye.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger/EyeTrigger_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead/Forehead_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L/Forehead.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R/Forehead.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004/UpperLip.L.004_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004/UpperLip.R.004_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001/LowerEar.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002/Upper.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002/LowerEar.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001/LowerEar.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002/Upper.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002/LowerEar.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002/LowerEyelid.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002/LowerEyelid.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose/Nose_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L/Shields1.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R/Shields1.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L/Shields2.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R/Shields2.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L/Shields3.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R/Shields3.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002/UpperEyelid.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005/UpperEyelid.L.005_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002/UpperEyelid.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005/UpperEyelid.R.005_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001/UpperLip.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001/UpperLip.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L/Boob.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R/Boob.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001/Shoulder.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002/Shoulder.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L/IndexDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L/LittleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L/MiddleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L/RingDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L/ThumbDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001/Shoulder.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002/Shoulder.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R/IndexDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R/LittleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R/MiddleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R/RingDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R/ThumbDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L/Edge1.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R/Edge1.R_end
-        weight: 0
-      - path: Release/Hips/Rump1
-        weight: 0
-      - path: Release/Hips/Rump1/Rump1_end
-        weight: 0
-      - path: Release/Hips/rump2
-        weight: 0
-      - path: Release/Hips/rump2/rump3
-        weight: 0
-      - path: Release/Hips/rump2/rump3/rump3_end
-        weight: 0
-      - path: Release/Hips/TailStart
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001/TailEnd.001_end
-        weight: 1
-      - path: Release/Hips/UpperLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
-        weight: 0
-      - path: Release/Hips/UpperLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
-        weight: 0
-      - path: Release/TailEndController
-        weight: 0
-      - path: Release/TailEndController/TailEndController_end
-        weight: 0
-      - path: Retopology.001
-        weight: 0
-      maskType: 1
-      maskSource: {fileID: 31900000, guid: ca81a1a7c9cdab74d9aba208a1d8a7ec, type: 2}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Release|SimpleSmile
-      takeName: Release|SimpleSmile
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 00000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Release
-        weight: 1
-      - path: Release/ControllerArm.L
-        weight: 0
-      - path: Release/ControllerArm.L/ControllerArm.L_end
-        weight: 0
-      - path: Release/ControllerArm.R
-        weight: 0
-      - path: Release/ControllerArm.R/ControllerArm.R_end
-        weight: 0
-      - path: Release/FootController.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L/Toes.L_end
-        weight: 0
-      - path: Release/FootController.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R/Toes.R_end
-        weight: 0
-      - path: Release/Hips
-        weight: 1
-      - path: Release/Hips/BoneHips
-        weight: 1
-      - path: Release/Hips/BoneHips/belly.L
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.L/belly.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R/belly.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001/BackHead.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001/BackHead.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L/Eye.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R/Eye.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger/EyeTrigger_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead/Forehead_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L/Forehead.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R/Forehead.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004/UpperLip.L.004_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004/UpperLip.R.004_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001/LowerEar.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002/Upper.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002/LowerEar.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001/LowerEar.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002/Upper.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002/LowerEar.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002/LowerEyelid.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002/LowerEyelid.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose/Nose_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L/Shields1.L_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R/Shields1.R_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L/Shields2.L_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R/Shields2.R_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L/Shields3.L_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R/Shields3.R_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002/UpperEyelid.L.002_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005/UpperEyelid.L.005_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002/UpperEyelid.R.002_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005/UpperEyelid.R.005_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001/UpperLip.L.001_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001/UpperLip.R.001_end
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L/Boob.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R/Boob.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001/Shoulder.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002/Shoulder.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L/IndexDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L/LittleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L/MiddleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L/RingDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L/ThumbDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001/Shoulder.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002/Shoulder.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R/IndexDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R/LittleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R/MiddleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R/RingDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R/ThumbDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L/Edge1.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R/Edge1.R_end
-        weight: 0
-      - path: Release/Hips/Rump1
-        weight: 0
-      - path: Release/Hips/Rump1/Rump1_end
-        weight: 0
-      - path: Release/Hips/rump2
-        weight: 0
-      - path: Release/Hips/rump2/rump3
-        weight: 0
-      - path: Release/Hips/rump2/rump3/rump3_end
-        weight: 0
-      - path: Release/Hips/TailStart
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001
-        weight: 0
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001/TailEnd.001_end
-        weight: 0
-      - path: Release/Hips/UpperLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
-        weight: 0
-      - path: Release/Hips/UpperLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
-        weight: 0
-      - path: Release/TailEndController
-        weight: 0
-      - path: Release/TailEndController/TailEndController_end
-        weight: 0
-      - path: Retopology.001
-        weight: 0
-      maskType: 1
-      maskSource: {fileID: 31900000, guid: c76951add3c6ace4889bd1ac58fc5ec0, type: 2}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Release|Tail_Idle
-      takeName: Release|Tail_Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 60
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Release
-        weight: 1
-      - path: Release/ControllerArm.L
-        weight: 0
-      - path: Release/ControllerArm.L/ControllerArm.L_end
-        weight: 0
-      - path: Release/ControllerArm.R
-        weight: 0
-      - path: Release/ControllerArm.R/ControllerArm.R_end
-        weight: 0
-      - path: Release/FootController.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L
-        weight: 0
-      - path: Release/FootController.L/Toes.L/Toes.L_end
-        weight: 0
-      - path: Release/FootController.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R
-        weight: 0
-      - path: Release/FootController.R/Toes.R/Toes.R_end
-        weight: 0
-      - path: Release/Hips
-        weight: 1
-      - path: Release/Hips/BoneHips
-        weight: 1
-      - path: Release/Hips/BoneHips/belly.L
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.L/belly.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R
-        weight: 0
-      - path: Release/Hips/BoneHips/belly.R/belly.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.L/BackHead.L.001/BackHead.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/BackHead.R/BackHead.R.001/BackHead.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.L/Eye.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Eye.R/Eye.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/EyeTrigger/EyeTrigger_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead/Forehead_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.L/Forehead.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Forehead.R/Forehead.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.L.002/UpperLip.L.003/UpperLip.L.004/UpperLip.L.004_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Jaw/UpperLip.R.002/UpperLip.R.003/UpperLip.R.004/UpperLip.R.004_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/LowerEar.L.001/LowerEar.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L/MidleEar.L.001/Upper.L.002/Upper.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.L.002/LowerEar.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/LowerEar.R.001/LowerEar.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R/MidleEar.R.001/Upper.R.002/Upper.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEar.R.002/LowerEar.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.L/LowerEyelid.L.001/LowerEyelid.L.002/LowerEyelid.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/LowerEyelid.R/LowerEyelid.R.001/LowerEyelid.R.002/LowerEyelid.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Nose/Nose_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.L/Shields1.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields1.R/Shields1.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.L/Shields2.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields2.R/Shields2.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.L/Shields3.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/Shields3.R/Shields3.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.001/UpperEyelid.L.002/UpperEyelid.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.L/UpperEyelid.L.004/UpperEyelid.L.005/UpperEyelid.L.005_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.001/UpperEyelid.R.002/UpperEyelid.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperEyelid.R/UpperEyelid.R.004/UpperEyelid.R.005/UpperEyelid.R.005_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.L/UpperLip.L.001/UpperLip.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Bone Neck/Head/UpperLip.R/UpperLip.R.001/UpperLip.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.L/Boob.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/Boob.R/Boob.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.001/Shoulder.L.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/Shoulder.L.002/Shoulder.L.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandIndexProximal.L/IndexProximal.L/IndexIntermediate.L/IndexDistal.L/IndexDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandLittleProximal.L/LittleProximal.L/LittleIntermediate.L/LittleDistal.L/LittleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandMiddleProximal.L/MiddleProximal.L/MiddleIntermediate.L/MiddleDistal.L/MiddleDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/HandRingProximal.L/RingProximal.L/RingIntermediate.L/RingDistal.L/RingDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.L/Shoulder.L/UpperArm.L/LowerArm.L/Hand.L/ThumbProximal.L/ThumbIntermediate.L/ThumbDistal.L/ThumbDistal.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.001/Shoulder.R.001_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/Shoulder.R.002/Shoulder.R.002_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandIndexProximal.R/IndexProximal.R/IndexIntermediate.R/IndexDistal.R/IndexDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandLittleProximal.R/LittleProximal.R/LittleIntermediate.R/LittleDistal.R/LittleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandMiddleProximal.R/MiddleProximal.R/MiddleIntermediate.R/MiddleDistal.R/MiddleDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/HandRingProximal.R/RingProximal.R/RingIntermediate.R/RingDistal.R/RingDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R
-        weight: 1
-      - path: Release/Hips/BoneHips/LowerSpine/Chest/ShoulderConnector.R/Shoulder.R/UpperArm.R/LowerArm.R/Hand.R/ThumbProximal.R/ThumbIntermediate.R/ThumbDistal.R/ThumbDistal.R_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.L/Edge1.L_end
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R
-        weight: 0
-      - path: Release/Hips/BoneHips/LowerSpine/Edge1.R/Edge1.R_end
-        weight: 0
-      - path: Release/Hips/Rump1
-        weight: 0
-      - path: Release/Hips/Rump1/Rump1_end
-        weight: 0
-      - path: Release/Hips/rump2
-        weight: 0
-      - path: Release/Hips/rump2/rump3
-        weight: 0
-      - path: Release/Hips/rump2/rump3/rump3_end
-        weight: 0
-      - path: Release/Hips/TailStart
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001
-        weight: 1
-      - path: Release/Hips/TailStart/TailStart.001/TailMiddle/TailMiddle.001/TailEnd/TailEnd.001/TailEnd.001_end
-        weight: 1
-      - path: Release/Hips/UpperLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L
-        weight: 1
-      - path: Release/Hips/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
-        weight: 0
-      - path: Release/Hips/UpperLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R
-        weight: 1
-      - path: Release/Hips/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
-        weight: 0
-      - path: Release/TailEndController
-        weight: 0
-      - path: Release/TailEndController/TailEndController_end
-        weight: 0
-      - path: Retopology.001
-        weight: 0
-      maskType: 1
-      maskSource: {fileID: 31900000, guid: ca81a1a7c9cdab74d9aba208a1d8a7ec, type: 2}
-      additiveReferencePoseFrame: 0
-    isReadable: 1
+    clipAnimations: []
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -1432,8 +104,8 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
@@ -1886,8 +558,8 @@ ModelImporter:
     - name: Hips
       parentName: Release
       position: {x: -0, y: 0, z: 1.0624089}
-      rotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
     - name: BoneHips
       parentName: Hips
       position: {x: -0, y: 0.13673186, z: 0}
@@ -1901,38 +573,38 @@ ModelImporter:
     - name: Chest
       parentName: LowerSpine
       position: {x: -0, y: 0.22531986, z: 0}
-      rotation: {x: -0, y: -0.00000011920929, z: -0, w: 1}
+      rotation: {x: -0, y: -0.0000001192093, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Bone Neck
       parentName: Chest
       position: {x: -0, y: 0.14761055, z: 0}
-      rotation: {x: 0.0041005304, y: 0.0000000062830665, z: -0.006297427, w: 0.9999718}
+      rotation: {x: 0.00410053, y: 0.000000006981579, z: -0.0062974277, w: 0.99997175}
       scale: {x: 1, y: 1, z: 1}
     - name: Head
       parentName: Bone Neck
       position: {x: -9.881447e-10, y: 0.11967108, z: 2.854037e-10}
-      rotation: {x: -0.0071760975, y: 0.00000003746607, z: 0.011020809, w: 0.9999136}
+      rotation: {x: -0.0071760667, y: 0.000000036725748, z: 0.011020811, w: 0.9999135}
       scale: {x: 0.99999994, y: 1.0000001, z: 1}
     - name: Jaw
       parentName: Head
-      position: {x: -0.00086194946, y: 0.06799793, z: 0.099473745}
-      rotation: {x: 0.8467358, y: 0.0036185351, z: 0.009590625, w: 0.5319149}
-      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000002}
+      position: {x: -0.00086194946, y: 0.06799793, z: 0.09947378}
+      rotation: {x: 0.8467358, y: 0.0036185344, z: 0.009590625, w: 0.5319149}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
     - name: UpperLip.L.002
       parentName: Jaw
-      position: {x: -0.029879866, y: 0.15406208, z: -0.0008795247}
-      rotation: {x: -0.69682, y: 0.20628344, z: 0.6822445, w: 0.08019677}
-      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000001}
+      position: {x: -0.030823648, y: 0.15467197, z: 0.005680076}
+      rotation: {x: -0.69681996, y: 0.20628335, z: 0.68224454, w: 0.08019672}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000004}
     - name: UpperLip.L.003
       parentName: UpperLip.L.002
-      position: {x: 0.000000042375177, y: 0.062434718, z: -0.000000037252903}
-      rotation: {x: -0.03848365, y: 0.48406935, z: 0.19676058, w: -0.8517518}
-      scale: {x: 1.0000002, y: 0.99999964, z: 1.0000001}
+      position: {x: 0.00000018277206, y: 0.06243469, z: -0.0000000018626451}
+      rotation: {x: -0.03848359, y: 0.48406923, z: 0.19676071, w: -0.8517518}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
     - name: UpperLip.L.004
       parentName: UpperLip.L.003
-      position: {x: -0.000000055879354, y: 0.04916531, z: -0.000000027939677}
-      rotation: {x: 0.012202546, y: -0.8497411, z: 0.15422752, w: -0.50398916}
-      scale: {x: 1.0000002, y: 1.0000001, z: 0.99999976}
+      position: {x: 0.00000018253922, y: 0.049165346, z: 0.000000013038516}
+      rotation: {x: 0.012202439, y: -0.84974116, z: 0.15422736, w: -0.50398916}
+      scale: {x: 0.99999976, y: 0.99999976, z: 0.9999998}
     - name: UpperLip.L.004_end
       parentName: UpperLip.L.004
       position: {x: -0, y: 0.053792167, z: 0}
@@ -1940,19 +612,19 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.R.002
       parentName: Jaw
-      position: {x: 0.029881278, y: 0.15406209, z: 0.00083077606}
-      rotation: {x: -0.67701423, y: -0.2084935, z: -0.7019027, w: 0.07426194}
-      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000005}
+      position: {x: 0.030448299, y: 0.15467203, z: 0.0074341316}
+      rotation: {x: -0.67701423, y: -0.2084935, z: -0.7019027, w: 0.07426181}
+      scale: {x: 1.0000004, y: 1.0000012, z: 1.0000006}
     - name: UpperLip.R.003
       parentName: UpperLip.R.002
-      position: {x: 0.00000015785918, y: 0.062434707, z: 0.000000014901161}
-      rotation: {x: 0.038483497, y: 0.4840691, z: 0.19676067, w: 0.851752}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      position: {x: -0.00000018393621, y: 0.062434673, z: -0.000000011175871}
+      rotation: {x: 0.038483426, y: 0.48406917, z: 0.1967608, w: 0.8517519}
+      scale: {x: 0.9999999, y: 1, z: 1}
     - name: UpperLip.R.004
       parentName: UpperLip.R.003
-      position: {x: -0.000000014901161, y: 0.04916531, z: -0.00000006146729}
-      rotation: {x: -0.012202684, y: -0.8497411, z: 0.15422739, w: 0.5039891}
-      scale: {x: 1.0000007, y: 1, z: 1.0000004}
+      position: {x: 0.000000018626451, y: 0.0491653, z: -0.0000000037252903}
+      rotation: {x: -0.0122025665, y: -0.84974116, z: 0.1542273, w: 0.50398904}
+      scale: {x: 1.0000004, y: 1, z: 1.0000005}
     - name: UpperLip.R.004_end
       parentName: UpperLip.R.004
       position: {x: -0, y: 0.053792167, z: 0}
@@ -1961,18 +633,18 @@ ModelImporter:
     - name: LowerEar.L
       parentName: Head
       position: {x: -0.09432792, y: 0.27402785, z: -0.029873813}
-      rotation: {x: -0.07907588, y: 0.3841711, z: 0.032630973, w: 0.91929036}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -0.07907584, y: 0.3841711, z: 0.03263102, w: 0.9192904}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
     - name: MidleEar.L.001
       parentName: LowerEar.L
       position: {x: -0.000000014202669, y: 0.060166128, z: 0.0000000037252903}
-      rotation: {x: 0.07965103, y: -0.00920388, z: 0.12493426, w: 0.98891985}
-      scale: {x: 1, y: 0.99999994, z: 1.0000002}
+      rotation: {x: 0.079650976, y: -0.009203761, z: 0.12493422, w: 0.9889199}
+      scale: {x: 1, y: 0.9999998, z: 1.0000002}
     - name: Upper.L.002
       parentName: MidleEar.L.001
       position: {x: 0.000000031664968, y: 0.083263114, z: 0.000000016763806}
-      rotation: {x: 0.054573104, y: -0.01994113, z: 0.119714804, w: 0.99110675}
-      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999998}
+      rotation: {x: 0.054573156, y: -0.019941257, z: 0.11971474, w: 0.9911067}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
     - name: Upper.L.002_end
       parentName: Upper.L.002
       position: {x: -0, y: 0.06848735, z: 0}
@@ -1981,8 +653,8 @@ ModelImporter:
     - name: LowerEar.L.001
       parentName: LowerEar.L
       position: {x: -0.050773088, y: -0.0031148396, z: -0.01891337}
-      rotation: {x: -0.021212168, y: -0.46982482, z: -0.016604245, w: 0.8823486}
-      scale: {x: 0.9999998, y: 0.99999994, z: 1}
+      rotation: {x: -0.021212263, y: -0.46982476, z: -0.01660431, w: 0.88234854}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
     - name: LowerEar.L.001_end
       parentName: LowerEar.L.001
       position: {x: -0, y: 0.076206475, z: 0}
@@ -1991,8 +663,8 @@ ModelImporter:
     - name: LowerEar.L.002
       parentName: Head
       position: {x: -0.048672806, y: 0.33688405, z: 0.0027888787}
-      rotation: {x: 0.0441105, y: -0.06761304, z: 0.17276123, w: 0.9816498}
-      scale: {x: 1.0000002, y: 0.9999999, z: 0.99999994}
+      rotation: {x: 0.044110462, y: -0.06761303, z: 0.17276119, w: 0.9816498}
+      scale: {x: 1.0000002, y: 1, z: 1}
     - name: LowerEar.L.002_end
       parentName: LowerEar.L.002
       position: {x: -0, y: 0.058747716, z: 0}
@@ -2000,14 +672,14 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.L
       parentName: Head
-      position: {x: -0.02916103, y: 0.09602123, z: 0.2522292}
-      rotation: {x: -0.17983854, y: -0.4427702, z: 0.67950165, w: 0.5566779}
-      scale: {x: 0.99999964, y: 0.99999976, z: 1}
+      position: {x: -0.032941055, y: 0.11810153, z: 0.25038964}
+      rotation: {x: -0.17983854, y: -0.44277012, z: 0.67950165, w: 0.5566778}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000001}
     - name: UpperLip.L.001
       parentName: UpperLip.L
-      position: {x: 0.000000011175871, y: 0.0776999, z: 0.000000007450581}
-      rotation: {x: -0.06807383, y: 0.34112412, z: 0.06045146, w: 0.9355992}
-      scale: {x: 0.9999998, y: 1, z: 1.0000002}
+      position: {x: -0.000000078231096, y: 0.0776999, z: -0.000000033527613}
+      rotation: {x: -0.068073936, y: 0.3411242, z: 0.06045114, w: 0.9355992}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1}
     - name: UpperLip.L.001_end
       parentName: UpperLip.L.001
       position: {x: -0, y: 0.06209116, z: 0}
@@ -2016,18 +688,18 @@ ModelImporter:
     - name: LowerEyelid.L
       parentName: Head
       position: {x: -0.026018241, y: 0.19019444, z: 0.15546669}
-      rotation: {x: 0.37360197, y: -0.12882283, z: 0.85583293, w: 0.333731}
-      scale: {x: 1.0000002, y: 0.9999999, z: 1}
+      rotation: {x: 0.37360203, y: -0.12882279, z: 0.85583293, w: 0.33373097}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
     - name: LowerEyelid.L.001
       parentName: LowerEyelid.L
       position: {x: -0.00000008195639, y: 0.041283343, z: -0.000000078231096}
-      rotation: {x: -0.37885717, y: -0.022484014, z: -0.105596684, w: 0.91913605}
-      scale: {x: 1, y: 1.0000004, z: 1.0000001}
+      rotation: {x: -0.37885717, y: -0.02248401, z: -0.105596766, w: 0.91913605}
+      scale: {x: 1, y: 1.0000002, z: 0.9999998}
     - name: LowerEyelid.L.002
       parentName: LowerEyelid.L.001
       position: {x: -0.000000022351742, y: 0.06487107, z: 0.00000012293458}
-      rotation: {x: -0.44894058, y: 0.044455197, z: -0.22908632, w: 0.86255175}
-      scale: {x: 1.0000002, y: 0.9999997, z: 0.99999994}
+      rotation: {x: -0.4489407, y: 0.044455174, z: -0.22908635, w: 0.86255175}
+      scale: {x: 1.0000002, y: 1, z: 0.9999999}
     - name: LowerEyelid.L.002_end
       parentName: LowerEyelid.L.002
       position: {x: -0, y: 0.04729262, z: 0}
@@ -2036,18 +708,18 @@ ModelImporter:
     - name: UpperEyelid.L
       parentName: Head
       position: {x: -0.039833996, y: 0.19143708, z: 0.15601093}
-      rotation: {x: 0.13642406, y: -0.588619, z: 0.41728663, w: 0.6788137}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      rotation: {x: 0.13642408, y: -0.5886191, z: 0.41728666, w: 0.67881364}
+      scale: {x: 1, y: 1, z: 1}
     - name: UpperEyelid.L.001
       parentName: UpperEyelid.L
       position: {x: 0.000000011874363, y: 0.04316434, z: -0.000000044703484}
-      rotation: {x: 0.3157073, y: 0.016480265, z: 0.14259276, w: 0.9379364}
-      scale: {x: 1, y: 1.0000002, z: 1}
+      rotation: {x: 0.31570736, y: 0.016480386, z: 0.14259276, w: 0.9379364}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
     - name: UpperEyelid.L.002
       parentName: UpperEyelid.L.001
       position: {x: -0, y: 0.051835317, z: -0.000000070780516}
-      rotation: {x: 0.32318395, y: -0.10340129, z: 0.07969787, w: 0.9372879}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+      rotation: {x: 0.32318386, y: -0.103401326, z: 0.079697736, w: 0.9372879}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
     - name: UpperEyelid.L.002_end
       parentName: UpperEyelid.L.002
       position: {x: -0, y: 0.021183228, z: 0}
@@ -2056,13 +728,13 @@ ModelImporter:
     - name: UpperEyelid.L.004
       parentName: UpperEyelid.L
       position: {x: 0.0028282478, y: 0.034979362, z: -0.027317174}
-      rotation: {x: 0.2600245, y: -0.11540905, z: -0.039349243, w: 0.9578725}
-      scale: {x: 0.9999999, y: 1, z: 1}
+      rotation: {x: 0.2600243, y: -0.11540879, z: -0.039349426, w: 0.9578725}
+      scale: {x: 1, y: 0.99999994, z: 1.0000002}
     - name: UpperEyelid.L.005
       parentName: UpperEyelid.L.004
       position: {x: -0.000000034924597, y: 0.049934443, z: 0.00000005029142}
-      rotation: {x: 0.16583332, y: 0.018322906, z: 0.2396472, w: 0.9564167}
-      scale: {x: 1.0000006, y: 1.0000005, z: 1.0000005}
+      rotation: {x: 0.16583349, y: 0.01832281, z: 0.23964734, w: 0.9564166}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000001}
     - name: UpperEyelid.L.005_end
       parentName: UpperEyelid.L.005
       position: {x: -0, y: 0.05649461, z: 0}
@@ -2071,18 +743,18 @@ ModelImporter:
     - name: LowerEar.R
       parentName: Head
       position: {x: 0.09647238, y: 0.27222526, z: -0.029879387}
-      rotation: {x: -0.082702495, y: -0.38338014, z: -0.041311726, w: 0.91895235}
-      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+      rotation: {x: -0.08270255, y: -0.3833802, z: -0.04131177, w: 0.9189523}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
     - name: MidleEar.R.001
       parentName: LowerEar.R
       position: {x: -0.0000000013969839, y: 0.060166333, z: 0.000000027939677}
-      rotation: {x: 0.07965086, y: 0.009203791, z: -0.12493424, w: 0.98891985}
-      scale: {x: 1, y: 0.99999994, z: 0.9999998}
+      rotation: {x: 0.079650946, y: 0.00920385, z: -0.12493423, w: 0.98891985}
+      scale: {x: 1, y: 1, z: 0.9999998}
     - name: Upper.R.002
       parentName: MidleEar.R.001
       position: {x: 0.0000000018626451, y: 0.0832631, z: -0.0000000055879354}
-      rotation: {x: 0.05457311, y: 0.01994138, z: -0.119714834, w: 0.99110675}
-      scale: {x: 1, y: 1, z: 1.0000002}
+      rotation: {x: 0.05457306, y: 0.019941393, z: -0.11971483, w: 0.99110675}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1.0000002}
     - name: Upper.R.002_end
       parentName: Upper.R.002
       position: {x: -0, y: 0.06848735, z: 0}
@@ -2091,8 +763,8 @@ ModelImporter:
     - name: LowerEar.R.001
       parentName: LowerEar.R
       position: {x: 0.050773043, y: -0.003114644, z: -0.018913357}
-      rotation: {x: -0.02121227, y: 0.46982488, z: 0.016604139, w: 0.8823486}
-      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+      rotation: {x: -0.02121227, y: 0.4698249, z: 0.01660421, w: 0.88234854}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
     - name: LowerEar.R.001_end
       parentName: LowerEar.R.001
       position: {x: -0, y: 0.076206475, z: 0}
@@ -2101,8 +773,8 @@ ModelImporter:
     - name: LowerEar.R.002
       parentName: Head
       position: {x: 0.05201488, y: 0.3359328, z: 0.0027859376}
-      rotation: {x: 0.044742227, y: 0.067222, z: -0.18202846, w: 0.97997195}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 0.044742193, y: 0.06722199, z: -0.18202844, w: 0.97997195}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: LowerEar.R.002_end
       parentName: LowerEar.R.002
       position: {x: -0, y: 0.058747716, z: 0}
@@ -2111,8 +783,8 @@ ModelImporter:
     - name: Shields3.L
       parentName: Head
       position: {x: -0.1443072, y: 0.08293666, z: 0.078228876}
-      rotation: {x: -0.42487144, y: -0.042035777, z: 0.53096557, w: 0.7319787}
-      scale: {x: 1.0000002, y: 1.0000004, z: 1}
+      rotation: {x: -0.42487147, y: -0.042035766, z: 0.5309656, w: 0.73197865}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000001}
     - name: Shields3.L_end
       parentName: Shields3.L
       position: {x: -0, y: 0.13703051, z: 0}
@@ -2121,8 +793,8 @@ ModelImporter:
     - name: Shields1.L
       parentName: Head
       position: {x: -0.1443072, y: 0.08293666, z: 0.078228876}
-      rotation: {x: -0.4304439, y: 0.0025022542, z: 0.31238958, w: 0.84683204}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+      rotation: {x: -0.4304439, y: 0.002502294, z: 0.31238958, w: 0.84683204}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: Shields1.L_end
       parentName: Shields1.L
       position: {x: -0, y: 0.12638432, z: 0}
@@ -2131,8 +803,8 @@ ModelImporter:
     - name: Shields2.L
       parentName: Head
       position: {x: -0.1443072, y: 0.08293666, z: 0.078228876}
-      rotation: {x: -0.26618397, y: 0.0015816084, z: 0.1884153, w: 0.9453271}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      rotation: {x: -0.266184, y: 0.0015816222, z: 0.18841529, w: 0.94532704}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
     - name: Shields2.L_end
       parentName: Shields2.L
       position: {x: -0, y: 0.1268419, z: 0}
@@ -2141,13 +813,13 @@ ModelImporter:
     - name: BackHead.L
       parentName: Head
       position: {x: -0.06430302, y: 0.1257898, z: -0.11523127}
-      rotation: {x: 0.0119033065, y: 0.04123082, z: 0.10480569, w: 0.9935664}
-      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+      rotation: {x: 0.011903275, y: 0.041230816, z: 0.104805686, w: 0.9935664}
+      scale: {x: 1, y: 1, z: 0.9999999}
     - name: BackHead.L.001
       parentName: BackHead.L
       position: {x: 0.000000019557774, y: 0.11326432, z: -0.000000011641532}
-      rotation: {x: 0.4468282, y: -0.07290449, z: 0.62052846, w: 0.6402921}
-      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000001}
+      rotation: {x: 0.4468282, y: -0.07290454, z: 0.6205286, w: 0.64029205}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000001}
     - name: BackHead.L.001_end
       parentName: BackHead.L.001
       position: {x: -0, y: 0.113193505, z: 0}
@@ -2156,8 +828,8 @@ ModelImporter:
     - name: Shields3.R
       parentName: Head
       position: {x: 0.14283869, y: 0.08022373, z: 0.07822049}
-      rotation: {x: -0.424471, y: 0.046069074, z: -0.53784454, w: 0.7269287}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+      rotation: {x: -0.42447096, y: 0.046069097, z: -0.5378446, w: 0.7269286}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000001}
     - name: Shields3.R_end
       parentName: Shields3.R
       position: {x: -0, y: 0.13703051, z: 0}
@@ -2166,8 +838,8 @@ ModelImporter:
     - name: Shields1.R
       parentName: Head
       position: {x: 0.14283869, y: 0.08022373, z: 0.07822049}
-      rotation: {x: -0.4304575, y: 0.0015889991, z: -0.32036301, w: 0.84384316}
-      scale: {x: 1.0000001, y: 0.99999994, z: 0.9999998}
+      rotation: {x: -0.43045747, y: 0.0015890206, z: -0.32036307, w: 0.8438432}
+      scale: {x: 1, y: 0.99999994, z: 0.9999997}
     - name: Shields1.R_end
       parentName: Shields1.R
       position: {x: -0, y: 0.12638432, z: 0}
@@ -2176,8 +848,8 @@ ModelImporter:
     - name: Shields2.R
       parentName: Head
       position: {x: 0.14283869, y: 0.08022373, z: 0.07822049}
-      rotation: {x: -0.26619256, y: 0.0009607871, z: -0.19732974, w: 0.943505}
-      scale: {x: 1, y: 1.0000001, z: 1}
+      rotation: {x: -0.2661926, y: 0.00096079725, z: -0.19732971, w: 0.9435049}
+      scale: {x: 1, y: 1.0000002, z: 1.0000002}
     - name: Shields2.R_end
       parentName: Shields2.R
       position: {x: -0, y: 0.1268419, z: 0}
@@ -2185,14 +857,14 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: UpperLip.R
       parentName: Head
-      position: {x: 0.027970552, y: 0.09548219, z: 0.25222766}
-      rotation: {x: -0.17566743, y: 0.44446555, z: -0.6847251, w: 0.5502207}
-      scale: {x: 1.0000006, y: 1.0000001, z: 1.0000001}
+      position: {x: 0.03216694, y: 0.11748702, z: 0.2503878}
+      rotation: {x: -0.17566745, y: 0.44446564, z: -0.6847251, w: 0.5502207}
+      scale: {x: 1.0000008, y: 1.0000002, z: 1.0000001}
     - name: UpperLip.R.001
       parentName: UpperLip.R
-      position: {x: -0.000000037252903, y: 0.077699944, z: 0.000000026077032}
-      rotation: {x: -0.06807394, y: -0.34112427, z: -0.06045122, w: 0.9355992}
-      scale: {x: 0.99999964, y: 0.99999964, z: 0.99999994}
+      position: {x: -0.000000048428774, y: 0.077699915, z: -0.000000040978193}
+      rotation: {x: -0.068073854, y: -0.3411243, z: -0.060451277, w: 0.9355992}
+      scale: {x: 0.9999999, y: 1.0000005, z: 1.0000001}
     - name: UpperLip.R.001_end
       parentName: UpperLip.R.001
       position: {x: -0, y: 0.06209116, z: 0}
@@ -2201,8 +873,8 @@ ModelImporter:
     - name: Nose
       parentName: Head
       position: {x: 0.0013936392, y: 0.14689657, z: 0.19976163}
-      rotation: {x: 0.7840031, y: -0.011427114, z: 0.00154762, w: 0.6206498}
-      scale: {x: 0.9999999, y: 1.0000002, z: 1.0000002}
+      rotation: {x: 0.78400314, y: -0.011427115, z: 0.001547617, w: 0.6206498}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
     - name: Nose_end
       parentName: Nose
       position: {x: -0, y: 0.096839726, z: 0}
@@ -2211,18 +883,18 @@ ModelImporter:
     - name: LowerEyelid.R
       parentName: Head
       position: {x: 0.026601817, y: 0.18969731, z: 0.15546514}
-      rotation: {x: -0.3747774, y: -0.1252972, z: 0.85895836, w: -0.3256273}
-      scale: {x: 1.0000006, y: 1.0000002, z: 0.99999994}
+      rotation: {x: -0.3747774, y: -0.12529717, z: 0.8589583, w: -0.32562727}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1}
     - name: LowerEyelid.R.001
       parentName: LowerEyelid.R
       position: {x: 0.000000026077032, y: 0.041283388, z: -0.00000008381903}
-      rotation: {x: 0.3788573, y: -0.022484092, z: -0.10559638, w: -0.91913605}
-      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000002}
+      rotation: {x: 0.37885725, y: -0.022484062, z: -0.105596274, w: -0.919136}
+      scale: {x: 1.0000007, y: 1.0000007, z: 1.0000002}
     - name: LowerEyelid.R.002
       parentName: LowerEyelid.R.001
       position: {x: -0.00000008940697, y: 0.06487108, z: 0.00000013504177}
-      rotation: {x: -0.38594407, y: -0.071463354, z: 0.16122489, w: 0.90550905}
-      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999964}
+      rotation: {x: -0.38594428, y: -0.07146335, z: 0.16122496, w: 0.905509}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999976}
     - name: LowerEyelid.R.002_end
       parentName: LowerEyelid.R.002
       position: {x: -0, y: 0.056686994, z: 0}
@@ -2231,18 +903,18 @@ ModelImporter:
     - name: UpperEyelid.R
       parentName: Head
       position: {x: 0.040438604, y: 0.1906787, z: 0.15600857}
-      rotation: {x: 0.1419666, y: 0.5873237, z: -0.42368495, w: 0.67482406}
-      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+      rotation: {x: 0.14196655, y: 0.5873237, z: -0.42368495, w: 0.674824}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
     - name: UpperEyelid.R.001
       parentName: UpperEyelid.R
       position: {x: -0.00000006542541, y: 0.043164324, z: -0.000000055879354}
-      rotation: {x: 0.31570706, y: -0.016480386, z: -0.14259286, w: 0.9379365}
-      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000001}
+      rotation: {x: 0.31570715, y: -0.016480416, z: -0.14259285, w: 0.9379364}
+      scale: {x: 1.0000006, y: 1.0000006, z: 1.0000002}
     - name: UpperEyelid.R.002
       parentName: UpperEyelid.R.001
       position: {x: -0.00000009685755, y: 0.051835317, z: -0.0000001648441}
-      rotation: {x: -0.20413534, y: -0.12057521, z: 0.05909741, w: -0.96968955}
-      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000001}
+      rotation: {x: -0.2041352, y: -0.120575316, z: 0.05909737, w: -0.9696896}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1}
     - name: UpperEyelid.R.002_end
       parentName: UpperEyelid.R.002
       position: {x: -0, y: 0.028634906, z: 0}
@@ -2251,13 +923,13 @@ ModelImporter:
     - name: UpperEyelid.R.004
       parentName: UpperEyelid.R
       position: {x: -0.0028283363, y: 0.03497939, z: -0.02731713}
-      rotation: {x: 0.26002455, y: 0.11540897, z: 0.039349157, w: 0.95787245}
-      scale: {x: 1.0000007, y: 1.0000004, z: 1.0000004}
+      rotation: {x: 0.26002446, y: 0.115409, z: 0.03934924, w: 0.9578725}
+      scale: {x: 1.0000008, y: 1.0000002, z: 1.0000005}
     - name: UpperEyelid.R.005
       parentName: UpperEyelid.R.004
       position: {x: -0.000000009778887, y: 0.049934413, z: -0.00000028684735}
-      rotation: {x: -0.16583306, y: 0.018322824, z: 0.2396472, w: -0.9564167}
-      scale: {x: 0.9999997, y: 0.9999998, z: 0.9999999}
+      rotation: {x: -0.16583315, y: 0.01832286, z: 0.23964716, w: -0.95641667}
+      scale: {x: 0.99999946, y: 0.9999999, z: 0.99999976}
     - name: UpperEyelid.R.005_end
       parentName: UpperEyelid.R.005
       position: {x: -0, y: 0.05649461, z: 0}
@@ -2266,13 +938,13 @@ ModelImporter:
     - name: BackHead.R
       parentName: Head
       position: {x: 0.06364712, y: 0.12458111, z: -0.115235}
-      rotation: {x: 0.011510204, y: -0.041312415, z: -0.1141877, w: 0.99253315}
+      rotation: {x: 0.011510174, y: -0.04131241, z: -0.11418771, w: 0.99253315}
       scale: {x: 1, y: 0.9999998, z: 1}
     - name: BackHead.R.001
       parentName: BackHead.R
       position: {x: 0.000000004656613, y: 0.11326421, z: 0.000000009778887}
-      rotation: {x: 0.44682813, y: 0.072904505, z: -0.62052846, w: 0.64029217}
-      scale: {x: 1.0000001, y: 1.0000004, z: 1}
+      rotation: {x: 0.44682822, y: 0.072904564, z: -0.6205285, w: 0.640292}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
     - name: BackHead.R.001_end
       parentName: BackHead.R.001
       position: {x: -0, y: 0.113193505, z: 0}
@@ -2281,8 +953,8 @@ ModelImporter:
     - name: Forehead
       parentName: Head
       position: {x: 0.001179809, y: 0.28415197, z: 0.08728785}
-      rotation: {x: 0.8943881, y: -0.035252154, z: -0.06498442, w: 0.4411397}
-      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+      rotation: {x: 0.8943882, y: -0.035252158, z: -0.06498443, w: 0.4411396}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000002}
     - name: Forehead_end
       parentName: Forehead
       position: {x: -0, y: 0.075296864, z: 0}
@@ -2291,8 +963,8 @@ ModelImporter:
     - name: Forehead.R
       parentName: Head
       position: {x: 0.001179809, y: 0.28415197, z: 0.08728785}
-      rotation: {x: -0.019057916, y: 0.004445347, z: -0.6947427, w: 0.7189922}
-      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999964}
+      rotation: {x: -0.019057935, y: 0.0044453563, z: -0.69474274, w: 0.71899205}
+      scale: {x: 1.0000001, y: 1, z: 0.99999976}
     - name: Forehead.R_end
       parentName: Forehead.R
       position: {x: -0, y: 0.055541743, z: 0}
@@ -2301,8 +973,8 @@ ModelImporter:
     - name: Forehead.L
       parentName: Head
       position: {x: 0.001179809, y: 0.28415197, z: 0.08728785}
-      rotation: {x: -0.019078739, y: -0.0042441357, z: 0.6879199, w: 0.7255235}
-      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+      rotation: {x: -0.019078791, y: -0.0042441445, z: 0.6879198, w: 0.72552353}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999999}
     - name: Forehead.L_end
       parentName: Forehead.L
       position: {x: -0, y: 0.055541743, z: 0}
@@ -2311,8 +983,8 @@ ModelImporter:
     - name: Eye.L
       parentName: Head
       position: {x: -0.087772265, y: 0.18607788, z: 0.10696587}
-      rotation: {x: 0.6382452, y: -0.3075776, z: -0.3097706, w: 0.6340988}
-      scale: {x: 1.0000006, y: 1.0000002, z: 1.0000002}
+      rotation: {x: 0.6382453, y: -0.30757758, z: -0.30977058, w: 0.63409877}
+      scale: {x: 1.0000007, y: 1.0000002, z: 1.0000005}
     - name: Eye.L_end
       parentName: Eye.L
       position: {x: -0, y: 0.04308305, z: 0}
@@ -2321,58 +993,68 @@ ModelImporter:
     - name: Eye.R
       parentName: Head
       position: {x: 0.08828225, y: 0.1844296, z: 0.10696319}
-      rotation: {x: 0.086012244, y: 0.69969326, z: 0.70405686, w: 0.08564621}
-      scale: {x: 0.99999994, y: 0.99999994, z: 1.0000002}
+      rotation: {x: 0.08601225, y: 0.69969326, z: 0.70405686, w: 0.08564621}
+      scale: {x: 1, y: 1, z: 1.0000001}
     - name: Eye.R_end
       parentName: Eye.R
       position: {x: -0, y: 0.04308068, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: EyeTrigger
+      parentName: Head
+      position: {x: 0.0019450473, y: 0.35923347, z: 2.001266}
+      rotation: {x: 0.0035108947, y: 0.09510293, z: -0.0044096936, w: 0.9954515}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: EyeTrigger_end
+      parentName: EyeTrigger
+      position: {x: -0, y: 0.20000005, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: ShoulderConnector.L
       parentName: Chest
       position: {x: -0, y: 0.14761055, z: 0}
-      rotation: {x: -0.0024593729, y: -0.0031491085, z: 0.7876546, w: 0.6161042}
+      rotation: {x: -0.0024593428, y: -0.0031491679, z: 0.7876545, w: 0.61610425}
       scale: {x: 1.0000001, y: 1, z: 0.9999998}
     - name: Shoulder.L
       parentName: ShoulderConnector.L
       position: {x: 0.000000045270987, y: 0.102733925, z: -1.7462298e-10}
-      rotation: {x: -0.008064892, y: 0.0032235447, z: 0.00842546, w: 0.9999268}
-      scale: {x: 1, y: 1.0000004, z: 0.99999994}
+      rotation: {x: -0.008064839, y: 0.003223621, z: 0.008425549, w: 0.9999268}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999994}
     - name: UpperArm.L
       parentName: Shoulder.L
       position: {x: 0.00000020129119, y: 0.11482135, z: -4.656613e-10}
-      rotation: {x: 0.0012038681, y: -0.0004573064, z: -0.090480015, w: 0.9958975}
-      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999999}
+      rotation: {x: 0.0012038442, y: -0.000457328, z: -0.09047989, w: 0.99589753}
+      scale: {x: 1.0000006, y: 1.0000002, z: 0.9999998}
     - name: LowerArm.L
       parentName: UpperArm.L
-      position: {x: -0.0000002400484, y: 0.2988489, z: -0.000000007450581}
-      rotation: {x: -0.021641629, y: -0.0001340225, z: -0.011560165, w: 0.999699}
-      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000004}
+      position: {x: -0.00000018058927, y: 0.29884887, z: 0.000000002561137}
+      rotation: {x: -0.021641694, y: -0.00013404124, z: -0.01156009, w: 0.99969894}
+      scale: {x: 1.0000004, y: 1.0000007, z: 1.0000002}
     - name: Hand.L
       parentName: LowerArm.L
-      position: {x: -0.000000041909516, y: 0.235225, z: 0.0000000055879354}
-      rotation: {x: 0.01622298, y: 0.0022838633, z: -0.04937098, w: 0.9986462}
-      scale: {x: 0.9999998, y: 1.0000002, z: 0.99999976}
+      position: {x: 0.00000015734258, y: 0.23522508, z: -9.313226e-10}
+      rotation: {x: 0.016223002, y: 0.0022838821, z: -0.049370937, w: 0.99864614}
+      scale: {x: 1, y: 1, z: 0.9999999}
     - name: HandLittleProximal.L
       parentName: Hand.L
-      position: {x: 0.0031679538, y: 0.084912606, z: -0.036421105}
-      rotation: {x: -0.08654053, y: 0.24472174, z: -0.019182358, w: 0.9655331}
-      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000002}
+      position: {x: 0.0031680665, y: 0.084912546, z: -0.03642112}
+      rotation: {x: -0.08654271, y: 0.24472189, z: -0.01918259, w: 0.9655328}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
     - name: LittleProximal.L
       parentName: HandLittleProximal.L
-      position: {x: 0.0000000037252903, y: 0.035323527, z: -0.000000070780516}
-      rotation: {x: -0.009984123, y: -0.23047338, z: -0.036431186, w: 0.9723451}
-      scale: {x: 0.99999946, y: 1.0000001, z: 0.9999998}
+      position: {x: 0.000000067055225, y: 0.035323482, z: -0.000000067055225}
+      rotation: {x: -0.009983268, y: -0.2304734, z: -0.03643203, w: 0.9723451}
+      scale: {x: 0.9999998, y: 1.0000004, z: 1}
     - name: LittleIntermediate.L
       parentName: LittleProximal.L
-      position: {x: 0.0000000041909516, y: 0.034156933, z: -0.000000020489097}
-      rotation: {x: 0.021359282, y: 0.0027516477, z: 0.03434142, w: 0.9991781}
-      scale: {x: 0.9999999, y: 0.99999976, z: 1.0000002}
+      position: {x: -0.000000070314854, y: 0.034156978, z: 0.0000000055879354}
+      rotation: {x: 0.021357883, y: 0.0027516037, z: 0.034339093, w: 0.99917823}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
     - name: LittleDistal.L
       parentName: LittleIntermediate.L
-      position: {x: -0.000000016356353, y: 0.028081935, z: -0.000000020489097}
-      rotation: {x: -0.005156483, y: 0.0010179217, z: 0.1539544, w: 0.98806405}
-      scale: {x: 1.0000002, y: 1.0000006, z: 0.9999999}
+      position: {x: -0.00000006693881, y: 0.028081868, z: 0.000000044703484}
+      rotation: {x: -0.005156498, y: 0.0010179369, z: 0.15395433, w: 0.98806405}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000002}
     - name: LittleDistal.L_end
       parentName: LittleDistal.L
       position: {x: -0, y: 0.026821198, z: 0}
@@ -2380,24 +1062,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandRingProximal.L
       parentName: Hand.L
-      position: {x: 0.0033332775, y: 0.09419319, z: -0.017868806}
-      rotation: {x: -0.09190936, y: 0.25557995, z: -0.008377847, w: 0.9623728}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+      position: {x: 0.003333393, y: 0.09419298, z: -0.017868796}
+      rotation: {x: -0.09191027, y: 0.25557995, z: -0.008377327, w: 0.9623727}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
     - name: RingProximal.L
       parentName: HandRingProximal.L
-      position: {x: 0.0000000037252903, y: 0.049139462, z: -0.000000014901161}
-      rotation: {x: -0.023058845, y: -0.24479255, z: -0.030752039, w: 0.96881336}
-      scale: {x: 0.9999997, y: 1.0000002, z: 1}
+      position: {x: 0.0000000037252903, y: 0.049139384, z: 0.00000011175871}
+      rotation: {x: -0.023058016, y: -0.2447926, z: -0.030753937, w: 0.96881324}
+      scale: {x: 0.9999994, y: 1.0000004, z: 1.0000001}
     - name: RingIntermediate.L
       parentName: RingProximal.L
-      position: {x: 0.000000016298145, y: 0.0375735, z: -0.000000013038516}
-      rotation: {x: 0.0027174344, y: 0.00077153713, z: 0.028881978, w: 0.9995789}
-      scale: {x: 0.9999995, y: 0.99999976, z: 1}
+      position: {x: -0.0000000071013346, y: 0.037573487, z: 0.000000014901161}
+      rotation: {x: 0.0027174123, y: 0.00077153725, z: 0.02888203, w: 0.9995789}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1}
     - name: RingDistal.L
       parentName: RingIntermediate.L
-      position: {x: 0.000000023748726, y: 0.03029179, z: 0.0000000018626451}
-      rotation: {x: -0.012426682, y: 0.0007825658, z: 0.08241737, w: 0.9965201}
-      scale: {x: 1.0000006, y: 1.0000004, z: 1}
+      position: {x: 0.000000020372681, y: 0.030291839, z: -0.000000018626451}
+      rotation: {x: -0.012426673, y: 0.00078257907, z: 0.08241725, w: 0.99652016}
+      scale: {x: 0.99999976, y: 0.9999997, z: 0.99999994}
     - name: RingDistal.L_end
       parentName: RingDistal.L
       position: {x: -0, y: 0.026139036, z: 0}
@@ -2405,24 +1087,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandMiddleProximal.L
       parentName: Hand.L
-      position: {x: 0.00291547, y: 0.106325746, z: -0.0031741858}
-      rotation: {x: -0.031078823, y: 0.25807747, z: -0.0029083434, w: 0.9656198}
-      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
+      position: {x: 0.0029154844, y: 0.10632547, z: -0.0031741606}
+      rotation: {x: -0.031078778, y: 0.2580774, z: -0.0029083674, w: 0.9656199}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.99999994}
     - name: MiddleProximal.L
       parentName: HandMiddleProximal.L
-      position: {x: 0.000000018626451, y: 0.044403758, z: 0.000000022351742}
-      rotation: {x: -0.028875139, y: -0.24863322, z: -0.021269277, w: 0.9679336}
-      scale: {x: 1, y: 1.0000005, z: 1.0000001}
+      position: {x: -0.000000016763806, y: 0.044403855, z: -0.000000026077032}
+      rotation: {x: -0.028875165, y: -0.24863315, z: -0.021269308, w: 0.9679336}
+      scale: {x: 0.99999964, y: 1.0000002, z: 1.0000006}
     - name: MiddleIntermediate.L
       parentName: MiddleProximal.L
-      position: {x: 0.0000000023283064, y: 0.04225488, z: -0.000000009313226}
-      rotation: {x: -0.0045916075, y: 0.0004493146, z: 0.010094181, w: 0.9999385}
-      scale: {x: 1, y: 1.0000002, z: 1}
+      position: {x: 0.00000008579809, y: 0.04225489, z: 0.000000009313226}
+      rotation: {x: -0.004591602, y: 0.0004492848, z: 0.010094231, w: 0.9999385}
+      scale: {x: 1, y: 0.99999994, z: 1}
     - name: MiddleDistal.L
       parentName: MiddleIntermediate.L
-      position: {x: 0.000000017229468, y: 0.03322948, z: -0.000000007450581}
-      rotation: {x: -0.0067372886, y: 0.00035498303, z: 0.05064044, w: 0.9986941}
-      scale: {x: 0.99999964, y: 0.9999996, z: 0.99999994}
+      position: {x: -0.000000031199306, y: 0.033229414, z: -0.000000018626451}
+      rotation: {x: -0.006737315, y: 0.00035501414, z: 0.05064036, w: 0.9986942}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
     - name: MiddleDistal.L_end
       parentName: MiddleDistal.L
       position: {x: -0, y: 0.025989922, z: 0}
@@ -2430,24 +1112,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandIndexProximal.L
       parentName: Hand.L
-      position: {x: 0.0027925977, y: 0.09891469, z: 0.021770097}
-      rotation: {x: 0.05538758, y: 0.26391503, z: 0.03354847, w: 0.96236974}
-      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000004}
+      position: {x: 0.0027925852, y: 0.09891448, z: 0.02177009}
+      rotation: {x: 0.055387594, y: 0.26391497, z: 0.033548284, w: 0.9623698}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
     - name: IndexProximal.L
       parentName: HandIndexProximal.L
-      position: {x: -0.000000007450581, y: 0.04072577, z: -0.000000007450581}
-      rotation: {x: -0.0019425298, y: -0.2570575, z: -0.040159557, w: 0.9655594}
-      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
+      position: {x: -0.00000013690442, y: 0.040725768, z: 0.00000006146729}
+      rotation: {x: -0.0019422658, y: -0.25705755, z: -0.04015564, w: 0.9655596}
+      scale: {x: 0.99999946, y: 1.0000001, z: 1.0000007}
     - name: IndexIntermediate.L
       parentName: IndexProximal.L
-      position: {x: 0.0000000088475645, y: 0.04242008, z: -0.0000000037252903}
-      rotation: {x: -0.004374827, y: 0.00012975927, z: 0.04087561, w: 0.9991547}
-      scale: {x: 1.0000006, y: 1.0000004, z: 0.9999999}
+      position: {x: -0.00000008902862, y: 0.042420086, z: 0.0000000018626451}
+      rotation: {x: -0.0043748766, y: 0.00012969962, z: 0.04087825, w: 0.99915457}
+      scale: {x: 0.99999976, y: 0.9999999, z: 0.99999964}
     - name: IndexDistal.L
       parentName: IndexIntermediate.L
-      position: {x: 0.0000000055879354, y: 0.033229806, z: 0.000000016763806}
-      rotation: {x: -0.007540287, y: 0.0006052647, z: 0.09344079, w: 0.9955962}
-      scale: {x: 0.99999976, y: 0.9999999, z: 1}
+      position: {x: -0.00000009262294, y: 0.03322973, z: 0.0000000055879354}
+      rotation: {x: -0.007540259, y: 0.0006052876, z: 0.09344078, w: 0.9955962}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
     - name: IndexDistal.L_end
       parentName: IndexDistal.L
       position: {x: -0, y: 0.026344705, z: 0}
@@ -2455,19 +1137,19 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: ThumbProximal.L
       parentName: Hand.L
-      position: {x: 0.00041553937, y: 0.050596602, z: 0.032999992}
-      rotation: {x: 0.29733068, y: 0.002840866, z: 0.023810547, w: 0.9544734}
-      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000001}
+      position: {x: 0.00041564135, y: 0.050596513, z: 0.032999985}
+      rotation: {x: 0.2973303, y: 0.0028404824, z: 0.023811415, w: 0.9544735}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
     - name: ThumbIntermediate.L
       parentName: ThumbProximal.L
-      position: {x: 0.000000052154064, y: 0.05078925, z: -0.000000013504177}
-      rotation: {x: 0.001019239, y: -0.02170515, z: 0.04002845, w: 0.99896234}
-      scale: {x: 0.9999997, y: 0.9999995, z: 0.9999999}
+      position: {x: 0.00000021528103, y: 0.050789293, z: -0.000000022351742}
+      rotation: {x: 0.0010190603, y: -0.021705193, z: 0.04002463, w: 0.99896246}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999999}
     - name: ThumbDistal.L
       parentName: ThumbIntermediate.L
-      position: {x: -0.0000000037252903, y: 0.033982433, z: 0.0000000055879354}
-      rotation: {x: 0.03810459, y: -0.011382404, z: -0.009569395, w: 0.99916315}
-      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999964}
+      position: {x: -0.00000006519258, y: 0.033982567, z: -0.000000022351742}
+      rotation: {x: 0.038103774, y: -0.011382508, z: -0.009567326, w: 0.9991632}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999997}
     - name: ThumbDistal.L_end
       parentName: ThumbDistal.L
       position: {x: -0, y: 0.03539371, z: 0}
@@ -2476,8 +1158,8 @@ ModelImporter:
     - name: Shoulder.L.001
       parentName: Shoulder.L
       position: {x: -0.07058697, y: 0.025385607, z: 0.0014380943}
-      rotation: {x: -0.32854646, y: -0.047554422, z: -0.18694462, w: 0.9245797}
-      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+      rotation: {x: -0.32854655, y: -0.047554407, z: -0.18694456, w: 0.92457956}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
     - name: Shoulder.L.001_end
       parentName: Shoulder.L.001
       position: {x: -0, y: 0.09252786, z: 0}
@@ -2486,8 +1168,8 @@ ModelImporter:
     - name: Shoulder.L.002
       parentName: Shoulder.L
       position: {x: -0.07265056, y: 0.05275447, z: 0.037733983}
-      rotation: {x: -0.07537661, y: -0.100181885, z: -0.31146532, w: 0.9419508}
-      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000002}
+      rotation: {x: -0.07537664, y: -0.100181915, z: -0.31146538, w: 0.94195086}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
     - name: Shoulder.L.002_end
       parentName: Shoulder.L.002
       position: {x: -0, y: 0.061041437, z: 0}
@@ -2496,48 +1178,48 @@ ModelImporter:
     - name: ShoulderConnector.R
       parentName: Chest
       position: {x: -0, y: 0.14761055, z: 0}
-      rotation: {x: -0.00245959, y: 0.0031493146, z: -0.78765464, w: 0.6161041}
-      scale: {x: 1.0000005, y: 1.0000002, z: 0.9999999}
+      rotation: {x: -0.0024595305, y: 0.0031493146, z: -0.7876545, w: 0.61610425}
+      scale: {x: 1.0000002, y: 1, z: 0.9999999}
     - name: Shoulder.R
       parentName: ShoulderConnector.R
       position: {x: -0.000000045271655, y: 0.10273393, z: -1.1641532e-10}
-      rotation: {x: 0.009993286, y: -0.0039414084, z: -0.07983191, w: 0.9967505}
-      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+      rotation: {x: 0.009993202, y: -0.0039414214, z: -0.07983214, w: 0.99675053}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000001}
     - name: UpperArm.R
       parentName: Shoulder.R
       position: {x: 0.000000025622285, y: 0.098727755, z: 0.000000001193257}
-      rotation: {x: -0.022248281, y: 0.0015766305, z: 0.16463536, w: 0.98610234}
-      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000002}
+      rotation: {x: -0.022248037, y: 0.0015767177, z: 0.16463622, w: 0.9861022}
+      scale: {x: 1.0000006, y: 1.0000005, z: 1.0000004}
     - name: LowerArm.R
       parentName: UpperArm.R
-      position: {x: -0.00000009639189, y: 0.31798527, z: -0.0000001466833}
-      rotation: {x: -0.0067178966, y: 0.0005948674, z: 0.0047897617, w: 0.9999658}
-      scale: {x: 1.0000007, y: 1.0000004, z: 1.0000006}
+      position: {x: 0.00000028910472, y: 0.3179853, z: -0.0000000018626451}
+      rotation: {x: -0.0067183147, y: 0.0005948718, z: 0.0047890292, w: 0.9999658}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
     - name: Hand.R
       parentName: LowerArm.R
-      position: {x: 0.0000000121071935, y: 0.23522498, z: 0}
-      rotation: {x: 0.016223008, y: -0.002283919, z: 0.04937086, w: 0.99864614}
-      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000004}
+      position: {x: 0.000000009771611, y: 0.23522513, z: -9.313226e-10}
+      rotation: {x: 0.016222967, y: -0.0022839587, z: 0.049370706, w: 0.99864614}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.9999997}
     - name: HandLittleProximal.R
       parentName: Hand.R
-      position: {x: -0.0031679254, y: 0.08491253, z: -0.036421128}
-      rotation: {x: -0.08654085, y: -0.24472186, z: 0.019183263, w: 0.965533}
-      scale: {x: 1.000001, y: 1.0000008, z: 0.9999999}
+      position: {x: -0.0031677743, y: 0.08491261, z: -0.036421116}
+      rotation: {x: -0.08654073, y: -0.24472211, z: 0.019182142, w: 0.96553296}
+      scale: {x: 0.9999999, y: 0.9999998, z: 1.0000001}
     - name: LittleProximal.R
       parentName: HandLittleProximal.R
-      position: {x: 0.0000000037252903, y: 0.035323463, z: -0.000000007450581}
-      rotation: {x: -0.009984485, y: 0.23047338, z: 0.036432974, w: 0.9723451}
-      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000004}
+      position: {x: -0.00000012293458, y: 0.035323456, z: -0.000000052154064}
+      rotation: {x: -0.009982649, y: 0.23047347, z: 0.036429353, w: 0.9723452}
+      scale: {x: 0.9999997, y: 1.0000002, z: 1.0000001}
     - name: LittleIntermediate.R
       parentName: LittleProximal.R
-      position: {x: 0.000000048428774, y: 0.03415702, z: 0.00000005029142}
-      rotation: {x: 0.021359932, y: -0.0027515134, z: -0.03434324, w: 0.99917805}
-      scale: {x: 0.99999964, y: 1.0000002, z: 0.9999998}
+      position: {x: -0.000000010244548, y: 0.03415695, z: -0.000000078231096}
+      rotation: {x: 0.02135976, y: -0.0027515283, z: -0.03434494, w: 0.999178}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999997}
     - name: LittleDistal.R
       parentName: LittleIntermediate.R
-      position: {x: 0.0000000037252903, y: 0.028081857, z: -0.000000026077032}
-      rotation: {x: -0.0051561277, y: -0.0010180253, z: -0.15395421, w: 0.98806405}
-      scale: {x: 1.0000001, y: 0.99999976, z: 1.0000001}
+      position: {x: -0.00000001542503, y: 0.02808192, z: -0.000000040978193}
+      rotation: {x: -0.005156245, y: -0.0010179927, z: -0.1539543, w: 0.98806405}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: LittleDistal.R_end
       parentName: LittleDistal.R
       position: {x: -0, y: 0.026821198, z: 0}
@@ -2545,24 +1227,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandRingProximal.R
       parentName: Hand.R
-      position: {x: -0.003333252, y: 0.0941929, z: -0.017868798}
-      rotation: {x: -0.09190983, y: -0.2555799, z: 0.008378247, w: 0.9623727}
-      scale: {x: 1.0000001, y: 1.0000001, z: 0.9999999}
+      position: {x: -0.0033331672, y: 0.09419311, z: -0.017868796}
+      rotation: {x: -0.09190994, y: -0.2555799, z: 0.008377349, w: 0.9623728}
+      scale: {x: 0.9999999, y: 0.9999996, z: 1.0000002}
     - name: RingProximal.R
       parentName: HandRingProximal.R
-      position: {x: -0.000000033527613, y: 0.049139436, z: 0}
-      rotation: {x: -0.023057006, y: 0.2447927, z: 0.030750962, w: 0.96881336}
-      scale: {x: 0.9999998, y: 1.0000002, z: 1.0000001}
+      position: {x: -0, y: 0.049139462, z: -0.000000014901161}
+      rotation: {x: -0.023058737, y: 0.24479255, z: 0.030755404, w: 0.9688132}
+      scale: {x: 0.99999976, y: 1.0000005, z: 1.0000004}
     - name: RingIntermediate.R
       parentName: RingProximal.R
-      position: {x: 0.000000022351742, y: 0.037573505, z: -0.000000022351742}
-      rotation: {x: 0.0027174053, y: -0.0007715224, z: -0.028881975, w: 0.9995789}
-      scale: {x: 0.99999994, y: 1.0000002, z: 0.99999994}
+      position: {x: 0.0000000448199, y: 0.037573475, z: 0.0000000018626451}
+      rotation: {x: 0.0027174838, y: -0.000771448, z: -0.028882002, w: 0.99957883}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1.0000001}
     - name: RingDistal.R
       parentName: RingIntermediate.R
-      position: {x: -0.000000007450581, y: 0.030291758, z: 0.000000037252903}
-      rotation: {x: -0.012426636, y: -0.00078259164, z: -0.0824174, w: 0.9965201}
-      scale: {x: 1, y: 1, z: 1.0000002}
+      position: {x: 0.000000008731149, y: 0.030291853, z: -0.000000014901161}
+      rotation: {x: -0.012426633, y: -0.00078265724, z: -0.08241729, w: 0.99652016}
+      scale: {x: 1.0000004, y: 1.0000007, z: 1}
     - name: RingDistal.R_end
       parentName: RingDistal.R
       position: {x: -0, y: 0.026139036, z: 0}
@@ -2570,24 +1252,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandMiddleProximal.R
       parentName: Hand.R
-      position: {x: -0.002915468, y: 0.10632549, z: -0.0031741671}
-      rotation: {x: -0.031078823, y: -0.25807744, z: 0.0029083772, w: 0.96561986}
-      scale: {x: 1.0000006, y: 1.0000008, z: 1.0000001}
+      position: {x: -0.0029153328, y: 0.10632565, z: -0.0031741569}
+      rotation: {x: -0.031078719, y: -0.2580774, z: 0.0029084, w: 0.9656199}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000002}
     - name: MiddleProximal.R
       parentName: HandMiddleProximal.R
-      position: {x: 0.000000014901161, y: 0.044403844, z: -0.0000000037252903}
-      rotation: {x: -0.02887511, y: 0.24863316, z: 0.021269428, w: 0.9679336}
-      scale: {x: 0.99999964, y: 0.9999995, z: 1.0000002}
+      position: {x: -0.00000005401671, y: 0.04440377, z: -0.000000029802322}
+      rotation: {x: -0.028875226, y: 0.24863318, z: 0.021269388, w: 0.9679336}
+      scale: {x: 0.9999996, y: 0.9999998, z: 1.0000004}
     - name: MiddleIntermediate.R
       parentName: MiddleProximal.R
-      position: {x: 0.000000044703484, y: 0.042254884, z: 4.656613e-10}
-      rotation: {x: -0.004591575, y: -0.00044926984, z: -0.010094224, w: 0.9999385}
-      scale: {x: 1.0000004, y: 1.0000004, z: 0.99999994}
+      position: {x: -0.00000002188608, y: 0.042254858, z: 0.0000000018626451}
+      rotation: {x: -0.004591504, y: -0.00044932944, z: -0.010094158, w: 0.9999385}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
     - name: MiddleDistal.R
       parentName: MiddleIntermediate.R
-      position: {x: -0.000000007450581, y: 0.033229515, z: -0.00000001094304}
-      rotation: {x: -0.006737335, y: -0.00035506013, z: -0.050640404, w: 0.9986941}
-      scale: {x: 1.0000005, y: 1.0000005, z: 0.9999999}
+      position: {x: 0.00000010803342, y: 0.033229575, z: -0.0000000018626451}
+      rotation: {x: -0.0067373724, y: -0.00035495916, z: -0.050640434, w: 0.9986941}
+      scale: {x: 1.0000001, y: 1, z: 0.9999998}
     - name: MiddleDistal.R_end
       parentName: MiddleDistal.R
       position: {x: -0, y: 0.025989922, z: 0}
@@ -2595,24 +1277,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: HandIndexProximal.R
       parentName: Hand.R
-      position: {x: -0.0027925633, y: 0.09891452, z: 0.021770075}
-      rotation: {x: 0.05538752, y: -0.263915, z: -0.033548232, w: 0.96236974}
-      scale: {x: 1.0000011, y: 1.0000007, z: 0.9999999}
+      position: {x: -0.0027924303, y: 0.09891455, z: 0.021770086}
+      rotation: {x: 0.05538757, y: -0.26391497, z: -0.033548262, w: 0.9623698}
+      scale: {x: 0.99999976, y: 0.9999996, z: 1.0000001}
     - name: IndexProximal.R
       parentName: HandIndexProximal.R
-      position: {x: 0.0000000037252903, y: 0.04072568, z: -0.000000007450581}
-      rotation: {x: -0.0019421505, y: 0.25705746, z: 0.040155195, w: 0.9655596}
-      scale: {x: 0.99999964, y: 1.0000002, z: 1.0000004}
+      position: {x: -0.0000000018626451, y: 0.04072573, z: -0.000000067055225}
+      rotation: {x: -0.0019434087, y: 0.2570575, z: 0.040156305, w: 0.9655595}
+      scale: {x: 1, y: 1.0000006, z: 1.0000005}
     - name: IndexIntermediate.R
       parentName: IndexProximal.R
-      position: {x: -0, y: 0.04242011, z: -0.000000044703484}
-      rotation: {x: -0.0043748026, y: -0.00012965499, z: -0.040875927, w: 0.9991547}
-      scale: {x: 0.9999999, y: 0.9999997, z: 0.99999976}
+      position: {x: -0.00000010886288, y: 0.04242012, z: -0.000000004656613}
+      rotation: {x: -0.0043752226, y: -0.00012969965, z: -0.04087845, w: 0.9991546}
+      scale: {x: 1, y: 1.0000002, z: 0.9999998}
     - name: IndexDistal.R
       parentName: IndexIntermediate.R
-      position: {x: 0.000000037252903, y: 0.033229668, z: 0.000000014901161}
-      rotation: {x: -0.007540223, y: -0.0006052349, z: -0.09344093, w: 0.9955961}
-      scale: {x: 1, y: 1.0000004, z: 1.0000005}
+      position: {x: -0.0000000033905962, y: 0.033229638, z: -9.313226e-10}
+      rotation: {x: -0.007540222, y: -0.00060531497, z: -0.09344075, w: 0.9955962}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
     - name: IndexDistal.R_end
       parentName: IndexDistal.R
       position: {x: -0, y: 0.026344705, z: 0}
@@ -2620,19 +1302,19 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: ThumbProximal.R
       parentName: Hand.R
-      position: {x: -0.00041554496, y: 0.050596457, z: 0.03299998}
-      rotation: {x: 0.2973171, y: -0.0028361646, z: -0.023825318, w: 0.95447725}
-      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+      position: {x: -0.00041551635, y: 0.05059656, z: 0.03299998}
+      rotation: {x: 0.29731715, y: -0.0028362677, z: -0.02382537, w: 0.9544773}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: ThumbIntermediate.R
       parentName: ThumbProximal.R
-      position: {x: 0.000000026077032, y: 0.050789226, z: 0.00000015646219}
-      rotation: {x: 0.0010190906, y: 0.02170513, z: -0.04003536, w: 0.998962}
-      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000004}
+      position: {x: -0.000000009720679, y: 0.05078928, z: 0.00000005029142}
+      rotation: {x: 0.0010195366, y: 0.02170521, z: -0.04003023, w: 0.99896216}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.9999998}
     - name: ThumbDistal.R
       parentName: ThumbIntermediate.R
-      position: {x: 0.0000000037252903, y: 0.0339826, z: -0.000000055879354}
-      rotation: {x: 0.03810282, y: 0.011382261, z: 0.009570454, w: 0.9991632}
-      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999994}
+      position: {x: 0.00000006752089, y: 0.033982664, z: -0.000000033527613}
+      rotation: {x: 0.038099997, y: 0.011382628, z: 0.00956615, w: 0.99916327}
+      scale: {x: 0.9999998, y: 1.0000001, z: 0.9999999}
     - name: ThumbDistal.R_end
       parentName: ThumbDistal.R
       position: {x: -0, y: 0.03539371, z: 0}
@@ -2641,8 +1323,8 @@ ModelImporter:
     - name: Shoulder.R.001
       parentName: Shoulder.R
       position: {x: 0.06624199, y: 0.03522659, z: 0.00035583568}
-      rotation: {x: -0.34751743, y: 0.027265633, z: 0.25168964, w: 0.9028514}
-      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+      rotation: {x: -0.3475173, y: 0.027265584, z: 0.2516897, w: 0.90285134}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: Shoulder.R.001_end
       parentName: Shoulder.R.001
       position: {x: -0, y: 0.09252786, z: 0}
@@ -2651,8 +1333,8 @@ ModelImporter:
     - name: Shoulder.R.002
       parentName: Shoulder.R
       position: {x: 0.06428936, y: 0.06388168, z: 0.035651397}
-      rotation: {x: -0.09910731, y: 0.10006699, z: 0.37617674, w: 0.9157814}
-      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000001}
+      rotation: {x: -0.099107265, y: 0.10006702, z: 0.3761769, w: 0.91578126}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
     - name: Shoulder.R.002_end
       parentName: Shoulder.R.002
       position: {x: -0, y: 0.061041437, z: 0}
@@ -2661,7 +1343,7 @@ ModelImporter:
     - name: Boob.L
       parentName: Chest
       position: {x: -0.10151107, y: 0.01928389, z: 0.10168553}
-      rotation: {x: 0.742321, y: 0.23438363, z: 0.4516743, w: 0.4359061}
+      rotation: {x: 0.7423211, y: 0.2343836, z: 0.4516743, w: 0.43590602}
       scale: {x: 1, y: 1.0000002, z: 1.0000006}
     - name: Boob.L_end
       parentName: Boob.L
@@ -2671,8 +1353,8 @@ ModelImporter:
     - name: Boob.R
       parentName: Chest
       position: {x: 0.10151111, y: 0.01928389, z: 0.10168549}
-      rotation: {x: 0.74232095, y: -0.2343834, z: -0.45167452, w: 0.4359062}
-      scale: {x: 1.0000001, y: 1.0000004, z: 1}
+      rotation: {x: 0.74232095, y: -0.23438345, z: -0.45167452, w: 0.4359062}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
     - name: Boob.R_end
       parentName: Boob.R
       position: {x: -0, y: 0.12722807, z: 0}
@@ -2681,8 +1363,8 @@ ModelImporter:
     - name: Edge1.L
       parentName: LowerSpine
       position: {x: -0.08974048, y: 0.007989526, z: 0.068829425}
-      rotation: {x: -0.20600566, y: -0.028637275, z: 0.17157343, w: 0.9629663}
-      scale: {x: 0.99999994, y: 1, z: 1}
+      rotation: {x: -0.20600566, y: -0.028637279, z: 0.17157345, w: 0.9629663}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
     - name: Edge1.L_end
       parentName: Edge1.L
       position: {x: -0, y: 0.18044345, z: 0}
@@ -2691,8 +1373,8 @@ ModelImporter:
     - name: Edge1.R
       parentName: LowerSpine
       position: {x: 0.08974048, y: 0.007989526, z: 0.068829425}
-      rotation: {x: -0.17707479, y: 0.025338411, z: -0.16262764, w: 0.97033745}
-      scale: {x: 1, y: 1, z: 0.9999998}
+      rotation: {x: -0.17707478, y: 0.025338415, z: -0.16262762, w: 0.9703374}
+      scale: {x: 1, y: 1, z: 0.9999999}
     - name: Edge1.R_end
       parentName: Edge1.R
       position: {x: -0, y: 0.22581038, z: 0}
@@ -2721,23 +1403,23 @@ ModelImporter:
     - name: UpperLeg.L
       parentName: Hips
       position: {x: -0.109836526, y: 0.040833235, z: 0.015476}
-      rotation: {x: 0.7167957, y: 0.015012383, z: 0.6914605, w: 0.088662595}
-      scale: {x: 1.000005, y: 0.99999905, z: 1.0000124}
+      rotation: {x: 0.7167957, y: 0.015012352, z: 0.69146043, w: 0.08866262}
+      scale: {x: 1.0000054, y: 1.0000006, z: 1.0000114}
     - name: LowerLeg.L
       parentName: UpperLeg.L
-      position: {x: 0.00000010617077, y: 0.4457217, z: 0.000000006519258}
-      rotation: {x: 0.07806437, y: -0.015595708, z: 0.27566972, w: 0.95795035}
-      scale: {x: 0.9999994, y: 1.0000029, z: 0.9999987}
+      position: {x: -0.000000008381903, y: 0.4457217, z: 0.000000006519258}
+      rotation: {x: 0.078064404, y: -0.015595597, z: 0.27566975, w: 0.9579504}
+      scale: {x: 0.99999946, y: 1.0000004, z: 1}
     - name: Foot.L
       parentName: LowerLeg.L
-      position: {x: -0.000000018626451, y: 0.43573013, z: 0}
-      rotation: {x: -0.031443805, y: 0.007290392, z: -0.4410345, w: 0.89690953}
-      scale: {x: 0.99999815, y: 1.0000021, z: 1.0000001}
+      position: {x: -0.00000004377216, y: 0.43572986, z: 0.000000014901161}
+      rotation: {x: -0.031443737, y: 0.0072902963, z: -0.4410345, w: 0.8969096}
+      scale: {x: 0.99999666, y: 1.0000038, z: 0.9999992}
     - name: Toes.L
       parentName: Foot.L
-      position: {x: 9.313226e-10, y: 0.25612572, z: -0.000000009255018}
-      rotation: {x: -0.011829197, y: -0.0000058505684, z: -0.49462986, w: 0.86902326}
-      scale: {x: 1.0000005, y: 1.0000001, z: 1}
+      position: {x: 0.000000010477379, y: 0.25612572, z: -0.000000007741619}
+      rotation: {x: -0.011829231, y: -0.000005900859, z: -0.49462992, w: 0.8690232}
+      scale: {x: 1.0000008, y: 0.9999988, z: 1.0000001}
     - name: Toes.L_end
       parentName: Toes.L
       position: {x: -0, y: 0.16337219, z: 0}
@@ -2746,33 +1428,33 @@ ModelImporter:
     - name: TailStart
       parentName: Hips
       position: {x: -0, y: 0.16625214, z: -0.10555029}
-      rotation: {x: -0.8511928, y: -0, z: -0, w: 0.5248533}
-      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+      rotation: {x: -0.85119283, y: -0, z: -0, w: 0.5248531}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: TailStart.001
       parentName: TailStart
       position: {x: -0, y: 0.15970276, z: -0.000000052154064}
-      rotation: {x: 0.00000023841858, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+      rotation: {x: 0.00000044703478, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: TailMiddle
       parentName: TailStart.001
-      position: {x: -0.0000000020954758, y: 0.1597027, z: 0.00000005655602}
-      rotation: {x: 0.09667918, y: -1.658817e-17, z: 6.994589e-17, w: -0.9953156}
-      scale: {x: 1, y: 0.99999946, z: 0.99999946}
+      position: {x: 0.0000000028303475, y: 0.15970273, z: -0.00000002309389}
+      rotation: {x: 0.096679136, y: -1.6588174e-17, z: 6.994589e-17, w: -0.9953156}
+      scale: {x: 0.9999999, y: 1.0000005, z: 1.0000005}
     - name: TailMiddle.001
       parentName: TailMiddle
-      position: {x: 0.000000004656613, y: 0.179449, z: -0.000000098196324}
-      rotation: {x: 0.00000012665986, y: -3.308722e-24, z: 6.534726e-23, w: 1}
-      scale: {x: 0.99999994, y: 1.0000006, z: 1.000001}
+      position: {x: -0.0000000037252903, y: 0.17944899, z: -0.00000000721775}
+      rotation: {x: 0.0000001490116, y: -3.308722e-24, z: 4.4667747e-23, w: 1}
+      scale: {x: 1, y: 0.9999997, z: 0.9999997}
     - name: TailEnd
       parentName: TailMiddle.001
-      position: {x: -0.0000000036743586, y: 0.17944896, z: -0.000000048894435}
-      rotation: {x: -0.06468524, y: 5.7095764e-24, z: -1.4363033e-17, w: 0.9979058}
-      scale: {x: 0.99999994, y: 0.99999964, z: 0.9999993}
+      position: {x: -0, y: 0.17944905, z: 0.000000049592927}
+      rotation: {x: -0.06468532, y: -1.7455804e-23, z: -1.436298e-17, w: 0.99790573}
+      scale: {x: 1, y: 0.99999994, z: 1.0000002}
     - name: TailEnd.001
       parentName: TailEnd
-      position: {x: 0.0000000037252903, y: 0.18895021, z: 0.00000007334165}
-      rotation: {x: -0, y: 9.305761e-25, z: -1.2865563e-23, w: 1}
-      scale: {x: 1.0000001, y: 0.99999976, z: 0.99999994}
+      position: {x: -0.0000000018626451, y: 0.1889501, z: -0.000000077299774}
+      rotation: {x: -0, y: 1.6543561e-24, z: -2.5944547e-23, w: 1}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999999}
     - name: TailEnd.001_end
       parentName: TailEnd.001
       position: {x: -0, y: 0.18895024, z: 0}
@@ -2781,23 +1463,23 @@ ModelImporter:
     - name: UpperLeg.R
       parentName: Hips
       position: {x: 0.109836526, y: 0.040833235, z: 0.015476}
-      rotation: {x: 0.7167957, y: -0.015012383, z: -0.6914605, w: 0.088662595}
-      scale: {x: 1.0000052, y: 1.0000002, z: 1.0000113}
+      rotation: {x: 0.7167957, y: -0.015012352, z: -0.69146043, w: 0.08866262}
+      scale: {x: 1.0000054, y: 1.0000006, z: 1.0000114}
     - name: LowerLeg.R
       parentName: UpperLeg.R
       position: {x: 0.000000007916242, y: 0.4457217, z: 0.0000000062864274}
-      rotation: {x: 0.07806437, y: 0.015595708, z: -0.27566972, w: 0.95795035}
-      scale: {x: 0.9999997, y: 1.0000004, z: 1}
+      rotation: {x: 0.078064404, y: 0.015595597, z: -0.27566975, w: 0.9579504}
+      scale: {x: 0.9999995, y: 1.0000001, z: 1}
     - name: Foot.R
       parentName: LowerLeg.R
       position: {x: 0.000000027008355, y: 0.4357299, z: 4.656613e-10}
-      rotation: {x: -0.03144376, y: -0.0072903153, z: 0.4410346, w: 0.89690953}
-      scale: {x: 0.9999963, y: 1.0000037, z: 0.9999993}
+      rotation: {x: -0.031443764, y: -0.0072902357, z: 0.44103453, w: 0.8969095}
+      scale: {x: 0.9999966, y: 1.0000037, z: 0.9999994}
     - name: Toes.R
       parentName: Foot.R
       position: {x: -0.0000000023283064, y: 0.25612566, z: -0.0000000062573235}
-      rotation: {x: -0.011829317, y: 0.000005845446, z: 0.49463063, w: 0.86902285}
-      scale: {x: 1.0000011, y: 0.999999, z: 1.0000002}
+      rotation: {x: -0.011829326, y: 0.000005786307, z: 0.49463075, w: 0.8690228}
+      scale: {x: 1.0000013, y: 0.99999905, z: 1.0000001}
     - name: Toes.R_end
       parentName: Toes.R
       position: {x: -0, y: 0.16337219, z: 0}
@@ -2806,8 +1488,8 @@ ModelImporter:
     - name: Rump1
       parentName: Hips
       position: {x: -0, y: -0.10040653, z: -0.010561589}
-      rotation: {x: 0.6096041, y: -0.0000007559815, z: -0.0000005813623, w: 0.7927061}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      rotation: {x: 0.6096041, y: -0.00000075598143, z: -0.00000058136226, w: 0.79270595}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: Rump1_end
       parentName: Rump1
       position: {x: -0, y: 0.11433757, z: 0}
@@ -2816,22 +1498,72 @@ ModelImporter:
     - name: rump2
       parentName: Hips
       position: {x: -0, y: -0.1004231, z: -0.010561589}
-      rotation: {x: -0.54986364, y: -0, z: -0, w: 0.83525443}
-      scale: {x: 1, y: 1.0000002, z: 1}
+      rotation: {x: -0.5498637, y: -0, z: -0, w: 0.83525443}
+      scale: {x: 1, y: 1.0000001, z: 1}
     - name: rump3
       parentName: rump2
       position: {x: -0, y: 0.101186134, z: 0.000000026077032}
-      rotation: {x: 0.28555712, y: -0, z: -0, w: 0.9583617}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      rotation: {x: 0.2855572, y: -0, z: -0, w: 0.95836174}
+      scale: {x: 1, y: 0.99999994, z: 1}
     - name: rump3_end
       parentName: rump3
       position: {x: -0, y: 0.055599794, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: ControllerArm.L
+      parentName: Release
+      position: {x: -0.7401503, y: 0.031429023, z: 1.5920671}
+      rotation: {x: 0.70649123, y: -0.029498441, z: -0.029498443, w: 0.70649123}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: ControllerArm.L_end
+      parentName: ControllerArm.L
+      position: {x: -0, y: 0.12947953, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ControllerArm.R
+      parentName: Release
+      position: {x: 0.7401503, y: 0.031429023, z: 1.5920671}
+      rotation: {x: 0.70649123, y: 0.029498441, z: 0.029498443, w: 0.70649123}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: ControllerArm.R_end
+      parentName: ControllerArm.R
+      position: {x: -0, y: 0.12947953, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: TailEndController
+      parentName: Release
+      position: {x: -0.004246645, y: 0.9410895, z: 0.59674156}
+      rotation: {x: 0.43225768, y: 0.06311502, z: -0.089897625, w: -0.8950353}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: TailEndController_end
+      parentName: TailEndController
+      position: {x: -0, y: 0.20685008, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FootController.L
+      parentName: Release
+      position: {x: -0.1403093, y: -0.0274154, z: 0.041621}
+      rotation: {x: 0.012164236, y: -0.69792944, z: 0.011857809, w: -0.715965}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: FootController.L_end
+      parentName: FootController.L
+      position: {x: -0, y: 0.17848033, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: FootController.R
+      parentName: Release
+      position: {x: 0.1403093, y: -0.0274154, z: 0.041621}
+      rotation: {x: 0.012164236, y: 0.69792944, z: -0.011857809, w: -0.715965}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: FootController.R_end
+      parentName: FootController.R
+      position: {x: -0, y: 0.17848033, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Retopology.001
       parentName: PersonFox(Clone)
       position: {x: -0, y: 3.0456204, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5

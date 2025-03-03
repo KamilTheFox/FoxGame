@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public static class Expansion
 {
@@ -10,6 +11,11 @@ public static class Expansion
         foreach (Transform t in transform)
             list.Add(t);
         return list.ToArray();
+    }
+
+    public static Transform FirstToLowerPrefix(this Transform transform, string namePrefix)
+    {
+        return transform.GetChilds().FirstOrDefault(obj => obj.name.ToLower().IndexOf(namePrefix) == 0);
     }
     #region https://forum.unity.com/threads/change-rendering-mode-via-script.476437/
     public static void ToOpaqueMode(this Material material)

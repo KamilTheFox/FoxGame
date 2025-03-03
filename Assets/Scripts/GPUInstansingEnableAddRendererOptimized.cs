@@ -20,11 +20,11 @@ public class GPUInstansingEnableAddRendererOptimized : MonoBehaviour
     //}
     public void Awake()
     {
-        _renderBuffer = new RendererBuffer(gameObject);
+        //_renderBuffer = new RendererBuffer(gameObject);
 
-        _renderBuffer.IsDynamicSprite = true;
+        //_renderBuffer.IsDynamicSprite = true;
 
-        OptimizedRenderer.AddRendererBuffer(_renderBuffer);
+        //OptimizedRenderer.AddRendererBuffer(_renderBuffer);
 
         //foreach (var renderer in GetComponentsInChildren<Renderer>())
         //{
