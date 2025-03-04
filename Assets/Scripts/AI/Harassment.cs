@@ -34,7 +34,7 @@ namespace AIInput
 
         public Vector3 TargetPositionPath { get; private set; }
 
-        public Harassment(CharacterBody body) : base(body)
+        public Harassment(CharacterMediator body) : base(body)
         {
             FindHunted();
         }
@@ -85,8 +85,8 @@ namespace AIInput
             if (CurrentHunted == null)
                 return;
             bool isCast = Physics.Raycast(new Ray(CurrentHunted.transform.position + Vector3.up, Vector3.down), out RaycastHit hit, 50F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
-            bool isCast2 = Physics.Raycast(new Ray(Character.CharacterInput.BoundsCollider.center + 0.1F * Vector3.up, Vector3.down), out RaycastHit hit2, 50F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
-            Debug.DrawLine(Character.CharacterInput.BoundsCollider.center, hit2.point + hit2.normal * 0.01F, Color.magenta);
+            bool isCast2 = Physics.Raycast(new Ray(Character.MainCollider.bounds.center + 0.1F * Vector3.up, Vector3.down), out RaycastHit hit2, 50F, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
+            Debug.DrawLine(Character.MainCollider.bounds.center, hit2.point + hit2.normal * 0.01F, Color.magenta);
             NavMesh.CalculatePath(isCast2 ? hit2.point + hit2.normal * 0.01F : Character.transform.position, isCast ? hit.point : CurrentHunted.transform.position, NavMesh.AllAreas, path);
 
             var list = path.corners.ToList();
@@ -119,7 +119,7 @@ namespace AIInput
                 }
             }
             direction = Quaternion.LookRotation(source.position - TargetPositionPath, Vector3.up).eulerAngles;
-            Character.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
+            Character.Body.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
 
             Vector3 velosity = source.forward;
 

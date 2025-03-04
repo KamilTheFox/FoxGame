@@ -27,9 +27,9 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.Instance?.CPlayerBody?.CharacterInput.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.Instance?.Player?.Input.isFly.GetLText() }), true);
 
-                Button_Fly.OnClick().AddListener(() => CameraControll.Instance?.CPlayerBody?.CharacterInput.Fly());
+                Button_Fly.OnClick().AddListener(() => CameraControll.Instance?.Player?.Input.Fly());
 
                 Transform group = MenuUI<HorizontalLayoutGroup>.Create("Bodyes", GetTransform(), LText.Null, true).gameObject.transform;
 
@@ -54,7 +54,7 @@ namespace GroupMenu
                 coyotBiker.OnClick().AddListener(() =>
                 {
                     GiveBody(6);
-                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.Player.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(0);
                     putOnClothes.SelectClothes(1);
                     putOnClothes.SelectClothes(2);
@@ -95,7 +95,7 @@ namespace GroupMenu
                 GiveBodyBDSMFox.OnClick().AddListener(() =>
                 {
                     GiveBody();
-                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.Player.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(0);
                     putOnClothes.SelectClothes(1);
                     putOnClothes.SelectClothes(2);
@@ -103,7 +103,7 @@ namespace GroupMenu
                 Swim.OnClick().AddListener(() =>
                 {
                     GiveBody();
-                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.Player.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(3);
                 });
 
@@ -119,7 +119,7 @@ namespace GroupMenu
         private void GiveBody(int indexBody = 0)
         {
             Menu.PopMenu(true);
-            if (CameraControll.Instance.CPlayerBody == null)
+            if (CameraControll.Instance.Player == null)
                 CameraControll.Instance.GiveBody(indexBody);
             else
                 MessageBox.Info("Нельзя выдать новое тело находясь в теле");
@@ -173,12 +173,12 @@ namespace GroupMenu
             MenuUI<Button>.Create("GiveItem", GroupAddItems, LText.Give).OnClick(() =>
             {
 
-                CharacterBody player = CameraControll.Instance?.CPlayerBody;
+                CharacterMediator player = CameraControll.Instance?.Player;
                 if (player)
                 {
                     var CheckGive = GiveItem();
                     if (!CheckGive.Item1) return;
-                    player.GiveItem(CheckGive.Item2);
+                    player.Body.GiveItem(CheckGive.Item2);
                     Menu.PopMenu(true);
                 }
                 else

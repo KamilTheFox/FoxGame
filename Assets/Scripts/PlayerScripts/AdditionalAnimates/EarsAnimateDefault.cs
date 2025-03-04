@@ -25,7 +25,7 @@ namespace PlayerDescription
 
         private const int CURVE_RESOLUTION = 360;
 
-        AnimatorCharacterInput input;
+        CharacterMediator input;
         public Transform[] Ears { get; private set; }
         public GameObject gameObject => input.gameObject;
         bool IGlobalUpdates.enabled => input.gameObject.activeSelf;
@@ -106,10 +106,10 @@ namespace PlayerDescription
             }
         }
 
-        public void Initialize(AnimatorCharacterInput arcs)
+        public void Initialize(CharacterMediator arcs)
         {
             input = arcs;
-            Ears = arcs.PBody.Head.GetChilds().Where(t => t.name.ToLower().Contains("ear")).ToArray();
+            Ears = arcs.Body.Head.GetChilds().Where(t => t.name.ToLower().Contains("ear")).ToArray();
 
             if (Ears == null) return;
 

@@ -17,7 +17,7 @@ namespace PlayerDescription
 
         private static ViewInteractEntity viewInteract;
 
-        private CharacterBody character;
+        private CharacterMediator character;
 
         public static bool isMoveItem => viewInteract == null ? false : (bool)(viewInteract?.IsMoveEntity);
 
@@ -35,7 +35,7 @@ namespace PlayerDescription
             }
         }
 
-        public ViewInteractEntity(Transform _transform, CharacterBody body)
+        public ViewInteractEntity(Transform _transform, CharacterMediator body)
         {
             transform = _transform;
             viewInteract = this;
@@ -55,7 +55,7 @@ namespace PlayerDescription
 
         public void ResetTarget()
         {
-            pointTarget = character.Head.position + character.Head.forward * 100f + Vector3.down * 2F;
+            pointTarget = character.Body.Head.position + character.Body.Head.forward * 100f + Vector3.down * 2F;
         }
         private struct InfoRigidBody
         {
@@ -81,9 +81,9 @@ namespace PlayerDescription
 
                 wieldable.RootParent = null;
 
-                character.Drop();
+                character.Body.Drop();
 
-                character.wieldable = null;
+                character.Body.wieldable = null;
 
                 MoveEntity.Throw();
 
@@ -147,7 +147,7 @@ namespace PlayerDescription
 
                 wieldable.RootParent = character.Transform;
 
-                Transform hand = character.RightHand.GetChilds().FirstOrDefault(name => name.name.Contains("Wield" + wieldable.UpAxis));
+                Transform hand = character.Body.RightHand.GetChilds().FirstOrDefault(name => name.name.Contains("Wield" + wieldable.UpAxis));
 
                 if(hand == null)
                 {
@@ -157,9 +157,9 @@ namespace PlayerDescription
 
                 wieldable.SetWieldHand(hand);
 
-                character.wieldable = wieldable;
+                character.Body.wieldable = wieldable;
 
-                character.Took();
+                character.Body.Took();
 
                 return;
             }
@@ -236,7 +236,7 @@ namespace PlayerDescription
                 {
                     if (MoveEntity is IWieldable)
                     {
-                        character.Attack();
+                        character.Body.Attack();
                     }
                     else if (Taken is IDropEntity drop)
                     {
@@ -323,7 +323,7 @@ namespace PlayerDescription
                 {
                     if (MoveEntity is IWieldable)
                     {
-                        character.Attack();
+                        character.Body.Attack();
                     }
                     else if (Taken is IDropEntity drop)
                     {

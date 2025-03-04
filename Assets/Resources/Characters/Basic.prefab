@@ -97,10 +97,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &4510185313342233919
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 2594261296889444845}
   - component: {fileID: 313232296}
   - component: {fileID: 4917585060537080598}
+  - component: {fileID: 1659131692243779289}
   m_Layer: 3
   m_Name: Basic
   m_TagString: Untagged
@@ -169,10 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   talkingTargetInteractEntity: 1
-  rendererBuffer:
-    debug: 0
-    levelLods: 
-    currentLODLevel: 0
   _isItemController: 0
 --- !u!114 &1166204446412613924
 MonoBehaviour:
@@ -226,10 +223,34 @@ MonoBehaviour:
   - {fileID: -203655887218126122, guid: 1fca241ee1641fc448140dc610cdd882, type: 3}
   "\u0441orrectClimbinding": 0
   BlandShapes: []
-  directionSmooth: {x: 0, y: 0, z: 0}
-  farvardLo: {x: 0, y: 0, z: 0}
-  farvardNorm: {x: 0, y: 0, z: 0}
-  vector: {x: 0, y: 0, z: 0}
+  additionalAnimates: []
+  blinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  references:
+    version: 2
+    RefIds: []
 --- !u!54 &2594261296889444845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -383,6 +404,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1659131692243779289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369774753837167443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0a6db77bf70884dbcde48a8e4fbc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 736421841667615264}
+  input: {fileID: 1166204446412613924}
+  animatorInput: {fileID: 3119165814241841515}
+  mainRigidbody: {fileID: 2594261296889444845}
+  mainCollider: {fileID: 313232296}
+  mainAudioSource: {fileID: 4917585060537080598}
+  mainTransform: {fileID: 8716408054984372214}
 --- !u!1 &4848474103002502857
 GameObject:
   m_ObjectHideFlags: 0

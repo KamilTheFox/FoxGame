@@ -17,13 +17,13 @@ namespace ScreenplayLevel
 
         [SerializeField] private Texture2D IconEnemy;
 
-        [SerializeField] private CharacterBody Player;
+        [SerializeField] private CharacterMediator Player;
 
         private MenuUI<Text> WinLoseText;
 
         public class ThirdPersonViewTop : IViewedCamera, IInputCaracter
         {
-            private CharacterBody Player;
+            private CharacterMediator Player;
             private CameraControll _camera;
 
             private GameObject ThirdObject;
@@ -33,7 +33,7 @@ namespace ScreenplayLevel
             private Vector3 ForvardRotate;
 
             private Quaternion SmoothRotate = Quaternion.identity;
-            public ThirdPersonViewTop(CameraControll camera, CharacterBody _Player)
+            public ThirdPersonViewTop(CameraControll camera, CharacterMediator _Player)
             {
                 Player = _Player;
                 camera.EntranceBody(Player.gameObject);
@@ -41,7 +41,7 @@ namespace ScreenplayLevel
             }
             public Vector3 RotateBody()
             {
-                Vector3 vector = Player.CharacterInput.Velosity;
+                Vector3 vector = Player.Input.Velosity;
                 if (vector != Vector3.zero)
                 {
                     ForvardRotate = SmoothRotate.eulerAngles;
@@ -69,15 +69,15 @@ namespace ScreenplayLevel
             public void Dispose()
             {
                 _camera.transform.SetParent(Player.Transform);
-                Player.CharacterInput.ForwardTransform = null;
+                Player.Input.ForwardTransform = null;
                 GameObject.Destroy(ThirdObject);
             }
             
             public void Construct()
             {
                 ThirdObject = new GameObject("ThirdObject");
-                Player.CharacterInput.ForwardTransform = ThirdObject.transform;
-                Player.ClearInteractEntity();
+                Player.Input.ForwardTransform = ThirdObject.transform;
+                Player.Body.ClearInteractEntity();
                 _camera.transform.SetParent(null);
                 _camera.Transform.localPosition = Vector3.zero;
                 _camera.Transform.localEulerAngles = Vector3.zero;
@@ -89,7 +89,7 @@ namespace ScreenplayLevel
 
             bool IInputCaracter.Space()
             {
-                return Player.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+                return Player.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCaracter.Shift()
@@ -104,19 +104,19 @@ namespace ScreenplayLevel
         }
         private class HealthPlayer : IDiesing
         {
-            private CharacterBody body;
+            private CharacterMediator player;
 
             UnityAction<int> updateValue;
-            public HealthPlayer(CharacterBody player, byte _Health, UnityAction<int> _updateValue)
+            public HealthPlayer(CharacterMediator _player, byte _Health, UnityAction<int> _updateValue)
             {
-                body = player;
+                player = _player;
                 Health = _Health;
                 updateValue = _updateValue;
             }
 
-            public Transform Transform => body.Transform;
+            public Transform Transform => player.Transform;
 
-            public bool IsDie => body.IsDie;
+            public bool IsDie => player.Body.IsDie;
 
             public GameObject gameObject => Transform.gameObject;
 
@@ -125,22 +125,22 @@ namespace ScreenplayLevel
             public void Death()
             {
                 if (IsDie) return;
-                body.Fell();
+                player.Body.Fell();
                 Health--;
                 updateValue.Invoke(Health);
                 if (Health <= 0)
                 {
-                    body.Die();
+                    player.Body.Die();
                 }
                 else
                 {
-                    body.StartCoroutine(NotFell());
+                    player.Body.StartCoroutine(NotFell());
                 }
             }
             private IEnumerator NotFell()
             {
                 yield return new WaitForSeconds(1F);
-                body.StendUp();
+                player.Body.StendUp();
                 yield break;
             }
         }
@@ -179,13 +179,13 @@ namespace ScreenplayLevel
             CameraControll controll = CameraControll.Instance;
             var inputView = new ThirdPersonViewTop(controll, Player);
             controll.ChangeViewPerson(inputView);
-            Player.CharacterInput.IntroducingCharacter = inputView;
-            Player.UniqueDeathscenario = new HealthPlayer(Player, healthPlayer, (count => { imageUI.SetText(count.ToString()); }));
+            Player.Input.IntroducingCharacter = inputView;
+            Player.Body.UniqueDeathscenario = new HealthPlayer(Player, healthPlayer, (count => { imageUI.SetText(count.ToString()); }));
             Menu.instance.hootKeys = this;
             ConstructMenuNone();
 
-            Player.OnDied += Over;
-            Player.OnFell += Player_OnFell;
+            Player.Body.OnDied += Over;
+            Player.Body.OnFell += Player_OnFell;
             EnemyBoss.DeathEnemy += Win;
 
         }

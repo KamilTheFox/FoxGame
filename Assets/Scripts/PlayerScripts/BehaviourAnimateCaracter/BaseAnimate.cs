@@ -5,20 +5,20 @@ namespace PlayerDescription
 {
     public abstract class BaseAnimate
     {
-        [SerializeField] protected readonly AnimatorCharacterInput animatorCharacter;
+        [SerializeField] protected readonly CharacterMediator mediator;
 
-        public CharacterBody PBody => animatorCharacter.PBody;
+        public CharacterBody PBody => mediator.Body;
 
-        public Animator Animator => animatorCharacter.AnimatorHuman;
+        public Animator Animator => mediator.AnimatorInput.AnimatorHuman;
 
-        public Transform Transform => PBody.Transform;
+        public Transform Transform => mediator.Transform;
 
-        public BaseAnimate(AnimatorCharacterInput animatorCharacterInput)
+        public BaseAnimate(CharacterMediator _mediator)
         {
-            animatorCharacter = animatorCharacterInput;
+            mediator = _mediator;
         }
 
-        protected AnimationClip[] AnimationClip => animatorCharacter.AnimationClips;
+        protected AnimationClip[] AnimationClip => mediator.AnimatorInput.AnimationClips;
 
         public abstract void StartAnimation();
     }

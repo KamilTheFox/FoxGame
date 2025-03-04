@@ -26,9 +26,9 @@ namespace AIInput
 
         private Vector3 TargetPositionPath;
 
-        [SerializeField] private CharacterBody body;
+        [SerializeField] private CharacterMediator charMediator;
 
-        private CharacterInput sourse => body.CharacterInput;
+        private CharacterInput sourse => charMediator.Input;
 
         private AnimatorCharacterInput animator;
 
@@ -63,7 +63,7 @@ namespace AIInput
             movement.stepAtWay = _step / way.DistanceWay;
             movement.minDistanceNextPoint = minDistanceNextPoint;
             movement.currentStepAtWay = 0;
-            movement.body = sourse;
+            movement.charMediator = sourse.GetComponent<CharacterMediator>();
             return movement;
         }
         public static MovementAtWay Clone(MovementAtWay sourse, BezierWay way)
@@ -73,7 +73,7 @@ namespace AIInput
             movement.stepAtWay = sourse.step / way.DistanceWay;
             movement.minDistanceNextPoint = sourse.minDistanceNextPoint;
             movement.currentStepAtWay = 0;
-            movement.body = sourse.body;
+            movement.charMediator = sourse.charMediator;
             return movement;
         }
         public void Initialize(BezierWay _way)
@@ -163,7 +163,7 @@ namespace AIInput
             }
 
             direction = Quaternion.LookRotation(transform.position - TargetPositionPath, Vector3.up).eulerAngles;
-            body.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
+            charMediator.Body.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
 
             if (currentStepAtWay >= 1F)
             {

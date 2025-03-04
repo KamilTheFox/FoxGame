@@ -13,9 +13,11 @@ using UnityEditor;
 namespace PlayerDescription
 {
     [RequireComponent(typeof(CharacterInput))]
-    public class AnimatorCharacterInput : VulpesMonoBehaviour
+    public class AnimatorCharacterInput : VulpesMonoBehaviour, ICharacterAdaptivator
     {
         private const float SmoothDelay = 2F;
+
+        private CharacterMediator adapter;
 
         private Animator animator;
         public Animator AnimatorHuman
@@ -27,8 +29,6 @@ namespace PlayerDescription
             }
         }
         public Animator AnimatorCustom { get; private set; }
-
-        private CharacterBody pBody;
 
         private UnityEvent onCompletedClimbing = new();
 
@@ -44,15 +44,11 @@ namespace PlayerDescription
             }
         }
 
-        public CharacterBody PBody 
-        {
-            get
-            {
-                if(!pBody)
-                    pBody = GetComponent<CharacterBody>();
-                return pBody;
-            }
-        }
+        private CharacterBody Body => adapter.Body;
+
+
+        private CapsuleCollider CharacterCollider => (CapsuleCollider)adapter.MainCollider;
+
         [field: SerializeField] public AnimationClip[] AnimationClips { get; private set; }
 
         private BaseAnimate[] baseAnimates;
@@ -61,7 +57,7 @@ namespace PlayerDescription
 
         public float WeightArm { get; set; }
 
-        public CharacterInput InputC => PBody.CharacterInput;
+        private CharacterInput InputC => adapter.Input;
 
         [SerializeField] private float сorrectClimbinding;
 
@@ -69,7 +65,7 @@ namespace PlayerDescription
 
         public Vector3 AvatarPositionDefault { get; private set; }
 
-        public bool IsHipsForwardDown => Vector3.Dot(PBody.Hips.forward,Vector3.down) > 0;
+        public bool IsHipsForwardDown => Vector3.Dot(Body.Hips.forward,Vector3.down) > 0;
 
         public bool applyRootMotion
         {
@@ -125,10 +121,10 @@ namespace PlayerDescription
         private class InterceptionOnIK : MonoBehaviour
         {
             public UnityEvent onAnimatorIK = new UnityEvent();
-            public CharacterBody PBody { get; set; }
+            public CharacterInput input { get; set; }
             private void OnAnimatorIK()
             {
-                if(!PBody.CharacterInput.IsStopMovement)
+                if(!input.IsStopMovement)
                     onAnimatorIK.Invoke();
             }
         }
@@ -185,11 +181,11 @@ namespace PlayerDescription
         }
         private void ApplayRootFalseClimbing()
         {
-            InputC.Transform.position = AnimatorHuman.transform.position;
-            InputC.Transform.rotation = AnimatorHuman.transform.rotation;
+            adapter.Transform.position = AnimatorHuman.transform.position;
+            adapter.Transform.rotation = AnimatorHuman.transform.rotation;
             applyRootMotion = false;
-            PBody.Rigidbody.isKinematic = false;
-            if (CameraControll.Instance.IsPlayerControll(PBody))
+            adapter.MainRigidbody.isKinematic = false;
+            if (CameraControll.Instance.IsPlayerControll(Body))
             {
                 if (CameraControll.Instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
                 {
@@ -197,6 +193,10 @@ namespace PlayerDescription
                 }
             }
             onCompletedClimbing.Invoke();
+        }
+        public void SetMediator(CharacterMediator _adapter)
+        {
+            this.adapter = _adapter;
         }
         public void OnAwake()
         {
@@ -206,14 +206,14 @@ namespace PlayerDescription
 
             ResetBlandShapes();
             interceptionOnIK = AnimatorHuman.gameObject.AddComponent<InterceptionOnIK>();
-            interceptionOnIK.PBody = PBody;
+            interceptionOnIK.input = InputC;
 
             baseAnimates = new BaseAnimate[]
             {
-                new AnimationStendUp(this),
-                new AnimationAttack(this),
-                new AnimationTook(this),
-                new AnimationDrop(this),
+                new AnimationStendUp(adapter),
+                new AnimationAttack(adapter),
+                new AnimationTook(adapter),
+                new AnimationDrop(adapter),
             };
 
             smoothChangeCorrutine = new();
@@ -227,27 +227,27 @@ namespace PlayerDescription
                 SetTrigger(TypeAnimation.Jump);
             });
 
-            InputC.eventInput[TypeAnimation.Climbing].AddListener(() =>
+            InputC.eventInput[TypeAnimation.Climbing].AddListener((UnityAction)(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Climbing)) return;
-                if (CameraControll.Instance.IsPlayerControll(PBody))
+                if (CameraControll.Instance.IsPlayerControll((CharacterBody)this.Body))
                 {
                     if (CameraControll.Instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
                     {
-                        CameraControll.Instance.transform.SetParent(PBody.Head);
+                        CameraControll.Instance.transform.SetParent((Transform)this.Body.Head);
                     }
                 }
 
                 applyRootMotion = true;
-                PBody.Rigidbody.isKinematic = true;
+                adapter.MainRigidbody.isKinematic = true;
                 AnimatorHuman.transform.position = AnimatorHuman.transform.position + AnimatorHuman.transform.forward * 0.05f + Vector3.up * 0.15f * сorrectClimbinding;
-                Vector3 position = PBody.transform.position;
-                PBody.transform.position = new Vector3(position.x, InputC.PointEdgePlaneClimbing.point.y - 1.38F, position.z);
-                PBody.Rigidbody.velocity = Vector3.zero;
+                Vector3 position = this.Body.transform.position;
+                this.Body.transform.position = new Vector3(position.x, InputC.PointEdgePlaneClimbing.point.y - 1.38F, position.z);
+                adapter.MainRigidbody.velocity = Vector3.zero;
 
                 SetTrigger(TypeAnimation.Climbing);
-                Invoke(nameof(ApplayRootFalseClimbing), 2F);
-            });
+                Invoke(nameof(ApplayRootFalseClimbing), 2.1F);
+            }));
 
             InputC.eventInput[TypeAnimation.Fall].AddListener(() =>
             {
@@ -297,7 +297,7 @@ namespace PlayerDescription
             });
             //interceptionOnIK.onAnimatorIK.AddListener(OnAnimatorIK);
             CreateAdditionalAnimate();
-            pBody.OnDied += OnDisableAdditionAnimate;
+            Body.OnDied += OnDisableAdditionAnimate;
             StartBlinking();
         }
         
@@ -305,12 +305,12 @@ namespace PlayerDescription
         {
             foreach (var additionalAnimate in additionalAnimates)
             {
-                additionalAnimate.Initialize(this);
+                additionalAnimate.Initialize(adapter);
             }
         }
         private void ClearAdditionalAnimate()
         {
-            pBody.OnDied -= ClearAdditionalAnimate;
+            Body.OnDied -= ClearAdditionalAnimate;
             foreach (var additionalAnimate in additionalAnimates)
             {
                 additionalAnimate.OnDestroy();
@@ -327,9 +327,9 @@ namespace PlayerDescription
                     AnimatorHuman.SetTrigger("Crouch");
                     AnimatorHuman.SetBool("IsCrouch", true);
                     InputC.isCrouch = true;
-                    float height = InputC.CharacterCollider.height;
-                    InputC.CharacterCollider.height = height * (2f / 3f);
-                    InputC.CharacterCollider.center -= new Vector3(0, height * (1f / 6f), 0);
+                    float height = CharacterCollider.height;
+                    CharacterCollider.height = height * (2f / 3f);
+                    CharacterCollider.center -= new Vector3(0, height * (1f / 6f), 0);
                     return;
                 }
                 
@@ -342,9 +342,9 @@ namespace PlayerDescription
                 }
                 AnimatorHuman.ResetTrigger("Crouch");
                 Invoke(nameof(TimeOutResetCrouch),1f);
-                float height = InputC.CharacterCollider.height;
-                InputC.CharacterCollider.height = height * 1.5f;
-                InputC.CharacterCollider.center += new Vector3(0, height * 0.25f, 0);
+                float height = CharacterCollider.height;
+                CharacterCollider.height = height * 1.5f;
+                CharacterCollider.center += new Vector3(0, height * 0.25f, 0);
                 AnimatorHuman.SetBool("IsCrouch", false);
             }
             
@@ -452,19 +452,19 @@ namespace PlayerDescription
         {
             isBlinking = true;
 
-            while (!pBody.IsDie) 
+            while (!Body.IsDie) 
             {
                 yield return new WaitForSeconds(UnityEngine.Random.Range(2f, 5f));
 
-                if (pBody.IsDie) break; 
+                if (Body.IsDie) break; 
 
                 yield return BlinkingEyesSmooth(100f);
 
-                if (pBody.IsDie) break;
+                if (Body.IsDie) break;
 
                 yield return BlinkingEyesSmooth(0f);
             }
-            if (pBody.IsDie)
+            if (Body.IsDie)
             {
                 yield return BlinkingEyesSmooth(100f); 
             }

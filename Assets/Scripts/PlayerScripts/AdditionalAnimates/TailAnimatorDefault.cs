@@ -81,9 +81,9 @@ namespace PlayerDescription
             }
         }
 
-        public void Initialize(AnimatorCharacterInput arcs)
+        public void Initialize(CharacterMediator arcs)
         {
-            Tail = arcs.PBody.Hips.GetChilds().First(t => t.name.ToLower().Contains("tail"));
+            Tail = arcs.Body.Hips.GetChilds().First(t => t.name.ToLower().Contains("tail"));
             if (Tail == null) return;
 
             time = UnityEngine.Random.Range(0, 1f);

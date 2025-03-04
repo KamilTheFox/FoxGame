@@ -44,9 +44,9 @@ namespace AIInput
 
         [field: SerializeField] protected bool IsAvoidOther { private get; set; }
 
-        private Vector3 CurrentPosition => GetPointForFloor(Character.CharacterInput.BoundsCollider.center);
+        private Vector3 CurrentPosition => GetPointForFloor(Character.BoundsCollider.center);
 
-        public AIMovement(CharacterBody body) : base(body)
+        public AIMovement(CharacterMediator body) : base(body)
         {
 
         }
@@ -80,10 +80,10 @@ namespace AIInput
         }
         private void Update()
         {
-            if (Character.IsDie) return;
+            if (Character.Body.IsDie) return;
             if (targetVector == null)
             {
-                AISeeWorld.TargetLookEyes.position = new Ray(Character.Head.position, Character.Transform.forward).GetPoint(4f);
+                AISeeWorld.TargetLookEyes.position = new Ray(Character.Body.Head.position, Character.Transform.forward).GetPoint(4f);
                 return;
             }
             else
@@ -187,7 +187,7 @@ namespace AIInput
 
         private void CalculateClimbingPathAddLink()
         {
-            if (!Character.CharacterInput.isSwim)
+            if (!Character.Input.isSwim)
                 return;
 
             var array = AISeeWorld.ViewPoints.Select(hit => hit.point).ToArray();
@@ -204,7 +204,7 @@ namespace AIInput
 
             Vector3 medianNormal = GetMedianVector3(array);
 
-            median = new Vector3(median.x, Character.CharacterInput.BoundsCollider.center.y, median.z);
+            median = new Vector3(median.x, Character.BoundsCollider.center.y, median.z);
 
             Vector3 ForwardSide = medianNormal * -1f;
 
@@ -306,7 +306,7 @@ namespace AIInput
             navPath = new NavMeshPath();
             meshLinks = new();
             var obj = new GameObject("TargetLookEyesAI");
-            obj.transform.SetParent(Character.Transform);
+            obj.transform.SetParent(Character.transform);
             Character.AnimatorInput.OnCompletedClimbing += OnCompletedClimbing;
             AISeeWorld.TargetLookEyes = obj.transform;
             navMeshPathsCalculate = new();
@@ -330,7 +330,7 @@ namespace AIInput
                 goto Continue;
             if (CurrentSpace)
                 return Character.Transform.forward;
-            if (Character.CharacterInput.isSwim && Character.CharacterInput.IsEdgePlaneClimbing)
+            if (Character.Input.isSwim && Character.Input.IsEdgePlaneClimbing)
             {
                 CurrentSpace = true;
                 return Character.Transform.forward;
@@ -350,7 +350,7 @@ namespace AIInput
             }
 
             Vector3 direction = Quaternion.LookRotation(source.position - targetPath.Value, Vector3.up).eulerAngles;
-            Character.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
+            Character.Body.RotateBody(Quaternion.Euler(new Vector3(0, direction.y - 180, 0)));
 
             velosity = source.forward;
 
@@ -379,7 +379,7 @@ Continue:
                 if ((other = hit.collider.GetComponent<CharacterBody>()) != null)
                     if (!other.IsDie)
                     {
-                        if (Vector3.Distance(CurrentPosition, other.Transform.position) < MinDistanceToOtherCharacters)
+                        if (Vector3.Distance(CurrentPosition, other.transform.position) < MinDistanceToOtherCharacters)
                         {
                             velosity += hit.normal;
                         }

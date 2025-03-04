@@ -12,25 +12,15 @@ namespace PlayerDescription
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterInput), typeof(AnimatorCharacterInput), typeof(Rigidbody))]
-    public class CharacterBody : MonoBehaviour, IDiesing, IHunted, ICollideableDoll, IGlobalUpdates
+    public class CharacterBody : MonoBehaviour, IDiesing, IHunted, ICollideableDoll, IGlobalUpdates, ICharacterAdaptivator
     {
-        public Rigidbody Rigidbody => gameObject.GetComponent<Rigidbody>();
+        private CharacterMediator adapter;
 
-        private CharacterInput _inputs;
+        private Rigidbody Rigidbody => adapter.MainRigidbody;
 
         public IDiesing UniqueDeathscenario;
 
-        private AnimatorCharacterInput animationInput;
-
-        public AnimatorCharacterInput AnimatorInput
-        {
-            get
-            {
-                if (animationInput == null)
-                    animationInput = GetComponent<AnimatorCharacterInput>();
-                return animationInput;
-            }
-        }
+        private AnimatorCharacterInput AnimatorInput => adapter.AnimatorInput;
 
         public IWieldable wieldable;
 
@@ -132,15 +122,7 @@ namespace PlayerDescription
             }
         }
 
-        public CharacterInput CharacterInput
-        {
-            get
-            {
-                if (!_inputs)
-                    _inputs = GetComponent<CharacterInput>();
-                return _inputs;
-            }
-        }
+        private CharacterInput CharacterInput => adapter.Input;
 
         [SerializeField]
         private bool _isItemController;
@@ -169,7 +151,7 @@ namespace PlayerDescription
             }
         }
 
-        public Transform Transform => CharacterInput.Transform;
+        private Transform Transform => adapter.Transform;
 
         public bool isItemController
         {
@@ -185,12 +167,17 @@ namespace PlayerDescription
                 }
             }
         }
-        private void Awake()
+
+        Transform IDiesing.Transform => Transform;
+
+        public void SetMediator(CharacterMediator _adapter)
+        {
+            this.adapter = _adapter;
+        }
+
+        public void OnAwake()
         {
             this.AddListnerUpdate();
-
-            AnimatorInput.OnAwake();
-            CharacterInput.OnAwake();
 
             _isItemController = gameObject.layer == MasksProject.Entity;
 
@@ -221,7 +208,7 @@ namespace PlayerDescription
 
         public void RotateBody(Quaternion quaternion)
         {
-            if (animationInput.IsPlayStateAnimator(TypeAnimation.Climbing) || animationInput.applyRootMotion)
+            if (AnimatorInput.IsPlayStateAnimator(TypeAnimation.Climbing) || AnimatorInput.applyRootMotion)
                 return;
             smoothRotateBody = transform.rotation.eulerAngles.y;
             targetRotate = quaternion.eulerAngles.y;
@@ -239,10 +226,10 @@ namespace PlayerDescription
             if (isItemController)
             {
                 foreach (var collider in GetComponentsInChildren<Collider>())
-                    collider.material = CharacterInput.PhysicMaterial;
+                    collider.material = PlayerDescription.CharacterInput.PhysicMaterial;
             }
             CharacterInput.IntroducingCharacter = new InputDefault(this);
-            interactEntity = new ViewInteractEntity(transform, this);
+            interactEntity = new ViewInteractEntity(transform, adapter);
         }
         public void ExitPlayerControll(CameraControll camera)
         {
@@ -373,10 +360,10 @@ namespace PlayerDescription
                 tacking = new TackingIK(_input.AnimatorInput.AnimatorHuman);
                 tacking.LookIKSpeed = 10F;
                 tacking.LookIKWeight = 1f;
-                tacking.BodyWeight = 0.35f;
-                tacking.ClampWeight = 0.5f;
+                tacking.BodyWeight = 0.7f;
+                tacking.ClampWeight = 0.7f;
                 tacking.EyesWeight = 1f;
-                tacking.HeadWeight = 0.75f;
+                tacking.HeadWeight = 0.6f;
             }
             private CharacterBody input;
 

@@ -11,7 +11,7 @@ namespace CameraScripts
     public class ThirdUnlookPerson : IViewedCamera
     {
         IInputCaracter oldInputCaracter;
-        private CharacterBody Player;
+        private CharacterMediator Player;
         private CameraControll _camera;
 
         private GameObject ThirdObject;
@@ -21,7 +21,7 @@ namespace CameraScripts
         private Vector3 ForvardRotate;
 
         private Quaternion SmoothRotate = Quaternion.identity;
-        public ThirdUnlookPerson(CameraControll camera, CharacterBody _Player, int angleStartPerson)
+        public ThirdUnlookPerson(CameraControll camera, CharacterMediator _Player, float angleStartPerson)
         {
             Player = _Player;
             _camera = camera;
@@ -29,7 +29,7 @@ namespace CameraScripts
         }
         public Vector3 RotateBody()
         {
-            Vector3 vector = Player.CharacterInput.Velosity;
+            Vector3 vector = Player.Input.Velosity;
             if (vector != Vector3.zero)
             {
                 ForvardRotate = SmoothRotate.eulerAngles;
@@ -58,27 +58,30 @@ namespace CameraScripts
         }
 
         public float DistanceView => 3F + DistanceViewCamera;
+
         public void Dispose()
         {
-            Player.CharacterInput.IntroducingCharacter = oldInputCaracter;
+            if (Player.IsPlayerControll)
+                Player.Input.IntroducingCharacter = oldInputCaracter;
             _camera.transform.SetParent(Player.Transform);
-            Player.talkingTargetInteractEntity = true;
-            Player.CharacterInput.ForwardTransform = null;
+            Player.Body.talkingTargetInteractEntity = true;
+            Player.Input.ForwardTransform = null;
+            Player.Body.ResetTargetLook();
             GameObject.Destroy(ThirdObject);
         }
 
         public void Construct()
         {
-            oldInputCaracter = Player.CharacterInput.IntroducingCharacter;
-            Player.CharacterInput.IntroducingCharacter = new InputThirdUnlook(Player);
+            oldInputCaracter = Player.Input.IntroducingCharacter;
+            Player.Input.IntroducingCharacter = new _InputThirdUnlook(Player);
             ThirdObject = new GameObject("ThirdObject");
-            Player.CharacterInput.ForwardTransform = ThirdObject.transform;
+            Player.Input.ForwardTransform = ThirdObject.transform;
             _camera.transform.SetParent(null);
-            Player.ResetTargetLook();
+            Player.Body.ResetTargetLook();
         }
-        public class InputThirdUnlook : IInputCaracter
+        private class _InputThirdUnlook : IInputCaracter
         {
-            public InputThirdUnlook(CharacterBody _input)
+            public _InputThirdUnlook(CharacterMediator _input)
             {
                 input = _input;
                 tacking = new TackingIK(_input.AnimatorInput.AnimatorHuman);
@@ -89,7 +92,7 @@ namespace CameraScripts
                 tacking.EyesWeight = 0.75f;
                 tacking.HeadWeight = 0.35f;
             }
-            private CharacterBody input;
+            private CharacterMediator input;
 
             private TackingIK tacking;
             public bool IsRun => Input.GetKey(KeyCode.LeftShift);
@@ -111,7 +114,7 @@ namespace CameraScripts
 
             bool IInputCaracter.Space()
             {
-                return input.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+                return input.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCaracter.Shift()
@@ -121,9 +124,9 @@ namespace CameraScripts
 
             Vector3 IInputCaracter.Move(Transform source, out bool isMove)
             {
-                if (input.talkingTargetInteractEntity)
-                    if (tacking != null && input.InteractEntity != null)
-                        tacking.Target.position = input.InteractEntity.pointTarget;
+                if (input.Body.talkingTargetInteractEntity)
+                    if (tacking != null && input.Body.InteractEntity != null)
+                        tacking.Target.position = input.Body.InteractEntity.pointTarget;
                 return MovementMode.WASD(source, 1F, out isMove, true);
             }
 

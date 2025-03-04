@@ -81,8 +81,8 @@ public class RegdollPlayer : IRegdoll
         {
             ewPosition = hit.point;
         }
-        characterBody.Transform.position = ewPosition;
-        characterBody.Transform.rotation = Quaternion.FromToRotation(characterBody.Transform.forward, direction.normalized);
+        characterBody.transform.position = ewPosition;
+        characterBody.transform.rotation = Quaternion.FromToRotation(characterBody.transform.forward, direction.normalized);
         ActivateKinematic();
     }
 }

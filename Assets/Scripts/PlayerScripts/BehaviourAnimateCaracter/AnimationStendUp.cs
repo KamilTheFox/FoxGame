@@ -15,9 +15,9 @@ namespace PlayerDescription
         private AnimationClip clipStendUpFace, clipStendUpBack;
         private Vector3 lastUpVector; // Для отладки
 
-        public AnimationStendUp(AnimatorCharacterInput animatorCharacterInput) : base(animatorCharacterInput)
+        public AnimationStendUp(CharacterMediator mediator) : base(mediator)
         {
-            animatorCharacterInput.InputC.AddFuncStopMovement(() => IsStendUp || IsPlayStateStendUp());
+            mediator.Input.AddFuncStopMovement(() => IsStendUp || IsPlayStateStendUp());
 
             if (AnimationClip == null) return;
             clipStendUpFace = AnimationClip[0];
@@ -48,7 +48,7 @@ namespace PlayerDescription
         {
             if (corrutainStendUp != null) return;
             corrutainStendUp = StendUpCoroutin();
-            animatorCharacter.StartCoroutine(corrutainStendUp);
+            mediator.StartCoroutine(corrutainStendUp);
         }
 
         private (Vector3 targetForward, bool isForwardDown) CalculateTargetOrientation(Transform hips)
@@ -72,7 +72,7 @@ namespace PlayerDescription
 
         private IEnumerator StendUpCoroutin()
         {
-            CharacterBody PBody = animatorCharacter.PBody;
+            CharacterBody PBody = base.PBody;
 
             var (targetForward, isForwardDown) = CalculateTargetOrientation(PBody.Hips);
 
@@ -81,23 +81,23 @@ namespace PlayerDescription
 
             PBody.Regdool.Deactivate();
 
-            Quaternion intitRotation = PBody.Transform.rotation;
+            Quaternion intitRotation = mediator.Transform.rotation;
 
             Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
-            PBody.Transform.rotation = targetRotation;
+            mediator.Transform.rotation = targetRotation;
 
-            animatorCharacter.AnimatorHuman.SetFloat("StandUpIndex", isForwardDown ? 1f : 0f);
-            animatorCharacter.AnimatorHuman.Play(TypeAnimation.StendUp.ToString(), 0, 0);
+            mediator.AnimatorInput.AnimatorHuman.SetFloat("StandUpIndex", isForwardDown ? 1f : 0f);
+            mediator.AnimatorInput.AnimatorHuman.Play(TypeAnimation.StendUp.ToString(), 0, 0);
 
             AnimationClip stendUpClip = isForwardDown && clipStendUpBack != null
                 ? clipStendUpBack
                 : ClipStendUp;
 
-            stendUpClip.SampleAnimation(animatorCharacter.AnimatorHuman.gameObject, 0F);
+            stendUpClip.SampleAnimation(mediator.AnimatorInput.AnimatorHuman.gameObject, 0F);
 
             List<Bone> bonesEnd = originBone.Select(x => (Bone)x).ToList();
 
-            animatorCharacter.AnimatorHuman.enabled = false;
+            mediator.AnimatorInput.AnimatorHuman.enabled = false;
             IsStendUp = true;
             float lerp = 0F;
 
@@ -112,7 +112,7 @@ namespace PlayerDescription
                 yield return null;
             }
 
-            animatorCharacter.AnimatorHuman.enabled = true;
+            mediator.AnimatorInput.AnimatorHuman.enabled = true;
             IsStendUp = false;
             corrutainStendUp = null;
         }

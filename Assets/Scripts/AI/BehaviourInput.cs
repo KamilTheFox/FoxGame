@@ -11,11 +11,11 @@ namespace AIInput
     [Serializable]
     public abstract class BehaviourInput :  IInputCaracter
     {
-        public BehaviourInput(CharacterBody body)
+        public BehaviourInput(CharacterMediator body)
         {
             Character = body;
         }
-        [field: SerializeField] public CharacterBody Character { get; private set; }
+        [field: SerializeField] public CharacterMediator Character { get; private set; }
 
         [field: SerializeField] public bool IsRun { get; protected set; }
 

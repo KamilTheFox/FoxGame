@@ -40,9 +40,9 @@ namespace PlayerDescription
             }
         }
 
-        public AnimationAttack(AnimatorCharacterInput animatorCharacterInput) : base(animatorCharacterInput)
+        public AnimationAttack(CharacterMediator mediator) : base(mediator)
         {
-            animator = animatorCharacterInput.AnimatorHuman;
+            animator = mediator.AnimatorInput.AnimatorHuman;
             animator.SetLayerWeight(ANIMATE_LAYER_ARM, 0F);
         }
 
@@ -50,13 +50,13 @@ namespace PlayerDescription
         {
             OnAnimationFinished += OnAttackFinished;
             animator.Play("Attack " + Random.Range(1,4), ANIMATE_LAYER_ARM);
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_ARM, 1f, 0.3f);
-            animatorCharacter.StartCoroutine(WatchAnimation());
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_ARM, 1f, 0.3f);
+            mediator.AnimatorInput.StartCoroutine(WatchAnimation());
         }
 
         private void OnAttackFinished()
         {
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_ARM, animatorCharacter.WeightArm, 0.3f);
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_ARM, mediator.AnimatorInput.WeightArm, 0.3f);
             OnAnimationFinished -= OnAttackFinished;
         }
 

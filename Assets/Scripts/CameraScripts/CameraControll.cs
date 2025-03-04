@@ -8,7 +8,7 @@ using System;
 
 public class CameraControll : MonoBehaviour , ICameraCastObserver
 {
-    public CharacterBody CPlayerBody { get; private set; }
+    public CharacterMediator Player { get; private set; }
 
     [SerializeField]
     private GameObject[] PrefabsPlayerBody;
@@ -56,13 +56,13 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
         MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
         CameraSource = GetComponent<AudioSource>();
-        CPlayerBody = GetComponentInParent<CharacterBody>();
+        Player = GetComponentInParent<CharacterMediator>();
     }
     private void OnEnable()
     {
-        if (CPlayerBody)
+        if (Player)
         {
-            EntranceBody(CPlayerBody.gameObject);
+            EntranceBody(Player.gameObject);
             return;
         }
         if (isCameraMove)
@@ -121,9 +121,9 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     }
     public void OnThirdUnlookPerson()
     {
-        if (CPlayerBody != null)
+        if (Player != null)
         {
-            ChangeViewPerson(new ThirdUnlookPerson(this, CPlayerBody, MouseHorizontal));
+            ChangeViewPerson(new ThirdUnlookPerson(this, Player, MouseHorizontal));
         }
     }
     private void OnFreeCamera()
@@ -173,20 +173,20 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
             MessageBox.Info("Объект Мертв");
             return;
         }
-        if (CPlayerBody)
+        if (Player)
             ExitBody();
-        CPlayerBody = @object.GetComponent<CharacterBody>();
-        CPlayerBody.EntrancePlayerControll(Instance);
-        viewedCameraPositions = 
-        CPlayerBody.transform.GetComponentsInChildren<Transform>().Where(ViewT => ViewT.name.ToLower().Contains("person")).ToArray();
+        Player = @object.GetComponent<CharacterMediator>();
+        Player.Body.EntrancePlayerControll(Instance);
+        viewedCameraPositions =
+        Player.transform.GetComponentsInChildren<Transform>().Where(ViewT => ViewT.name.ToLower().Contains("person")).ToArray();
         None.EnableAim(true);
         OnFirstPerson();
     }
     public void ExitBody()
     {
-        CPlayerBody?.ExitPlayerControll(Instance);
+        Player?.Body?.ExitPlayerControll(Instance);
         viewedCameraPositions = new Transform[0];
-        CPlayerBody = null;
+        Player = null;
         OnFreeCamera();
     }
     void CameraNoClip()
@@ -203,7 +203,9 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     }
     public bool IsPlayerControll(CharacterBody playerControll = null)
     {
-        return CPlayerBody == playerControll;
+        if (Player == null)
+            return false;
+        return Player.Body == playerControll;
     }
 
     private void OnGUI()
@@ -226,13 +228,13 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
             return;
 
         AxisView();
-        if(CPlayerBody != null && viewedCamera != null)
-            CPlayerBody.RotateBody(Quaternion.Euler(viewedCamera.RotateBody()));
+        if(Player != null && viewedCamera != null)
+            Player.Body.RotateBody(Quaternion.Euler(viewedCamera.RotateBody()));
 
         if (!GameState.IsCreative) 
             return;
 
-        if (IsPlayerControll())
+        if (Player == null)
         {
             CameraNoClip();
             ChoiceSkinPlayer();

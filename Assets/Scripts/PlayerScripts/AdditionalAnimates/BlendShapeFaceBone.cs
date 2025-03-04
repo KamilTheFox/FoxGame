@@ -38,7 +38,7 @@ namespace PlayerDescription
 
         private string defauldName = "Shape";
 
-        public void Initialize(AnimatorCharacterInput input)
+        public void Initialize(CharacterMediator input)
         {
             foreach(TransformPreset preset in shapes)
             {

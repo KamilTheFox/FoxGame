@@ -11,7 +11,7 @@ namespace PlayerDescription
         public bool Enable { get; set; }
 
         public string Name { get; }
-        public void Initialize(AnimatorCharacterInput charAnimInput);
+        public void Initialize(CharacterMediator charAnimInput);
 
         public void OnDestroy();
 

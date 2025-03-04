@@ -40,11 +40,20 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+.vs/
+**.vssscc
+**.vspscc
+**.sln
+.idea/
+.vscode/
 
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
+[Aa]ssets/AssetStoreTools*
+[Aa]ssets/Plugins/
+*MemoryCaptures.res/
 
 # Unity3D generated file on crash reports
 sysinfo.txt
@@ -55,4 +64,10 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Ll]ogs/
+
 

@@ -14,14 +14,14 @@ namespace AIInput
 {
     public class AISeeWorld : MonoBehaviour, IAIOrchestrated
     {
-        private CharacterBody characterBody;
+        private CharacterMediator character;
 
-        private CharacterBody CharacterBody
+        private CharacterMediator Character
         {
             get
-            {   if(characterBody == null)
-                    characterBody = GetComponent<CharacterBody>();
-                return characterBody;
+            {   if(character == null)
+                    character = GetComponent<CharacterMediator>();
+                return character;
             }
         }
 
@@ -71,11 +71,11 @@ namespace AIInput
                 {
                     for (int x = -1; x < 2; x++)
                     {
-                        Vector3 direction = Quaternion.Euler(0, AngleSee / CountRay * i, 0) * CharacterBody.Head.forward;
+                        Vector3 direction = Quaternion.Euler(0, AngleSee / CountRay * i, 0) * Character.Body.Head.forward;
                         direction.Normalize();
                         Vector3 axis = Vector3.Cross(direction, Vector3.up);
                         if(axis == Vector3.zero) axis = Vector3.right;
-                        rays.Add(new Ray(CharacterBody.Head.position, Quaternion.AngleAxis(30 * x, axis) * direction));
+                        rays.Add(new Ray(Character.Body.Head.position, Quaternion.AngleAxis(30 * x, axis) * direction));
                     }
                 }
                 return rays.ToArray();
@@ -86,16 +86,16 @@ namespace AIInput
 
         private void Start()
         {
-            CharacterBody.OnFell += Lost;
-            CharacterBody.OnDied += Lost;
-            Animator animator = CharacterBody.AnimatorInput.AnimatorHuman;
+            Character.Body.OnFell += Lost;
+            Character.Body.OnDied += Lost;
+            Animator animator = Character.AnimatorInput.AnimatorHuman;
             if (tackingIK == null)
             {
                 tackingIK = new TackingIK(animator);
             }
             else
                 tackingIK.Animator = animator;
-            CharacterBody.AnimatorInput.AddListenerIK(tackingIK);
+            Character.AnimatorInput.AddListenerIK(tackingIK);
             //updateCanSee = UpdateCanSee();
             //StartCoroutine(updateCanSee);
 
@@ -122,7 +122,7 @@ namespace AIInput
         }
         private void OnDestroy()
         {
-            characterBody.AnimatorInput.RemoveListenerIK(tackingIK);
+            Character.AnimatorInput.RemoveListenerIK(tackingIK);
             raycastCammands.Dispose();
             raycastHits.Dispose();
             //StopCoroutine(updateCanSee);
@@ -184,20 +184,20 @@ namespace AIInput
             foreach (RaycastHit hit in ViewPoints)
             {
                 Gizmos.color = Color.white;
-                Gizmos.DrawLine(CharacterBody.Head.position, hit.point);
+                Gizmos.DrawLine(Character.Body.Head.position, hit.point);
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(hit.point, hit.normal);
             }
             Gizmos.color = Color.green;
             foreach (RaycastHit hit in ViewPointsFloor)
             {
-                Gizmos.DrawLine(CharacterBody.Head.position, hit.point);
+                Gizmos.DrawLine(Character.Body.Head.position, hit.point);
                 Gizmos.DrawRay(hit.point, hit.normal);
             }
             Gizmos.color = Color.blue;
             foreach (RaycastHit hit in ViewPointsWater)
             {
-                Gizmos.DrawLine(CharacterBody.Head.position, hit.point);
+                Gizmos.DrawLine(Character.Body.Head.position, hit.point);
             }
         }
 
@@ -229,7 +229,7 @@ namespace AIInput
                     viewPointsWater.Add(hit);
                 else
                 {
-                    if (Vector3.Angle(Vector3.up, hit.normal) <= CharacterBody.CharacterInput.MaxAngleMove)
+                    if (Vector3.Angle(Vector3.up, hit.normal) <= Character.Input.MaxAngleMove)
                     {
                         viewPointsFloor.Add(hit);
                     }

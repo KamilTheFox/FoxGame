@@ -9,7 +9,7 @@ public class KillPlatform : MonoBehaviour
     [SerializeField] private Vector3 positionRespawn;
     private void OnCollisionEnter(Collision collision)
     {
-        CharacterBody body = collision.gameObject.GetComponentInParent<CharacterBody>();
+        CharacterBody body = collision.gameObject.GetComponentInParent<CharacterMediator>().Body;
         if (body == null)
             return;
         if (body.IsDie) return;

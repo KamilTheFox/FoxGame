@@ -11,9 +11,9 @@ namespace PlayerDescription
         private const int ANIMATE_LAYER_HAND_L = 3;
         private Animator animator;
 
-        public AnimationTook(AnimatorCharacterInput animatorCharacterInput) : base(animatorCharacterInput)
+        public AnimationTook(CharacterMediator mediator) : base(mediator)
         {
-            animator = animatorCharacterInput.AnimatorHuman;
+            animator = mediator.AnimatorInput.AnimatorHuman;
             animator.SetLayerWeight(ANIMATE_LAYER_HAND_R, 0f);
             animator.SetLayerWeight(ANIMATE_LAYER_HAND_L, 0f);
         }
@@ -21,9 +21,9 @@ namespace PlayerDescription
         public override void StartAnimation()
         {
             animator.Play("TookStick", ANIMATE_LAYER_HAND_R);
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_HAND_R, 1F, 0.3F);
-            animatorCharacter.WeightArm = 0.3F;
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_ARM, animatorCharacter.WeightArm, 0.3F);
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_HAND_R, 1F, 0.3F);
+            mediator.AnimatorInput.WeightArm = 0.3F;
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_ARM, mediator.AnimatorInput.WeightArm, 0.3F);
         }
 
         /// <summary>

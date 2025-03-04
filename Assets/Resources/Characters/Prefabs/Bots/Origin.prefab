@@ -1430,6 +1430,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Origin
       objectReference: {fileID: 0}
+    - target: {fileID: 1659131692243779289, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 9136347853444847818}
     - target: {fileID: 3119165814241841515, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
       propertyPath: m_Enabled
       value: 1

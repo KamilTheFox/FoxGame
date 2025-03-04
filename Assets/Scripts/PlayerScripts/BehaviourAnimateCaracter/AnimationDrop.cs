@@ -11,17 +11,17 @@ namespace PlayerDescription
         private const int ANIMATE_LAYER_HAND_L = 3;
         private Animator animator;
 
-        public AnimationDrop(AnimatorCharacterInput animatorCharacterInput) : base(animatorCharacterInput)
+        public AnimationDrop(CharacterMediator mediator) : base(mediator)
         {
-            animator = animatorCharacterInput.AnimatorHuman;
+            animator = mediator.AnimatorInput.AnimatorHuman;
         }
 
         public override void StartAnimation()
         {
             animator.Play("Idle", ANIMATE_LAYER_HAND_R);
-            animatorCharacter.WeightArm = 0F;
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_HAND_R, 0F, 0.3F);
-            animatorCharacter.SmoothWeightChange(ANIMATE_LAYER_ARM, animatorCharacter.WeightArm, 0.3F);
+            mediator.AnimatorInput.WeightArm = 0F;
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_HAND_R, 0F, 0.3F);
+            mediator.AnimatorInput.SmoothWeightChange(ANIMATE_LAYER_ARM, mediator.AnimatorInput.WeightArm, 0.3F);
         }
     }
 }

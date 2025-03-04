@@ -12,7 +12,7 @@ namespace PlayerDescription
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-    public class CharacterInput : MonoBehaviour, IGlobalUpdates, IAtWater
+    public class CharacterInput : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
     {
 
         private const float DIVIDER_TO_FOOT_TOUCH = 10F;
@@ -20,6 +20,9 @@ namespace PlayerDescription
         private const float MAX_KICK_MASS_BODY = 5F;
 
         private const float MAX_TIME_FALLING = 0.25F;
+
+        CharacterMediator adapter;
+
         public bool _isGroundedCast => isGroundedCast;
         public bool _isGrounded
         {
@@ -74,25 +77,15 @@ namespace PlayerDescription
 
         public bool isSwim { get; private set; }
 
-        public CapsuleCollider CharacterCollider { get; private set; }
+        private CapsuleCollider CharacterCollider => (CapsuleCollider)adapter.MainCollider;
 
         [field: SerializeField] public float VolumeObject { get; private set; } = 100F;
 
-        public Bounds BoundsCollider => CharacterCollider.bounds;
+        private Bounds BoundsCollider => CharacterCollider.bounds;
 
         private bool UseGravity => Rigidbody.useGravity;
 
-        public Rigidbody Rigidbody
-        {
-            get
-            {
-                if (!_rigidbody)
-                {
-                    _rigidbody = GetComponent<Rigidbody>();
-                }
-                return _rigidbody;
-            }
-        }
+        private Rigidbody Rigidbody => adapter.MainRigidbody;
 
         [field: SerializeField] private float forseJump = 4F;
 
@@ -174,9 +167,9 @@ namespace PlayerDescription
 
         [field: SerializeField] public bool isMultyJump { get; private set; }
 
-        public Transform Transform { get; private set; }
+        private Transform Transform => adapter.Transform;
 
-        public AudioSource AudioSource { get; private set; }
+        public AudioSource AudioSource => adapter.MainAudioSource;
 
         [field: SerializeField] private AudioCharacter AudioCharacter { get; set; }
 
@@ -201,21 +194,20 @@ namespace PlayerDescription
                 if (inputCaracter != null)
                     inputCaracter.Disable();
                 IInputCaracter current = value;
-                if (current == null)
+                if (current == null &&
+                    inputPreviousCaracters.TryPeek(out IInputCaracter previous))
                 {
-                    if (inputPreviousCaracters.TryPeek(out IInputCaracter previous))
-                    {
-                        inputCaracter = previous;
-                        goto goEnd;
-                    }
+                    inputCaracter = previous;
                 }
-                inputCaracter = value;
-goEnd:
+                else
+                    inputCaracter = current;
+
                 if (inputCaracter != null)
                     inputCaracter.Enable();
                 if (current == null) return;
-                if (!current.GetType().Name.ToLower().Contains("Default".ToLower()))
-                    inputPreviousCaracters.Push(value);
+                string name = current.GetType().Name.ToLower();
+                if (!name.Contains("Default".ToLower()) && !name.Contains("_"))
+                    inputPreviousCaracters.Push(current);
             }
         }
 
@@ -247,12 +239,14 @@ goEnd:
         public Vector3 Velosity => velocityBody;
 
         [field: SerializeField] public EventInputAnimation eventInput { get; private set; } = new EventInputAnimation();
+
+        public void SetMediator(CharacterMediator _adapter)
+        {
+            this.adapter = _adapter;
+        }
         public void OnAwake()
         {
             this.AddListnerUpdate();
-            Transform = transform;
-            AudioSource = GetComponent<AudioSource>();
-            CharacterCollider = GetComponent<CapsuleCollider>();
             Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             CharacterCollider.material = PhysicMaterial;
 
@@ -436,7 +430,7 @@ goEnd:
                 {
                     if (startJump)
                     {
-                        Vector3 newDir = new Vector3(direction.x, 0.02F, direction.z);
+                        Vector3 newDir = new Vector3(direction.x, 1F, direction.z);
                         if (!IsWaterLine(newDir))
                         {
                             direction = newDir;
@@ -444,7 +438,7 @@ goEnd:
                     }
                     if (IntroducingCharacter.Shift())
                     {
-                        direction = new Vector3(direction.x, -0.02F, direction.z);
+                        direction = new Vector3(direction.x, -1F, direction.z);
                     }
                 }
             }
@@ -473,7 +467,7 @@ goEnd:
 
         private bool IsWaterLine(Vector3 direction)
         {
-            return Physics.Raycast(new Ray(Rigidbody.worldCenterOfMass + direction, Vector3.down), direction.normalized.y * Speed, MasksProject.Water, QueryTriggerInteraction.Collide);
+            return Physics.Raycast(new Ray(Rigidbody.worldCenterOfMass + (Vector3.up * 0.15f), Vector3.down), direction.normalized.y * Speed, MasksProject.Water, QueryTriggerInteraction.Collide);
         }
         private bool IsDirectionInverseNormal(Vector3 direction, Vector3 normal)
         {

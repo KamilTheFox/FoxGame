@@ -47,7 +47,7 @@ namespace ScreenplayLevel
 
         [SerializeField] private Transform SpawnTransform;
 
-        [SerializeField] private CharacterBody Player;
+        [SerializeField] private CharacterMediator Player;
 
         private static UnityEvent deathEnemy = new();
         [Serializable]
@@ -81,7 +81,7 @@ namespace ScreenplayLevel
         {
             Instance = this;
             Transform = transform;
-            Player.OnDied += () => { isShot = false; };
+            Player.Body.OnDied += () => { isShot = false; };
             TNTVariants = new ItemEngine[]
             {
                 ItemEngine.AddItem(TypeItem.TNT_3, SpawnTransform.position, Quaternion.identity, false),
