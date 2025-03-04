@@ -14,8 +14,8 @@ namespace CameraScripts
         {
             if (positionCamera == null)
                 throw new MissingReferenceException("Transform Position Camera is Null");
-            CameraControll.instance.Transform.parent = transform.parent;
-            CameraControll.instance.Transform.position = positionCamera.position + Vector3.up * correction;
+            CameraControll.Instance.Transform.parent = transform.parent;
+            CameraControll.Instance.Transform.position = positionCamera.position + Vector3.up * correction;
             ViewMeshOrShadow(true);
         }
 
@@ -35,7 +35,7 @@ namespace CameraScripts
 
         public Vector3 RotateBody()
         {
-            return CameraControll.instance.EulerHorizontal;
+            return CameraControll.Instance.EulerHorizontal;
         }
 
         public void ViewAxis(Transform camera, Vector3 euler)

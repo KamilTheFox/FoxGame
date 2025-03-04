@@ -185,14 +185,14 @@ namespace PlayerDescription
         public void RayCast()
         {
             Ray ray = CameraControll.RayCastCenterScreen;
-            Vector3 newPosition = ray.GetPoint(CameraControll.instance.DistanseRay);
+            Vector3 newPosition = ray.GetPoint(CameraControll.Instance.DistanseRay);
             pointTarget = newPosition;
             ITakenEntity Taken = null;
 
             IInteractive interactive = null;
 
             None.SetInfoEntity(false);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, CameraControll.instance.DistanseRay,
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, CameraControll.Instance.DistanseRay,
                 IsMoveEntity ? MasksProject.RigidObject : MasksProject.RigidEntity))
             {
                 if (raycastHit.collider.gameObject)
@@ -264,7 +264,7 @@ namespace PlayerDescription
         public void OnCameraCasting(RaycastHit hit)
         {
             Ray ray = CameraControll.RayCastCenterScreen;
-            Vector3 newPosition = ray.GetPoint(CameraControll.instance.DistanseRay);
+            Vector3 newPosition = ray.GetPoint(CameraControll.Instance.DistanseRay);
             pointTarget = newPosition;
 
             ITakenEntity Taken = null;
@@ -273,7 +273,7 @@ namespace PlayerDescription
 
             None.SetInfoEntity(false);
 
-            bool isValidateDistance = Vector3.Distance(ray.origin, hit.point) <= CameraControll.instance.DistanseRay;
+            bool isValidateDistance = Vector3.Distance(ray.origin, hit.point) <= CameraControll.Instance.DistanseRay;
 
             LayerMask mask = IsMoveEntity ? MasksProject.RigidObject : MasksProject.RigidEntity;
             int layer = hit.collider.gameObject.layer;

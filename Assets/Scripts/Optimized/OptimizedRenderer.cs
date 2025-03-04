@@ -77,7 +77,7 @@ public class OptimizedRenderer : MonoBehaviour, IGlobalUpdates
         if (vectors.Count != propertyCopy.Count) Debug.LogError($"{vectors.Count}\\{propertyCopy.Count}");
         positionOrder = new NativeArray<InputJobPropertyData>(vectors.ToArray(), Allocator.Persistent);
         result = new NativeArray<ResultsJobProperty>(vectors.Count, Allocator.Persistent);
-        CalculatePropertyRendererJob job = new CalculatePropertyRendererJob(positionOrder, CameraControll.instance.Transform.position, result);
+        CalculatePropertyRendererJob job = new CalculatePropertyRendererJob(positionOrder, CameraControll.Instance.Transform.position, result);
         WorkerDistanceCalculate = job.Schedule(vectors.Count, 256);
     }
     void IGlobalUpdates.EndFixedUpdate()

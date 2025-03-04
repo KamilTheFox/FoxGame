@@ -19,8 +19,8 @@ public class KillPlatform : MonoBehaviour
         if (body is IExplosionDamaged explosionDamage)
             explosionDamage.Explosion(UnityEngine.Random.Range(0.2F, 5F));
 
-        CameraControll.instance.Transform.position = positionRespawn;
-        CameraControll.instance.GiveBody(UnityEngine.Random.Range(1,5));
+        CameraControll.Instance.Transform.position = positionRespawn;
+        CameraControll.Instance.GiveBody(UnityEngine.Random.Range(1,5));
 
     }
 }

@@ -234,7 +234,7 @@ class TowerСrane : ItemEngine, IInteractive
 
     public void Interaction()
     {
-        CameraControll.instance.ChangeViewPerson(new CameraControllTower(CameraControll.instance, cameraPosition,this));
+        CameraControll.Instance.ChangeViewPerson(new CameraControllTower(CameraControll.Instance, cameraPosition,this));
     }
 
 
@@ -353,7 +353,7 @@ class TowerСrane : ItemEngine, IInteractive
             towerСrane.Controls();
             if (GUILayout.Button("Выйти"))
             {
-                CameraControll.instance.OnFirstPerson();
+                CameraControll.Instance.OnFirstPerson();
             }
         }
 

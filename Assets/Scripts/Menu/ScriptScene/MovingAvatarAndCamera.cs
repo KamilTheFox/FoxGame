@@ -100,12 +100,12 @@ public class MovingAvatarAndCamera : MonoBehaviour
 
         var currWayCamera = WaysCamera[currentIndex];
 
-        moveCamera = Tween.GoWay(CameraControll.instance.transform, currWayCamera, 2 + index * 2, true);
+        moveCamera = Tween.GoWay(CameraControll.Instance.transform, currWayCamera, 2 + index * 2, true);
         moveCamera.ChangeEase(index == 1? Ease.CubicRoot : Ease.FourthRoot);
         moveCamera.onUpdate.AddListener(() =>
         {
-            CameraControll.instance.transform.position = moveCamera.CurrentPosition;
-            CameraControll.instance.transform.rotation = Quaternion.Lerp(currWayCamera[0]._Point.rotation, currWayCamera[currWayCamera.pointsBezier.Count - 1]._Point.rotation, moveCamera.Timer);
+            CameraControll.Instance.transform.position = moveCamera.CurrentPosition;
+            CameraControll.Instance.transform.rotation = Quaternion.Lerp(currWayCamera[0]._Point.rotation, currWayCamera[currWayCamera.pointsBezier.Count - 1]._Point.rotation, moveCamera.Timer);
         });
     }
 }

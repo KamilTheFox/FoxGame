@@ -213,11 +213,8 @@ namespace PlayerDescription
         }
         void IGlobalUpdates.Update()
         {
-            if (Menu.IsEnabled || !CameraControll.instance.IsPlayerControll(this))
+            if (Menu.IsEnabled || !CameraControll.Instance.IsPlayerControll(this))
                 return;
-
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //    Attack();
 
             interactEntity?.RayCast();
         }
@@ -354,9 +351,9 @@ namespace PlayerDescription
             IsDie = true;
             Fell();
             
-            if (CameraControll.instance.IsPlayerControll(this))
+            if (CameraControll.Instance.IsPlayerControll(this))
             {
-                CameraControll.instance.ExitBody();
+                CameraControll.Instance.ExitBody();
             }
             onDied.Invoke();
         }

@@ -144,7 +144,7 @@ public class SoundMeneger : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector3 positionCam = CameraControll.instance.transform.position;
+        Vector3 positionCam = CameraControll.Instance.transform.position;
         foreach (var zone in SoundBackgroundZone)
         {
             float dist = float.PositiveInfinity;

@@ -214,15 +214,15 @@ public class Menu : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            CameraControll.instance.OnFirstPerson();
+            CameraControll.Instance.OnFirstPerson();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            CameraControll.instance.OnThirdPerson();
+            CameraControll.Instance.OnThirdPerson();
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            CameraControll.instance.OnThirdUnlookPerson();
+            CameraControll.Instance.OnThirdUnlookPerson();
         }
     }
 

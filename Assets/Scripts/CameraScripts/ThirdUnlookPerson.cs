@@ -21,10 +21,11 @@ namespace CameraScripts
         private Vector3 ForvardRotate;
 
         private Quaternion SmoothRotate = Quaternion.identity;
-        public ThirdUnlookPerson(CameraControll camera, CharacterBody _Player)
+        public ThirdUnlookPerson(CameraControll camera, CharacterBody _Player, int angleStartPerson)
         {
             Player = _Player;
             _camera = camera;
+            ForvardRotate = Vector3.up * angleStartPerson;
         }
         public Vector3 RotateBody()
         {

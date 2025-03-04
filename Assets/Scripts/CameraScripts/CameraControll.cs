@@ -19,7 +19,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
 
     public Transform Transform { get; private set; }
 
-    public static CameraControll instance { get; private set; }
+    public static CameraControll Instance { get; private set; }
 
     public static Ray RayCastCenterScreen
     {
@@ -46,12 +46,12 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
 
     void Awake()
     {
-        if (instance) 
+        if (Instance) 
         {
             Debug.LogError("You cannot create 2 camera controllers");
             Destroy(gameObject);
         }
-        instance = this;
+        Instance = this;
         Transform = transform;
         MainCamera = gameObject.GetComponent<Camera>();
         MouseHorizontal = 90;
@@ -72,7 +72,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     }
     private void OnDestroy()
     {
-        instance = null;
+        Instance = null;
     }
     void ChoiceSkinPlayer()
     {
@@ -123,7 +123,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     {
         if (CPlayerBody != null)
         {
-            ChangeViewPerson(new ThirdUnlookPerson(this, CPlayerBody));
+            ChangeViewPerson(new ThirdUnlookPerson(this, CPlayerBody, MouseHorizontal));
         }
     }
     private void OnFreeCamera()
@@ -176,7 +176,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
         if (CPlayerBody)
             ExitBody();
         CPlayerBody = @object.GetComponent<CharacterBody>();
-        CPlayerBody.EntrancePlayerControll(instance);
+        CPlayerBody.EntrancePlayerControll(Instance);
         viewedCameraPositions = 
         CPlayerBody.transform.GetComponentsInChildren<Transform>().Where(ViewT => ViewT.name.ToLower().Contains("person")).ToArray();
         None.EnableAim(true);
@@ -184,7 +184,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     }
     public void ExitBody()
     {
-        CPlayerBody?.ExitPlayerControll(instance);
+        CPlayerBody?.ExitPlayerControll(Instance);
         viewedCameraPositions = new Transform[0];
         CPlayerBody = null;
         OnFreeCamera();

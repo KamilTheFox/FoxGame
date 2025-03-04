@@ -73,7 +73,7 @@ namespace Assets.Resources.Тест
 
         void Start()
         {
-            CameraControll.instance.AddSubscribeToCast(this);
+            CameraControll.Instance.AddSubscribeToCast(this);
         }
     }
 }

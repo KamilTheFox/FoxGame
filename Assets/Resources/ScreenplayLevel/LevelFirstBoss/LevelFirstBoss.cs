@@ -176,7 +176,7 @@ namespace ScreenplayLevel
         public void Start()
         {
             Menu.CurrentPauseMenu = new MenuWinLose();
-            CameraControll controll = CameraControll.instance;
+            CameraControll controll = CameraControll.Instance;
             var inputView = new ThirdPersonViewTop(controll, Player);
             controll.ChangeViewPerson(inputView);
             Player.CharacterInput.IntroducingCharacter = inputView;

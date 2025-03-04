@@ -189,11 +189,11 @@ namespace PlayerDescription
             InputC.Transform.rotation = AnimatorHuman.transform.rotation;
             applyRootMotion = false;
             PBody.Rigidbody.isKinematic = false;
-            if (CameraControll.instance.IsPlayerControll(PBody))
+            if (CameraControll.Instance.IsPlayerControll(PBody))
             {
-                if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+                if (CameraControll.Instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
                 {
-                    CameraControll.instance.OnFirstPerson();
+                    CameraControll.Instance.OnFirstPerson();
                 }
             }
             onCompletedClimbing.Invoke();
@@ -230,11 +230,11 @@ namespace PlayerDescription
             InputC.eventInput[TypeAnimation.Climbing].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Climbing)) return;
-                if (CameraControll.instance.IsPlayerControll(PBody))
+                if (CameraControll.Instance.IsPlayerControll(PBody))
                 {
-                    if (CameraControll.instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
+                    if (CameraControll.Instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
                     {
-                        CameraControll.instance.transform.SetParent(PBody.Head);
+                        CameraControll.Instance.transform.SetParent(PBody.Head);
                     }
                 }
 

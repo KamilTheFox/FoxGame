@@ -27,9 +27,9 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.instance?.CPlayerBody?.CharacterInput.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.Instance?.CPlayerBody?.CharacterInput.isFly.GetLText() }), true);
 
-                Button_Fly.OnClick().AddListener(() => CameraControll.instance?.CPlayerBody?.CharacterInput.Fly());
+                Button_Fly.OnClick().AddListener(() => CameraControll.Instance?.CPlayerBody?.CharacterInput.Fly());
 
                 Transform group = MenuUI<HorizontalLayoutGroup>.Create("Bodyes", GetTransform(), LText.Null, true).gameObject.transform;
 
@@ -54,7 +54,7 @@ namespace GroupMenu
                 coyotBiker.OnClick().AddListener(() =>
                 {
                     GiveBody(6);
-                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(0);
                     putOnClothes.SelectClothes(1);
                     putOnClothes.SelectClothes(2);
@@ -95,7 +95,7 @@ namespace GroupMenu
                 GiveBodyBDSMFox.OnClick().AddListener(() =>
                 {
                     GiveBody();
-                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(0);
                     putOnClothes.SelectClothes(1);
                     putOnClothes.SelectClothes(2);
@@ -103,7 +103,7 @@ namespace GroupMenu
                 Swim.OnClick().AddListener(() =>
                 {
                     GiveBody();
-                    Clothes putOnClothes = CameraControll.instance.CPlayerBody.GetComponent<Clothes>();
+                    Clothes putOnClothes = CameraControll.Instance.CPlayerBody.GetComponent<Clothes>();
                     putOnClothes.SelectClothes(3);
                 });
 
@@ -119,8 +119,8 @@ namespace GroupMenu
         private void GiveBody(int indexBody = 0)
         {
             Menu.PopMenu(true);
-            if (CameraControll.instance.CPlayerBody == null)
-                CameraControll.instance.GiveBody(indexBody);
+            if (CameraControll.Instance.CPlayerBody == null)
+                CameraControll.Instance.GiveBody(indexBody);
             else
                 MessageBox.Info("Нельзя выдать новое тело находясь в теле");
         }
@@ -173,7 +173,7 @@ namespace GroupMenu
             MenuUI<Button>.Create("GiveItem", GroupAddItems, LText.Give).OnClick(() =>
             {
 
-                CharacterBody player = CameraControll.instance?.CPlayerBody;
+                CharacterBody player = CameraControll.Instance?.CPlayerBody;
                 if (player)
                 {
                     var CheckGive = GiveItem();
@@ -229,12 +229,12 @@ namespace GroupMenu
         }
         private static void PositionEntity(Enum _Enum)
         {
-            Vector3 position = CameraControll.instance.Transform.position + CameraControll.instance.Transform.forward * 3F;
+            Vector3 position = CameraControll.Instance.Transform.position + CameraControll.Instance.Transform.forward * 3F;
             Ray ray = new Ray(position, Vector3.down);
             if (Physics.Raycast(ray, out RaycastHit Hit, 4F)) // , 1 << LayerMask.NameToLayer("Terrain")
             {
                 position = Hit.point + ray.direction.normalized * 0.01F;
-                Quaternion rotation = CameraControll.instance.Transform.rotation;
+                Quaternion rotation = CameraControll.Instance.Transform.rotation;
                 rotation = Quaternion.Euler((Vector3.up * 180F + Vector3.up * rotation.eulerAngles.y));
                 if (_Enum is TypePlant typePlant)
                     PlantEngine.AddPlant(typePlant, position, Quaternion.AngleAxis(UnityEngine.Random.Range(0F, 360F), Vector3.up));
