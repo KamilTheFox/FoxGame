@@ -176,6 +176,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
         if (Player)
             ExitBody();
         Player = @object.GetComponent<CharacterMediator>();
+        Player.SetCameraController(Instance);
         Player.Body.EntrancePlayerControll(Instance);
         viewedCameraPositions =
         Player.transform.GetComponentsInChildren<Transform>().Where(ViewT => ViewT.name.ToLower().Contains("person")).ToArray();
@@ -185,6 +186,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     public void ExitBody()
     {
         Player?.Body?.ExitPlayerControll(Instance);
+        Player.SetCameraController(null);
         viewedCameraPositions = new Transform[0];
         Player = null;
         OnFreeCamera();
@@ -204,7 +206,7 @@ public class CameraControll : MonoBehaviour , ICameraCastObserver
     public bool IsPlayerControll(CharacterBody playerControll = null)
     {
         if (Player == null)
-            return false;
+            return true;
         return Player.Body == playerControll;
     }
 

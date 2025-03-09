@@ -21,7 +21,7 @@ namespace ScreenplayLevel
 
         private MenuUI<Text> WinLoseText;
 
-        public class ThirdPersonViewTop : IViewedCamera, IInputCaracter
+        public class ThirdPersonViewTop : IViewedCamera, IInputCharacter
         {
             private CharacterMediator Player;
             private CameraControll _camera;
@@ -87,17 +87,17 @@ namespace ScreenplayLevel
 
             public bool IsCrouch => false;
 
-            bool IInputCaracter.Space()
+            bool IInputCharacter.Space()
             {
                 return Player.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
-            bool IInputCaracter.Shift()
+            bool IInputCharacter.Shift()
             {
                 return IsRun;
             }
 
-            Vector3 IInputCaracter.Move(Transform source, out bool isMove)
+            Vector3 IInputCharacter.Move(Transform source, out bool isMove)
             {
                 return MovementMode.WASD(source, 1F, out isMove, true);
             }

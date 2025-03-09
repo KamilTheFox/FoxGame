@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PlayerDescription
 {
-    public interface IInputCaracter
+    public interface IInputCharacter
     {
         public void Enable() { }
 

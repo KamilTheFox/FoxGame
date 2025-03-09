@@ -352,7 +352,7 @@ namespace PlayerDescription
             //Debug.Log($"collision.collider Name: {collision.collider.name} /// source Object name: {sourceObject.name}");
         }
 
-        public class InputDefault : IInputCaracter
+        public class InputDefault : IInputCharacter
         {
             public InputDefault(CharacterBody _input)
             {
@@ -385,17 +385,17 @@ namespace PlayerDescription
                 GameObject.Destroy(tacking.Target.gameObject);
             }
 
-            bool IInputCaracter.Space()
+            bool IInputCharacter.Space()
             {
                return input.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
-            bool IInputCaracter.Shift()
+            bool IInputCharacter.Shift()
             {
                 return IsRun;
             }
 
-            Vector3 IInputCaracter.Move(Transform source, out bool isMove)
+            Vector3 IInputCharacter.Move(Transform source, out bool isMove)
             {
                 if(input.talkingTargetInteractEntity)
                 if(tacking != null && input.interactEntity != null)

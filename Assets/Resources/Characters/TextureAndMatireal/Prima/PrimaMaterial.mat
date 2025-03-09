@@ -138,7 +138,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RedMetallic: 0.116
+    - _RedMetallic: 0.156
     - _RedReflectionIntensity: 1
     - _RedSmoothness: 0
     - _ReflectionIntensity: 1
@@ -168,7 +168,7 @@ Material:
     - _GreenColor: {r: 1, g: 1, b: 1, a: 1}
     - _GreenEmission: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
     - _GreenTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _RedColor: {r: 1, g: 0.44474846, b: 0, a: 1}
+    - _RedColor: {r: 1, g: 0.4431373, b: 0, a: 1}
     - _RedEmission: {r: 0, g: 0, b: 0, a: 1}
     - _RedTiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

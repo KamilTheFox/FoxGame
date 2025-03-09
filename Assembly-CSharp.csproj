@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{13D2FAA6-F760-5A25-D026-63A3089C2583}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -58,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entity\EntityEngine.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterBotBody.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\CharacterMotor.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\StateCharacter.cs" />
     <Compile Include="Assets\Scripts\SwitchLODs.cs" />
     <Compile Include="Assets\Scripts\Interface\IAppliedForce.cs" />
     <Compile Include="Assets\Scripts\Interface\IExplosionDamaged.cs" />
@@ -154,7 +157,7 @@
     <Compile Include="Assets\Scripts\Menu\ScriptScene\MovingAvatarAndCamera.cs" />
     <Compile Include="Assets\Resources\ScreenplayLevel\LevelFirstBoss\Ballistics.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\RandomSize.cs" />
-    <Compile Include="Assets\Scripts\PlayerScripts\IInputCaracter.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\IInputCharacter.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\TypeAnimation.cs" />
     <Compile Include="Assets\Scripts\Optimized\ResultsJobProperty.cs" />
     <Compile Include="Assets\Scripts\FactoryEntity\AnimalsCreating.cs" />

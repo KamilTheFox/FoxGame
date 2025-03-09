@@ -9,7 +9,7 @@ using PlayerDescription;
 namespace AIInput
 {
     [Serializable]
-    public abstract class BehaviourInput :  IInputCaracter
+    public abstract class BehaviourInput :  IInputCharacter
     {
         public BehaviourInput(CharacterMediator body)
         {
@@ -31,7 +31,7 @@ namespace AIInput
 
         protected abstract Vector3 Move(Transform source);
 
-        Vector3 IInputCaracter.Move(Transform source, out bool isMove)
+        Vector3 IInputCharacter.Move(Transform source, out bool isMove)
         {
             Vector3 torward = Move(source);
             isMove = torward != Vector3.zero;

@@ -17,7 +17,7 @@ namespace PlayerDescription
     {
         private const float SmoothDelay = 2F;
 
-        private CharacterMediator adapter;
+        private CharacterMediator mediator;
 
         private Animator animator;
         public Animator AnimatorHuman
@@ -44,10 +44,10 @@ namespace PlayerDescription
             }
         }
 
-        private CharacterBody Body => adapter.Body;
+        private CharacterBody Body => mediator.Body;
 
 
-        private CapsuleCollider CharacterCollider => (CapsuleCollider)adapter.MainCollider;
+        private CapsuleCollider CharacterCollider => (CapsuleCollider)mediator.MainCollider;
 
         [field: SerializeField] public AnimationClip[] AnimationClips { get; private set; }
 
@@ -57,7 +57,7 @@ namespace PlayerDescription
 
         public float WeightArm { get; set; }
 
-        private CharacterInput InputC => adapter.Input;
+        private CharacterInput InputC => mediator.Input;
 
         [SerializeField] private float сorrectClimbinding;
 
@@ -181,10 +181,10 @@ namespace PlayerDescription
         }
         private void ApplayRootFalseClimbing()
         {
-            adapter.Transform.position = AnimatorHuman.transform.position;
-            adapter.Transform.rotation = AnimatorHuman.transform.rotation;
+            mediator.Transform.position = AnimatorHuman.transform.position;
+            mediator.Transform.rotation = AnimatorHuman.transform.rotation;
             applyRootMotion = false;
-            adapter.MainRigidbody.isKinematic = false;
+            mediator.MainRigidbody.isKinematic = false;
             if (CameraControll.Instance.IsPlayerControll(Body))
             {
                 if (CameraControll.Instance.IsTypeViewPerson(typeof(CameraScripts.FirstPerson)))
@@ -196,7 +196,7 @@ namespace PlayerDescription
         }
         public void SetMediator(CharacterMediator _adapter)
         {
-            this.adapter = _adapter;
+            this.mediator = _adapter;
         }
         public void OnAwake()
         {
@@ -210,10 +210,10 @@ namespace PlayerDescription
 
             baseAnimates = new BaseAnimate[]
             {
-                new AnimationStendUp(adapter),
-                new AnimationAttack(adapter),
-                new AnimationTook(adapter),
-                new AnimationDrop(adapter),
+                new AnimationStendUp(mediator),
+                new AnimationAttack(mediator),
+                new AnimationTook(mediator),
+                new AnimationDrop(mediator),
             };
 
             smoothChangeCorrutine = new();
@@ -239,11 +239,11 @@ namespace PlayerDescription
                 }
 
                 applyRootMotion = true;
-                adapter.MainRigidbody.isKinematic = true;
+                mediator.MainRigidbody.isKinematic = true;
                 AnimatorHuman.transform.position = AnimatorHuman.transform.position + AnimatorHuman.transform.forward * 0.05f + Vector3.up * 0.15f * сorrectClimbinding;
                 Vector3 position = this.Body.transform.position;
                 this.Body.transform.position = new Vector3(position.x, InputC.PointEdgePlaneClimbing.point.y - 1.38F, position.z);
-                adapter.MainRigidbody.velocity = Vector3.zero;
+                mediator.MainRigidbody.velocity = Vector3.zero;
 
                 SetTrigger(TypeAnimation.Climbing);
                 Invoke(nameof(ApplayRootFalseClimbing), 2.1F);
@@ -305,7 +305,7 @@ namespace PlayerDescription
         {
             foreach (var additionalAnimate in additionalAnimates)
             {
-                additionalAnimate.Initialize(adapter);
+                additionalAnimate.Initialize(mediator);
             }
         }
         private void ClearAdditionalAnimate()

@@ -10,7 +10,7 @@ namespace CameraScripts
 {
     public class ThirdUnlookPerson : IViewedCamera
     {
-        IInputCaracter oldInputCaracter;
+        IInputCharacter oldInputCaracter;
         private CharacterMediator Player;
         private CameraControll _camera;
 
@@ -79,7 +79,7 @@ namespace CameraScripts
             _camera.transform.SetParent(null);
             Player.Body.ResetTargetLook();
         }
-        private class _InputThirdUnlook : IInputCaracter
+        private class _InputThirdUnlook : IInputCharacter
         {
             public _InputThirdUnlook(CharacterMediator _input)
             {
@@ -112,17 +112,17 @@ namespace CameraScripts
                 GameObject.Destroy(tacking.Target.gameObject);
             }
 
-            bool IInputCaracter.Space()
+            bool IInputCharacter.Space()
             {
                 return input.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
-            bool IInputCaracter.Shift()
+            bool IInputCharacter.Shift()
             {
                 return IsRun;
             }
 
-            Vector3 IInputCaracter.Move(Transform source, out bool isMove)
+            Vector3 IInputCharacter.Move(Transform source, out bool isMove)
             {
                 if (input.Body.talkingTargetInteractEntity)
                     if (tacking != null && input.Body.InteractEntity != null)

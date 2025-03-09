@@ -77,7 +77,7 @@ namespace PlayerDescription
 
         public bool isSwim { get; private set; }
 
-        private CapsuleCollider CharacterCollider => (CapsuleCollider)adapter.MainCollider;
+        private CapsuleCollider CharacterCollider => adapter.MainCollider;
 
         [field: SerializeField] public float VolumeObject { get; private set; } = 100F;
 
@@ -183,7 +183,7 @@ namespace PlayerDescription
         public float SpeedSwim => (Speed + SpeedRun) / 2;
         [field: SerializeField] public bool isFly { get; private set; }
 
-        public IInputCaracter IntroducingCharacter
+        public IInputCharacter IntroducingCharacter
         {
             get
             {
@@ -193,9 +193,9 @@ namespace PlayerDescription
             {
                 if (inputCaracter != null)
                     inputCaracter.Disable();
-                IInputCaracter current = value;
+                IInputCharacter current = value;
                 if (current == null &&
-                    inputPreviousCaracters.TryPeek(out IInputCaracter previous))
+                    inputPreviousCaracters.TryPeek(out IInputCharacter previous))
                 {
                     inputCaracter = previous;
                 }
@@ -211,9 +211,9 @@ namespace PlayerDescription
             }
         }
 
-        private IInputCaracter inputCaracter;
+        private IInputCharacter inputCaracter;
 
-        private Stack<IInputCaracter> inputPreviousCaracters = new Stack<IInputCaracter>();
+        private Stack<IInputCharacter> inputPreviousCaracters = new Stack<IInputCharacter>();
 
         public bool IsStopMovement
         {

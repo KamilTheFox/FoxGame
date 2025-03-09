@@ -13,7 +13,7 @@ using System.Collections;
 namespace AIInput
 {
     [Serializable]
-    public class MovementAtWay : IInputCaracter
+    public class MovementAtWay : IInputCharacter
     {
         private MovementAtWay()
         { 

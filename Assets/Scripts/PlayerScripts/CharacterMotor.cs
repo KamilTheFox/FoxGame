@@ -1,0 +1,655 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using UnityEngine.Events;
+using Unity.VisualScripting;
+using Unity.Jobs;
+using Unity.Collections;
+using Unity.Burst.CompilerServices;
+using System.Diagnostics.Contracts;
+using UnityEngine.SocialPlatforms;
+
+namespace PlayerDescription
+{
+    public class CharacterMotor : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
+    {
+        private const float DIVIDER_TO_FOOT_TOUCH = 10F;
+
+        private const float MAX_KICK_MASS_BODY = 5F;
+
+        private const float MAX_TIME_FALLING = 0.25F;
+
+        CharacterMediator mediator;
+        
+        private CapsuleCollider CharacterCollider => mediator.MainCollider;
+
+        private Bounds BoundsCollider => CharacterCollider.bounds;
+
+        private Vector2 oldSizeCollider = Vector2.zero;
+
+        private IMoveablePlatform platform;
+
+        private Rigidbody Rigidbody => mediator.MainRigidbody;
+
+        public bool isRun
+        {
+            get
+            {
+                return CurrentState.HasState(StateCharacter.MovementRun);
+            }
+            set
+            {
+                if (value)
+                    CurrentState.AddState(StateCharacter.MovementRun);
+                else
+                    CurrentState.RemoveState(StateCharacter.MovementRun);
+            }
+        }
+        private bool isPressCrouch { get; set; }
+
+        public EventMotor EventsMotor { get; private set; }
+
+        [field: SerializeField]
+        public StateCharacter CanStateCharacter { get; set; }
+
+        public StateCharacter CurrentState { get; private set; }
+
+        [field: Header("Speeds")]
+
+        [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public float SpeedRun { get; private set; }
+
+        [field: SerializeField] public float SpeedCrouch { get; private set; }
+
+        [field: SerializeField]
+        public float SpeedSwim { get; private set; }
+
+        public Vector3 Direction { get; private set; }
+
+        [field: Header("Settings")]
+        [SerializeField] private float maxAngleMove = 60F, stepSteirs = 0.3F;
+
+        [SerializeField] private float movementThreshold = 0.1f;
+
+        [SerializeField] private AnimationCurve curveJump;
+
+        RigidBodyMovement rigidBodyMovement;
+
+        private bool UseGravity { get; set; }
+
+        public float StepSteirs => stepSteirs;
+
+        CastGroundChecked castGroundChecked;
+
+        public bool IsInAir => !isGrounded && !isSwim;
+
+        public bool CanClimbing => CanStateCharacter.HasState(StateCharacter.Climbing) && IsInAir;
+
+        private static PhysicMaterial physicMaterial;
+
+        public static PhysicMaterial PhysicMaterial
+        {
+            get
+            {
+                if (!physicMaterial)
+                {
+                    physicMaterial = Resources.Load<PhysicMaterial>("Player/Player");
+                }
+                return physicMaterial;
+            }
+        }
+
+        private Transform forwardTransform;
+        public Transform ForwardTransform
+        {
+            private get
+            {
+                if (!forwardTransform)
+                {
+                    forwardTransform = transform;
+                }
+                return forwardTransform;
+            }
+            set
+            {
+                forwardTransform = value;
+            }
+        }
+
+        private List<Func<bool>> eventStopMovement = new();
+
+        public bool IsStopMovement
+        {
+            get
+            {
+                foreach (var e in eventStopMovement)
+                {
+                    if (e())
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        private bool IsMaxAngleSurface => castGroundChecked.angleSurface > maxAngleMove;
+
+        public IInputCharacter IntroducingCharacter { get; private set; }
+
+        private Stack<IInputCharacter> inputPreviousCaracters = new Stack<IInputCharacter>();
+
+        private Vector3 lastPosition;
+
+        private bool isJumping;
+        public bool isGrounded => castGroundChecked.isGrounded;
+
+        #region Water
+        [field: SerializeField] public float VolumeObject { get; private set; }
+
+        public bool isSwim
+        {
+            get
+            {
+                return CurrentState.HasState(StateCharacter.Swim);
+            }
+            set
+            {
+                if (value)
+                    CurrentState.AddState(StateCharacter.Swim);
+                else
+                    CurrentState.RemoveState(StateCharacter.Swim);
+            }
+        }
+        public bool isCrouch
+        {
+            get
+            {
+                return CurrentState.HasState(StateCharacter.Crouch);
+            }
+            set
+            {
+                if (value)
+                    CurrentState.AddState(StateCharacter.Crouch);
+                else
+                    CurrentState.RemoveState(StateCharacter.Crouch);
+            }
+        }
+        public bool Climbind => castGroundChecked.isClimbind;
+
+        
+
+        public void EnterWater()
+        {
+            if (isPressCrouch)
+            {
+                isPressCrouch = false;
+                EventsMotor[TypeAnimation.Crouch]?.Invoke();
+            }
+            CapsuleCollider cap = CharacterCollider;
+            if (cap)
+            {
+                oldSizeCollider = new Vector2(cap.radius, cap.height);
+
+                cap.radius = 0.5F;
+                cap.height = 1F;
+            }
+            EventsMotor[TypeAnimation.Swimming].Invoke();
+            isSwim = true;
+        }
+
+        public void ExitWater()
+        {
+            CapsuleCollider cap = CharacterCollider;
+            if (oldSizeCollider != Vector2.zero && cap)
+            {
+                cap.radius = oldSizeCollider.x;
+                cap.height = oldSizeCollider.y;
+            }
+            EventsMotor[TypeAnimation.DontSwimming].Invoke();
+            isSwim = false;
+        }
+        private bool IsWaterLine(Vector3 direction)
+        {
+            return Physics.Raycast(
+                new Ray(Rigidbody.worldCenterOfMass + (Vector3.up * 0.15f), Vector3.down),
+                direction.normalized.y * Speed,
+                MasksProject.Water,
+                QueryTriggerInteraction.Collide);
+        }
+        #endregion
+        public void OnAwake()
+        {
+            castGroundChecked = new CastGroundChecked(this);
+            rigidBodyMovement = new RigidBodyMovement(this);
+        }
+        
+        public void SetMediator(CharacterMediator adapter)
+        {
+            mediator = adapter;
+        }
+
+        public void SetInputCharacter(IInputCharacter input, bool setStack = false)
+        {
+            if (IntroducingCharacter != null)
+                IntroducingCharacter.Disable();
+            IInputCharacter current = input;
+            if (current == null &&
+                inputPreviousCaracters.TryPeek(out IInputCharacter previous))
+            {
+                IntroducingCharacter = previous;
+            }
+            else
+                IntroducingCharacter = current;
+
+            if (IntroducingCharacter != null)
+                IntroducingCharacter.Enable();
+            if (current == null) return;
+            string name = current.GetType().Name.ToLower();
+            if (setStack)
+                inputPreviousCaracters.Push(current);
+        }
+        public void AddFuncStopMovement(Func<bool> func)
+        {
+            eventStopMovement.Add(func);
+        }
+
+        private bool HasMoved()
+        {
+            return Vector3.Distance(transform.position, lastPosition) > movementThreshold;
+        }
+
+        private void FixedUpdate()
+        {
+            if (Rigidbody.velocity.y <= 0.1f)
+                isJumping = false;
+
+            castGroundChecked.Cast();
+
+            if (castGroundChecked.hitGround.collider.TryGetComponent(out Rigidbody entity))
+            {
+                castGroundChecked.ResertSurface();
+            }
+
+            if ((platform = castGroundChecked.hitGround.collider.GetComponent<IMoveablePlatform>()) != null)
+            {
+                this.transform.SetParent(platform.Guide);
+            }
+
+
+        }
+
+        private void Update()
+        {
+            EventsMotor[TypeAnimation.Landing]?.Invoke();
+            if (IntroducingCharacter == null || IsStopMovement)
+                return;
+            EventsMotor[TypeAnimation.Crouch]?.Invoke();
+
+            isRun = IntroducingCharacter.IsRun;
+            isPressCrouch = IntroducingCharacter.IsCrouch;
+
+            rigidBodyMovement.Jump();
+        }
+
+        public bool CanStandUp()
+        {
+            Vector3 top = transform.position + Vector3.up * (CharacterCollider.height - 0.3F);
+
+            float radius = CharacterCollider.radius * 2.3F;
+
+            Debug.DrawRay(top, Vector3.up * radius, Color.magenta);
+
+            return !Physics.Raycast(top, Vector3.up, radius, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
+        }
+        #region Movement
+        
+        
+        #endregion
+
+        private struct CastGroundChecked
+        {
+            CharacterMotor motor;
+
+            public bool isSteirs;
+            public RaycastHit hitStairs;
+
+            public bool isGrounded;
+            public RaycastHit hitGround;
+
+            public bool isClimbind;
+            public RaycastHit hitClimbind;
+
+            public Vector3 normalSurface;
+
+            public float angleSurface;
+
+            public CastGroundChecked(CharacterMotor motor)
+            {
+                this.motor = motor;
+                isClimbind = isGrounded = isSteirs = false;
+                hitClimbind = hitGround = hitStairs = default;
+                angleSurface = 0;
+                normalSurface = Vector3.up;
+            }
+            public void Cast()
+            {
+                CastGround();
+                if(isGrounded)
+                    CastSteirs();
+                if(motor.CanClimbing)
+                    CastClimbind();
+            }
+
+            private void CastGround()
+            {
+                CapsuleCollider capsule = motor.CharacterCollider;
+                Ray directionCast = new Ray(motor.transform.position + Vector3.up * capsule.radius, Vector3.down);
+
+                float newRadius = capsule.radius - 0.02F;
+                isGrounded = Physics.SphereCast(directionCast,
+                    newRadius,
+                    out hitGround,
+                    0.4F,
+                    MasksProject.RigidObject,
+                    QueryTriggerInteraction.Ignore);
+
+                if (isGrounded)
+                    SetAngleSurface(hitGround.normal);
+                else
+                    ResertSurface();
+            }
+            private void SetAngleSurface(Vector3 normal)
+            {
+                normalSurface = normal;
+                angleSurface = Vector3.Angle(Vector3.up, normal);
+            }
+            public void ResertSurface()
+            {
+                normalSurface = Vector3.up;
+                angleSurface = 0;
+            }
+
+            private void CastSteirs()
+            {
+                Vector3 point = hitGround.point;
+                float y = motor.transform.InverseTransformPoint(point).y;
+                if (y < motor.stepSteirs && y > 0.01F)
+                {
+                    if (Physics.Raycast(
+                        point + Vector3.up * 0.7F + motor.Direction.normalized * motor.Speed * Time.fixedDeltaTime,
+                        Vector3.down,
+                        out hitStairs,
+                        1F,
+                        MasksProject.RigidObject,
+                        QueryTriggerInteraction.Ignore))
+                    {
+                        float surfaceAngle = Vector3.Angle(hitStairs.normal, Vector3.up);
+
+                        isSteirs = false;
+
+                        angleSurface = (int)surfaceAngle;
+
+                        if (surfaceAngle < 90 - motor.maxAngleMove)
+                        {
+                            float angleDifference = Vector3.Angle(hitStairs.normal, normalSurface);
+
+                            if (angleDifference > 2F)
+                            {
+                                isSteirs = true;
+                                motor.UseGravity = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            private void CastClimbind()
+            {
+                Ray rayCheckPlane = new Ray(
+                    motor.transform.position + motor.transform.up * 2F + motor.transform.forward * motor.CharacterCollider.radius * 1.35F,
+                    Vector3.down * 1.1F);
+                isClimbind = Physics.Raycast(rayCheckPlane, out RaycastHit hit, 1.3f, MasksProject.Climbinding, QueryTriggerInteraction.Ignore);
+                if (hit.rigidbody != null)
+                    isClimbind = false;
+                if (isClimbind)
+                {
+                    isClimbind = !Physics.Raycast(hit.point + hit.normal * 0.01F, Vector3.up, motor.CharacterCollider.height);
+                }
+
+                hitClimbind = isClimbind ? hit : default;
+            }
+
+        }
+
+        private struct RigidBodyMovement
+        {
+            CharacterMotor motor;
+
+            AnimationCurve curveJump;
+
+            public Vector3 direction;
+
+            private bool startJump;
+            private bool isJumping;
+
+            private float gravity;
+
+            private float velosityGravity;
+
+            private float timeJump;
+
+            private Rigidbody rigidbody;
+
+            public RigidBodyMovement(CharacterMotor motor)
+            {
+                this.motor = motor;
+                direction = Vector3.zero;
+                rigidbody = motor.Rigidbody;
+                gravity = Physics.gravity.y;
+                timeJump = velosityGravity = 0;
+                startJump = false;
+                isJumping = false;
+                curveJump = motor.curveJump;
+            }
+
+            public void Movement()
+            {
+                if (motor.IsStopMovement)
+                {
+                    motor.Rigidbody.velocity = new Vector3(0, 0, 0);
+                    motor.EventsMotor.eventMovement?.Invoke(Vector3.zero, false);
+                    return;
+                }
+
+                bool isMove = false;
+                Vector3 direction = Vector3.zero;
+
+                if (motor.IntroducingCharacter != null)
+                    direction = motor.IntroducingCharacter.Move(motor.ForwardTransform, out isMove);
+
+                Move(ref isMove);
+
+                TrySpace();
+
+                motor.EventsMotor.eventMovement.Invoke(direction, isMove);
+            }
+
+            private void Move(ref bool isMove)
+            {
+                if (motor.CurrentState.HasAnyState(StateCharacter.Movement, StateCharacter.MovementRun, StateCharacter.Crouch))
+                {
+                    MoveDefault(ref isMove);
+                }
+                else if (motor.CurrentState.HasState(StateCharacter.Swim))
+                {
+
+                }
+            }
+
+            private void MoveSwim(ref bool isMove)
+            {
+
+            }
+
+            private void MoveDefault(ref bool isMove)
+            {
+                direction = DirectionFromSrface(direction);
+
+                if (!motor.castGroundChecked.isSteirs && motor.IsMaxAngleSurface &&
+                    !IsDirectionInverseNormal(direction, motor.castGroundChecked.normalSurface))
+                {
+                    isMove = false;
+                    direction = Vector3.zero;
+                }
+
+
+
+            }
+
+            private void MoveFly(ref bool isMove)
+            {
+
+            }
+
+
+            private float GetSpeed()
+            {
+                if (motor.isRun)
+                    return motor.SpeedRun;
+                if (motor.isCrouch)
+                    return motor.SpeedCrouch;
+                if (motor.isSwim)
+                    return motor.SpeedSwim;
+
+                return motor.Speed;
+            }
+
+            private void TrySpace()
+            {
+                if (((motor.isSwim || motor.CanStateCharacter.HasState(StateCharacter.Climbing)) && startJump))
+                {
+                    if (motor.Climbind)
+                    {
+                        if ((motor.platform =
+                            motor.castGroundChecked.hitClimbind.collider.gameObject.GetComponent<IMoveablePlatform>()) != null)
+                        {
+                            motor.transform.SetParent(motor.platform.Guide);
+                        }
+                        motor.EventsMotor[TypeAnimation.Climbing].Invoke();
+                    }
+                    goto endTryJump;
+                }
+                if (isJumping)
+                    goto endTryJump;
+                if (!motor.castGroundChecked.isSteirs && motor.IsMaxAngleSurface)
+                {
+                    goto endTryJump;
+                }
+                if (motor.isGrounded && startJump)
+                {
+                    isJumping = true;
+                    motor.castGroundChecked.ResertSurface();
+                    Vector3 direction = rigidbody.velocity;
+                    direction.y = 0F;
+                    rigidbody.velocity = direction;
+                    motor.EventsMotor[TypeAnimation.Jump]?.Invoke();
+                }
+                endTryJump:
+                startJump = false;
+            }
+            private bool IsDirectionInverseNormal(Vector3 direction, Vector3 normal)
+            {
+                return Vector3.Dot(direction, normal) > 0;
+            }
+
+            private Vector3 DirectionFromSrface(Vector3 direction)
+            {
+                return direction - Vector3.Dot(direction, motor.castGroundChecked.normalSurface) * motor.castGroundChecked.normalSurface;
+            }
+
+            public void Jump()
+            {
+                bool isJump = motor.IntroducingCharacter.Space();
+
+                if (motor.isCrouch && !motor.CanStandUp() && !motor.IsInAir)
+                    isJump = false;
+
+                if (isJump && (motor.isSwim || motor.isGrounded || (!motor.isGrounded && motor.Climbind)))
+                {
+                    startJump = true;
+                }
+            }
+
+            public void CalculateGravity()
+            {
+                if(isJumping)
+                {
+                    if(motor.isGrounded)
+                    {
+                        isJumping = false;
+                        timeJump = 0;
+                    }
+
+                }
+                if(motor.isGrounded)
+                {
+
+                }
+
+
+            }
+        }
+
+        [Serializable]
+        public class EventMotor
+        {
+            public UnityEvent<Vector3, bool> eventMovement = new UnityEvent<Vector3, bool>();
+            public event UnityAction<Vector3, bool> EventMovement
+            {
+                add
+                {
+                    eventMovement.AddListener(value);
+                }
+                remove { eventMovement.RemoveListener(value); }
+            }
+
+            [SerializeField] private List<UnityEvent> Events = new List<UnityEvent>();
+            [SerializeField] private List<TypeAnimation> NameEvent = new List<TypeAnimation>();
+            public UnityEvent this[TypeAnimation anim]
+            {
+                get
+                {
+                    int index;
+                    if (NameEvent.Contains(anim))
+                    {
+                        index = NameEvent.IndexOf(anim);
+                        if (Events.Count <= index)
+                            return null;
+                        return Events[index];
+                    }
+                    else
+                        NameEvent.Add(anim);
+                    UnityEvent unityEvent = new UnityEvent();
+                    Events.Add(unityEvent);
+                    return unityEvent;
+                }
+                set
+                {
+                    int index;
+                    NameEvent.Add(anim);
+                    index = NameEvent.IndexOf(anim);
+                    for (int i = Events.Count; i <= index; i++)
+                    {
+                        Events.Add(null);
+                    }
+                    Events[index] = value;
+                }
+            }
+            public void Clear()
+            {
+                NameEvent.Clear();
+                Events.Clear();
+            }
+        }
+    }
+}

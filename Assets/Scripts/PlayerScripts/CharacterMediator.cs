@@ -45,11 +45,12 @@ namespace PlayerDescription
 
         public bool IsPlayerControll => cameraControll != null;
 
-        void Start()
+        void Awake()
         {
             AnimatorInput.SetMediator(this);
             Input.SetMediator(this);
             Body.SetMediator(this);
+
             AnimatorInput.OnAwake();
             Input.OnAwake();
             Body.OnAwake();
@@ -59,6 +60,8 @@ namespace PlayerDescription
         {
             cameraControll = controll;
         }
+
+
 
         #region InspectorCustomized
 
