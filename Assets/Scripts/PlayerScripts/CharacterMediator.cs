@@ -15,9 +15,9 @@ namespace PlayerDescription
 
         public CharacterBody Body => body;
 
-        [SerializeField] private CharacterInput input;
+        [SerializeField] private CharacterMotor motor;
 
-        public CharacterInput Input => input;
+        public CharacterMotor Motor => motor;
 
         [SerializeField] private AnimatorCharacterInput animatorInput;
 
@@ -48,11 +48,11 @@ namespace PlayerDescription
         void Awake()
         {
             AnimatorInput.SetMediator(this);
-            Input.SetMediator(this);
+            Motor.SetMediator(this);
             Body.SetMediator(this);
 
             AnimatorInput.OnAwake();
-            Input.OnAwake();
+            Motor.OnAwake();
             Body.OnAwake();
         }
 
@@ -73,10 +73,10 @@ namespace PlayerDescription
             {
                 body.hideFlags = bodyFlag ? HideFlags.None : HideFlags.HideInInspector;
             }
-            bool inputFlag = input.hideFlags.HasFlag(HideFlags.HideInInspector);
+            bool inputFlag = motor.hideFlags.HasFlag(HideFlags.HideInInspector);
             if (GUILayout.Button($"Hide Input: {inputFlag}"))
             {
-                input.hideFlags = inputFlag ? HideFlags.None : HideFlags.HideInInspector;
+                motor.hideFlags = inputFlag ? HideFlags.None : HideFlags.HideInInspector;
             }
             bool animatorInputFlag = animatorInput.hideFlags.HasFlag(HideFlags.HideInInspector);
             if (GUILayout.Button($"Hide AnimatorInput: {animatorInputFlag}"))

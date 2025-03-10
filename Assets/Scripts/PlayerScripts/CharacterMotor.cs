@@ -14,14 +14,8 @@ namespace PlayerDescription
 {
     public class CharacterMotor : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
     {
-        private const float DIVIDER_TO_FOOT_TOUCH = 10F;
-
-        private const float MAX_KICK_MASS_BODY = 5F;
-
-        private const float MAX_TIME_FALLING = 0.25F;
-
         CharacterMediator mediator;
-        
+
         private CapsuleCollider CharacterCollider => mediator.MainCollider;
 
         private Bounds BoundsCollider => CharacterCollider.bounds;
@@ -46,7 +40,7 @@ namespace PlayerDescription
                     CurrentState.RemoveState(StateCharacter.MovementRun);
             }
         }
-        private bool isPressCrouch { get; set; }
+        public bool isPressCrouch { get; private set; }
 
         public EventMotor EventsMotor { get; private set; }
 
@@ -74,13 +68,19 @@ namespace PlayerDescription
 
         [SerializeField] private AnimationCurve curveJump;
 
+        [field: SerializeField] private float forseJump = 4F;
+
+        public float ForseJump => forseJump;
+
         RigidBodyMovement rigidBodyMovement;
 
         private bool UseGravity { get; set; }
 
         public float StepSteirs => stepSteirs;
 
-        CastGroundChecked castGroundChecked;
+        private CastGroundChecked castGroundChecked;
+
+        public RaycastHit GroundCheckClimbind => castGroundChecked.hitClimbind;
 
         public bool IsInAir => !isGrounded && !isSwim;
 
@@ -143,6 +143,26 @@ namespace PlayerDescription
         private bool isJumping;
         public bool isGrounded => castGroundChecked.isGrounded;
 
+        public bool isCrouch
+        {
+            get
+            {
+                return CurrentState.HasState(StateCharacter.Crouch);
+            }
+            set
+            {
+                if (value)
+                    CurrentState.AddState(StateCharacter.Crouch);
+                else
+                    CurrentState.RemoveState(StateCharacter.Crouch);
+            }
+        }
+        public bool Climbind => castGroundChecked.isClimbind;
+
+        public AudioSource AudioSource => mediator.MainAudioSource;
+
+        [field: SerializeField] private AudioCharacter AudioCharacter { get; set; }
+
         #region Water
         [field: SerializeField] public float VolumeObject { get; private set; }
 
@@ -160,23 +180,7 @@ namespace PlayerDescription
                     CurrentState.RemoveState(StateCharacter.Swim);
             }
         }
-        public bool isCrouch
-        {
-            get
-            {
-                return CurrentState.HasState(StateCharacter.Crouch);
-            }
-            set
-            {
-                if (value)
-                    CurrentState.AddState(StateCharacter.Crouch);
-                else
-                    CurrentState.RemoveState(StateCharacter.Crouch);
-            }
-        }
-        public bool Climbind => castGroundChecked.isClimbind;
 
-        
 
         public void EnterWater()
         {
@@ -221,6 +225,15 @@ namespace PlayerDescription
         {
             castGroundChecked = new CastGroundChecked(this);
             rigidBodyMovement = new RigidBodyMovement(this);
+
+            Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            CharacterCollider.material = PhysicMaterial;
+
+            if (AudioCharacter != null)
+                AudioCharacter.AddListnerEventInput(this);
+
+            UseGravity = true;
+            Rigidbody.useGravity = false;
         }
         
         public void SetMediator(CharacterMediator adapter)
@@ -275,7 +288,9 @@ namespace PlayerDescription
                 this.transform.SetParent(platform.Guide);
             }
 
+            rigidBodyMovement.Movement();
 
+            rigidBodyMovement.CalculateGravity();
         }
 
         private void Update()
@@ -301,10 +316,6 @@ namespace PlayerDescription
 
             return !Physics.Raycast(top, Vector3.up, radius, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
         }
-        #region Movement
-        
-        
-        #endregion
 
         private struct CastGroundChecked
         {
@@ -373,6 +384,7 @@ namespace PlayerDescription
             {
                 Vector3 point = hitGround.point;
                 float y = motor.transform.InverseTransformPoint(point).y;
+                motor.UseGravity = true;
                 if (y < motor.stepSteirs && y > 0.01F)
                 {
                     if (Physics.Raycast(
@@ -430,15 +442,22 @@ namespace PlayerDescription
             public Vector3 direction;
 
             private bool startJump;
+
+            private bool useJumpDouble, startJumpDouble;
+
             private bool isJumping;
+
+            public float forceJump;
 
             private float gravity;
 
-            private float velosityGravity;
+            private float positionGravity;
 
             private float timeJump;
 
             private Rigidbody rigidbody;
+
+            private bool CanDoubleJump => motor.CurrentState.HasState(StateCharacter.DoubleJump);
 
             public RigidBodyMovement(CharacterMotor motor)
             {
@@ -446,9 +465,11 @@ namespace PlayerDescription
                 direction = Vector3.zero;
                 rigidbody = motor.Rigidbody;
                 gravity = Physics.gravity.y;
-                timeJump = velosityGravity = 0;
+                forceJump = 4;
+                timeJump = 0;
+                positionGravity = motor.transform.position.y;
                 startJump = false;
-                isJumping = false;
+                useJumpDouble = startJumpDouble = isJumping = false;
                 curveJump = motor.curveJump;
             }
 
@@ -480,15 +501,10 @@ namespace PlayerDescription
                 {
                     MoveDefault(ref isMove);
                 }
-                else if (motor.CurrentState.HasState(StateCharacter.Swim))
+                else if (motor.CurrentState.HasAnyState(StateCharacter.Swim, StateCharacter.Fly))
                 {
-
+                    MoveFly(ref isMove);
                 }
-            }
-
-            private void MoveSwim(ref bool isMove)
-            {
-
             }
 
             private void MoveDefault(ref bool isMove)
@@ -501,28 +517,22 @@ namespace PlayerDescription
                     isMove = false;
                     direction = Vector3.zero;
                 }
-
-
-
+                Move(direction * (motor.isRun ? motor.SpeedRun :
+                    (motor.isCrouch ? motor.SpeedCrouch : motor.Speed)));
             }
 
             private void MoveFly(ref bool isMove)
             {
+                if (motor.IntroducingCharacter.Shift())
+                    direction.y -= (motor.isRun ? motor.SpeedRun :
+                        (motor.isSwim ? motor.SpeedSwim : motor.Speed));
+                if (motor.IntroducingCharacter.Space())
+                    direction.y += (motor.isRun ? motor.SpeedRun :
+                        (motor.isSwim ? motor.SpeedSwim : motor.Speed));
 
+                rigidbody.MovePosition(direction);
             }
 
-
-            private float GetSpeed()
-            {
-                if (motor.isRun)
-                    return motor.SpeedRun;
-                if (motor.isCrouch)
-                    return motor.SpeedCrouch;
-                if (motor.isSwim)
-                    return motor.SpeedSwim;
-
-                return motor.Speed;
-            }
 
             private void TrySpace()
             {
@@ -540,7 +550,14 @@ namespace PlayerDescription
                     goto endTryJump;
                 }
                 if (isJumping)
+                {
+                    if (startJumpDouble && useJumpDouble == false)
+                    {
+                        useJumpDouble = true;
+                        motor.EventsMotor[TypeAnimation.Jump]?.Invoke();
+                    }
                     goto endTryJump;
+                }
                 if (!motor.castGroundChecked.isSteirs && motor.IsMaxAngleSurface)
                 {
                     goto endTryJump;
@@ -549,12 +566,9 @@ namespace PlayerDescription
                 {
                     isJumping = true;
                     motor.castGroundChecked.ResertSurface();
-                    Vector3 direction = rigidbody.velocity;
-                    direction.y = 0F;
-                    rigidbody.velocity = direction;
                     motor.EventsMotor[TypeAnimation.Jump]?.Invoke();
                 }
-                endTryJump:
+endTryJump:
                 startJump = false;
             }
             private bool IsDirectionInverseNormal(Vector3 direction, Vector3 normal)
@@ -569,34 +583,70 @@ namespace PlayerDescription
 
             public void Jump()
             {
+                if (motor.isSwim)
+                    return;
+
                 bool isJump = motor.IntroducingCharacter.Space();
+
+                if (CanDoubleJump && isJump && isJumping &&
+                    !motor.isGrounded && !startJumpDouble)
+                {
+                    startJumpDouble = true;
+                }
 
                 if (motor.isCrouch && !motor.CanStandUp() && !motor.IsInAir)
                     isJump = false;
 
-                if (isJump && (motor.isSwim || motor.isGrounded || (!motor.isGrounded && motor.Climbind)))
+                if (isJump && (motor.isGrounded || (!motor.isGrounded && motor.Climbind)))
                 {
                     startJump = true;
+                    motor.castGroundChecked.isGrounded = false;
                 }
             }
 
             public void CalculateGravity()
             {
-                if(isJumping)
+                if (motor.isSwim || motor.CurrentState.HasState(StateCharacter.Fly))
+                    return;
+
+                if (isJumping)
                 {
                     if(motor.isGrounded)
                     {
                         isJumping = false;
                         timeJump = 0;
+                        startJumpDouble = false;
+                        useJumpDouble = false;
                     }
-
+                    else
+                    {
+                        positionGravity += Math.Abs(forceJump * curveJump.Evaluate(timeJump));
+                        timeJump += Time.fixedDeltaTime;
+                        if (timeJump > 1f)
+                        {
+                            isJumping = false;
+                            timeJump = 0;
+                        }
+                    }
                 }
-                if(motor.isGrounded)
+                else if(motor.UseGravity)
                 {
-
+                    positionGravity += gravity * Time.fixedDeltaTime;
                 }
+                if(!motor.isGrounded)
+                {
+                    rigidbody.MovePosition(motor.transform.position + Vector3.up * positionGravity);
+                }
+            }
 
-
+            public void Move(Vector3 direction)
+            {
+                if (motor.isGrounded)
+                {
+                    rigidbody.velocity = new Vector3(direction.x, direction.y, direction.z);
+                }
+                else
+                    rigidbody.velocity = new Vector3(direction.x, 0f, direction.z);
             }
         }
 

@@ -57,7 +57,7 @@ namespace PlayerDescription
 
         public float WeightArm { get; set; }
 
-        private CharacterInput InputC => mediator.Input;
+        private CharacterMotor Motor => mediator.Motor;
 
         [SerializeField] private float сorrectClimbinding;
 
@@ -121,7 +121,7 @@ namespace PlayerDescription
         private class InterceptionOnIK : MonoBehaviour
         {
             public UnityEvent onAnimatorIK = new UnityEvent();
-            public CharacterInput input { get; set; }
+            public CharacterMotor input { get; set; }
             private void OnAnimatorIK()
             {
                 if(!input.IsStopMovement)
@@ -206,7 +206,7 @@ namespace PlayerDescription
 
             ResetBlandShapes();
             interceptionOnIK = AnimatorHuman.gameObject.AddComponent<InterceptionOnIK>();
-            interceptionOnIK.input = InputC;
+            interceptionOnIK.input = Motor;
 
             baseAnimates = new BaseAnimate[]
             {
@@ -220,14 +220,14 @@ namespace PlayerDescription
 
             smoothChangeCorrutine.AddRange(new IEnumerator[AnimatorHuman.layerCount]);
 
-            InputC.eventInput.EventMovement += MoveAnimate;
+            Motor.EventsMotor.EventMovement += MoveAnimate;
 
-            InputC.eventInput[TypeAnimation.Jump].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.Jump].AddListener(() =>
             {
                 SetTrigger(TypeAnimation.Jump);
             });
 
-            InputC.eventInput[TypeAnimation.Climbing].AddListener((UnityAction)(() =>
+            Motor.EventsMotor[TypeAnimation.Climbing].AddListener((UnityAction)(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Climbing)) return;
                 if (CameraControll.Instance.IsPlayerControll((CharacterBody)this.Body))
@@ -242,56 +242,56 @@ namespace PlayerDescription
                 mediator.MainRigidbody.isKinematic = true;
                 AnimatorHuman.transform.position = AnimatorHuman.transform.position + AnimatorHuman.transform.forward * 0.05f + Vector3.up * 0.15f * сorrectClimbinding;
                 Vector3 position = this.Body.transform.position;
-                this.Body.transform.position = new Vector3(position.x, InputC.PointEdgePlaneClimbing.point.y - 1.38F, position.z);
+                this.Body.transform.position = new Vector3(position.x, Motor.GroundCheckClimbind.point.y - 1.38F, position.z);
                 mediator.MainRigidbody.velocity = Vector3.zero;
 
                 SetTrigger(TypeAnimation.Climbing);
                 Invoke(nameof(ApplayRootFalseClimbing), 2.1F);
             }));
 
-            InputC.eventInput[TypeAnimation.Fall].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.Fall].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Fall)) return;
                     SetTrigger(TypeAnimation.Fall);
             });
 
-            InputC.eventInput[TypeAnimation.Swimming].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.Swimming].AddListener(() =>
             {
                 AnimatorHuman.SetTrigger("Swimming");
                 AnimatorHuman.ResetTrigger("DontSwimming");
             });
 
-            InputC.eventInput[TypeAnimation.DontSwimming].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.DontSwimming].AddListener(() =>
             {
                 AnimatorHuman.SetTrigger("DontSwimming");
             });
 
 
 
-            InputC.eventInput[TypeAnimation.Crouch].AddListener(Crouch);
+            Motor.EventsMotor[TypeAnimation.Crouch].AddListener(Crouch);
 
-            InputC.AddFuncStopMovement(() =>
+            Motor.AddFuncStopMovement(() =>
             {
                 AnimatorStateInfo stateInfo = AnimatorHuman.GetCurrentAnimatorStateInfo(0);
                 return stateInfo.IsName("StartCrouch") || stateInfo.IsName("EndCrouch");
             });
 
 
-            InputC.eventInput[TypeAnimation.Landing].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.Landing].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Landing)) return;
-                SetBool(TypeAnimation.Landing, InputC._isGrounded);
+                SetBool(TypeAnimation.Landing, Motor.isGrounded);
             });
-            InputC.eventInput[TypeAnimation.Fly].AddListener(() =>
+            Motor.EventsMotor[TypeAnimation.Fly].AddListener(() =>
             {
                 if (IsPlayStateAnimator(TypeAnimation.Fall)) return;
                     SetTrigger(TypeAnimation.Fall);
             });
-            InputC.AddFuncStopMovement(() =>
+            Motor.AddFuncStopMovement(() =>
             {
                 return IsPlayStateAnimator(TypeAnimation.Landing);
             });
-            InputC.AddFuncStopMovement(() =>
+            Motor.AddFuncStopMovement(() =>
             {
                 return  IsPlayStateAnimator(TypeAnimation.Climbing) || applyRootMotion;
             });
@@ -318,15 +318,15 @@ namespace PlayerDescription
         }
         private void Crouch()
         {
-            if (InputC.isSwim) return;
-            if (InputC.isPressCrouch)
+            if (Motor.isSwim) return;
+            if (Motor.isPressCrouch)
             {
                 if (!AnimatorHuman.GetBool("IsCrouch"))
                 {
                     CancelInvoke(nameof(TimeOutResetCrouch));
                     AnimatorHuman.SetTrigger("Crouch");
                     AnimatorHuman.SetBool("IsCrouch", true);
-                    InputC.isCrouch = true;
+                    Motor.isCrouch = true;
                     float height = CharacterCollider.height;
                     CharacterCollider.height = height * (2f / 3f);
                     CharacterCollider.center -= new Vector3(0, height * (1f / 6f), 0);
@@ -336,7 +336,7 @@ namespace PlayerDescription
             }
             else if(AnimatorHuman.GetBool("IsCrouch"))
             {
-                if(!InputC.CanStandUp())
+                if(!Motor.CanStandUp())
                 {
                     return;
                 }
@@ -351,7 +351,7 @@ namespace PlayerDescription
         }
         private void TimeOutResetCrouch()
         {
-            InputC.isCrouch = false;
+            Motor.isCrouch = false;
         }
         private void OnEnable()
         {
@@ -391,7 +391,7 @@ namespace PlayerDescription
                 return;
             }
             int Speed = 2;
-            if (InputC.isRun)
+            if (Motor.isRun)
             {
                 Speed = 5;
             }

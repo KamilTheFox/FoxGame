@@ -173,6 +173,7 @@ namespace PlayerDescription
 
         [field: SerializeField] private AudioCharacter AudioCharacter { get; set; }
 
+
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public float SpeedRun { get; private set; }
 
@@ -252,8 +253,8 @@ namespace PlayerDescription
 
             base.StartCoroutine(FallInvoke());
 
-            if (AudioCharacter != null)
-                AudioCharacter.AddListnerEventInput(this);
+           // if (AudioCharacter != null)
+               // AudioCharacter.AddListnerEventInput(this);
         }
         private void OnEnable()
         {

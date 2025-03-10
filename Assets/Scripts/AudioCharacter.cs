@@ -31,10 +31,10 @@ internal class AudioCharacter : ScriptableObject
     }
 
 
-    public void AddListnerEventInput(CharacterInput input)
+    public void AddListnerEventInput(CharacterMotor input)
     {
         AnimatorCharacterInput characterInputAnim = input.GetComponent<AnimatorCharacterInput>();
-        input.eventInput.EventMovement += (Velosity, isMove) =>
+        input.EventsMotor.EventMovement += (Velosity, isMove) =>
         {
             if (input.isCrouch) return;
             if (Velosity == Vector3.zero) return;
@@ -44,7 +44,7 @@ internal class AudioCharacter : ScriptableObject
                     GetRandomAudio(MovementWalk),
                     input.AudioSource, oneShoot: false);
         };
-        input.eventInput[TypeAnimation.Landing].AddListener(() =>
+        input.EventsMotor[TypeAnimation.Landing].AddListener(() =>
         {
             if (characterInputAnim.IsPlayStateAnimator(TypeAnimation.Landing))
             {
@@ -55,18 +55,18 @@ internal class AudioCharacter : ScriptableObject
                 }
             }
         });
-        input.eventInput[TypeAnimation.Jump].AddListener(() =>
+        input.EventsMotor[TypeAnimation.Jump].AddListener(() =>
         {
             input.AudioSource.Stop();
             SoundMeneger.Play(GetRandomAudio(Jump), input.AudioSource, oneShoot: false);
         });
-        input.eventInput[TypeAnimation.Swimming].AddListener(() =>
+        input.EventsMotor[TypeAnimation.Swimming].AddListener(() =>
         {
             input.AudioSource.Stop();
             SoundMeneger.Play(GetRandomAudio(SwimEnter), input.AudioSource, oneShoot: false);
         });
 
-        input.eventInput[TypeAnimation.DontSwimming].AddListener(() =>
+        input.EventsMotor[TypeAnimation.DontSwimming].AddListener(() =>
         {
             input.AudioSource.Stop();
             SoundMeneger.Play(GetRandomAudio(SwimExit), input.AudioSource, oneShoot: false);
