@@ -9,6 +9,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using PlayerDescription;
 using System.Collections;
+using static Unity.VisualScripting.Member;
 
 namespace AIInput
 {
@@ -28,7 +29,7 @@ namespace AIInput
 
         [SerializeField] private CharacterMediator charMediator;
 
-        private CharacterInput sourse => charMediator.Input;
+        private CharacterMotor sourse => charMediator.Motor;
 
         private AnimatorCharacterInput animator;
 
@@ -86,7 +87,7 @@ namespace AIInput
             way = _way;
             SetStepWay(0);
             stepAtWay = step / way.DistanceWay;
-            sourse.IntroducingCharacter = this;
+            sourse.SetInputCharacter(this, setStack: true);
         }
         public void ReversePlay()
         {
@@ -96,7 +97,7 @@ namespace AIInput
         }
         public void DeInitialize()
         {
-            sourse.IntroducingCharacter = null;
+            sourse.SetInputCharacter(null);
             ClearToComplited();
         }
         public void AddToCompleted(Action completed)

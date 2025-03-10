@@ -9,10 +9,12 @@ using Unity.Collections;
 using Unity.Burst.CompilerServices;
 using System.Diagnostics.Contracts;
 using UnityEngine.SocialPlatforms;
+using UnityEditor.Experimental.GraphView;
+using TMPro;
 
 namespace PlayerDescription
 {
-    public class CharacterMotor : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
+    public partial class CharacterMotor : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
     {
         CharacterMediator mediator;
 
@@ -35,19 +37,20 @@ namespace PlayerDescription
             set
             {
                 if (value)
-                    CurrentState.AddState(StateCharacter.MovementRun);
+                    CurrentState = CurrentState.AddState(StateCharacter.MovementRun);
                 else
-                    CurrentState.RemoveState(StateCharacter.MovementRun);
+                    CurrentState = CurrentState.RemoveState(StateCharacter.MovementRun);
             }
         }
         public bool isPressCrouch { get; private set; }
 
-        public EventMotor EventsMotor { get; private set; }
+        public EventMotor EventsMotor { get; private set; } = new EventMotor();
 
         [field: SerializeField]
         public StateCharacter CanStateCharacter { get; set; }
 
-        public StateCharacter CurrentState { get; private set; }
+        [field: SerializeField]
+        public StateCharacter CurrentState { get; set; } = StateCharacter.Movement;
 
         [field: Header("Speeds")]
 
@@ -63,6 +66,8 @@ namespace PlayerDescription
 
         [field: Header("Settings")]
         [SerializeField] private float maxAngleMove = 60F, stepSteirs = 0.3F;
+
+        public float MaxAngleMove => maxAngleMove;
 
         [SerializeField] private float movementThreshold = 0.1f;
 
@@ -140,7 +145,6 @@ namespace PlayerDescription
 
         private Vector3 lastPosition;
 
-        private bool isJumping;
         public bool isGrounded => castGroundChecked.isGrounded;
 
         public bool isCrouch
@@ -152,9 +156,9 @@ namespace PlayerDescription
             set
             {
                 if (value)
-                    CurrentState.AddState(StateCharacter.Crouch);
+                    CurrentState = CurrentState.AddState(StateCharacter.Crouch);
                 else
-                    CurrentState.RemoveState(StateCharacter.Crouch);
+                    CurrentState = CurrentState.RemoveState(StateCharacter.Crouch);
             }
         }
         public bool Climbind => castGroundChecked.isClimbind;
@@ -175,9 +179,9 @@ namespace PlayerDescription
             set
             {
                 if (value)
-                    CurrentState.AddState(StateCharacter.Swim);
+                    CurrentState = CurrentState.AddState(StateCharacter.Swim);
                 else
-                    CurrentState.RemoveState(StateCharacter.Swim);
+                    CurrentState = CurrentState.RemoveState(StateCharacter.Swim);
             }
         }
 
@@ -273,19 +277,19 @@ namespace PlayerDescription
 
         private void FixedUpdate()
         {
-            if (Rigidbody.velocity.y <= 0.1f)
-                isJumping = false;
-
             castGroundChecked.Cast();
 
-            if (castGroundChecked.hitGround.collider.TryGetComponent(out Rigidbody entity))
+            if (castGroundChecked.isGrounded)
             {
-                castGroundChecked.ResertSurface();
-            }
+                if (castGroundChecked.hitGround.collider.TryGetComponent(out Rigidbody entity))
+                {
+                    castGroundChecked.ResertSurface();
+                }
 
-            if ((platform = castGroundChecked.hitGround.collider.GetComponent<IMoveablePlatform>()) != null)
-            {
-                this.transform.SetParent(platform.Guide);
+                if ((platform = castGroundChecked.hitGround.collider.GetComponent<IMoveablePlatform>()) != null)
+                {
+                    this.transform.SetParent(platform.Guide);
+                }
             }
 
             rigidBodyMovement.Movement();
@@ -296,10 +300,11 @@ namespace PlayerDescription
         private void Update()
         {
             EventsMotor[TypeAnimation.Landing]?.Invoke();
+
             if (IntroducingCharacter == null || IsStopMovement)
                 return;
-            EventsMotor[TypeAnimation.Crouch]?.Invoke();
 
+            EventsMotor[TypeAnimation.Crouch]?.Invoke();
             isRun = IntroducingCharacter.IsRun;
             isPressCrouch = IntroducingCharacter.IsCrouch;
 
@@ -316,7 +321,6 @@ namespace PlayerDescription
 
             return !Physics.Raycast(top, Vector3.up, radius, MasksProject.RigidObject, QueryTriggerInteraction.Ignore);
         }
-
         private struct CastGroundChecked
         {
             CharacterMotor motor;
@@ -356,11 +360,11 @@ namespace PlayerDescription
                 CapsuleCollider capsule = motor.CharacterCollider;
                 Ray directionCast = new Ray(motor.transform.position + Vector3.up * capsule.radius, Vector3.down);
 
-                float newRadius = capsule.radius - 0.02F;
+                float newRadius = capsule.radius - 0.02f;
                 isGrounded = Physics.SphereCast(directionCast,
                     newRadius,
                     out hitGround,
-                    0.4F,
+                    0.05F,
                     MasksProject.RigidObject,
                     QueryTriggerInteraction.Ignore);
 
@@ -385,6 +389,7 @@ namespace PlayerDescription
                 Vector3 point = hitGround.point;
                 float y = motor.transform.InverseTransformPoint(point).y;
                 motor.UseGravity = true;
+                isSteirs = false;
                 if (y < motor.stepSteirs && y > 0.01F)
                 {
                     if (Physics.Raycast(
@@ -396,8 +401,6 @@ namespace PlayerDescription
                         QueryTriggerInteraction.Ignore))
                     {
                         float surfaceAngle = Vector3.Angle(hitStairs.normal, Vector3.up);
-
-                        isSteirs = false;
 
                         angleSurface = (int)surfaceAngle;
 
@@ -419,7 +422,7 @@ namespace PlayerDescription
             {
                 Ray rayCheckPlane = new Ray(
                     motor.transform.position + motor.transform.up * 2F + motor.transform.forward * motor.CharacterCollider.radius * 1.35F,
-                    Vector3.down * 1.1F);
+                    Vector3.down * 1.025F);
                 isClimbind = Physics.Raycast(rayCheckPlane, out RaycastHit hit, 1.3f, MasksProject.Climbinding, QueryTriggerInteraction.Ignore);
                 if (hit.rigidbody != null)
                     isClimbind = false;
@@ -449,9 +452,9 @@ namespace PlayerDescription
 
             public float forceJump;
 
-            private float gravity;
+            private float gravity => Physics.gravity.y;
 
-            private float positionGravity;
+            private float velosityGravity;
 
             private float timeJump;
 
@@ -464,10 +467,9 @@ namespace PlayerDescription
                 this.motor = motor;
                 direction = Vector3.zero;
                 rigidbody = motor.Rigidbody;
-                gravity = Physics.gravity.y;
                 forceJump = 4;
                 timeJump = 0;
-                positionGravity = motor.transform.position.y;
+                velosityGravity = 0;
                 startJump = false;
                 useJumpDouble = startJumpDouble = isJumping = false;
                 curveJump = motor.curveJump;
@@ -483,10 +485,14 @@ namespace PlayerDescription
                 }
 
                 bool isMove = false;
-                Vector3 direction = Vector3.zero;
 
                 if (motor.IntroducingCharacter != null)
-                    direction = motor.IntroducingCharacter.Move(motor.ForwardTransform, out isMove);
+                    direction = motor.IntroducingCharacter.Move(motor.ForwardTransform, out isMove).normalized;
+
+               if(motor.isGrounded)
+                {
+                    velosityGravity = 0f;
+                }
 
                 Move(ref isMove);
 
@@ -505,22 +511,21 @@ namespace PlayerDescription
                 {
                     MoveFly(ref isMove);
                 }
+                motor.Direction = direction;
             }
 
             private void MoveDefault(ref bool isMove)
             {
                 direction = DirectionFromSrface(direction);
 
-                if (!motor.castGroundChecked.isSteirs && motor.IsMaxAngleSurface &&
+                if (motor.castGroundChecked.isSteirs == false && motor.IsMaxAngleSurface &&
                     !IsDirectionInverseNormal(direction, motor.castGroundChecked.normalSurface))
                 {
                     isMove = false;
                     direction = Vector3.zero;
                 }
-                Move(direction * (motor.isRun ? motor.SpeedRun :
-                    (motor.isCrouch ? motor.SpeedCrouch : motor.Speed)));
+                Move(direction * (motor.isRun ? motor.SpeedRun : motor.Speed));
             }
-
             private void MoveFly(ref bool isMove)
             {
                 if (motor.IntroducingCharacter.Shift())
@@ -611,16 +616,17 @@ endTryJump:
 
                 if (isJumping)
                 {
-                    if(motor.isGrounded)
+                    if (motor.isGrounded)
                     {
                         isJumping = false;
                         timeJump = 0;
                         startJumpDouble = false;
                         useJumpDouble = false;
+                        velosityGravity = 0f;
                     }
                     else
                     {
-                        positionGravity += Math.Abs(forceJump * curveJump.Evaluate(timeJump));
+                        velosityGravity += Math.Abs(forceJump * curveJump.Evaluate(timeJump));
                         timeJump += Time.fixedDeltaTime;
                         if (timeJump > 1f)
                         {
@@ -629,14 +635,54 @@ endTryJump:
                         }
                     }
                 }
-                else if(motor.UseGravity)
+                else if (motor.UseGravity && !motor.isGrounded && !motor.castGroundChecked.isSteirs)
                 {
-                    positionGravity += gravity * Time.fixedDeltaTime;
+                    velosityGravity += gravity * Time.fixedDeltaTime * 0.025f;
+                    Ray ray = new Ray(
+                        motor.transform.position + Vector3.up * 0.01f,
+                        Vector3.down);
+
+                    Vector3 newPosition;
+                    if (Physics.Raycast(ray,
+                        out RaycastHit hit,
+                        velosityGravity * -1,
+                        MasksProject.RigidObject,
+                        QueryTriggerInteraction.Ignore))
+                    {
+                        motor.castGroundChecked.isGrounded = false;
+                        newPosition = hit.point;
+                    }
+                    else
+                    {
+                        newPosition = ray.GetPoint(velosityGravity * -1);
+                    }
+
+                    StartInterpolation(newPosition);
                 }
-                if(!motor.isGrounded)
+                else
+                    velosityGravity = 0f;
+            }
+            private void StartInterpolation(Vector3 newTarget)
+            {
+                motor.StartCoroutine(InterpolateMovement(rigidbody.position, newTarget));
+            }
+
+            private IEnumerator InterpolateMovement(Vector3 currentPosition, Vector3 newTarget)
+            {
+                float interpolationTime = 0f;
+                while (interpolationTime < Time.fixedDeltaTime && motor.isGrounded == false)
                 {
-                    rigidbody.MovePosition(motor.transform.position + Vector3.up * positionGravity);
+                    interpolationTime += Time.deltaTime;
+                    float t = interpolationTime / Time.fixedDeltaTime;
+
+                    Vector3 newPosition = Vector3.Lerp(currentPosition, newTarget, t);
+                    rigidbody.MovePosition(new Vector3(rigidbody.position.x, newPosition.y, rigidbody.position.z));
+
+                    yield return null;
                 }
+
+                // Финальное положение
+                rigidbody.MovePosition(new Vector3(rigidbody.position.x, newTarget.y, rigidbody.position.z));
             }
 
             public void Move(Vector3 direction)

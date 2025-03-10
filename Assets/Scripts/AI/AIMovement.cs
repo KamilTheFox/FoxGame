@@ -187,7 +187,7 @@ namespace AIInput
 
         private void CalculateClimbingPathAddLink()
         {
-            if (!Character.Input.isSwim)
+            if (!Character.Motor.isSwim)
                 return;
 
             var array = AISeeWorld.ViewPoints.Select(hit => hit.point).ToArray();
@@ -330,7 +330,7 @@ namespace AIInput
                 goto Continue;
             if (CurrentSpace)
                 return Character.Transform.forward;
-            if (Character.Input.isSwim && Character.Input.IsEdgePlaneClimbing)
+            if (Character.Motor.isSwim && Character.Motor.Climbind)
             {
                 CurrentSpace = true;
                 return Character.Transform.forward;

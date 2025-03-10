@@ -180,32 +180,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 1369774753837167443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08fe3fcebe9e1bd4b81a0810f02579a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 771839d0bc240a44bb2b9893605fdc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsCanClimbinding>k__BackingField: 1
-  <IsEdgePlaneClimbing>k__BackingField: 0
-  <VolumeObject>k__BackingField: 20
-  forseJump: 4.7
-  movementThreshold: 0.1
-  maxAngleMove: 60
-  stepSteirs: 0.3
-  doubleJump: 0.9
-  doubleJumpMax: 1.5
-  <isMultyJump>k__BackingField: 0
-  <AudioCharacter>k__BackingField: {fileID: 0}
+  <CanStateCharacter>k__BackingField: 474
+  <CurrentState>k__BackingField: 2
   <Speed>k__BackingField: 2
   <SpeedRun>k__BackingField: 6
   <SpeedCrouch>k__BackingField: 1.7
-  <CanSwim>k__BackingField: 1
-  <isFly>k__BackingField: 0
-  <eventInput>k__BackingField:
-    eventMovement:
-      m_PersistentCalls:
-        m_Calls: []
-    Events: []
-    NameEvent: 
-  isDrawDebug: 0
+  <SpeedSwim>k__BackingField: 0
+  maxAngleMove: 60
+  stepSteirs: 0.3
+  movementThreshold: 0.1
+  curveJump:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.1938841
+      outSlope: 2.1938841
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.051601425
+    - serializedVersion: 3
+      time: 0.50163025
+      value: 1.011429
+      inSlope: -0.05458334
+      outSlope: -0.05458334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.9145705
+      outSlope: -1.9145705
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06405693
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  forseJump: 4.7
+  <AudioCharacter>k__BackingField: {fileID: 11400000, guid: ce79f28b97408ba4bb51a7c727cef295, type: 2}
+  <VolumeObject>k__BackingField: 20
 --- !u!114 &3119165814241841515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 736421841667615264}
-  input: {fileID: 1166204446412613924}
+  motor: {fileID: 1166204446412613924}
   animatorInput: {fileID: 3119165814241841515}
   mainRigidbody: {fileID: 2594261296889444845}
   mainCollider: {fileID: 313232296}

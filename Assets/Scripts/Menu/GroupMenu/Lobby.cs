@@ -27,9 +27,27 @@ namespace GroupMenu
             FindBackMainMenu();
             if (GameState.IsCreative)
             {
-                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(), new TextUI(() => new object[] { LText.Fly, ": ", CameraControll.Instance?.Player?.Input.isFly.GetLText() }), true);
+                Button_Fly = MenuUI<Button>.Create("ButtonFly", GetTransform(),
+                    new TextUI(() => new object[]
+                    { 
+                        LText.Fly,
+                        ": ",
+                        CameraControll.Instance?.Player?
+                        .Motor.CurrentState.HasState(StateCharacter.Fly).GetLText() 
+                    }), true);
 
-                Button_Fly.OnClick().AddListener(() => CameraControll.Instance?.Player?.Input.Fly());
+                Button_Fly.OnClick().AddListener(() =>
+                {
+                    CharacterMotor motor = CameraControll.Instance?.Player?.Motor;
+                    if (motor != null)
+                    {
+                        bool fly = motor.CurrentState.HasState(StateCharacter.Fly);
+                        if(fly)
+                            motor.CurrentState.RemoveStates(StateCharacter.Fly);
+                        else
+                            motor.CurrentState.AddState(StateCharacter.Fly);
+                    }
+                });
 
                 Transform group = MenuUI<HorizontalLayoutGroup>.Create("Bodyes", GetTransform(), LText.Null, true).gameObject.transform;
 

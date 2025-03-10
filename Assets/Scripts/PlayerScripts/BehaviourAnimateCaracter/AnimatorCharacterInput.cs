@@ -12,7 +12,7 @@ using UnityEditor;
 
 namespace PlayerDescription
 {
-    [RequireComponent(typeof(CharacterInput))]
+    [RequireComponent(typeof(CharacterMotor))]
     public class AnimatorCharacterInput : VulpesMonoBehaviour, ICharacterAdaptivator
     {
         private const float SmoothDelay = 2F;

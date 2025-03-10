@@ -29,7 +29,7 @@ namespace CameraScripts
         }
         public Vector3 RotateBody()
         {
-            Vector3 vector = Player.Input.Velosity;
+            Vector3 vector = Player.Motor.Direction;
             if (vector != Vector3.zero)
             {
                 ForvardRotate = SmoothRotate.eulerAngles;
@@ -62,20 +62,20 @@ namespace CameraScripts
         public void Dispose()
         {
             if (Player.IsPlayerControll)
-                Player.Input.IntroducingCharacter = oldInputCaracter;
+                Player.Motor.SetInputCharacter(oldInputCaracter);
             _camera.transform.SetParent(Player.Transform);
             Player.Body.talkingTargetInteractEntity = true;
-            Player.Input.ForwardTransform = null;
+            Player.Motor.ForwardTransform = null;
             Player.Body.ResetTargetLook();
             GameObject.Destroy(ThirdObject);
         }
 
         public void Construct()
         {
-            oldInputCaracter = Player.Input.IntroducingCharacter;
-            Player.Input.IntroducingCharacter = new _InputThirdUnlook(Player);
+            oldInputCaracter = Player.Motor.IntroducingCharacter;
+            Player.Motor.SetInputCharacter(new _InputThirdUnlook(Player));
             ThirdObject = new GameObject("ThirdObject");
-            Player.Input.ForwardTransform = ThirdObject.transform;
+            Player.Motor.ForwardTransform = ThirdObject.transform;
             _camera.transform.SetParent(null);
             Player.Body.ResetTargetLook();
         }
@@ -114,7 +114,7 @@ namespace CameraScripts
 
             bool IInputCharacter.Space()
             {
-                return input.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+                return input.Motor.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCharacter.Shift()

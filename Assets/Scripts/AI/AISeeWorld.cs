@@ -229,7 +229,7 @@ namespace AIInput
                     viewPointsWater.Add(hit);
                 else
                 {
-                    if (Vector3.Angle(Vector3.up, hit.normal) <= Character.Input.MaxAngleMove)
+                    if (Vector3.Angle(Vector3.up, hit.normal) <= Character.Motor.MaxAngleMove)
                     {
                         viewPointsFloor.Add(hit);
                     }

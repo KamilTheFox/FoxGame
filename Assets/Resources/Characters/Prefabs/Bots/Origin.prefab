@@ -1490,6 +1490,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6109935838500527760, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
+      propertyPath: <AudioCharacter>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: be900af87f59d4f4c82638ad36b74e17, type: 2}
     - target: {fileID: 6464346222988862646, guid: 5ff12793b1b72244c98be74b6c86d959, type: 3}
       propertyPath: m_RootOrder
       value: 2

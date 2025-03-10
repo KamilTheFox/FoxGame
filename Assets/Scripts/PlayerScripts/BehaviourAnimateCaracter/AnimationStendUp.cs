@@ -17,7 +17,7 @@ namespace PlayerDescription
 
         public AnimationStendUp(CharacterMediator mediator) : base(mediator)
         {
-            mediator.Input.AddFuncStopMovement(() => IsStendUp || IsPlayStateStendUp());
+            mediator.Motor.AddFuncStopMovement(() => IsStendUp || IsPlayStateStendUp());
 
             if (AnimationClip == null) return;
             clipStendUpFace = AnimationClip[0];

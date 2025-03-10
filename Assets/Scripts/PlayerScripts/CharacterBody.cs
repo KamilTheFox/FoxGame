@@ -11,7 +11,7 @@ using AIInput;
 namespace PlayerDescription
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(CharacterInput), typeof(AnimatorCharacterInput), typeof(Rigidbody))]
+    [RequireComponent(typeof(CharacterMotor), typeof(AnimatorCharacterInput), typeof(Rigidbody))]
     public class CharacterBody : MonoBehaviour, IDiesing, IHunted, ICollideableDoll, IGlobalUpdates, ICharacterAdaptivator
     {
         private CharacterMediator adapter;
@@ -122,7 +122,7 @@ namespace PlayerDescription
             }
         }
 
-        private CharacterInput CharacterInput => adapter.Input;
+        private CharacterMotor Motor => adapter.Motor;
 
         [SerializeField]
         private bool _isItemController;
@@ -181,7 +181,7 @@ namespace PlayerDescription
 
             _isItemController = gameObject.layer == MasksProject.Entity;
 
-            CharacterInput.AddFuncStopMovement(() =>
+            Motor.AddFuncStopMovement(() =>
             {
                 return Regdool.isActive;
             });
@@ -226,9 +226,9 @@ namespace PlayerDescription
             if (isItemController)
             {
                 foreach (var collider in GetComponentsInChildren<Collider>())
-                    collider.material = PlayerDescription.CharacterInput.PhysicMaterial;
+                    collider.material = PlayerDescription.CharacterMotor.PhysicMaterial;
             }
-            CharacterInput.IntroducingCharacter = new InputDefault(this);
+            Motor.SetInputCharacter(new InputDefault(this));
             interactEntity = new ViewInteractEntity(transform, adapter);
         }
         public void ExitPlayerControll(CameraControll camera)
@@ -240,7 +240,7 @@ namespace PlayerDescription
             }
             None.SetInfoEntity(false);
             ChangeLayerIsItemToPlayer(false);
-            CharacterInput.IntroducingCharacter = null;
+            Motor.SetInputCharacter(null);
             camera.Transform.parent = null;
             ClearInteractEntity();
         }
@@ -327,7 +327,7 @@ namespace PlayerDescription
             if (Regdool != null && !isItemController)
                 Regdool.Activate();
             AnimatorInput?.BlinkingEyes(100F);
-            CharacterInput.Fly(Off: true);
+            Motor.CurrentState = Motor.CurrentState.RemoveStates(StateCharacter.Fly);
             onFell.Invoke();
         }
         public void Die()
@@ -387,7 +387,7 @@ namespace PlayerDescription
 
             bool IInputCharacter.Space()
             {
-               return input.CharacterInput.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+               return input.Motor.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCharacter.Shift()

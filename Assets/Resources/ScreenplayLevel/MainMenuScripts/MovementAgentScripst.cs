@@ -19,7 +19,7 @@ public class MovementAgentScripst : MonoBehaviour
 
     public void Start()
     {
-        GetComponent<CharacterInput>().IntroducingCharacter = movement;
+        //GetComponent<CharacterInput>().IntroducingCharacter = movement;
         {
             //if (Movements2.Length > 0)
             //{

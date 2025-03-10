@@ -41,7 +41,7 @@ namespace ScreenplayLevel
             }
             public Vector3 RotateBody()
             {
-                Vector3 vector = Player.Input.Velosity;
+                Vector3 vector = Player.Motor.Direction;
                 if (vector != Vector3.zero)
                 {
                     ForvardRotate = SmoothRotate.eulerAngles;
@@ -69,14 +69,14 @@ namespace ScreenplayLevel
             public void Dispose()
             {
                 _camera.transform.SetParent(Player.Transform);
-                Player.Input.ForwardTransform = null;
+                Player.Motor.ForwardTransform = null;
                 GameObject.Destroy(ThirdObject);
             }
             
             public void Construct()
             {
                 ThirdObject = new GameObject("ThirdObject");
-                Player.Input.ForwardTransform = ThirdObject.transform;
+                Player.Motor.ForwardTransform = ThirdObject.transform;
                 Player.Body.ClearInteractEntity();
                 _camera.transform.SetParent(null);
                 _camera.Transform.localPosition = Vector3.zero;
@@ -89,7 +89,7 @@ namespace ScreenplayLevel
 
             bool IInputCharacter.Space()
             {
-                return Player.Input.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
+                return Player.Motor.isSwim ? Input.GetKey(KeyCode.Space) : Input.GetKeyDown(KeyCode.Space);
             }
 
             bool IInputCharacter.Shift()
@@ -179,7 +179,7 @@ namespace ScreenplayLevel
             CameraControll controll = CameraControll.Instance;
             var inputView = new ThirdPersonViewTop(controll, Player);
             controll.ChangeViewPerson(inputView);
-            Player.Input.IntroducingCharacter = inputView;
+            Player.Motor.SetInputCharacter(inputView);
             Player.Body.UniqueDeathscenario = new HealthPlayer(Player, healthPlayer, (count => { imageUI.SetText(count.ToString()); }));
             Menu.instance.hootKeys = this;
             ConstructMenuNone();

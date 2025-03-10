@@ -10,6 +10,7 @@ using AIInput;
 
 namespace PlayerDescription
 {
+    [Obsolete("Устаревший Motor, имеет баги в системе точек коллайдера и детекции стен",true)]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class CharacterInput : MonoBehaviour, IGlobalUpdates, IAtWater, ICharacterAdaptivator
